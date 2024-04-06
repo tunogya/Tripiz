@@ -60,10 +60,10 @@ function Page() {
               router.push("/new");
             }}
             className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
-            <Text className={"text-white font-medium"}>新旅行</Text>
+            <Text className={"text-white font-medium"}>新建旅行</Text>
           </Pressable>
           <Pressable className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
-            <Text className={"text-white font-medium"}>加载旅行</Text>
+            <Text className={"text-white font-medium"}>历史旅行</Text>
           </Pressable>
           <View className={"h-4"}></View>
           <Pressable className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
