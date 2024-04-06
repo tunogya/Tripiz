@@ -1,6 +1,8 @@
 import {View, Text, Pressable, TextInput, ScrollView} from "react-native";
 import {memo, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Ionicons} from "@expo/vector-icons";
+import {router} from "expo-router";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -22,7 +24,7 @@ function Page() {
           paddingTop: insets.top + 20,
           paddingBottom: insets.bottom + 12,
         }}
-        className={"flex space-y-6"}
+        className={"flex space-y-6 relative"}
         showsVerticalScrollIndicator={false}
       >
         <View className={"space-y-3"}>
@@ -56,11 +58,16 @@ function Page() {
         </View>
       </ScrollView>
       <View className={"pt-8 flex space-y-3"}>
-        {/*<View className={"flex flex-row space-x-3"}>*/}
-        {/*  <Pressable className={"py-3 bg-[#272727] flex rounded items-center flex-1"}>*/}
-        {/*    <Text className={"text-white font-medium"}>偏好设置</Text>*/}
-        {/*  </Pressable>*/}
-        {/*</View>*/}
+        <View className={"flex flex-row space-x-3"}>
+          <Pressable
+            onPress={() => {
+              router.back();
+            }}
+            className={"py-3 bg-[#272727] flex rounded items-center flex-1"}
+          >
+            <Text className={"text-white font-medium"}>返回</Text>
+          </Pressable>
+        </View>
         <Pressable className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}>
           <Text className={"text-black font-medium"}>立即规划</Text>
         </Pressable>
