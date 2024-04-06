@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Endless Travel",
+    "slug": "endless-travel",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "usesAppleSignIn": true,
+      "bundleIdentifier": "ai.abandon.endless-travel",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Scan credit card.",
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIViewControllerBasedStatusBarAppearance": "YES",
+        "LSApplicationQueriesSchemes": ["http", "https"]
+      }
+    },
+    "android": {
+      "package": "ai.abandon.endless-travel",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "react-native-auth0",
+        {
+          "domain": "abandon.jp.auth0.com"
+        }
+      ],
+      ["expo-apple-authentication"],
+      ["onesignal-expo-plugin", {
+        "mode": "production"
+      }]
+    ]
+  }
+}
