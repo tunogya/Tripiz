@@ -48,20 +48,8 @@ export default function RootLayout() {
             <Stack>
               <Stack.Screen name="index" options={{ headerShown: false }} />
               <Stack.Screen
-                name="home"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
                 name="new"
-                options={{
-                  presentation: "modal",
-                  title: "新建旅行",
-                  headerShown: true,
-                  headerTintColor: "white",
-                  headerStyle: {
-                    backgroundColor: "#121212",
-                  },
-                }}
+                options={{ headerShown: false }}
               />
             </Stack>
           </SafeAreaProvider>

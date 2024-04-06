@@ -1,116 +1,102 @@
-import { memo, useState } from "react";
-import { ActivityIndicator, View, Text, TouchableOpacity } from "react-native";
-import { useDispatch } from "react-redux";
-import { useAuth0 } from "react-native-auth0";
-import { updateCredentials, updateUser } from "../reducers/user/userSlice";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { View, Text, Pressable, ScrollView } from "react-native";
 import UserAvatar from "../containers/HomeScreen/UserAvatar";
-import { OneSignal } from 'react-native-onesignal';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { memo } from "react";
+import {useDispatch} from "react-redux";
+import { router } from "expo-router";
+import {useAuth0} from "react-native-auth0";
+import {OneSignal} from "react-native-onesignal";
 
 function Page() {
-  const { user, getCredentials, isLoading } = useAuth0();
-  const dispatch = useDispatch();
-  const { authorize, clearSession } = useAuth0();
   const insets = useSafeAreaInsets();
-  const [status, setStatus] = useState("idle");
+  const dispatch = useDispatch();
+  const { clearSession, authorize, user } = useAuth0();
 
   const logIn = async () => {
     try {
-      setStatus("loading");
-      try {
-        const credentials = await authorize({
-          scope: "openid profile email offline_access",
-          audience: "https://api.abandon.ai",
-        });
-        if (credentials) {
-          dispatch(updateCredentials(credentials));
-          OneSignal.login(user.sub);
-          if (user.email) {
-            OneSignal.User.addEmail(user.email);
-          }
-          setStatus("idle");
-          router.replace("/home");
-        } else {
-          setStatus("error");
+      const credentials = await authorize({
+        scope: "openid profile email offline_access",
+        audience: "https://api.abandon.ai",
+      });
+      if (credentials) {
+        OneSignal.login(user.sub);
+        if (user.email) {
+          OneSignal.User.addEmail(user.email);
         }
-      } catch (e) {
-        setStatus("error");
+        router.replace("/home");
       }
     } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const fetchCredentials = async () => {
-    if (user) {
-      dispatch(updateUser(user));
-      const credentials = await getCredentials(
-        "openid profile email offline_access",
-        0,
-        {},
-      );
-      dispatch(updateCredentials(credentials));
+      console.log(e)
     }
   };
 
   return (
     <View
-      className={"bg-[#121212] w-full h-full flex"}
+      className={"flex flex-1 h-full bg-[#121212]"}
       style={{
-        paddingBottom: insets.bottom + 20,
+        paddingTop: insets.top + 20,
       }}
     >
-      <View className={"flex-1 items-center justify-center space-y-3"}>
-        {user ? (
-          <View className={"flex items-center space-y-8"}>
-            <UserAvatar size={60} />
-            <View className={"flex items-center"}>
-              <Text className={"text-white font-bold text-3xl"}>
-                欢迎回来
-              </Text>
-              <Text className={"text-white font-semibold"}>{user.email}</Text>
-            </View>
-          </View>
-        ) : (
-          <View className={"flex items-center"}>
-            <Text className={"text-white font-bold text-3xl"}>欢迎来到</Text>
-            <Text className={"text-white font-bold text-3xl"}>无尽旅行</Text>
-          </View>
-        )}
-        {(isLoading || status === "loading") && (
-          <ActivityIndicator color={"white"} />
-        )}
-      </View>
-      <View className={"px-5 space-y-3"}>
-        <TouchableOpacity
-          onPress={async () => {
-            if (user) {
-              await fetchCredentials();
-              router.replace("/home");
-            } else {
-              await logIn();
-            }
-          }}
-          className={
-            "h-12 w-full flex items-center justify-center bg-[#1ED760] rounded-full"
+      <View className={"flex flex-row items-center justify-between px-5 pb-2"}>
+        <View className={"flex flex-row items-center space-x-3"}>
+          {
+            user && (
+              <UserAvatar size={32} />
+            )
           }
-        >
-          <Text className={"text-black font-bold"}>继续</Text>
-        </TouchableOpacity>
-        {user && (
-          <TouchableOpacity
-            onPress={async () => {
-              await clearSession();
-            }}
-            className={
-              "h-12 w-full flex items-center justify-center rounded-full"
-            }
-          >
-            <Text className={"text-white font-bold"}>注销</Text>
-          </TouchableOpacity>
-        )}
+          <Text className={"text-white font-bold text-xl"}>无尽旅行</Text>
+        </View>
       </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className={"pt-4"}
+      >
+        <View className={"px-3 flex flex-col space-y-3"}>
+          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#1ED760] rounded"}>
+            <Text className={"text-black font-medium"}>继续旅行</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              router.push("/new");
+            }}
+            className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+            <Text className={"text-white font-medium"}>新旅行</Text>
+          </Pressable>
+          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+            <Text className={"text-white font-medium"}>加载旅行</Text>
+          </Pressable>
+          <View className={"h-4"}></View>
+          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+            <Text className={"text-white text-xs"}>选项</Text>
+          </Pressable>
+          {
+            user ? (
+              <View className={"space-y-3"}>
+                <Pressable
+                  onPress={async () => {
+                    await clearSession();
+                  }}
+                  className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+                  <Text className={"text-white text-xs"}>退出</Text>
+                </Pressable>
+                <Text className={"text-[#A7A7A7] w-full text-center text-xs"}>
+                  {user?.email}
+                </Text>
+              </View>
+            ) : (
+              <View>
+                <Pressable
+                  onPress={async () => {
+                    await logIn();
+                  }}
+                  className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+                  <Text className={"text-white text-xs"}>登陆账号</Text>
+                </Pressable>
+              </View>
+            )
+          }
+        </View>
+      </ScrollView>
     </View>
   );
 }
