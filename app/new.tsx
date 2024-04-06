@@ -1,7 +1,6 @@
 import {View, Text, Pressable, TextInput, ScrollView} from "react-native";
 import {memo, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {Ionicons} from "@expo/vector-icons";
 import {router} from "expo-router";
 
 function Page() {
@@ -10,6 +9,10 @@ function Page() {
 
   const INTERVALS = [
     "1h", "2h", "4h", "6h", "8h", "12h", "1D"
+  ]
+
+  const MODE = [
+    "低", "中等", "高"
   ]
 
   return (
@@ -50,12 +53,35 @@ function Page() {
           </ScrollView>
         </View>
         <View className={"space-y-3"}>
+          <Text className={"text-white font-medium"}>预算程度</Text>
+          <ScrollView
+            horizontal={true}
+            className={"space-x-2"}
+            showsHorizontalScrollIndicator={false}
+          >
+            {
+              MODE.map((item) => (
+                <Pressable
+                  key={item}
+                  onPress={() => {
+                    setInterval(item)
+                  }}
+                  className={`${item === interval ? 'bg-[#1ED760]' : 'bg-[#272727]'} px-3 py-1.5 rounded-full`}
+                >
+                  <Text className={`${item === interval ? 'text-black' : 'text-white'} text-xs`}>{item}</Text>
+                </Pressable>
+              ))
+            }
+          </ScrollView>
+        </View>
+        <View className={"space-y-3"}>
           <Text className={"text-white font-medium"}>目的地详情</Text>
           <TextInput
             multiline={true}
             className={"bg-white p-2 rounded h-20"}
           />
         </View>
+
       </ScrollView>
       <View className={"pt-8 flex space-y-3"}>
         <View className={"flex flex-row space-x-3"}>
