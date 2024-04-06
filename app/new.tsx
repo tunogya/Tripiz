@@ -6,13 +6,14 @@ import {router} from "expo-router";
 function Page() {
   const insets = useSafeAreaInsets();
   const [interval, setInterval] = useState("4h");
+  const [mode, setMode] = useState("中等");
 
   const INTERVALS = [
-    "1h", "2h", "4h", "6h", "8h", "12h", "1D"
+    "随机", "1h", "2h", "4h", "6h", "8h", "12h", "1D", "2D", "4D",
   ]
 
   const MODE = [
-    "低", "中等", "高"
+    "随机", "低", "中等", "高",
   ]
 
   return (
@@ -20,7 +21,7 @@ function Page() {
       style={{
         paddingBottom: insets.bottom + 12,
       }}
-      className={"flex h-full bg-[#121212] px-3"}
+      className={"flex h-full bg-[#121212]"}
     >
       <ScrollView
         style={{
@@ -31,12 +32,13 @@ function Page() {
         showsVerticalScrollIndicator={false}
       >
         <View className={"space-y-3"}>
-          <Text className={"text-white font-medium"}>旅行时长</Text>
+          <Text className={"text-white font-medium px-3"}>旅行时长</Text>
           <ScrollView
             horizontal={true}
             className={"space-x-2"}
             showsHorizontalScrollIndicator={false}
           >
+            <View className={"w-1"}></View>
             {
               INTERVALS.map((item) => (
                 <Pressable
@@ -50,38 +52,39 @@ function Page() {
                 </Pressable>
               ))
             }
+            <View className={"w-1"}></View>
           </ScrollView>
         </View>
         <View className={"space-y-3"}>
-          <Text className={"text-white font-medium"}>预算程度</Text>
-          <ScrollView
-            horizontal={true}
-            className={"space-x-2"}
-            showsHorizontalScrollIndicator={false}
+          <Text className={"text-white font-medium px-3"}>预算程度</Text>
+          <View
+            className={"space-x-2 flex flex-row"}
           >
+            <View className={"w-1"}></View>
             {
               MODE.map((item) => (
                 <Pressable
                   key={item}
                   onPress={() => {
-                    setInterval(item)
+                    setMode(item)
                   }}
-                  className={`${item === interval ? 'bg-[#1ED760]' : 'bg-[#272727]'} px-3 py-1.5 rounded-full`}
+                  className={`${item === mode ? 'bg-[#1ED760]' : 'bg-[#272727]'} px-3 py-1.5 rounded-full`}
                 >
-                  <Text className={`${item === interval ? 'text-black' : 'text-white'} text-xs`}>{item}</Text>
+                  <Text className={`${item === mode ? 'text-black' : 'text-white'} text-xs`}>{item}</Text>
                 </Pressable>
               ))
             }
-          </ScrollView>
+            <View className={"w-1"}></View>
+          </View>
         </View>
-        <View className={"space-y-3"}>
-          <Text className={"text-white font-medium"}>目的地详情</Text>
+        <View className={"space-y-3 px-3"}>
+          <Text className={"text-white font-medium"}>目的地</Text>
           <TextInput
             multiline={true}
             className={"bg-white p-2 rounded h-20"}
+            placeholder={"上海市"}
           />
         </View>
-
       </ScrollView>
       <View className={"pt-8 flex space-y-3"}>
         <View className={"flex flex-row space-x-3"}>
