@@ -1,19 +1,21 @@
-import {View, Text, TextInput, Pressable} from "react-native";
-import {Dropdown} from "react-native-element-dropdown";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../store/store";
-import {setKey, setModel} from "../reducers/config/configSlice";
+import { View, Text, TextInput, Pressable } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { setKey, setModel } from "../reducers/config/configSlice";
 
 const OptionsOpenAI = () => {
   const { model, key } = useSelector((state: RootState) => state.config);
   const MODELS = [
-    {label: "gpt-3.5-turbo-1106", value: "gpt-3.5-turbo-1106"},
-    {label: "gpt-4-1106-preview", value: "gpt-4-1106-preview"},
+    { label: "gpt-3.5-turbo-1106", value: "gpt-3.5-turbo-1106" },
+    { label: "gpt-4-1106-preview", value: "gpt-4-1106-preview" },
   ];
   const dispatch = useDispatch();
 
   return (
-    <View className={"flex flex-1 bg-[#121212] w-full h-full space-y-6 pt-4 px-3"}>
+    <View
+      className={"flex flex-1 bg-[#121212] w-full h-full space-y-6 pt-4 px-3"}
+    >
       <View className={"space-y-3"}>
         <Text className={"text-white font-medium"}>自定义API Key</Text>
         <TextInput
@@ -22,7 +24,7 @@ const OptionsOpenAI = () => {
           placeholder={"sk-******"}
           value={key}
           onChangeText={(input) => {
-            dispatch(setKey(input))
+            dispatch(setKey(input));
           }}
           secureTextEntry={true}
         />
@@ -50,7 +52,7 @@ const OptionsOpenAI = () => {
           labelField={"label"}
           valueField={"value"}
           onChange={(item) => {
-            dispatch(setModel(item))
+            dispatch(setModel(item));
           }}
           renderItem={(item) => (
             <View className={"px-3 py-1.5"}>
@@ -66,6 +68,6 @@ const OptionsOpenAI = () => {
       </View>
     </View>
   );
-}
+};
 
 export default OptionsOpenAI;

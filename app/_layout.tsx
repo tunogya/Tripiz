@@ -1,17 +1,17 @@
-import {router, SplashScreen} from "expo-router";
-import {Provider} from "react-redux";
-import store, {persistor} from "../store/store";
-import {Auth0Provider} from "react-native-auth0";
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import {PersistGate} from "redux-persist/integration/react";
-import {useFonts, Inter_500Medium} from "@expo-google-fonts/inter";
-import {useEffect} from "react";
-import {Stack} from "expo-router/stack";
-import {StatusBar} from "expo-status-bar";
-import {LogLevel, OneSignal} from 'react-native-onesignal';
+import { router, SplashScreen } from "expo-router";
+import { Provider } from "react-redux";
+import store, { persistor } from "../store/store";
+import { Auth0Provider } from "react-native-auth0";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { PersistGate } from "redux-persist/integration/react";
+import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
+import { useEffect } from "react";
+import { Stack } from "expo-router/stack";
+import { StatusBar } from "expo-status-bar";
+import { LogLevel, OneSignal } from "react-native-onesignal";
 import Constants from "expo-constants";
-import {Pressable} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
+import { Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -46,13 +46,13 @@ export default function RootLayout() {
       <Auth0Provider domain={domain} clientId={clientId}>
         <PersistGate loading={null} persistor={persistor}>
           <SafeAreaProvider>
-            <StatusBar style="light"/>
+            <StatusBar style="light" />
             <Stack>
               <Stack.Screen
                 name="index"
                 options={{
                   title: "首页",
-                  headerShown: false
+                  headerShown: false,
                 }}
               />
               <Stack.Screen
@@ -68,12 +68,12 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.navigate('/')
+                        router.navigate("/");
                       }}
                     >
                       <Ionicons name="close" size={24} color="white" />
                     </Pressable>
-                  )
+                  ),
                 }}
               />
               <Stack.Screen
@@ -89,12 +89,12 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.navigate('/')
+                        router.navigate("/");
                       }}
                     >
                       <Ionicons name="close" size={24} color="white" />
                     </Pressable>
-                  )
+                  ),
                 }}
               />
               <Stack.Screen
@@ -110,12 +110,12 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.back()
+                        router.back();
                       }}
                     >
                       <Ionicons name="chevron-back" size={24} color="white" />
                     </Pressable>
-                  )
+                  ),
                 }}
               />
               <Stack.Screen
@@ -131,12 +131,12 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.back()
+                        router.back();
                       }}
                     >
                       <Ionicons name="chevron-back" size={24} color="white" />
                     </Pressable>
-                  )
+                  ),
                 }}
               />
               <Stack.Screen
@@ -152,12 +152,12 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.back()
+                        router.back();
                       }}
                     >
                       <Ionicons name="chevron-back" size={24} color="white" />
                     </Pressable>
-                  )
+                  ),
                 }}
               />
               <Stack.Screen
@@ -179,12 +179,12 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.navigate('/')
+                        router.navigate("/");
                       }}
                     >
                       <Ionicons name="chevron-back" size={24} color="white" />
                     </Pressable>
-                  )
+                  ),
                 }}
               />
             </Stack>

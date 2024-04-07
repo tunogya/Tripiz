@@ -1,12 +1,16 @@
-import {createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+  EntityState,
+} from "@reduxjs/toolkit";
 
 export interface Task {
-  id: string,
-  type: string,
-  title: string,
-  description?: string,
-  status: string,
-  completed?: number,
+  id: string;
+  type: string;
+  title: string;
+  description?: string;
+  status: string;
+  completed?: number;
 }
 
 interface TaskItemState extends EntityState<Task, string> {}

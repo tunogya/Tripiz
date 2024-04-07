@@ -1,11 +1,15 @@
-import {createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+  EntityState,
+} from "@reduxjs/toolkit";
 
 export interface FootPrint {
-  id: string,
-  timestamp: number,
-  longitude: number,
-  latitude: number,
-  address: number,
+  id: string;
+  timestamp: number;
+  longitude: number;
+  latitude: number;
+  address: number;
 }
 
 interface LocationPositionState extends EntityState<FootPrint, string> {}

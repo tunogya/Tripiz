@@ -1,11 +1,11 @@
-import {View, Text, ScrollView, Pressable} from "react-native";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {router} from "expo-router";
-import {useDispatch} from "react-redux";
-import {addOneTravel, Travel} from "../reducers/travel/travelSlice";
-import {addOneTask, Task } from "../reducers/task/taskSlice";
-import uuid from 'react-native-uuid';
-import {useState} from "react";
+import { View, Text, ScrollView, Pressable } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { router } from "expo-router";
+import { useDispatch } from "react-redux";
+import { addOneTravel, Travel } from "../reducers/travel/travelSlice";
+import { addOneTask, Task } from "../reducers/task/taskSlice";
+import uuid from "react-native-uuid";
+import { useState } from "react";
 
 const NewTask = () => {
   const insets = useSafeAreaInsets();
@@ -18,7 +18,7 @@ const NewTask = () => {
       type: "main",
       title: "Test Task",
       status: "IDLE",
-    }
+    };
     const travel: Travel = {
       id: `${uuid.v4()}`,
       title: new Date().toLocaleDateString(),
@@ -31,14 +31,12 @@ const NewTask = () => {
       available: 1000,
       shoppingIds: [],
       footPrintIds: [],
-      taskIds: [
-        ...task1.id,
-      ],
-    }
-    dispatch(addOneTask(task1))
-    dispatch(addOneTravel(travel))
-    router.push(`travels/${travel.id}`)
-  }
+      taskIds: [...task1.id],
+    };
+    dispatch(addOneTask(task1));
+    dispatch(addOneTravel(travel));
+    router.push(`travels/${travel.id}`);
+  };
 
   return (
     <View
@@ -47,7 +45,7 @@ const NewTask = () => {
       }}
       className={"flex h-full bg-[#121212] px-3"}
     >
-      <ScrollView className={'pt-4 space-y-6'}>
+      <ScrollView className={"pt-4 space-y-6"}>
         <View className={"space-y-2"}>
           <Text className={"text-[#1ED760] font-bold text-lg"}>必做任务</Text>
           <Text className={"text-white"}>{"  "}吃一次土耳其特色早餐</Text>
@@ -71,7 +69,7 @@ const NewTask = () => {
         </Pressable>
       </View>
     </View>
-  )
-}
+  );
+};
 
 export default NewTask;

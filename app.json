@@ -44,9 +44,12 @@
         }
       ],
       ["expo-apple-authentication"],
-      ["onesignal-expo-plugin", {
-        "mode": "production"
-      }]
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "production"
+        }
+      ]
     ]
   }
 }

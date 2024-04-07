@@ -10,25 +10,21 @@ export const configSlice = createSlice({
   },
   reducers: {
     setLanguage: (state, action) => {
-      state.language = action.payload
+      state.language = action.payload;
     },
     setProvider: (state, action) => {
-      state.provider = action.payload
+      state.provider = action.payload;
     },
     setKey: (state, action) => {
-      state.key = action.payload
+      state.key = action.payload;
     },
     setModel: (state, action) => {
-      state.model = action.payload
+      state.model = action.payload;
     },
   },
 });
 
-export const {
-  setLanguage,
-  setProvider,
-  setKey,
-  setModel,
-} = configSlice.actions;
+export const { setLanguage, setProvider, setKey, setModel } =
+  configSlice.actions;
 
 export default configSlice.reducer;

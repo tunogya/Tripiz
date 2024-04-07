@@ -1,18 +1,22 @@
-import {createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+  EntityState,
+} from "@reduxjs/toolkit";
 
 export interface Travel {
-  id: string,
-  title: string,
+  id: string;
+  title: string;
   timestamp: {
-    start: number,
-    end: number,
-  },
-  budget: number,
-  costed: number,
-  available: number,
-  shoppingIds: string[],
-  footPrintIds: string[],
-  taskIds: string[],
+    start: number;
+    end: number;
+  };
+  budget: number;
+  costed: number;
+  available: number;
+  shoppingIds: string[];
+  footPrintIds: string[];
+  taskIds: string[];
 }
 
 interface TravelState extends EntityState<Travel, string> {}

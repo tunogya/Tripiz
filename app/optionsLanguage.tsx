@@ -1,19 +1,19 @@
-import {Text, Pressable, FlatList, View} from "react-native";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../store/store";
-import {Ionicons} from "@expo/vector-icons";
-import {setLanguage} from "../reducers/config/configSlice";
+import { Text, Pressable, FlatList, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { Ionicons } from "@expo/vector-icons";
+import { setLanguage } from "../reducers/config/configSlice";
 
 const LANGUAGE = [
-  {label: "简体中文", value: "zh"},
-  {label: "英语", value: "en"},
+  { label: "简体中文", value: "zh" },
+  { label: "英语", value: "en" },
 ];
 
 export default function Page() {
-  const {language} = useSelector((state: RootState) => state.config);
+  const { language } = useSelector((state: RootState) => state.config);
   const dispatch = useDispatch();
 
-  const RenderItem = ({item}) => {
+  const RenderItem = ({ item }) => {
     return (
       <Pressable
         onPress={() => {
@@ -21,16 +21,16 @@ export default function Page() {
         }}
         className={"px-3 py-2 flex flex-row justify-between items-center h-8"}
       >
-        <Text className={`text-white ${item.value === language ? "font-bold" : ""}`}>
+        <Text
+          className={`text-white ${item.value === language ? "font-bold" : ""}`}
+        >
           {item.label}
         </Text>
-        {
-          item.value === language && (
-            <Ionicons name="checkmark" size={20} color="white" />
-          )
-        }
+        {item.value === language && (
+          <Ionicons name="checkmark" size={20} color="white" />
+        )}
       </Pressable>
-    )
+    );
   };
 
   return (
@@ -38,9 +38,7 @@ export default function Page() {
       className={"bg-[#121212] space-y-4 pt-4"}
       data={LANGUAGE}
       keyExtractor={(item) => item.value}
-      renderItem={({item}) => (
-        <RenderItem item={item}/>
-      )}
+      renderItem={({ item }) => <RenderItem item={item} />}
     />
   );
 }

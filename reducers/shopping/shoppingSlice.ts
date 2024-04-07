@@ -1,11 +1,15 @@
-import {createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+  EntityState,
+} from "@reduxjs/toolkit";
 
 export interface Shopping {
-  id: string,
-  timestamp: number,
-  label?: string,
-  description?: string,
-  amount: number,
+  id: string;
+  timestamp: number;
+  label?: string;
+  description?: string;
+  amount: number;
 }
 
 interface ShoppingItemState extends EntityState<Shopping, string> {}
