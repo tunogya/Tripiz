@@ -1,4 +1,4 @@
-import {Text, Pressable, FlatList} from "react-native";
+import {Text, Pressable, FlatList, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {Ionicons} from "@expo/vector-icons";
