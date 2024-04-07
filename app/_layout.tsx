@@ -142,7 +142,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="optionsLanguage"
                 options={{
-                  title: "应用语言",
+                  title: "界面语言",
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {

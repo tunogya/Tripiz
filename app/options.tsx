@@ -11,7 +11,7 @@ export default function Page() {
         }}
         className={"px-3 flex flex-row justify-between items-center"}
       >
-        <Text className={"text-white font-medium"}>应用语言</Text>
+        <Text className={"text-white font-medium"}>界面语言</Text>
         <Ionicons name="chevron-forward" size={20} color="white" />
       </Pressable>
       <Pressable
