@@ -46,7 +46,7 @@ function Page() {
                   onPress={() => {
                     setInterval(item)
                   }}
-                  className={`${item === interval ? 'bg-[#1ED760]' : 'bg-[#272727]'} px-3 py-1.5 rounded-full`}
+                  className={`${item === interval ? 'bg-[#1ED760]' : 'bg-[#292929]'} px-3 py-1.5 rounded-full`}
                 >
                   <Text className={`${item === interval ? 'text-black' : 'text-white'} text-xs`}>{item}</Text>
                 </Pressable>
@@ -68,7 +68,7 @@ function Page() {
                   onPress={() => {
                     setMode(item)
                   }}
-                  className={`${item === mode ? 'bg-[#1ED760]' : 'bg-[#272727]'} px-3 py-1.5 rounded-full`}
+                  className={`${item === mode ? 'bg-[#1ED760]' : 'bg-[#292929]'} px-3 py-1.5 rounded-full`}
                 >
                   <Text className={`${item === mode ? 'text-black' : 'text-white'} text-xs`}>{item}</Text>
                 </Pressable>

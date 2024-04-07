@@ -10,7 +10,7 @@ import {Stack} from "expo-router/stack";
 import {StatusBar} from "expo-status-bar";
 import {LogLevel, OneSignal} from 'react-native-onesignal';
 import Constants from "expo-constants";
-import {Pressable, Text} from "react-native";
+import {Pressable} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
@@ -164,6 +164,27 @@ export default function RootLayout() {
                 name="travels/[id]"
                 options={{
                   title: "旅途",
+                  headerShown: true,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.navigate('/')
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={24} color="white" />
+                    </Pressable>
+                  )
+                }}
+              />
+              <Stack.Screen
+                name="history"
+                options={{
+                  title: "历史旅途",
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {

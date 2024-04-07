@@ -25,7 +25,7 @@ const NewTask = () => {
         </View>
       </ScrollView>
       <View className={"space-y-3"}>
-        <Pressable className={"rounded-lg bg-[#272727] items-center"}>
+        <Pressable className={"rounded-lg bg-[#292929] items-center"}>
           <Text className={"text-white py-3 font-medium"}>重新生成</Text>
         </Pressable>
         <Pressable

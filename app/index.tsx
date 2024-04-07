@@ -49,20 +49,25 @@ function Page() {
           </Pressable>
           <Pressable
             onPress={() => {
-              router.push("new");
+              router.navigate("new");
             }}
-            className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}>
+            className={"w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"}>
             <Text className={"text-white font-medium"}>新建旅行</Text>
           </Pressable>
-          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}>
+          <Pressable
+            onPress={() => {
+              router.navigate("history")
+            }}
+            className={"w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"}
+          >
             <Text className={"text-white font-medium"}>历史旅行</Text>
           </Pressable>
           <View className={"h-4"}></View>
           <Pressable
             onPress={() => {
-              router.push('options')
+              router.navigate('options')
             }}
-            className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}
+            className={"w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"}
           >
             <Text className={"text-white text-xs"}>选项</Text>
           </Pressable>
@@ -73,7 +78,7 @@ function Page() {
                   onPress={async () => {
                     await clearSession();
                   }}
-                  className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}>
+                  className={"w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"}>
                   <Text className={"text-white text-xs"}>退出</Text>
                 </Pressable>
                 <Text className={"text-[#A7A7A7] w-full text-center text-xs"}>
@@ -86,7 +91,7 @@ function Page() {
                   onPress={async () => {
                     await logIn();
                   }}
-                  className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}>
+                  className={"w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"}>
                   <Text className={"text-white text-xs"}>登陆账号</Text>
                 </Pressable>
               </View>
