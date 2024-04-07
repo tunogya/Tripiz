@@ -18,7 +18,7 @@ const Task: FC<{
           </Text>
           <View className={"absolute w-full"}>
             <View className={"flex items-center justify-center h-52"}>
-              <Ionicons name="image-outline" size={24} color="white" />
+              <Ionicons name="image-outline" size={24} color="#A7A7A7" />
             </View>
           </View>
         </View>

@@ -8,6 +8,7 @@ import { removeAllFootPrints } from "../reducers/footPrint/footPrintSlice";
 import { removeAllTasks } from "../reducers/task/taskSlice";
 import { removeAllShopping } from "../reducers/shopping/shoppingSlice";
 import { FlashList } from "@shopify/flash-list";
+import HistoryTravelItem from "../components/HistoryTravelItem";
 
 const History = () => {
   const insets = useSafeAreaInsets();
@@ -21,22 +22,7 @@ const History = () => {
         estimatedItemSize={20}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
-          <Pressable
-            onPress={() => {
-              router.push(`travels/${entities[item].id}`);
-              // router.push(`logs/${entities[item].id}`)
-            }}
-            className={"bg-[#292929] p-3 my-1.5 rounded-lg"}
-          >
-            <Text className={"text-white"}>{entities[item].id}</Text>
-            <Text className={"text-white"}>{entities[item].budget}</Text>
-            <Text className={"text-white"}>
-              {entities[item].timestamp.start}
-            </Text>
-            <Text className={"text-white"}>
-              {entities[item].timestamp?.end}
-            </Text>
-          </Pressable>
+          <HistoryTravelItem travel={entities?.[item]} />
         )}
         ListFooterComponent={() => (
           <View>
