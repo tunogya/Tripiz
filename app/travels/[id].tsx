@@ -68,7 +68,7 @@ export default function Page() {
         </Pressable>
         <View className={"flex space-y-1 pb-3"}>
           <Text className={"text-[#A7A7A7] text-xs text-center"}>
-            本次旅程将在以下时间后结束
+            本次旅途将在以下时间后结束
           </Text>
           <Text className={"text-white font-bold text-center"}>
             {timeLeft.days ? `${timeLeft.days}天 ` : ""}
