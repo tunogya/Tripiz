@@ -1,4 +1,4 @@
-import {SplashScreen} from "expo-router";
+import {router, SplashScreen} from "expo-router";
 import {Provider} from "react-redux";
 import store, {persistor} from "../store/store";
 import {Auth0Provider} from "react-native-auth0";
@@ -10,6 +10,8 @@ import {Stack} from "expo-router/stack";
 import {StatusBar} from "expo-status-bar";
 import {LogLevel, OneSignal} from 'react-native-onesignal';
 import Constants from "expo-constants";
+import {Pressable, Text} from "react-native";
+import {Ionicons} from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -62,6 +64,16 @@ export default function RootLayout() {
                   headerStyle: {
                     backgroundColor: "#121212",
                   },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.back()
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={24} color="white" />
+                    </Pressable>
+                  )
                 }}
               />
               <Stack.Screen
@@ -73,6 +85,16 @@ export default function RootLayout() {
                   headerStyle: {
                     backgroundColor: "#121212",
                   },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.back()
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={24} color="white" />
+                    </Pressable>
+                  )
                 }}
               />
               <Stack.Screen
@@ -84,6 +106,16 @@ export default function RootLayout() {
                   headerStyle: {
                     backgroundColor: "#121212",
                   },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.back()
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={24} color="white" />
+                    </Pressable>
+                  )
                 }}
               />
               <Stack.Screen
@@ -95,6 +127,16 @@ export default function RootLayout() {
                   headerStyle: {
                     backgroundColor: "#121212",
                   },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.back()
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={24} color="white" />
+                    </Pressable>
+                  )
                 }}
               />
               <Stack.Screen
@@ -106,6 +148,37 @@ export default function RootLayout() {
                   headerStyle: {
                     backgroundColor: "#121212",
                   },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.back()
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={24} color="white" />
+                    </Pressable>
+                  )
+                }}
+              />
+              <Stack.Screen
+                name="travels/[id]"
+                options={{
+                  title: "旅途",
+                  headerShown: true,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.replace('/')
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={24} color="white" />
+                    </Pressable>
+                  )
                 }}
               />
             </Stack>

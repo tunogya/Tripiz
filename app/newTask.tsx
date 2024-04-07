@@ -1,5 +1,6 @@
 import {View, Text, ScrollView, Pressable} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {router} from "expo-router";
 
 const NewTask = () => {
   const insets = useSafeAreaInsets();
@@ -27,7 +28,12 @@ const NewTask = () => {
         <Pressable className={"rounded-lg bg-[#272727] items-center"}>
           <Text className={"text-white py-3 font-medium"}>重新生成</Text>
         </Pressable>
-        <Pressable className={"rounded-lg bg-[#1ED760] items-center"}>
+        <Pressable
+          onPress={() => {
+            router.push(`travels/test`)
+          }}
+          className={"rounded-lg bg-[#1ED760] items-center"}
+        >
           <Text className={"text-black py-3 font-medium"}>立即启程</Text>
         </Pressable>
       </View>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const configSlice = createSlice({
-  name: "user",
+  name: "config",
   initialState: {
     language: undefined,
     provider: undefined,
