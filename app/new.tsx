@@ -1,6 +1,7 @@
 import {View, Text, Pressable, TextInput, ScrollView} from "react-native";
 import {memo, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {router} from "expo-router";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -24,14 +25,14 @@ function Page() {
     >
       <ScrollView
         style={{
-          paddingTop: 20,
+          paddingTop: 16,
           paddingBottom: insets.bottom + 12,
         }}
         className={"flex space-y-6 relative"}
         showsVerticalScrollIndicator={false}
       >
         <View className={"space-y-3"}>
-          <Text className={"text-white font-medium px-3"}>故事时长</Text>
+          <Text className={"text-white font-medium px-3"}>旅途时长</Text>
           <ScrollView
             horizontal={true}
             className={"space-x-2"}
@@ -55,7 +56,7 @@ function Page() {
           </ScrollView>
         </View>
         <View className={"space-y-3"}>
-          <Text className={"text-white font-medium px-3"}>预算程度</Text>
+          <Text className={"text-white font-medium px-3"}>旅途预算</Text>
           <View
             className={"space-x-2 flex flex-row"}
           >
@@ -86,8 +87,13 @@ function Page() {
         </View>
       </ScrollView>
       <View className={"pt-8 flex space-y-3 px-3"}>
-        <Pressable className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}>
-          <Text className={"text-black font-medium"}>立即规划</Text>
+        <Pressable
+          onPress={() => {
+            router.push("newTask")
+          }}
+          className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}
+        >
+          <Text className={"text-black font-medium"}>生成任务清单</Text>
         </Pressable>
       </View>
     </View>

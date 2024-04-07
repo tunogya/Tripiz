@@ -35,7 +35,7 @@ export default function Page() {
 
   return (
     <FlatList
-      className={"bg-[#121212] space-y-4 pt-5"}
+      className={"bg-[#121212] space-y-4 pt-4"}
       data={LANGUAGE}
       keyExtractor={(item) => item.value}
       renderItem={({item}) => (

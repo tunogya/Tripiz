@@ -49,14 +49,25 @@ export default function RootLayout() {
               <Stack.Screen
                 name="index"
                 options={{
-                  title: "",
+                  title: "首页",
                   headerShown: false
                 }}
               />
               <Stack.Screen
                 name="new"
                 options={{
-                  title: "新建旅行",
+                  title: "新建旅途",
+                  headerTintColor: "white",
+                  headerShown: true,
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="newTask"
+                options={{
+                  title: "任务清单",
                   headerTintColor: "white",
                   headerShown: true,
                   headerStyle: {

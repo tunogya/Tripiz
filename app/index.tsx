@@ -36,7 +36,7 @@ function Page() {
     >
       <View className={"flex flex-row items-center justify-between px-5 pb-2"}>
         <View className={"flex flex-row items-center space-x-3"}>
-          <Text className={"text-white font-bold text-xl"}>无尽旅行</Text>
+          <Text className={"text-white font-bold text-xl"}>无尽旅途</Text>
         </View>
       </View>
       <ScrollView

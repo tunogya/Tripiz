@@ -13,7 +13,7 @@ const OptionsOpenAI = () => {
   const dispatch = useDispatch();
 
   return (
-    <View className={"flex flex-1 bg-[#121212] w-full h-full space-y-6 pt-5 px-3"}>
+    <View className={"flex flex-1 bg-[#121212] w-full h-full space-y-6 pt-4 px-3"}>
       <View className={"space-y-3"}>
         <Text className={"text-white font-medium"}>自定义API Key</Text>
         <TextInput
