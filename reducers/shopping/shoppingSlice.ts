@@ -7,7 +7,6 @@ import {
 export interface Shopping {
   id: string;
   timestamp: number;
-  label?: string;
   description?: string;
   amount: number;
 }
