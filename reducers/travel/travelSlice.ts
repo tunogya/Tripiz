@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createEntityAdapter, createSlice, EntityState, PayloadAction} from "@reduxjs/toolkit";
 
 export interface ShoppingItem {
   timestamp: number,
@@ -15,6 +15,7 @@ export interface LocationPosition {
 }
 
 export interface TaskItem {
+  taskId: string,
   title: string,
   description?: string
   status: string
@@ -22,7 +23,7 @@ export interface TaskItem {
 }
 
 export interface Travel {
-  travelId: string,
+  id: string,
   title: string,
   timestamp: {
     start: number,
@@ -33,95 +34,53 @@ export interface Travel {
   available: number,
   shoppingHistory: ShoppingItem[],
   footPrints: LocationPosition[],
-  tasks: {
-    main: TaskItem[],
-    option: TaskItem[],
-  },
+  tasks: TaskItem[],
 }
 
-const defaultTravels: Travel[] = []
+interface TravelState extends EntityState<Travel, string> {}
+const travelsAdapter = createEntityAdapter<Travel>();
+const initialState: TravelState = travelsAdapter.getInitialState();
 
-export const configSlice = createSlice({
-  name: "travel",
-  initialState: {
-    travels: defaultTravels,
-  },
+export const travelSlice = createSlice({
+  name: "travels",
+  initialState: initialState,
   reducers: {
-    newTravel: (state, action) => {
-      state.travels = [...state.travels, action.payload];
-    },
-    deleteTravel: (state, action) => {
-      const { travelId } = action.payload;
-      state.travels = state.travels.filter((item) => item.travelId !== travelId);
-    },
-    updateTravel: (state, action) => {
-      const { travelId, ...updates } = action.payload;
-      const travelIndex = state.travels.findIndex((item) => item.travelId === travelId);
-      if (travelIndex !== -1) {
-        state.travels[travelIndex] = { ...state.travels[travelIndex], ...updates };
-      }
-    },
-    addShoppingItem: (state, action) => {
+    newTravel: travelsAdapter.addOne,
+    deleteTravel: travelsAdapter.removeOne,
+    updateTravel: travelsAdapter.updateOne,
+    addShoppingItem: (state, action: PayloadAction<{travelId: string, shoppingItem: ShoppingItem}>) => {
       const { travelId, shoppingItem } = action.payload;
-      const travel = state.travels.find((item) => item.travelId === travelId);
+      const travel = state.entities[travelId];
       if (travel) {
-        travel.shoppingHistory = [...travel.shoppingHistory, shoppingItem];
+        travel.shoppingHistory.push(shoppingItem);
       }
     },
-    removeShoppingItem: (state, action) => {
+    removeShoppingItem: (state, action: PayloadAction<{travelId: string, timestamp: number}>) => {
       const { travelId, timestamp } = action.payload;
-      const travel = state.travels.find((item) => item.travelId === travelId);
+      const travel = state.entities[travelId];
       if (travel) {
-        travel.shoppingHistory = travel.shoppingHistory.filter((item) => item.timestamp !== timestamp);
+        travel.shoppingHistory = travel.shoppingHistory.filter(item => item.timestamp !== timestamp);
       }
     },
-    addLocationPosition: (state, action) => {
+    addLocationPosition: (state, action: PayloadAction<{travelId: string, locationPosition: LocationPosition}>) => {
       const { travelId, locationPosition } = action.payload;
-      const travel = state.travels.find((item) => item.travelId === travelId);
+      const travel = state.entities[travelId];
       if (travel) {
-        travel.footPrints = [...travel.footPrints, locationPosition];
+        travel.footPrints.push(locationPosition);
       }
     },
-    removeLocationPosition: (state, action) => {
+    removeLocationPosition: (state, action: PayloadAction<{travelId: string, timestamp: number}>) => {
       const { travelId, timestamp } = action.payload;
-      const travel = state.travels.find((item) => item.travelId === travelId);
+      const travel = state.entities[travelId];
       if (travel) {
-        travel.footPrints = travel.footPrints.filter((item) => item.timestamp !== timestamp);
+        travel.footPrints = travel.footPrints.filter(item => item.timestamp !== timestamp);
       }
     },
-    addTask: (state, action) => {
-      const { travelId, task, taskType } = action.payload;
-      const travel = state.travels.find(t => t.travelId === travelId);
-      if (travel && (taskType === 'main' || taskType === 'option')) {
-        travel.tasks[taskType].push(task);
-      }
-    },
-    deleteTask: (state, action) => {
-      const { travelId, taskTitle, taskType } = action.payload;
-      const travel = state.travels.find(t => t.travelId === travelId);
-      if (travel && (taskType === 'main' || taskType === 'option')) {
-        travel.tasks[taskType] = travel.tasks[taskType].filter(task => task.title !== taskTitle);
-      }
-    },
-    updateTask: (state, action) => {
-      const { travelId, taskTitle, taskType, updates } = action.payload;
-      const travel = state.travels.find(t => t.travelId === travelId);
-      if (travel && (taskType === 'main' || taskType === 'option')) {
-        const taskIndex = travel.tasks[taskType].findIndex(task => task.title === taskTitle);
-        if (taskIndex !== -1) {
-          travel.tasks[taskType][taskIndex] = { ...travel.tasks[taskType][taskIndex], ...updates };
-        }
-      }
-    },
-    toggleTaskStatus: (state, action) => {
-      const { travelId, taskTitle, taskType } = action.payload;
-      const travel = state.travels.find(t => t.travelId === travelId);
-      if (travel && (taskType === 'main' || taskType === 'option')) {
-        const task = travel.tasks[taskType].find(task => task.title === taskTitle);
-        if (task) {
-          task.status = task.status === 'completed' ? 'pending' : 'completed';
-          task.completed = task.status === 'completed' ? Date.now() : undefined;
-        }
+    addTask: (state, action: PayloadAction<{travelId: string, task: TaskItem}>) => {
+      const { travelId, task } = action.payload;
+      const travel = state.entities[travelId];
+      if (travel) {
+        travel.tasks.push(task);
       }
     },
   },
@@ -135,9 +94,7 @@ export const {
   removeShoppingItem,
   addLocationPosition,
   removeLocationPosition,
-  deleteTask,
-  updateTask,
-  toggleTaskStatus,
-} = configSlice.actions;
+  addTask,
+} = travelSlice.actions;
 
-export default configSlice.reducer;
+export default travelSlice.reducer;
