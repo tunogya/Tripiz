@@ -14,17 +14,17 @@ const NewTask = () => {
 
   const newTravel = async () => {
     const task1: Task = {
-      id: uuid.v4.toString(),
+      id: uuid.v4() as string,
       type: "main",
       title: "Test Task",
       status: "IDLE",
     }
     const travel: Travel = {
-      id: uuid.v4.toString(),
+      id:  uuid.v4() as string,
       title: new Date().toLocaleDateString(),
       timestamp: {
-        start: new Date().getTime() / 1000,
-        end: new Date().getTime() / 1000 + 4 * 60 * 60,
+        start: Math.floor(new Date().getTime() / 1000),
+        end: Math.floor(new Date().getTime() / 1000) + 4 * 60 * 60,
       },
       budget: 1000,
       costed: 0,

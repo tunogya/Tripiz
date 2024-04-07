@@ -163,7 +163,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="travels/[id]"
                 options={{
-                  title: "旅途",
+                  title: "当前旅途",
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {
@@ -174,6 +174,27 @@ export default function RootLayout() {
                       hitSlop={4}
                       onPress={() => {
                         router.navigate('/')
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={24} color="white" />
+                    </Pressable>
+                  )
+                }}
+              />
+              <Stack.Screen
+                name="logs/[id]"
+                options={{
+                  title: "历史旅途",
+                  headerShown: true,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.back()
                       }}
                     >
                       <Ionicons name="chevron-back" size={24} color="white" />

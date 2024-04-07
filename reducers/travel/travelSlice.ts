@@ -27,6 +27,8 @@ export const slice = createSlice({
     addOne: entityAdapter.addOne,
     removeOne: entityAdapter.removeOne,
     updateOne: entityAdapter.updateOne,
+    removeAll: entityAdapter.removeAll,
+    addMany: entityAdapter.addMany,
   },
 });
 
@@ -34,6 +36,8 @@ export const {
   addOne: addOneTravel,
   removeOne: removeOneTravel,
   updateOne: updateOneTravel,
+  removeAll: removeAllTravels,
+  addMany: addManyTravels,
 } = slice.actions;
 
 export default slice.reducer;
