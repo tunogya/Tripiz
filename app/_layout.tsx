@@ -58,7 +58,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="new"
                 options={{
-                  title: "新建旅途",
+                  title: "新旅途",
                   headerTintColor: "white",
                   headerShown: true,
                   headerStyle: {

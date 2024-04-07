@@ -1,13 +1,25 @@
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { memo } from "react";
+import {memo, useMemo} from "react";
 import { router } from "expo-router";
 import {useAuth0} from "react-native-auth0";
 import {OneSignal} from "react-native-onesignal";
+import {useSelector} from "react-redux";
+import {RootState} from "../store/store";
 
 function Page() {
   const insets = useSafeAreaInsets();
   const { clearSession, authorize, user } = useAuth0();
+  const { ids, entities } = useSelector((state: RootState) => state.travel);
+
+  const lastTravel = useMemo(() => {
+    if (ids.length > 0) {
+      const lastId = ids[ids.length - 1]
+      return entities?.[lastId]
+    } else {
+      return null
+    }
+  }, [ids])
 
   const logIn = async () => {
     try {
@@ -44,15 +56,19 @@ function Page() {
         className={"pt-4"}
       >
         <View className={"px-3 flex flex-col space-y-3"}>
-          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"}>
-            <Text className={"text-black font-medium"}>继续旅行</Text>
-          </Pressable>
+          {
+            lastTravel && (
+              <Pressable className={"w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"}>
+                <Text className={"text-black font-medium"}>继续旅行</Text>
+              </Pressable>
+            )
+          }
           <Pressable
             onPress={() => {
               router.navigate("new");
             }}
-            className={"w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"}>
-            <Text className={"text-white font-medium"}>新建旅途</Text>
+            className={`w-full flex items-center justify-center py-4 ${lastTravel ? "bg-[#292929]" : "bg-[#1ED760]"} rounded-lg`}>
+            <Text className={`${lastTravel ? "text-white" : "text-black"} font-medium`}>新旅途</Text>
           </Pressable>
           <Pressable
             onPress={() => {

@@ -44,7 +44,7 @@ const History = () => {
                   dispatch(removeAllShopping());
                 }}
               >
-                <Text className={"text-red-500 text-xs font-medium"}>清空历史旅途</Text>
+                <Text className={"text-red-500 text-xs font-medium"}>一键清空</Text>
               </Pressable>
             ) : (
               <Text className={"text-white text-center py-4 text-xs"}>
