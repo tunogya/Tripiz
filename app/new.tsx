@@ -31,7 +31,7 @@ function Page() {
         showsVerticalScrollIndicator={false}
       >
         <View className={"space-y-3"}>
-          <Text className={"text-white font-medium px-3"}>旅行时长</Text>
+          <Text className={"text-white font-medium px-3"}>故事时长</Text>
           <ScrollView
             horizontal={true}
             className={"space-x-2"}

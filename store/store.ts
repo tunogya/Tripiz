@@ -1,18 +1,16 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import userReducer from "reducers/user/userSlice";
-import cacheReducer from "reducers/cache/cacheSlice";
+import configReducer from "reducers/config/configSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const rootPersistConfig = {
   key: "root",
   storage: AsyncStorage,
-  blacklist: ["cache"],
+  blacklist: [],
 };
 
 const rootReducer = combineReducers({
-  user: userReducer,
-  cache: cacheReducer,
+  config: configReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

@@ -1,15 +1,12 @@
 import { View, Text, Pressable, ScrollView } from "react-native";
-import UserAvatar from "../containers/HomeScreen/UserAvatar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { memo } from "react";
-import {useDispatch} from "react-redux";
 import { router } from "expo-router";
 import {useAuth0} from "react-native-auth0";
 import {OneSignal} from "react-native-onesignal";
 
 function Page() {
   const insets = useSafeAreaInsets();
-  const dispatch = useDispatch();
   const { clearSession, authorize, user } = useAuth0();
 
   const logIn = async () => {
@@ -39,11 +36,6 @@ function Page() {
     >
       <View className={"flex flex-row items-center justify-between px-5 pb-2"}>
         <View className={"flex flex-row items-center space-x-3"}>
-          {
-            user && (
-              <UserAvatar size={32} />
-            )
-          }
           <Text className={"text-white font-bold text-xl"}>无尽旅行</Text>
         </View>
       </View>
