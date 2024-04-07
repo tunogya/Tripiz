@@ -15,7 +15,12 @@ function Page() {
   const lastTravel = useMemo(() => {
     if (ids.length > 0) {
       const lastId = ids[ids.length - 1];
-      return entities?.[lastId];
+      const travel = entities?.[lastId];
+      if (travel.timestamp.end > new Date().getTime() / 1000) {
+        return travel;
+      } else {
+        return null
+      }
     } else {
       return null;
     }
