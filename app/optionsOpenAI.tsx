@@ -1,4 +1,4 @@
-import {View, Text, TextInput} from "react-native";
+import {View, Text, TextInput, Pressable} from "react-native";
 import {Dropdown} from "react-native-element-dropdown";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
@@ -58,6 +58,11 @@ const OptionsOpenAI = () => {
             </View>
           )}
         />
+      </View>
+      <View className={"flex flex-row justify-end"}>
+        <Pressable hitSlop={4}>
+          <Text className={"text-white text-xs"}>点此测试服务</Text>
+        </Pressable>
       </View>
     </View>
   );
