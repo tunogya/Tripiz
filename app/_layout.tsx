@@ -65,9 +65,6 @@ export default function RootLayout() {
                     backgroundColor: "#121212",
                   },
                   headerLeft: () => (
-                    <></>
-                  ),
-                  headerRight: () => (
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
@@ -89,9 +86,6 @@ export default function RootLayout() {
                     backgroundColor: "#121212",
                   },
                   headerLeft: () => (
-                    <></>
-                  ),
-                  headerRight: () => (
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
