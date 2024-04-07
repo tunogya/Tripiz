@@ -14,7 +14,7 @@ const Task: FC<{
       <View className={"bg-[#292929] rounded-lg overflow-hidden"}>
         <View className={"relative h-52 bg-[#292929] shadow-xl"}>
           <Text className={"text-white truncate absolute left-3 top-3 font-semibold"}>
-            {task?.type === "main" ? "必要任务" : "可选任务"}
+            {task?.type === "main" ? "必做任务" : "选做任务"}
           </Text>
           <View className={"absolute w-full"}>
             <View className={"flex items-center justify-center h-52"}>
