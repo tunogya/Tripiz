@@ -68,7 +68,7 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.back()
+                        router.navigate('/')
                       }}
                     >
                       <Ionicons name="chevron-back" size={24} color="white" />
@@ -89,7 +89,7 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.back()
+                        router.navigate('/')
                       }}
                     >
                       <Ionicons name="chevron-back" size={24} color="white" />
@@ -173,7 +173,7 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.replace('/')
+                        router.navigate('/')
                       }}
                     >
                       <Ionicons name="chevron-back" size={24} color="white" />
