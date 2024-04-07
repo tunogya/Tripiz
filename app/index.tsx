@@ -55,11 +55,15 @@ function Page() {
         <View className={"px-3 flex flex-col space-y-3"}>
           {lastTravel && (
             <Pressable
+              onPress={() => {
+                router.navigate(`travels/${lastTravel.id}`)
+              }}
               className={
                 "w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"
               }
             >
               <Text className={"text-black font-medium"}>继续旅行</Text>
+              <Text className={"text-black font-medium text-xs"}>{ lastTravel.title }</Text>
             </Pressable>
           )}
           <Pressable
