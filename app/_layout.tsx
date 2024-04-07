@@ -65,13 +65,16 @@ export default function RootLayout() {
                     backgroundColor: "#121212",
                   },
                   headerLeft: () => (
+                    <></>
+                  ),
+                  headerRight: () => (
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
                         router.navigate('/')
                       }}
                     >
-                      <Ionicons name="chevron-back" size={24} color="white" />
+                      <Ionicons name="close" size={24} color="white" />
                     </Pressable>
                   )
                 }}
@@ -86,13 +89,16 @@ export default function RootLayout() {
                     backgroundColor: "#121212",
                   },
                   headerLeft: () => (
+                    <></>
+                  ),
+                  headerRight: () => (
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
                         router.navigate('/')
                       }}
                     >
-                      <Ionicons name="chevron-back" size={24} color="white" />
+                      <Ionicons name="close" size={24} color="white" />
                     </Pressable>
                   )
                 }}
