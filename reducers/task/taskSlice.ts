@@ -1,27 +1,21 @@
 import {createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
 
-export interface Travel {
+export interface Task {
   id: string,
+  type: string,
   title: string,
-  timestamp: {
-    start: number,
-    end: number,
-  },
-  budget: number,
-  costed: number,
-  available: number,
-  shoppingIds: string[],
-  footPrintIds: string[],
-  taskIds: string[],
+  description?: string,
+  status: string,
+  completed?: number,
 }
 
-interface TravelState extends EntityState<Travel, string> {}
+interface TaskItemState extends EntityState<Task, string> {}
 
-const entityAdapter = createEntityAdapter<Travel>();
-const initialState: TravelState = entityAdapter.getInitialState();
+const entityAdapter = createEntityAdapter<Task>();
+const initialState: TaskItemState = entityAdapter.getInitialState();
 
 export const slice = createSlice({
-  name: "travel",
+  name: "task",
   initialState: initialState,
   reducers: {
     addOne: entityAdapter.addOne,

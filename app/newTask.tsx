@@ -1,9 +1,12 @@
 import {View, Text, ScrollView, Pressable} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {router} from "expo-router";
+import {useDispatch} from "react-redux";
+import {newTravel, Travel} from "../reducers/travel/travelSlice";
 
 const NewTask = () => {
   const insets = useSafeAreaInsets();
+  const dispatch = useDispatch();
 
   return (
     <View
@@ -30,6 +33,43 @@ const NewTask = () => {
         </Pressable>
         <Pressable
           onPress={() => {
+            //   id: string,
+            //   title: string,
+            //   timestamp: {
+            //     start: number,
+            //     end: number,
+            //   },
+            //   budget: number,
+            //   costed: number,
+            //   available: number,
+            //   shoppingHistory: ShoppingItem[],
+            //   footPrints: LocationPosition[],
+            //   tasks: TaskItem[],
+            const travel: Travel = {
+              id: "",
+              title: "",
+              timestamp: {
+                start: new Date().getTime() / 1000,
+                end: new Date().getTime() / 1000 + 4 * 60 * 60,
+              },
+              budget: 1000,
+              costed: 0,
+              available: 1000,
+              shoppingHistory: [],
+              footPrints: [],
+              tasks: [
+                {
+                  taskId: "1",
+                  title: "吃一次土耳其特色早餐",
+                  description: "",
+                  status: "IDLE",
+                  completed: undefined,
+                },
+
+              ],
+            }
+            dispatch(newTravel(travel))
+
             router.push(`travels/test`)
           }}
           className={"rounded-lg bg-[#1ED760] items-center"}

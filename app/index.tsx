@@ -52,7 +52,7 @@ function Page() {
               router.navigate("new");
             }}
             className={"w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"}>
-            <Text className={"text-white font-medium"}>新建旅行</Text>
+            <Text className={"text-white font-medium"}>新建旅途</Text>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -60,7 +60,7 @@ function Page() {
             }}
             className={"w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"}
           >
-            <Text className={"text-white font-medium"}>历史旅行</Text>
+            <Text className={"text-white font-medium"}>历史旅途</Text>
           </Pressable>
           <View className={"h-4"}></View>
           <Pressable

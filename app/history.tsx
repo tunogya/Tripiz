@@ -1,8 +1,13 @@
-import {View, Text, ScrollView, FlatList} from "react-native";
+import {View, Text, FlatList} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useSelector} from "react-redux";
+import {RootState} from "../store/store";
 
 const History = () => {
   const insets = useSafeAreaInsets();
+  const travels = useSelector((state: RootState) => state.travel)
+
+  console.log(travels)
 
   return (
     <FlatList
