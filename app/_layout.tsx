@@ -187,6 +187,18 @@ export default function RootLayout() {
                   ),
                 }}
               />
+              <Stack.Screen
+                name="shopping"
+                options={{
+                  presentation: "modal",
+                  title: "记录开销",
+                  headerShown: true,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
+              />
             </Stack>
           </SafeAreaProvider>
         </PersistGate>

@@ -109,13 +109,18 @@ export default function Page() {
             </View>
             <Text className={"text-white font-bold"}>1400</Text>
           </View>
-          <View className={"flex space-y-1 items-center w-20"}>
+          <Pressable
+            className={"flex space-y-1 items-center w-20"}
+            onPress={() => {
+              router.navigate(`shopping?travelId=${travel.id}`)
+            }}
+          >
             <View className={"flex flex-row space-x-1 items-center"}>
               <Text className={"text-[#A7A7A7] text-xs font-medium"}>已使用</Text>
               <Ionicons name="chevron-forward" size={12} color="#A7A7A7" />
             </View>
             <Text className={"text-white font-bold"}>600</Text>
-          </View>
+          </Pressable>
         </View>
         <View className={"pt-6 space-y-3"}>
           <Text className={"text-white text-center text-lg font-semibold"}>
