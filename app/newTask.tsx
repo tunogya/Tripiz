@@ -13,12 +13,12 @@ const NewTask = () => {
     >
       <ScrollView className={'pt-4 space-y-6'}>
         <View className={"space-y-2"}>
-          <Text className={"text-[#1ED760] font-bold"}>必做任务</Text>
+          <Text className={"text-[#1ED760] font-bold text-lg"}>必做任务</Text>
           <Text className={"text-white"}>{"  "}吃一次土耳其特色早餐</Text>
           <Text className={"text-white"}>{"  "}完成一次出海拍摄</Text>
         </View>
         <View className={"space-y-2"}>
-          <Text className={"text-red-400 font-medium"}>选做任务</Text>
+          <Text className={"text-red-400 font-bold text-lg"}>选做任务</Text>
           <Text className={"text-white"}>{"  "}去一户当地人家蹭饭</Text>
           <Text className={"text-white"}>{"  "}不用翻译软件自己存活</Text>
         </View>
