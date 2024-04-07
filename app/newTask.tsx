@@ -2,11 +2,43 @@ import {View, Text, ScrollView, Pressable} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {router} from "expo-router";
 import {useDispatch} from "react-redux";
-import {newTravel, Travel} from "../reducers/travel/travelSlice";
+import {addOneTravel, Travel} from "../reducers/travel/travelSlice";
+import {addOneTask, Task } from "../reducers/task/taskSlice";
+import uuid from 'react-native-uuid';
+import {useState} from "react";
 
 const NewTask = () => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const newTravel = async () => {
+    const task1: Task = {
+      id: uuid.v4.toString(),
+      type: "main",
+      title: "Test Task",
+      status: "IDLE",
+    }
+    const travel: Travel = {
+      id: uuid.v4.toString(),
+      title: new Date().toLocaleDateString(),
+      timestamp: {
+        start: new Date().getTime() / 1000,
+        end: new Date().getTime() / 1000 + 4 * 60 * 60,
+      },
+      budget: 1000,
+      costed: 0,
+      available: 1000,
+      shoppingIds: [],
+      footPrintIds: [],
+      taskIds: [
+        ...task1.id,
+      ],
+    }
+    dispatch(addOneTask(task1))
+    dispatch(addOneTravel(travel))
+    router.push(`travels/${travel.id}`)
+  }
 
   return (
     <View
@@ -32,46 +64,7 @@ const NewTask = () => {
           <Text className={"text-white py-3 font-medium"}>重新生成</Text>
         </Pressable>
         <Pressable
-          onPress={() => {
-            //   id: string,
-            //   title: string,
-            //   timestamp: {
-            //     start: number,
-            //     end: number,
-            //   },
-            //   budget: number,
-            //   costed: number,
-            //   available: number,
-            //   shoppingHistory: ShoppingItem[],
-            //   footPrints: LocationPosition[],
-            //   tasks: TaskItem[],
-            const travel: Travel = {
-              id: "",
-              title: "",
-              timestamp: {
-                start: new Date().getTime() / 1000,
-                end: new Date().getTime() / 1000 + 4 * 60 * 60,
-              },
-              budget: 1000,
-              costed: 0,
-              available: 1000,
-              shoppingHistory: [],
-              footPrints: [],
-              tasks: [
-                {
-                  taskId: "1",
-                  title: "吃一次土耳其特色早餐",
-                  description: "",
-                  status: "IDLE",
-                  completed: undefined,
-                },
-
-              ],
-            }
-            dispatch(newTravel(travel))
-
-            router.push(`travels/test`)
-          }}
+          onPress={newTravel}
           className={"rounded-lg bg-[#1ED760] items-center"}
         >
           <Text className={"text-black py-3 font-medium"}>立即启程</Text>

@@ -24,9 +24,9 @@ export const slice = createSlice({
 });
 
 export const {
-  addOne,
-  removeOne,
-  updateOne,
+  addOne: addOneShopping,
+  removeOne: removeOneShopping,
+  updateOne: updateOneShopping,
 } = slice.actions;
 
 export default slice.reducer;

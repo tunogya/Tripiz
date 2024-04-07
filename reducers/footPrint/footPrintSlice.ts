@@ -24,9 +24,9 @@ export const slice = createSlice({
 });
 
 export const {
-  addOne,
-  removeOne,
-  updateOne,
+  addOne: addOneFootPrint,
+  removeOne: removeOneFootPrint,
+  updateOne: updateOneFootPrint,
 } = slice.actions;
 
 export default slice.reducer;

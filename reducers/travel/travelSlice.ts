@@ -31,9 +31,9 @@ export const slice = createSlice({
 });
 
 export const {
-  addOne,
-  removeOne,
-  updateOne,
+  addOne: addOneTravel,
+  removeOne: removeOneTravel,
+  updateOne: updateOneTravel,
 } = slice.actions;
 
 export default slice.reducer;
