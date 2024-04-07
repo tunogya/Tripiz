@@ -1,11 +1,12 @@
-import { useLocalSearchParams } from "expo-router";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import {router, useLocalSearchParams} from "expo-router";
+import {FlatList, Pressable, ScrollView, Text, View} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { ProgressCircle } from "react-native-svg-charts";
+import {Ionicons} from "@expo/vector-icons";
 
 export function ensureString(value: string | string[]) {
   if (Array.isArray(value)) {
@@ -15,7 +16,7 @@ export function ensureString(value: string | string[]) {
 }
 
 export default function Page() {
-  const { id } = useLocalSearchParams();
+  const { id, canGoBack } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const { entities } = useSelector((state: RootState) => state.travel);
   const travel = entities?.[ensureString(id)];
@@ -51,14 +52,31 @@ export default function Page() {
       }}
       className={"flex h-full bg-[#121212] px-3"}
     >
-      <View className={"flex space-y-1 pb-3"}>
-        <Text className={"text-[#A7A7A7] text-xs text-center"}>
-          本次旅程将在以下时间后结束
-        </Text>
-        <Text className={"text-white font-bold text-center"}>
-          {timeLeft.days ? `${timeLeft.days}天 ` : ""}
-          {timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}
-        </Text>
+      <View className={"flex flex-row justify-between"}>
+        <Pressable
+          onPress={() => {
+            if (canGoBack === "false") {
+              router.navigate('/')
+            } else {
+              router.back();
+            }
+          }}
+          className={"w-5 h-5 flex items-center justify-center"}
+        >
+          <Ionicons name="chevron-back" size={20} color="white" />
+        </Pressable>
+        <View className={"flex space-y-1 pb-3"}>
+          <Text className={"text-[#A7A7A7] text-xs text-center"}>
+            本次旅程将在以下时间后结束
+          </Text>
+          <Text className={"text-white font-bold text-center"}>
+            {timeLeft.days ? `${timeLeft.days}天 ` : ""}
+            {timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}
+          </Text>
+        </View>
+        <Pressable className={"w-5 h-5 flex items-center justify-center"}>
+          <Ionicons name="ellipsis-horizontal-sharp" size={20} color="white" />
+        </Pressable>
       </View>
       <ScrollView
         className={"space-y-6 py-3"}

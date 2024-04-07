@@ -71,7 +71,7 @@ export default function RootLayout() {
                         router.navigate("/");
                       }}
                     >
-                      <Ionicons name="close" size={24} color="white" />
+                      <Ionicons name="close" size={20} color="white" />
                     </Pressable>
                   ),
                 }}
@@ -92,7 +92,7 @@ export default function RootLayout() {
                         router.navigate("/");
                       }}
                     >
-                      <Ionicons name="close" size={24} color="white" />
+                      <Ionicons name="close" size={20} color="white" />
                     </Pressable>
                   ),
                 }}
@@ -113,7 +113,7 @@ export default function RootLayout() {
                         router.back();
                       }}
                     >
-                      <Ionicons name="chevron-back" size={24} color="white" />
+                      <Ionicons name="chevron-back" size={20} color="white" />
                     </Pressable>
                   ),
                 }}
@@ -134,7 +134,7 @@ export default function RootLayout() {
                         router.back();
                       }}
                     >
-                      <Ionicons name="chevron-back" size={24} color="white" />
+                      <Ionicons name="chevron-back" size={20} color="white" />
                     </Pressable>
                   ),
                 }}
@@ -155,7 +155,7 @@ export default function RootLayout() {
                         router.back();
                       }}
                     >
-                      <Ionicons name="chevron-back" size={24} color="white" />
+                      <Ionicons name="chevron-back" size={20} color="white" />
                     </Pressable>
                   ),
                 }}
@@ -179,10 +179,10 @@ export default function RootLayout() {
                     <Pressable
                       hitSlop={4}
                       onPress={() => {
-                        router.navigate("/");
+                        router.back();
                       }}
                     >
-                      <Ionicons name="chevron-back" size={24} color="white" />
+                      <Ionicons name="chevron-back" size={20} color="white" />
                     </Pressable>
                   ),
                 }}

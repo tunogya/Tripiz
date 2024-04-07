@@ -35,7 +35,7 @@ const NewTask = () => {
     };
     dispatch(addOneTask(task1));
     dispatch(addOneTravel(travel));
-    router.push(`travels/${travel.id}`);
+    router.push(`travels/${travel.id}?canGoBack=false`);
   };
 
   return (
