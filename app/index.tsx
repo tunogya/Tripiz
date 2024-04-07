@@ -23,7 +23,7 @@ function Page() {
         if (user.email) {
           OneSignal.User.addEmail(user.email);
         }
-        router.replace("/home");
+        router.replace("home");
       }
     } catch (e) {
       console.log(e)
@@ -52,25 +52,25 @@ function Page() {
         className={"pt-4"}
       >
         <View className={"px-3 flex flex-col space-y-3"}>
-          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#1ED760] rounded"}>
+          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"}>
             <Text className={"text-black font-medium"}>继续旅行</Text>
           </Pressable>
           <Pressable
             onPress={() => {
-              router.push("/new");
+              router.push("new");
             }}
-            className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+            className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}>
             <Text className={"text-white font-medium"}>新建旅行</Text>
           </Pressable>
-          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}>
             <Text className={"text-white font-medium"}>历史旅行</Text>
           </Pressable>
           <View className={"h-4"}></View>
           <Pressable
             onPress={() => {
-              router.push('/options')
+              router.push('options')
             }}
-            className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}
+            className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}
           >
             <Text className={"text-white text-xs"}>选项</Text>
           </Pressable>
@@ -81,7 +81,7 @@ function Page() {
                   onPress={async () => {
                     await clearSession();
                   }}
-                  className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+                  className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}>
                   <Text className={"text-white text-xs"}>退出</Text>
                 </Pressable>
                 <Text className={"text-[#A7A7A7] w-full text-center text-xs"}>
@@ -94,7 +94,7 @@ function Page() {
                   onPress={async () => {
                     await logIn();
                   }}
-                  className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+                  className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded-lg"}>
                   <Text className={"text-white text-xs"}>登陆账号</Text>
                 </Pressable>
               </View>
