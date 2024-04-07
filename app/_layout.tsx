@@ -67,7 +67,6 @@ export default function RootLayout() {
               <Stack.Screen
                 name="options"
                 options={{
-                  // presentation: "modal",
                   title: "选项",
                   headerShown: true,
                   headerTintColor: "white",
@@ -77,9 +76,20 @@ export default function RootLayout() {
                 }}
               />
               <Stack.Screen
-                name="language"
+                name="optionsOpenAI"
                 options={{
-                  title: "语言",
+                  title: "OpenAI 配置",
+                  headerShown: true,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="optionsLanguage"
+                options={{
+                  title: "应用语言",
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {

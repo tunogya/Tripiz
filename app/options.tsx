@@ -7,7 +7,7 @@ export default function Page() {
     <View className={"flex flex-1 bg-[#121212] w-full h-full space-y-4 pt-4"}>
       <Pressable
         onPress={() => {
-          router.push("language")
+          router.push("optionsLanguage")
         }}
         className={"px-3 flex flex-row justify-between items-center"}
       >
@@ -16,7 +16,12 @@ export default function Page() {
         </Text>
         <Ionicons name="chevron-forward" size={20} color="white" />
       </Pressable>
-      <Pressable className={"px-3 flex flex-row justify-between items-center"}>
+      <Pressable
+        onPress={() => {
+          router.push("optionsOpenAI")
+        }}
+        className={"px-3 flex flex-row justify-between items-center"}
+      >
         <Text className={"text-white font-medium"}>
           OpenAI 配置
         </Text>
