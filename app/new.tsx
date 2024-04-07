@@ -1,7 +1,6 @@
 import {View, Text, Pressable, TextInput, ScrollView} from "react-native";
 import {memo, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {router} from "expo-router";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -25,7 +24,7 @@ function Page() {
     >
       <ScrollView
         style={{
-          paddingTop: insets.top + 20,
+          paddingTop: 20,
           paddingBottom: insets.bottom + 12,
         }}
         className={"flex space-y-6 relative"}
@@ -86,17 +85,7 @@ function Page() {
           />
         </View>
       </ScrollView>
-      <View className={"pt-8 flex space-y-3"}>
-        <View className={"flex flex-row space-x-3"}>
-          <Pressable
-            onPress={() => {
-              router.back();
-            }}
-            className={"py-3 bg-[#272727] flex rounded items-center flex-1"}
-          >
-            <Text className={"text-white font-medium"}>返回</Text>
-          </Pressable>
-        </View>
+      <View className={"pt-8 flex space-y-3 px-3"}>
         <Pressable className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}>
           <Text className={"text-black font-medium"}>立即规划</Text>
         </Pressable>

@@ -66,7 +66,12 @@ function Page() {
             <Text className={"text-white font-medium"}>历史旅行</Text>
           </Pressable>
           <View className={"h-4"}></View>
-          <Pressable className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}>
+          <Pressable
+            onPress={() => {
+              router.push('/options')
+            }}
+            className={"w-full flex items-center justify-center py-4 bg-[#272727] rounded"}
+          >
             <Text className={"text-white text-xs"}>选项</Text>
           </Pressable>
           {

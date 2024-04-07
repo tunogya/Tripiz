@@ -1,14 +1,14 @@
-import { SplashScreen } from "expo-router";
-import { Provider } from "react-redux";
-import store, { persistor } from "../store/store";
-import { Auth0Provider } from "react-native-auth0";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { PersistGate } from "redux-persist/integration/react";
-import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
-import { useEffect } from "react";
-import { Stack } from "expo-router/stack";
-import { StatusBar } from "expo-status-bar";
-import { LogLevel, OneSignal } from 'react-native-onesignal';
+import {SplashScreen} from "expo-router";
+import {Provider} from "react-redux";
+import store, {persistor} from "../store/store";
+import {Auth0Provider} from "react-native-auth0";
+import {SafeAreaProvider} from "react-native-safe-area-context";
+import {PersistGate} from "redux-persist/integration/react";
+import {useFonts, Inter_500Medium} from "@expo-google-fonts/inter";
+import {useEffect} from "react";
+import {Stack} from "expo-router/stack";
+import {StatusBar} from "expo-status-bar";
+import {LogLevel, OneSignal} from 'react-native-onesignal';
 import Constants from "expo-constants";
 
 SplashScreen.preventAutoHideAsync();
@@ -44,12 +44,37 @@ export default function RootLayout() {
       <Auth0Provider domain={domain} clientId={clientId}>
         <PersistGate loading={null} persistor={persistor}>
           <SafeAreaProvider>
-            <StatusBar style="light" />
+            <StatusBar style="light"/>
             <Stack>
-              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="index"
+                options={{
+                  title: "",
+                  headerShown: false
+                }}
+              />
               <Stack.Screen
                 name="new"
-                options={{ headerShown: false }}
+                options={{
+                  title: "新建旅行",
+                  headerTintColor: "white",
+                  headerShown: true,
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="options"
+                options={{
+                  presentation: "modal",
+                  title: "选项",
+                  headerShown: true,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
               />
             </Stack>
           </SafeAreaProvider>
