@@ -1,12 +1,13 @@
 import {router, useLocalSearchParams} from "expo-router";
 import {FlatList, Pressable, ScrollView, Text, View} from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/store";
 import moment from "moment";
-import { useEffect, useState } from "react";
-import { ProgressCircle } from "react-native-svg-charts";
+import {useEffect, useState} from "react";
+import {ProgressCircle} from "react-native-svg-charts";
 import {Ionicons} from "@expo/vector-icons";
+import Task from "../../components/Task";
 
 export function ensureString(value: string | string[]) {
   if (Array.isArray(value)) {
@@ -16,9 +17,9 @@ export function ensureString(value: string | string[]) {
 }
 
 export default function Page() {
-  const { id, canGoBack } = useLocalSearchParams();
+  const {id, canGoBack} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const { entities } = useSelector((state: RootState) => state.travel);
+  const {entities} = useSelector((state: RootState) => state.travel);
   const travel = entities?.[ensureString(id)];
   const calculateTimeLeft = () => {
     const now = moment();
@@ -26,7 +27,7 @@ export default function Page() {
       moment(travel.timestamp.end * 1000).diff(now),
     );
     if (duration.asSeconds() <= 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      return {days: 0, hours: 0, minutes: 0, seconds: 0};
     }
     return {
       days: duration.days() ? duration.days().toString().padStart(2, "0") : 0,
@@ -63,7 +64,7 @@ export default function Page() {
           }}
           className={"w-5 h-5 flex items-center justify-center"}
         >
-          <Ionicons name="chevron-back" size={20} color="white" />
+          <Ionicons name="chevron-back" size={20} color="white"/>
         </Pressable>
         <View className={"flex space-y-1 pb-3"}>
           <Text className={"text-[#A7A7A7] text-xs text-center"}>
@@ -75,7 +76,7 @@ export default function Page() {
           </Text>
         </View>
         <Pressable className={"w-5 h-5 flex items-center justify-center"}>
-          <Ionicons name="ellipsis-horizontal-sharp" size={20} color="white" />
+          <Ionicons name="ellipsis-horizontal-sharp" size={20} color="white"/>
         </Pressable>
       </View>
       <ScrollView
@@ -84,7 +85,7 @@ export default function Page() {
       >
         <View className={"relative"}>
           <ProgressCircle
-            style={{ height: 200 }}
+            style={{height: 200}}
             progress={0.7}
             progressColor={"#1ED760"}
             strokeWidth={10}
@@ -109,7 +110,10 @@ export default function Page() {
             <Text className={"text-white font-bold"}>1400</Text>
           </View>
           <View className={"flex space-y-1 items-center w-20"}>
-            <Text className={"text-[#A7A7A7] text-xs font-medium"}>已使用</Text>
+            <View className={"flex flex-row space-x-1 items-center"}>
+              <Text className={"text-[#A7A7A7] text-xs font-medium"}>已使用</Text>
+              <Ionicons name="chevron-forward" size={12} color="#A7A7A7" />
+            </View>
             <Text className={"text-white font-bold"}>600</Text>
           </View>
         </View>
@@ -119,21 +123,9 @@ export default function Page() {
           </Text>
           <FlatList
             data={travel.taskIds}
-            numColumns={3}
             scrollEnabled={false}
-            contentContainerStyle={{
-              display: "flex",
-              alignItems: "center",
-            }}
-            renderItem={({ item }) => (
-              <View className={"flex w-[30%] m-1.5 space-y-0.5"}>
-                <View className={"bg-[#292929] p-3 rounded-lg h-16"}>
-                  <Text className={"text-white"}>{item}</Text>
-                </View>
-                <Text className={"text-center text-[#A7A7A7] text-xs"}>
-                  {item}
-                </Text>
-              </View>
+            renderItem={({item}) => (
+              <Task id={item} />
             )}
           />
         </View>

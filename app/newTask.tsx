@@ -31,7 +31,7 @@ const NewTask = () => {
       available: 1000,
       shoppingIds: [],
       footPrintIds: [],
-      taskIds: [...task1.id],
+      taskIds: [task1.id],
     };
     dispatch(addOneTask(task1));
     dispatch(addOneTravel(travel));
