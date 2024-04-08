@@ -28,11 +28,11 @@ const Task: FC<{
               <Text className={"text-white truncate text-lg font-bold"}>
                 {task?.title}
               </Text>
-              <Text className={"text-xs text-[#A7A7A7]"}>
-                {task?.status === "SUCCESS" ? `任务完成时间：` : "任务未完成。"}
-              </Text>
+              {/*<Text className={"text-xs text-[#A7A7A7]"}>*/}
+              {/*  {task?.status === "SUCCESS" ? `任务完成时间：` : "任务未完成。"}*/}
+              {/*</Text>*/}
             </View>
-            <Pressable className={`border ${task?.status === "SUCCESS" ? "border-white" : "border-[#A7A7A7]"} rounded-full px-3 py-1.5`}>
+            <Pressable className={`border ${task?.status === "SUCCESS" ? "border-white" : "border-[#A7A7A7]"} rounded-full px-3 py-1`}>
               <Text className={"text-white truncate text-xs font-semibold"}>
                 {task?.status === "SUCCESS" ? "已完成" : "完成"}
               </Text>
