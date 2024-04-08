@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
+import {View, Text, ScrollView, Pressable, ActivityIndicator} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {router, useLocalSearchParams} from "expo-router";
 import {useDispatch, useSelector} from "react-redux";
@@ -91,9 +91,10 @@ const NewTask = () => {
         style={{
           paddingBottom: insets.bottom + 12,
         }}
-        className={"flex h-full bg-[#121212] px-3"}
+        className={"flex h-full bg-[#121212] px-3 py-6 space-y-3"}
       >
-        <Text className={"text-[#A7A7A7] text-center py-6"}>生成中...</Text>
+        <ActivityIndicator size="small" color="#1ED760" />
+        <Text className={"text-[#A7A7A7] text-center text-xs"}>生成中...</Text>
       </View>
     )
   }
