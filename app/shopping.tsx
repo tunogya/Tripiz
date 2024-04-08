@@ -8,6 +8,7 @@ import ShoppingItem from "../components/ShoppingItem";
 import {addOneShopping, Shopping} from "../reducers/shopping/shoppingSlice";
 import uuid from "react-native-uuid";
 import {updateOneTravel} from "../reducers/travel/travelSlice";
+import {FlashList} from "@shopify/flash-list";
 
 const Page = () => {
   const {travelId} = useLocalSearchParams()
@@ -67,10 +68,15 @@ const Page = () => {
           <Text className={"text-black font-semibold"}>记录</Text>
         </Pressable>
       </View>
-      <Text className={"text-white text-center font-semibold"}>消费历史</Text>
-      <View className={"p-3 bg-[#181818] min-h-[240px] rounded-lg"}>
-        <FlatList
-          scrollEnabled={false}
+      <View>
+        <Text className={"text-white text-center font-semibold text-lg"}>消费明细</Text>
+        <Text
+          className={"text-[#A7A7A7] text-xs text-center"}>合计 {(travel.budget - travel.available).toFixed(0)}</Text>
+      </View>
+      <View className={"px-3 py-2 bg-[#181818] min-h-[240px] rounded-lg"}>
+        <FlashList
+          estimatedItemSize={10}
+          // scrollEnabled={false}
           data={travel.shoppingIds}
           keyExtractor={(item) => item}
           renderItem={({item}) => (
@@ -78,7 +84,11 @@ const Page = () => {
           )}
           ListHeaderComponent={() => (
             <View>
-              <Text className={"text-[#A7A7A7] text-xs"}>还没有消费记录。</Text>
+              {
+                travel.shoppingIds.length === 0 && (
+                  <Text className={"text-[#A7A7A7] text-xs"}>还没有消费记录。</Text>
+                )
+              }
             </View>
           )}
         />
