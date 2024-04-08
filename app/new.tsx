@@ -5,8 +5,9 @@ import { router } from "expo-router";
 
 function Page() {
   const insets = useSafeAreaInsets();
-  const [interval, setInterval] = useState("4h");
-  const [mode, setMode] = useState("中等");
+  const [duration, setDuration] = useState("4h");
+  const [budgetLevel, setBudgetLevel] = useState("中等");
+  const [location, setLocation] = useState("");
 
   const INTERVALS = [
     "随机",
@@ -50,12 +51,12 @@ function Page() {
               <Pressable
                 key={item}
                 onPress={() => {
-                  setInterval(item);
+                  setDuration(item);
                 }}
-                className={`${item === interval ? "bg-[#1ED760]" : "bg-[#292929]"} px-3 py-1.5 rounded-full`}
+                className={`${item === duration ? "bg-[#1ED760]" : "bg-[#292929]"} px-3 py-1.5 rounded-full`}
               >
                 <Text
-                  className={`${item === interval ? "text-black" : "text-white"} text-xs`}
+                  className={`${item === duration ? "text-black" : "text-white"} text-xs`}
                 >
                   {item}
                 </Text>
@@ -72,12 +73,12 @@ function Page() {
               <Pressable
                 key={item}
                 onPress={() => {
-                  setMode(item);
+                  setBudgetLevel(item);
                 }}
-                className={`${item === mode ? "bg-[#1ED760]" : "bg-[#292929]"} px-3 py-1.5 rounded-full`}
+                className={`${item === budgetLevel ? "bg-[#1ED760]" : "bg-[#292929]"} px-3 py-1.5 rounded-full`}
               >
                 <Text
-                  className={`${item === mode ? "text-black" : "text-white"} text-xs`}
+                  className={`${item === budgetLevel ? "text-black" : "text-white"} text-xs`}
                 >
                   {item}
                 </Text>
@@ -92,13 +93,14 @@ function Page() {
             multiline={true}
             className={"bg-white p-2 rounded h-20"}
             placeholder={"上海市"}
+            onChangeText={(e) => setLocation(e)}
           />
         </View>
       </ScrollView>
       <View className={"pt-8 flex space-y-3 px-3"}>
         <Pressable
           onPress={() => {
-            router.push("newTask");
+            router.push(`newTask?duration=${duration}&location=${location}&budgetLevel=${budgetLevel}`);
           }}
           className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}
         >

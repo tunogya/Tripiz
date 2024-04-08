@@ -1,16 +1,20 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { router } from "expo-router";
-import { useDispatch } from "react-redux";
+import {router, useLocalSearchParams} from "expo-router";
+import {useDispatch, useSelector} from "react-redux";
 import { addOneTravel, Travel } from "../reducers/travel/travelSlice";
 import { addOneTask, Task } from "../reducers/task/taskSlice";
 import uuid from "react-native-uuid";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {RootState} from "../store/store";
+import {ensureString} from "./travels/[id]";
 
 const NewTask = () => {
+  const { duration, location, budgetLevel  } = useLocalSearchParams()
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const [tasks, setTasks] = useState<Task[]>([]);
+  const { key, model } = useSelector((state: RootState) => state.config)
 
   const newTravel = async () => {
     const task1: Task = {
@@ -38,6 +42,67 @@ const NewTask = () => {
     router.push(`travels/${travel.id}?canGoBack=false`);
   };
 
+  const fetchTravelPlan = async (duration: string | number, location: string, budgetLevel: string) => {
+    const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算程度为${budgetLevel}。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动。请将输出格式化为JSON对象，包含"tasks"键，指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`
+    try {
+      const response = await fetch(`https://api.openai.com/v1/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${key}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: "user",
+              content: prompt.replaceAll(`"`, `\"`),
+            },
+          ],
+          model: model.value,
+          max_tokens: 2048,
+          response_format: {
+            type: "json_object",
+          }
+        })
+      }).then((res => res.json()));
+      const content = JSON.parse(response.choices[0].message.content)
+      if (content.tasks.length > 0) {
+        setTasks(content.tasks.map((item: {
+          title: string,
+          description: string,
+          type: string,
+        }) => ({
+          id: `${uuid.v4}`,
+          type: item.type || "option",
+          title: item.title || "NaN",
+          description: item.description || "NaN",
+          status: "IDLE",
+        })))
+      } else {
+        console.log("No Tasks")
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    fetchTravelPlan(ensureString(duration), ensureString(location), ensureString(budgetLevel));
+  }, [])
+
+  if (tasks.length === 0) {
+    return (
+      <View
+        style={{
+          paddingBottom: insets.bottom + 12,
+        }}
+        className={"flex h-full bg-[#121212] px-3"}
+      >
+        <Text className={"text-white"}>生成中...</Text>
+      </View>
+    )
+  }
+
   return (
     <View
       style={{
@@ -48,17 +113,33 @@ const NewTask = () => {
       <ScrollView className={"pt-4 space-y-6"}>
         <View className={"space-y-2"}>
           <Text className={"text-[#1ED760] font-bold text-lg"}>必做任务</Text>
-          <Text className={"text-white"}>{"  "}吃一次土耳其特色早餐</Text>
-          <Text className={"text-white"}>{"  "}完成一次出海拍摄</Text>
+          {
+            tasks
+              .filter((item) => item.type === "main")
+              .map((item, index) => (
+                <Text className={"text-white"} key={index}>{"  "}{item.title}</Text>
+            ))
+          }
         </View>
         <View className={"space-y-2"}>
           <Text className={"text-red-400 font-bold text-lg"}>选做任务</Text>
-          <Text className={"text-white"}>{"  "}去一户当地人家蹭饭</Text>
-          <Text className={"text-white"}>{"  "}不用翻译软件自己存活</Text>
+          {
+            tasks
+              .filter((item) => item.type === "option")
+              .map((item, index) => (
+                <Text className={"text-white"} key={index}>{"  "}{item.title}</Text>
+              ))
+          }
         </View>
       </ScrollView>
       <View className={"space-y-3"}>
-        <Pressable className={"rounded-lg bg-[#292929] items-center"}>
+        <Pressable
+          className={"rounded-lg bg-[#292929] items-center"}
+          onPress={async () => {
+            setTasks([])
+            await fetchTravelPlan(ensureString(duration), ensureString(location), ensureString(budgetLevel));
+          }}
+        >
           <Text className={"text-white py-3 font-medium"}>重新生成</Text>
         </Pressable>
         <Pressable
