@@ -9,6 +9,7 @@ const Task: FC<{
 }> = ({ id }) => {
   const { entities } = useSelector((state: RootState) => state.task)
   const task = entities?.[id];
+
   return (
     <View className={"flex space-y-0.5 py-1.5"}>
       <View className={"bg-[#292929] rounded-lg overflow-hidden"}>

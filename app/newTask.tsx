@@ -15,7 +15,7 @@ const NewTask = () => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const [tasks, setTasks] = useState<Task[]>([]);
-  const { key, model } = useSelector((state: RootState) => state.config)
+  const { key, model } = useSelector((state: RootState) => state.config);
 
   const newTravel = async () => {
     const travel: Travel = {
@@ -67,7 +67,7 @@ const NewTask = () => {
           description: string,
           type: string,
         }) => ({
-          id: `${uuid.v4}`,
+          id: `${uuid.v4()}`,
           type: item.type || "option",
           title: item.title || "NaN",
           description: item.description || "NaN",
@@ -91,7 +91,7 @@ const NewTask = () => {
         style={{
           paddingBottom: insets.bottom + 12,
         }}
-        className={"flex h-full bg-[#121212] px-3 py-6 space-y-3"}
+        className={"flex h-full bg-[#121212] px-3 py-6 space-y-1.5"}
       >
         <ActivityIndicator size="small" color="#1ED760" />
         <Text className={"text-[#A7A7A7] text-center text-xs"}>生成中...</Text>
