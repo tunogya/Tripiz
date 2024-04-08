@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import travelReducer from "../reducers/travel/travelSlice";
 import footPrintReducer from "../reducers/footPrint/footPrintSlice";
 import taskReducer from "../reducers/task/taskSlice";
+import shoppingReducer from "../reducers/shopping/shoppingSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   travel: travelReducer,
   footPrint: footPrintReducer,
   task: taskReducer,
+  shopping: shoppingReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
