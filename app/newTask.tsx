@@ -8,6 +8,7 @@ import uuid from "react-native-uuid";
 import {useEffect, useState} from "react";
 import {RootState} from "../store/store";
 import {ensureString} from "./travels/[id]";
+import TaskItem from "../components/TaskItem";
 
 const NewTask = () => {
   const { duration, location, budgetLevel  } = useLocalSearchParams()
@@ -98,26 +99,21 @@ const NewTask = () => {
         }}
         className={"flex h-full bg-[#121212] px-3"}
       >
-        <Text className={"text-white"}>生成中...</Text>
+        <Text className={"text-[#A7A7A7] text-center py-6"}>生成中...</Text>
       </View>
     )
   }
 
   return (
-    <View
-      style={{
-        paddingBottom: insets.bottom + 12,
-      }}
-      className={"flex h-full bg-[#121212] px-3"}
-    >
-      <ScrollView className={"pt-4 space-y-6"}>
+    <View className={"flex h-full bg-[#121212] relative"}>
+      <ScrollView className={"pt-4 space-y-6 px-3"}>
         <View className={"space-y-2"}>
           <Text className={"text-[#1ED760] font-bold text-lg"}>必做任务</Text>
           {
             tasks
               .filter((item) => item.type === "main")
               .map((item, index) => (
-                <Text className={"text-white"} key={index}>{"  "}{item.title}</Text>
+              <TaskItem index={index} title={item.title} description={item.description} key={index} />
             ))
           }
         </View>
@@ -127,12 +123,21 @@ const NewTask = () => {
             tasks
               .filter((item) => item.type === "option")
               .map((item, index) => (
-                <Text className={"text-white"} key={index}>{"  "}{item.title}</Text>
+                <TaskItem index={index} title={item.title} description={item.description} key={index} />
               ))
           }
         </View>
+        <View className={"h-40"}></View>
       </ScrollView>
-      <View className={"space-y-3"}>
+      <View
+        className={"space-y-3 absolute w-full px-3 bg-[#121212EE]"}
+        style={{
+          paddingTop: 12,
+          paddingBottom: insets.bottom + 12,
+          bottom: 0,
+          left: 0,
+        }}
+      >
         <Pressable
           className={"rounded-lg bg-[#292929] items-center"}
           onPress={async () => {
