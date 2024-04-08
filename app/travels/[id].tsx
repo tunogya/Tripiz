@@ -86,7 +86,7 @@ export default function Page() {
         <View className={"relative"}>
           <ProgressCircle
             style={{height: 200}}
-            progress={0.7}
+            progress={travel.available / travel.budget}
             progressColor={"#1ED760"}
             strokeWidth={10}
           />
@@ -95,7 +95,7 @@ export default function Page() {
               "absolute w-full h-full flex items-center justify-center"
             }
           >
-            <Text className={"text-white text-3xl font-bold"}>2000</Text>
+            <Text className={"text-white text-3xl font-bold"}>{travel.budget.toFixed(0)}</Text>
             <Text className={"text-[#A7A7A7] text-xs font-bold"}>总预算</Text>
           </View>
         </View>
@@ -107,7 +107,7 @@ export default function Page() {
                 可用预算
               </Text>
             </View>
-            <Text className={"text-white font-bold"}>1400</Text>
+            <Text className={"text-white font-bold"}>{travel.available.toFixed(0)}</Text>
           </View>
           <Pressable
             className={"flex space-y-1 items-center w-20"}
@@ -119,7 +119,7 @@ export default function Page() {
               <Text className={"text-[#A7A7A7] text-xs font-medium"}>已使用</Text>
               <Ionicons name="chevron-forward" size={12} color="#A7A7A7" />
             </View>
-            <Text className={"text-white font-bold"}>600</Text>
+            <Text className={"text-white font-bold"}>{(travel.budget - travel.available).toFixed(0)}</Text>
           </Pressable>
         </View>
         <View className={"pt-6 space-y-3"}>
