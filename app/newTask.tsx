@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {router, useLocalSearchParams} from "expo-router";
 import {useDispatch, useSelector} from "react-redux";
 import { addOneTravel, Travel } from "../reducers/travel/travelSlice";
-import { addOneTask, Task } from "../reducers/task/taskSlice";
+import {addManyTasks, Task} from "../reducers/task/taskSlice";
 import uuid from "react-native-uuid";
 import {useEffect, useState} from "react";
 import {RootState} from "../store/store";
@@ -11,19 +11,13 @@ import {ensureString} from "./travels/[id]";
 import TaskItem from "../components/TaskItem";
 
 const NewTask = () => {
-  const { duration, location, budgetLevel  } = useLocalSearchParams()
+  const { duration, location, budget} = useLocalSearchParams()
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const [tasks, setTasks] = useState<Task[]>([]);
   const { key, model } = useSelector((state: RootState) => state.config)
 
   const newTravel = async () => {
-    const task1: Task = {
-      id: `${uuid.v4()}`,
-      type: "main",
-      title: "Test Task",
-      status: "IDLE",
-    };
     const travel: Travel = {
       id: `${uuid.v4()}`,
       title: new Date().toLocaleDateString(),
@@ -31,20 +25,20 @@ const NewTask = () => {
         start: Math.floor(new Date().getTime() / 1000),
         end: Math.floor(new Date().getTime() / 1000) + 4 * 60 * 60,
       },
-      budget: 1000,
+      budget: Number(budget || 0),
       costed: 0,
-      available: 1000,
+      available:  Number(budget || 0),
       shoppingIds: [],
       footPrintIds: [],
-      taskIds: [task1.id],
+      taskIds: tasks.map((i) => i.id),
     };
-    dispatch(addOneTask(task1));
+    dispatch(addManyTasks(tasks));
     dispatch(addOneTravel(travel));
     router.push(`travels/${travel.id}?canGoBack=false`);
   };
 
-  const fetchTravelPlan = async (duration: string | number, location: string, budgetLevel: string) => {
-    const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算程度为${budgetLevel}。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动。请将输出格式化为JSON对象，包含"tasks"键，指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`
+  const fetchTravelPlan = async (duration: string | number, location: string, budget: string) => {
+    const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算为${budget}当地货币。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动。请将输出格式化为JSON对象，包含"tasks"键，指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`
     try {
       const response = await fetch(`https://api.openai.com/v1/chat/completions`, {
         method: "POST",
@@ -88,7 +82,7 @@ const NewTask = () => {
   }
 
   useEffect(() => {
-    fetchTravelPlan(ensureString(duration), ensureString(location), ensureString(budgetLevel));
+    fetchTravelPlan(ensureString(duration), ensureString(location), ensureString(budget));
   }, [])
 
   if (tasks.length === 0) {
@@ -142,7 +136,7 @@ const NewTask = () => {
           className={"rounded-lg bg-[#292929] items-center"}
           onPress={async () => {
             setTasks([])
-            await fetchTravelPlan(ensureString(duration), ensureString(location), ensureString(budgetLevel));
+            await fetchTravelPlan(ensureString(duration), ensureString(location), ensureString(budget));
           }}
         >
           <Text className={"text-white py-3 font-medium"}>重新生成</Text>
