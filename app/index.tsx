@@ -105,20 +105,18 @@ function Page() {
             <Text className={"text-white text-xs"}>选项</Text>
           </Pressable>
           {user ? (
-            <View className={"space-y-3"}>
+            <View className={"flex flex-row items-center space-x-2 justify-center py-3"}>
+              <Text className={"text-[#A7A7A7] text-xs"}>
+                {user?.email}
+              </Text>
               <Pressable
+                className={"border px-2 py-0.5 rounded-full border-[#A7A7A7]"}
                 onPress={async () => {
                   await clearSession();
                 }}
-                className={
-                  "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"
-                }
               >
-                <Text className={"text-white text-xs"}>退出</Text>
+                <Text className={"text-white text-[10px] font-semibold"}>退出</Text>
               </Pressable>
-              <Text className={"text-[#A7A7A7] w-full text-center text-xs"}>
-                {user?.email}
-              </Text>
             </View>
           ) : (
             <View>
