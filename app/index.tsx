@@ -67,7 +67,7 @@ function Page() {
                 "w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"
               }
             >
-              <Text className={"text-black font-medium"}>继续旅行</Text>
+              <Text className={"text-black font-medium text-lg"}>继续旅行</Text>
               <Text className={"text-black font-medium text-xs"}>{ lastTravel.title }</Text>
             </Pressable>
           )}
