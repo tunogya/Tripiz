@@ -96,7 +96,7 @@ export default function Page() {
             }
           >
             <Text className={"text-white text-3xl font-bold"}>{travel.budget.toFixed(0)}</Text>
-            <Text className={"text-[#A7A7A7] text-xs font-bold"}>总预算</Text>
+            <Text className={"text-[#A7A7A7] text-xs font-bold"}>初始总预算</Text>
           </View>
         </View>
         <View className={"flex flex-row justify-around"}>
