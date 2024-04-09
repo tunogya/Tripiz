@@ -11,19 +11,25 @@ const TaskItem: FC<{
 
   return (
     <View className={"space-y-0.5 py-1.5"}>
-      <Pressable
-        className={"flex flex-row items-center space-x-1.5"}
-        onPress={() => {
-          setShow(!show)
-        }}
+      <View
+        className={"flex flex-row items-center justify-between space-x-1.5"}
       >
-        <Text className={"text-white font-bold"}>{index + 1}. {title}</Text>
-        <View
-          className={`${show ? "rotate-180" : ""}`}
+        <Pressable
+          onPress={() => {
+            setShow(!show)
+          }}
         >
-          <Ionicons name="chevron-down" size={16} color={show ? "#A7A7A7" : "white"} />
-        </View>
-      </Pressable>
+          <Text className={"text-white font-semibold text-lg"}>{index + 1}. {title}</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            // setShow(!show)
+          }}
+          hitSlop={4}
+        >
+          <Ionicons name="remove-circle-outline" size={20} color={"white"} />
+        </Pressable>
+      </View>
       {
         show && (
           <Text className={"text-[#A7A7A7]"}>{description}</Text>
