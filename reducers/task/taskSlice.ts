@@ -10,7 +10,6 @@ export interface Task {
   title: string;
   description?: string;
   status: string;
-  completed?: number;
 }
 
 interface TaskState extends EntityState<Task, string> {}

@@ -112,7 +112,7 @@ export default function Page() {
                 {t("available")}
               </Text>
             </View>
-            <Text className={"text-white font-bold"}>
+            <Text className={"text-white font-bold text-lg"}>
               {travel.available.toFixed(0)}
             </Text>
           </View>
@@ -128,7 +128,7 @@ export default function Page() {
               </Text>
               <Ionicons name="chevron-forward" size={12} color="#A7A7A7" />
             </View>
-            <Text className={"text-white font-bold"}>
+            <Text className={"text-white font-bold text-lg"}>
               {(travel.budget - travel.available).toFixed(0)}
             </Text>
           </Pressable>
