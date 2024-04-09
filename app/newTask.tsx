@@ -40,7 +40,7 @@ const NewTask = () => {
   const fetchTravelPlan = async (duration: string | number, location: string, budget: string) => {
     const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算为${budget}当地货币。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动。请将输出格式化为JSON对象，包含"tasks"键，指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`
     try {
-      const response = await fetch(`https://api.openai.com/v1/chat/completions`, {
+      const response = await fetch(`https://gateway.ai.cloudflare.com/v1/702151bcf1ad137360fb347e0353316c/endless-travel/openai`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${key}`,
