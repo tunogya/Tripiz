@@ -1,4 +1,6 @@
-<svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="108" height="108" fill="#121212"/>
-<path d="M34 34V74H74V34H34ZM37.3333 70.6667V37.3333H57.3333V49.5556L54 40.6667H50.6667L40.6667 67.3333H44L46.5 60.6667H57.3333V70.6667H37.3333ZM56.9185 57.3333H47.7481L52.3333 45.1111L56.9185 57.3333Z" fill="white"/>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1024" height="1024" fill="#121212"/>
+    <rect y="720" width="1024" height="48" fill="white"/>
+    <line y1="512" x2="1024" y2="512" stroke="white" stroke-width="48" stroke-dasharray="96 48"/>
+    <rect y="256" width="1024" height="48" fill="white"/>
 </svg>

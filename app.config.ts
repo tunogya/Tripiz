@@ -9,7 +9,7 @@ const config: ExpoConfig = {
   name: "Endless Travel",
   slug: "endless-travel",
   android: {
-    package: "ai.abandon.endless-travel",
+    package: "ai.abandon.endless_travel",
   },
   ios: {
     bundleIdentifier: "ai.abandon.endless-travel",

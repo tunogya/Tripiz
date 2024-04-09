@@ -27,7 +27,7 @@
       }
     },
     "android": {
-      "package": "ai.abandon.endless-travel",
+      "package": "ai.abandon.endless_travel",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
