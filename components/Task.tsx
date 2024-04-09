@@ -13,16 +13,25 @@ const Task: FC<{
   return (
     <View className={"flex space-y-0.5 py-1.5"}>
       <View
-        className={`rounded-lg overflow-hidden shadow-lg ${task?.type === "main" ? "bg-[#181818]" : "border border-[#181818]"}`}
+        className={`rounded-lg overflow-hidden shadow-lg ${task?.type === "main" ? "bg-[#292929]" : "bg-[#181818]"}`}
       >
         <View className={"p-3 space-y-3"}>
           <View className={"flex flex-row items-center justify-between"}>
             <View className={"flex"}>
-              <Text className={"text-white truncate font-bold"}>
-                {task?.title}
-              </Text>
+              <View className={'flex flex-row space-x-1.5 items-center'}>
+                <Text className={"text-white truncate font-bold"}>
+                  {task?.title}
+                </Text>
+                {
+                  task?.type === "main" ? (
+                    <Ionicons name="sparkles-sharp" size={16} color="#1ED760" />
+                  ) : (
+                    <Ionicons name="ticket" size={16} color="#A7A7A7" />
+                  )
+                }
+              </View>
               <Text className={"text-[#A7A7A7] font-semibold text-xs"}>
-                {task?.type === "main" ? "必做任务" : "选做任务"}
+                {task?.type === "main" ? "必做" : "选做"}
               </Text>
             </View>
             <Pressable
