@@ -9,8 +9,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "prettier": "prettier . --write",
-    "generate-app-icons": "npx react-native-svg-app-icon"
+    "prettier": "prettier . --write"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
@@ -66,8 +65,6 @@
     "@babel/core": "^7.20.0",
     "@types/react-native-svg-charts": "^5.0.16",
     "prettier": "3.2.4",
-    "react-native-svg-app-icon": "^0.6.1",
-    "sharp": "^0.33.3",
     "tailwindcss": "3.3.2",
     "ts-node": "^10.9.2"
   },

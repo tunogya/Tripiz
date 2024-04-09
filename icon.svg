@@ -1,6 +1,0 @@
-<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1024" height="1024" fill="#121212"/>
-    <rect y="720" width="1024" height="48" fill="white"/>
-    <line y1="512" x2="1024" y2="512" stroke="white" stroke-width="48" stroke-dasharray="96 48"/>
-    <rect y="256" width="1024" height="48" fill="white"/>
-</svg>
