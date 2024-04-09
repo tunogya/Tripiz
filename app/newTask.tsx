@@ -16,6 +16,7 @@ import { RootState } from "../store/store";
 import { ensureString } from "./travels/[id]";
 import TaskItem from "../components/TaskItem";
 import { t } from "../i18n";
+import {getLocales} from "expo-localization";
 
 const NewTask = () => {
   const { duration, location, budget } = useLocalSearchParams();
@@ -59,7 +60,7 @@ const NewTask = () => {
     location: string,
     budget: string,
   ) => {
-    const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算为${budget}当地货币。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动。这是我最近喜爱的一些任务：${recentlyLikeTasks.join(",")}，请尽量推荐一些符合我兴趣的任务。请将输出格式化为JSON对象，包含 "title" 和 "tasks"键，"title"为本次旅行的标题，"tasks" 指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`;
+    const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算为${budget}当地货币。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动。这是我最近喜爱的一些任务：${recentlyLikeTasks.join(",")}，请尽量推荐一些符合我兴趣的任务。返回时使用语言为${getLocales()[0].languageCode}。请将输出格式化为JSON对象，包含 "title" 和 "tasks"键，"title"为本次旅行的标题，"tasks" 指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`;
     try {
       const response = await fetch(`${gateway}/chat/completions`, {
         method: "POST",

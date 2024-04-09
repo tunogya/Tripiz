@@ -13,6 +13,7 @@ import Constants from "expo-constants";
 import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import "i18n";
+import {t} from "../i18n";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -52,14 +53,14 @@ export default function RootLayout() {
               <Stack.Screen
                 name="index"
                 options={{
-                  title: "首页",
+                  title: t("home"),
                   headerShown: false,
                 }}
               />
               <Stack.Screen
                 name="new"
                 options={{
-                  title: "新旅途",
+                  title: t("newTravel"),
                   headerTintColor: "white",
                   headerShown: true,
                   headerStyle: {
@@ -80,7 +81,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="newTask"
                 options={{
-                  title: "任务清单",
+                  title: t("buildTasks"),
                   headerTintColor: "white",
                   headerShown: true,
                   headerStyle: {
@@ -101,7 +102,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="options"
                 options={{
-                  title: "选项",
+                  title: t("option"),
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {
@@ -122,7 +123,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="likeTask"
                 options={{
-                  title: "已点赞的任务",
+                  title: t("likedTasks"),
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {
@@ -143,7 +144,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="optionsOpenAI"
                 options={{
-                  title: "OpenAI 配置",
+                  title: t("openaiConfig"),
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {
@@ -170,7 +171,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="history"
                 options={{
-                  title: "历史旅途",
+                  title: t(""),
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {
@@ -192,7 +193,7 @@ export default function RootLayout() {
                 name="shopping"
                 options={{
                   presentation: "modal",
-                  title: "记录开销",
+                  title: t("record"),
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {

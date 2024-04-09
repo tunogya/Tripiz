@@ -36,6 +36,4 @@ export const zh = {
   costed: "花费",
   tasks: "任务",
   noDescription: "没有描述",
-  done: "已完成",
-  undone: "未完成",
 };

@@ -1,5 +1,5 @@
 export const en = {
-  endInfo: "This journey will end after the following time.",
+  endInfo: "This journey will end after the following time",
   day: " day",
   initialBudget: "Initial Total Budget",
   available: "Available",
@@ -27,7 +27,7 @@ export const en = {
   openaiConfig: "OpenAI Config",
   likedTasks: "Tasks that have been liked",
   testAIServer: "Click to test",
-  shopping: "Consumption Amount",
+  shopping: "Amount",
   description: "Description",
   record: "Record",
   detail: "Details",
@@ -36,6 +36,4 @@ export const en = {
   costed: "Costed",
   tasks: "Tasks",
   noDescription: "No description",
-  done: "Done",
-  undone: "Undone",
 };
