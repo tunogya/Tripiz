@@ -16,11 +16,12 @@ const NewTask = () => {
   const dispatch = useDispatch();
   const [tasks, setTasks] = useState<Task[]>([]);
   const { key, model } = useSelector((state: RootState) => state.config);
+  const [title, setTitle] = useState("");
 
   const newTravel = async () => {
     const travel: Travel = {
       id: `${uuid.v4()}`,
-      title: new Date().toLocaleDateString(),
+      title: title,
       timestamp: {
         start: Math.floor(new Date().getTime() / 1000),
         end: Math.floor(new Date().getTime() / 1000) + 4 * 60 * 60,
@@ -29,7 +30,6 @@ const NewTask = () => {
       costed: 0,
       available:  Number(budget || 0),
       shoppingIds: [],
-      footPrintIds: [],
       taskIds: tasks.map((i) => i.id),
     };
     dispatch(addManyTasks(tasks));
@@ -38,9 +38,10 @@ const NewTask = () => {
   };
 
   const fetchTravelPlan = async (duration: string | number, location: string, budget: string) => {
-    const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算为${budget}当地货币。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动。请将输出格式化为JSON对象，包含"tasks"键，指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`
+    const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算为${budget}当地货币。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动。请将输出格式化为JSON对象，包含 "title" 和 "tasks"键，"title"为本次旅行的标题，"tasks" 指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`
     try {
-      const response = await fetch(`https://gateway.ai.cloudflare.com/v1/702151bcf1ad137360fb347e0353316c/endless-travel/openai`, {
+      const GATEWAY = "https://gateway.ai.cloudflare.com/v1/702151bcf1ad137360fb347e0353316c/endless-travel/openai"
+      const response = await fetch(`${GATEWAY}/chat/completions`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${key}`,
@@ -53,6 +54,7 @@ const NewTask = () => {
               content: prompt.replaceAll(`"`, `\"`),
             },
           ],
+          temperature: 1,
           model: model.value,
           max_tokens: 2048,
           response_format: {
@@ -61,6 +63,7 @@ const NewTask = () => {
         })
       }).then((res => res.json()));
       const content = JSON.parse(response.choices[0].message.content)
+      setTitle(content?.title || "NaN")
       if (content.tasks.length > 0) {
         setTasks(content.tasks.map((item: {
           title: string,
@@ -93,7 +96,7 @@ const NewTask = () => {
         }}
         className={"flex h-full bg-[#121212] px-3 py-6 space-y-1.5"}
       >
-        <ActivityIndicator size="small" color="#1ED760" />
+        <ActivityIndicator size="small" color="#A7A7A7" />
         <Text className={"text-[#A7A7A7] text-center text-xs"}>生成中...</Text>
       </View>
     )

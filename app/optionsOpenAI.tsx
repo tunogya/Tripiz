@@ -2,14 +2,18 @@ import { View, Text, TextInput, Pressable } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { setKey, setModel } from "../reducers/config/configSlice";
+import {setGateway, setKey, setModel} from "../reducers/config/configSlice";
 
 const OptionsOpenAI = () => {
-  const { model, key } = useSelector((state: RootState) => state.config);
+  const { model, key, gateway } = useSelector((state: RootState) => state.config);
   const MODELS = [
     { label: "gpt-4-turbo-preview", value: "gpt-4-turbo-preview" },
     { label: "gpt-3.5-turbo", value: "gpt-3.5-turbo" },
   ];
+  const GATEWAYS = [
+    { label: "OpenAI", value: "https://api.openai.com/v1" },
+    { label: "Cloudflare Proxy", value: "https://gateway.ai.cloudflare.com/v1/702151bcf1ad137360fb347e0353316c/endless-travel/openai" },
+  ]
   const dispatch = useDispatch();
 
   return (
@@ -17,7 +21,7 @@ const OptionsOpenAI = () => {
       className={"flex flex-1 bg-[#121212] w-full h-full space-y-6 pt-4 px-3"}
     >
       <View className={"space-y-3"}>
-        <Text className={"text-white font-medium"}>自定义API Key</Text>
+        <Text className={"text-white font-medium"}>API Key</Text>
         <TextInput
           inputAccessoryViewID={"api-keys"}
           className={"bg-white p-3 rounded-lg"}
@@ -30,7 +34,7 @@ const OptionsOpenAI = () => {
         />
       </View>
       <View className={"space-y-3"}>
-        <Text className={"text-white font-medium"}>模型</Text>
+        <Text className={"text-white font-medium"}>Model</Text>
         <Dropdown
           data={MODELS}
           value={model}
@@ -61,11 +65,38 @@ const OptionsOpenAI = () => {
           )}
         />
       </View>
-      <View className={"flex flex-row justify-end"}>
-        <Pressable hitSlop={4}>
-          <Text className={"text-white text-xs"}>点此测试服务</Text>
-        </Pressable>
+      <View className={"space-y-3"}>
+        <Text className={"text-white font-medium"}>API Gateway</Text>
+        <View className={"space-x-2 flex flex-row"}>
+          {GATEWAYS.map((item) => (
+            <Pressable
+              key={item.label}
+              onPress={() => {
+                dispatch(setGateway(item.value));
+              }}
+              className={`${item.value === gateway ? "bg-[#1ED760]" : "bg-[#292929]"} px-3 py-1.5 rounded-full`}
+            >
+              <Text
+                className={`${item.value === gateway ? "text-black" : "text-white"} text-xs`}
+              >
+                {item.label}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+        <TextInput
+          inputAccessoryViewID={"api-gateway"}
+          className={"bg-white p-3 rounded-lg"}
+          placeholder={"API Gateway"}
+          value={gateway}
+          onChangeText={(input) => {
+            dispatch(setGateway(input));
+          }}
+        />
       </View>
+      <Pressable hitSlop={4}>
+        <Text className={"text-white text-xs text-center"}>点此测试服务</Text>
+      </Pressable>
     </View>
   );
 };

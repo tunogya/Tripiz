@@ -15,7 +15,6 @@ export interface Travel {
   costed: number;
   available: number;
   shoppingIds: string[];
-  footPrintIds: string[];
   taskIds: string[];
 }
 

@@ -1,10 +1,8 @@
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { router } from "expo-router";
 import { removeAllTravels } from "../reducers/travel/travelSlice";
-import { removeAllFootPrints } from "../reducers/footPrint/footPrintSlice";
 import { removeAllTasks } from "../reducers/task/taskSlice";
 import { removeAllShopping } from "../reducers/shopping/shoppingSlice";
 import { FlashList } from "@shopify/flash-list";
@@ -31,7 +29,6 @@ const History = () => {
                 className={"flex items-center py-3"}
                 onPress={() => {
                   dispatch(removeAllTravels());
-                  dispatch(removeAllFootPrints());
                   dispatch(removeAllTasks());
                   dispatch(removeAllShopping());
                 }}

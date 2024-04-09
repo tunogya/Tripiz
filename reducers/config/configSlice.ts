@@ -4,7 +4,7 @@ export const configSlice = createSlice({
   name: "config",
   initialState: {
     language: undefined,
-    provider: undefined,
+    gateway: undefined,
     key: undefined,
     model: undefined,
   },
@@ -12,8 +12,8 @@ export const configSlice = createSlice({
     setLanguage: (state, action) => {
       state.language = action.payload;
     },
-    setProvider: (state, action) => {
-      state.provider = action.payload;
+    setGateway: (state, action) => {
+      state.gateway = action.payload;
     },
     setKey: (state, action) => {
       state.key = action.payload;
@@ -24,7 +24,7 @@ export const configSlice = createSlice({
   },
 });
 
-export const { setLanguage, setProvider, setKey, setModel } =
+export const { setLanguage, setGateway, setKey, setModel } =
   configSlice.actions;
 
 export default configSlice.reducer;

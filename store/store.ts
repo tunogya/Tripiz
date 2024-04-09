@@ -3,7 +3,6 @@ import configReducer from "reducers/config/configSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import travelReducer from "../reducers/travel/travelSlice";
-import footPrintReducer from "../reducers/footPrint/footPrintSlice";
 import taskReducer from "../reducers/task/taskSlice";
 import shoppingReducer from "../reducers/shopping/shoppingSlice";
 
@@ -16,7 +15,6 @@ const rootPersistConfig = {
 const rootReducer = combineReducers({
   config: configReducer,
   travel: travelReducer,
-  footPrint: footPrintReducer,
   task: taskReducer,
   shopping: shoppingReducer,
 });
