@@ -37,9 +37,17 @@ const Page = () => {
           className={"p-3 bg-white rounded"}
           placeholder={"0"}
           value={amount}
-          onChangeText={(e) => {
-            setAmount(e);
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9.]/g, '');
+            const split = numericValue.split('.');
+            if (split.length > 2) {
+              const decimalPart = split.pop();
+              setAmount(split.join('.') + (decimalPart ? '.' + decimalPart.replace(/\./g, '') : ''));
+            } else {
+              setAmount(numericValue);
+            }
           }}
+          keyboardType={"numeric"}
         />
       </View>
       <View className={"space-y-3"}>
