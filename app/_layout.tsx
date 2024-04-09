@@ -171,7 +171,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="history"
                 options={{
-                  title: t(""),
+                  title: t("historyTravel"),
                   headerShown: true,
                   headerTintColor: "white",
                   headerStyle: {
