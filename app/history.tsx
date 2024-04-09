@@ -15,7 +15,7 @@ const History = () => {
   const dispatch = useDispatch();
 
   return (
-    <View className={"flex h-full bg-[#121212] px-3 min-h-20"}>
+    <View className={"flex h-full bg-[#121212] px-3 min-h-20 relative"}>
       <FlashList
         data={ids.reverse()}
         estimatedItemSize={20}
@@ -23,34 +23,42 @@ const History = () => {
         renderItem={({ item }) => (
           <HistoryTravelItem travel={entities?.[item]} />
         )}
-        ListFooterComponent={() => (
+        ListHeaderComponent={() => (
           <View>
-            {ids.length > 0 ? (
-              <Pressable
-                className={"flex items-center py-3"}
-                onPress={() => {
-                  dispatch(removeAllTravels());
-                  dispatch(removeAllTasks());
-                  dispatch(removeAllShopping());
-                }}
-              >
-                <Text className={"text-red-500 text-xs font-medium"}>
-                  {t("clearAll")}
-                </Text>
-              </Pressable>
-            ) : (
-              <Text className={"text-white text-center py-4 text-xs"}>
-                {t("noHistory")}
-              </Text>
+            {ids.length === 0 && (
+              <Text className={"text-[#A7A7A7] text-center py-3"}>{t("noHistory")}</Text>
             )}
-            <View
-              style={{
-                minHeight: insets.bottom * 2,
-              }}
-            />
           </View>
         )}
+        ListFooterComponent={() => (
+          <View
+            style={{
+              minHeight: insets.bottom + 20,
+            }}
+          />
+        )}
       />
+      <View
+        className={"absolute w-full"}
+        style={{
+          bottom: insets.bottom + 12,
+        }}
+      >
+        {ids.length > 0 && (
+          <Pressable
+            className={"flex items-center"}
+            onPress={() => {
+              dispatch(removeAllTravels());
+              dispatch(removeAllTasks());
+              dispatch(removeAllShopping());
+            }}
+          >
+            <Text className={"text-red-500 text-xs font-medium text-center"}>
+              {t("clearAll")}
+            </Text>
+          </Pressable>
+        )}
+      </View>
     </View>
   );
 };
