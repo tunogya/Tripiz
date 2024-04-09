@@ -21,7 +21,7 @@ const History = () => {
         estimatedItemSize={20}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
-          <HistoryTravelItem travel={entities?.[item]} />
+          <HistoryTravelItem id={item} />
         )}
         ListHeaderComponent={() => (
           <View>
