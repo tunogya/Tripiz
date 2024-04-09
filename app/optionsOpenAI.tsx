@@ -2,18 +2,24 @@ import { View, Text, TextInput, Pressable } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import {setGateway, setKey, setModel} from "../reducers/config/configSlice";
+import { setGateway, setKey, setModel } from "../reducers/config/configSlice";
 
 const OptionsOpenAI = () => {
-  const { model, key, gateway } = useSelector((state: RootState) => state.config);
+  const { model, key, gateway } = useSelector(
+    (state: RootState) => state.config,
+  );
   const MODELS = [
     { label: "gpt-4-turbo-preview", value: "gpt-4-turbo-preview" },
     { label: "gpt-3.5-turbo", value: "gpt-3.5-turbo" },
   ];
   const GATEWAYS = [
     { label: "OpenAI", value: "https://api.openai.com/v1" },
-    { label: "Cloudflare Proxy", value: "https://gateway.ai.cloudflare.com/v1/702151bcf1ad137360fb347e0353316c/endless-travel/openai" },
-  ]
+    {
+      label: "Cloudflare Proxy",
+      value:
+        "https://gateway.ai.cloudflare.com/v1/702151bcf1ad137360fb347e0353316c/endless-travel/openai",
+    },
+  ];
   const dispatch = useDispatch();
 
   return (

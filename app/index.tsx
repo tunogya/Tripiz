@@ -19,7 +19,7 @@ function Page() {
       if (travel.timestamp.end > new Date().getTime() / 1000) {
         return travel;
       } else {
-        return null
+        return null;
       }
     } else {
       return null;
@@ -61,14 +61,16 @@ function Page() {
           {lastTravel && (
             <Pressable
               onPress={() => {
-                router.navigate(`travels/${lastTravel.id}`)
+                router.navigate(`travels/${lastTravel.id}`);
               }}
               className={
                 "w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"
               }
             >
               <Text className={"text-black font-medium text-lg"}>继续旅行</Text>
-              <Text className={"text-black font-medium text-xs"}>{ lastTravel.title }</Text>
+              <Text className={"text-black font-medium text-xs"}>
+                {lastTravel.title}
+              </Text>
             </Pressable>
           )}
           <Pressable
@@ -105,17 +107,21 @@ function Page() {
             <Text className={"text-white text-xs"}>选项</Text>
           </Pressable>
           {user ? (
-            <View className={"flex flex-row items-center space-x-2 justify-center py-3"}>
-              <Text className={"text-[#A7A7A7] text-xs"}>
-                {user?.email}
-              </Text>
+            <View
+              className={
+                "flex flex-row items-center space-x-2 justify-center py-3"
+              }
+            >
+              <Text className={"text-[#A7A7A7] text-xs"}>{user?.email}</Text>
               <Pressable
                 className={"border px-2 py-0.5 rounded-full border-[#A7A7A7]"}
                 onPress={async () => {
                   await clearSession();
                 }}
               >
-                <Text className={"text-white text-[10px] font-semibold"}>退出</Text>
+                <Text className={"text-white text-[10px] font-semibold"}>
+                  退出
+                </Text>
               </Pressable>
             </View>
           ) : (

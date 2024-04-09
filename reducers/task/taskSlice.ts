@@ -13,10 +13,10 @@ export interface Task {
   completed?: number;
 }
 
-interface TaskItemState extends EntityState<Task, string> {}
+interface TaskState extends EntityState<Task, string> {}
 
 const entityAdapter = createEntityAdapter<Task>();
-const initialState: TaskItemState = entityAdapter.getInitialState();
+const initialState: TaskState = entityAdapter.getInitialState();
 
 export const slice = createSlice({
   name: "task",

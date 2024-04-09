@@ -119,6 +119,27 @@ export default function RootLayout() {
                 }}
               />
               <Stack.Screen
+                name="likeTask"
+                options={{
+                  title: "已点赞的任务",
+                  headerShown: true,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                  headerLeft: () => (
+                    <Pressable
+                      hitSlop={4}
+                      onPress={() => {
+                        router.back();
+                      }}
+                    >
+                      <Ionicons name="chevron-back" size={20} color="white" />
+                    </Pressable>
+                  ),
+                }}
+              />
+              <Stack.Screen
                 name="optionsOpenAI"
                 options={{
                   title: "OpenAI 配置",

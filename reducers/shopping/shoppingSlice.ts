@@ -11,10 +11,10 @@ export interface Shopping {
   amount: number;
 }
 
-interface ShoppingItemState extends EntityState<Shopping, string> {}
+interface ShoppingState extends EntityState<Shopping, string> {}
 
 const entityAdapter = createEntityAdapter<Shopping>();
-const initialState: ShoppingItemState = entityAdapter.getInitialState();
+const initialState: ShoppingState = entityAdapter.getInitialState();
 
 export const slice = createSlice({
   name: "shopping",

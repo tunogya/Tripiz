@@ -4,18 +4,18 @@ import {
   EntityState,
 } from "@reduxjs/toolkit";
 
-export interface Hobby {
+export interface LikeTask {
   id: string;
   title: string;
 }
 
-interface HobbyState extends EntityState<Hobby, string> {}
+interface LikeTaskState extends EntityState<LikeTask, string> {}
 
-const entityAdapter = createEntityAdapter<Hobby>();
-const initialState: HobbyState = entityAdapter.getInitialState();
+const entityAdapter = createEntityAdapter<LikeTask>();
+const initialState: LikeTaskState = entityAdapter.getInitialState();
 
 export const slice = createSlice({
-  name: "hobby",
+  name: "like-task",
   initialState: initialState,
   reducers: {
     addOne: entityAdapter.addOne,
@@ -27,11 +27,11 @@ export const slice = createSlice({
 });
 
 export const {
-  addOne: addOneHobby,
-  removeOne: removeOneHobby,
-  updateOne: updateOneHobby,
-  removeAll: removeAllHobby,
-  addMany: addManyHobby,
+  addOne: addOneLikeTask,
+  removeOne: removeOneLikeTask,
+  updateOne: updateOneLikeTask,
+  removeAll: removeAllLikeTasks,
+  addMany: addManyLikeTasks,
 } = slice.actions;
 
 export default slice.reducer;

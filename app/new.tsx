@@ -1,5 +1,5 @@
 import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
-import {memo, useEffect, useState} from "react";
+import { memo, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 
@@ -11,29 +11,21 @@ function Page() {
   const [showDurationInput, setShowDurationInput] = useState(false);
   const [showBudgetInput, setShowBudgetInput] = useState(false);
 
-  const INTERVALS = [
-    "1h",
-    "2h",
-    "4h",
-    "6h",
-    "8h",
-    "12h",
-    "其他",
-  ];
+  const INTERVALS = ["1h", "2h", "4h", "6h", "8h", "12h", "其他"];
 
   const BUDGETS = ["100", "500", "1000", "其他"];
 
   useEffect(() => {
     if (duration === "其他") {
-      setShowDurationInput(true)
+      setShowDurationInput(true);
     }
-  }, [duration])
+  }, [duration]);
 
   useEffect(() => {
     if (budget === "其他") {
-      setShowBudgetInput(true)
+      setShowBudgetInput(true);
     }
-  }, [budget])
+  }, [budget]);
 
   return (
     <View
@@ -78,20 +70,20 @@ function Page() {
             ))}
             <View className={"w-1"}></View>
           </ScrollView>
-          {
-            showDurationInput && (
-              <View className={"px-3"}>
-                <TextInput
-                  className={"bg-white p-2 rounded"}
-                  placeholder={"1D"}
-                  onChangeText={(e) => setDuration(e)}
-                />
-              </View>
-            )
-          }
+          {showDurationInput && (
+            <View className={"px-3"}>
+              <TextInput
+                className={"bg-white p-2 rounded"}
+                placeholder={"1D"}
+                onChangeText={(e) => setDuration(e)}
+              />
+            </View>
+          )}
         </View>
         <View className={"space-y-3"}>
-          <Text className={"text-white font-medium px-3"}>旅途预算（当地货币）</Text>
+          <Text className={"text-white font-medium px-3"}>
+            旅途预算（当地货币）
+          </Text>
           <View className={"space-x-2 flex flex-row"}>
             <View className={"w-1"}></View>
             {BUDGETS.map((item) => (
@@ -114,17 +106,15 @@ function Page() {
             ))}
             <View className={"w-1"}></View>
           </View>
-          {
-            showBudgetInput && (
-              <View className={"px-3"}>
-                <TextInput
-                  className={"bg-white p-2 rounded"}
-                  placeholder={"2000"}
-                  onChangeText={(e) => setBudget(e)}
-                />
-              </View>
-            )
-          }
+          {showBudgetInput && (
+            <View className={"px-3"}>
+              <TextInput
+                className={"bg-white p-2 rounded"}
+                placeholder={"2000"}
+                onChangeText={(e) => setBudget(e)}
+              />
+            </View>
+          )}
         </View>
         <View className={"space-y-3 px-3"}>
           <Text className={"text-white font-medium"}>目的地</Text>
@@ -138,7 +128,9 @@ function Page() {
       <View className={"pt-8 flex space-y-3 px-3"}>
         <Pressable
           onPress={() => {
-            router.push(`newTask?duration=${duration}&location=${location}&budget=${budget}`);
+            router.push(
+              `newTask?duration=${duration}&location=${location}&budget=${budget}`,
+            );
           }}
           className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}
         >

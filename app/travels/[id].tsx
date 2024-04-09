@@ -1,12 +1,12 @@
-import {router, useLocalSearchParams} from "expo-router";
-import {FlatList, Pressable, ScrollView, Text, View} from "react-native";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {useSelector} from "react-redux";
-import {RootState} from "../../store/store";
+import { router, useLocalSearchParams } from "expo-router";
+import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import moment from "moment";
-import {useEffect, useState} from "react";
-import {ProgressCircle} from "react-native-svg-charts";
-import {Ionicons} from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { ProgressCircle } from "react-native-svg-charts";
+import { Ionicons } from "@expo/vector-icons";
 import Task from "../../components/Task";
 
 export function ensureString(value: string | string[]) {
@@ -17,9 +17,9 @@ export function ensureString(value: string | string[]) {
 }
 
 export default function Page() {
-  const {id, canGoBack} = useLocalSearchParams();
+  const { id, canGoBack } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const {entities} = useSelector((state: RootState) => state.travel);
+  const { entities } = useSelector((state: RootState) => state.travel);
   const travel = entities?.[ensureString(id)];
   const calculateTimeLeft = () => {
     const now = moment();
@@ -27,7 +27,7 @@ export default function Page() {
       moment(travel.timestamp.end * 1000).diff(now),
     );
     if (duration.asSeconds() <= 0) {
-      return {days: 0, hours: 0, minutes: 0, seconds: 0};
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     }
     return {
       days: duration.days() ? duration.days().toString().padStart(2, "0") : 0,
@@ -57,14 +57,14 @@ export default function Page() {
         <Pressable
           onPress={() => {
             if (canGoBack === "false") {
-              router.navigate('/')
+              router.navigate("/");
             } else {
               router.back();
             }
           }}
           className={"w-5 h-5 flex items-center justify-center"}
         >
-          <Ionicons name="chevron-back" size={20} color="white"/>
+          <Ionicons name="chevron-back" size={20} color="white" />
         </Pressable>
         <View className={"flex space-y-1 pb-3"}>
           <Text className={"text-[#A7A7A7] text-xs text-center"}>
@@ -76,7 +76,7 @@ export default function Page() {
           </Text>
         </View>
         <Pressable className={"w-5 h-5 flex items-center justify-center"}>
-          <Ionicons name="ellipsis-horizontal-sharp" size={20} color="white"/>
+          <Ionicons name="ellipsis-horizontal-sharp" size={20} color="white" />
         </Pressable>
       </View>
       <ScrollView
@@ -85,7 +85,7 @@ export default function Page() {
       >
         <View className={"relative"}>
           <ProgressCircle
-            style={{height: 200}}
+            style={{ height: 200 }}
             progress={travel.available / travel.budget}
             progressColor={"#1ED760"}
             strokeWidth={10}
@@ -95,8 +95,12 @@ export default function Page() {
               "absolute w-full h-full flex items-center justify-center"
             }
           >
-            <Text className={"text-white text-3xl font-bold"}>{travel.budget.toFixed(0)}</Text>
-            <Text className={"text-[#A7A7A7] text-xs font-bold"}>初始总预算</Text>
+            <Text className={"text-white text-3xl font-bold"}>
+              {travel.budget.toFixed(0)}
+            </Text>
+            <Text className={"text-[#A7A7A7] text-xs font-bold"}>
+              初始总预算
+            </Text>
           </View>
         </View>
         <View className={"flex flex-row justify-around"}>
@@ -107,19 +111,25 @@ export default function Page() {
                 可用预算
               </Text>
             </View>
-            <Text className={"text-white font-bold"}>{travel.available.toFixed(0)}</Text>
+            <Text className={"text-white font-bold"}>
+              {travel.available.toFixed(0)}
+            </Text>
           </View>
           <Pressable
             className={"flex space-y-1 items-center w-20"}
             onPress={() => {
-              router.navigate(`shopping?travelId=${travel.id}`)
+              router.navigate(`shopping?travelId=${travel.id}`);
             }}
           >
             <View className={"flex flex-row space-x-1 items-center"}>
-              <Text className={"text-[#A7A7A7] text-xs font-medium"}>已使用</Text>
+              <Text className={"text-[#A7A7A7] text-xs font-medium"}>
+                已使用
+              </Text>
               <Ionicons name="chevron-forward" size={12} color="#A7A7A7" />
             </View>
-            <Text className={"text-white font-bold"}>{(travel.budget - travel.available).toFixed(0)}</Text>
+            <Text className={"text-white font-bold"}>
+              {(travel.budget - travel.available).toFixed(0)}
+            </Text>
           </Pressable>
         </View>
         <View className={"pt-6 space-y-3"}>
@@ -129,9 +139,7 @@ export default function Page() {
           <FlatList
             data={travel.taskIds}
             scrollEnabled={false}
-            renderItem={({item}) => (
-              <Task id={item} />
-            )}
+            renderItem={({ item }) => <Task id={item} />}
           />
         </View>
         <View

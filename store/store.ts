@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import travelReducer from "../reducers/travel/travelSlice";
 import taskReducer from "../reducers/task/taskSlice";
 import shoppingReducer from "../reducers/shopping/shoppingSlice";
-import hobbyReducer from "../reducers/hobby/hobbySlice";
+import likeTaskReducer from "../reducers/likeTask/likeTaskSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   travel: travelReducer,
   task: taskReducer,
   shopping: shoppingReducer,
+  likeTask: likeTaskReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
