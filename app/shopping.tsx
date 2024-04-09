@@ -16,6 +16,7 @@ import { addOneShopping, Shopping } from "../reducers/shopping/shoppingSlice";
 import uuid from "react-native-uuid";
 import { updateOneTravel } from "../reducers/travel/travelSlice";
 import { FlashList } from "@shopify/flash-list";
+import {t} from "../i18n";
 
 const Page = () => {
   const { travelId } = useLocalSearchParams();
@@ -31,7 +32,7 @@ const Page = () => {
       showsVerticalScrollIndicator={false}
     >
       <View className={"space-y-3"}>
-        <Text className={"text-white font-semibold"}>消费金额</Text>
+        <Text className={"text-white font-semibold"}>{t("shopping")}</Text>
         <TextInput
           className={"p-3 bg-white rounded"}
           placeholder={"0"}
@@ -42,10 +43,10 @@ const Page = () => {
         />
       </View>
       <View className={"space-y-3"}>
-        <Text className={"text-white font-semibold"}>描述(可选)</Text>
+        <Text className={"text-white font-semibold"}>{t("description")}</Text>
         <TextInput
           className={"p-3 bg-white rounded"}
-          placeholder={"消费描述"}
+          placeholder={t("description")}
           value={description}
           onChangeText={(e) => {
             setDescription(e);
@@ -74,15 +75,15 @@ const Page = () => {
             );
           }}
         >
-          <Text className={"text-black font-semibold"}>记录</Text>
+          <Text className={"text-black font-semibold"}>{t("record")}</Text>
         </Pressable>
       </View>
       <View>
         <Text className={"text-white text-center font-semibold text-lg"}>
-          消费明细
+          {t("detail")}
         </Text>
         <Text className={"text-[#A7A7A7] text-xs text-center"}>
-          合计 {(travel.budget - travel.available).toFixed(0)}
+          {t("total")} {(travel.budget - travel.available).toFixed(0)}
         </Text>
       </View>
       <View className={"px-3 py-2 bg-[#181818] min-h-[240px] rounded-lg"}>
@@ -96,7 +97,7 @@ const Page = () => {
             <View>
               {travel.shoppingIds.length === 0 && (
                 <Text className={"text-[#A7A7A7] text-xs"}>
-                  还没有消费记录。
+                  {t("noShoppingRecords")}
                 </Text>
               )}
             </View>

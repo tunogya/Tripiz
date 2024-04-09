@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import {t} from "../i18n";
 
 export default function Page() {
   return (
@@ -11,7 +12,7 @@ export default function Page() {
         }}
         className={"px-3 flex flex-row justify-between items-center"}
       >
-        <Text className={"text-white font-medium"}>界面语言</Text>
+        <Text className={"text-white font-medium"}>{t("language")}</Text>
         <Ionicons name="chevron-forward" size={20} color="white" />
       </Pressable>
       <Pressable
@@ -20,7 +21,7 @@ export default function Page() {
         }}
         className={"px-3 flex flex-row justify-between items-center"}
       >
-        <Text className={"text-white font-medium"}>OpenAI配置</Text>
+        <Text className={"text-white font-medium"}>{t("openaiConfig")}</Text>
         <Ionicons name="chevron-forward" size={20} color="white" />
       </Pressable>
       <Pressable
@@ -29,7 +30,7 @@ export default function Page() {
         }}
         className={"px-3 flex flex-row justify-between items-center"}
       >
-        <Text className={"text-white font-medium"}>已点赞的任务</Text>
+        <Text className={"text-white font-medium"}>{t("likedTasks")}</Text>
         <Ionicons name="chevron-forward" size={20} color="white" />
       </Pressable>
     </View>

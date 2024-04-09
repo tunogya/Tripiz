@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { ProgressCircle } from "react-native-svg-charts";
 import { Ionicons } from "@expo/vector-icons";
 import Task from "../../components/Task";
+import {t} from "../../i18n";
 
 export function ensureString(value: string | string[]) {
   if (Array.isArray(value)) {
@@ -68,10 +69,10 @@ export default function Page() {
         </Pressable>
         <View className={"flex space-y-1 pb-3"}>
           <Text className={"text-[#A7A7A7] text-xs text-center"}>
-            本次旅途将在以下时间后结束
+            {t("endInfo")}
           </Text>
           <Text className={"text-white font-bold text-center"}>
-            {timeLeft.days ? `${timeLeft.days}天 ` : ""}
+            {timeLeft.days ? `${timeLeft.days}${t("day")} ` : ""}
             {timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}
           </Text>
         </View>
@@ -99,7 +100,7 @@ export default function Page() {
               {travel.budget.toFixed(0)}
             </Text>
             <Text className={"text-[#A7A7A7] text-xs font-bold"}>
-              初始总预算
+              {t("initialBudget")}
             </Text>
           </View>
         </View>
@@ -108,7 +109,7 @@ export default function Page() {
             <View className={"flex flex-row items-center space-x-1"}>
               <View className={"bg-[#1ED760] w-2 h-2 rounded-full"}></View>
               <Text className={"text-[#A7A7A7] text-xs font-medium"}>
-                可用预算
+                {t("available")}
               </Text>
             </View>
             <Text className={"text-white font-bold"}>
@@ -123,7 +124,7 @@ export default function Page() {
           >
             <View className={"flex flex-row space-x-1 items-center"}>
               <Text className={"text-[#A7A7A7] text-xs font-medium"}>
-                已使用
+                {t("used")}
               </Text>
               <Ionicons name="chevron-forward" size={12} color="#A7A7A7" />
             </View>
@@ -134,7 +135,7 @@ export default function Page() {
         </View>
         <View className={"pt-6 space-y-3"}>
           <Text className={"text-white text-center text-lg font-semibold"}>
-            所有任务
+            {t("allTasks")}
           </Text>
           <FlatList
             data={travel.taskIds}

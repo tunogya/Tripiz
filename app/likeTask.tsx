@@ -5,6 +5,7 @@ import { RootState } from "../store/store";
 import { FlashList } from "@shopify/flash-list";
 import LikeTaskItem from "../components/LikeTaskItem";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {t} from "../i18n";
 
 const LikeTask = () => {
   const { ids } = useSelector((state: RootState) => state.likeTask);
@@ -21,7 +22,7 @@ const LikeTask = () => {
           <View>
             {ids.length === 0 && (
               <Text className={"text-[#A7A7A7] text-center py-3"}>
-                还没有任何点赞哦。
+                {t("noLikeTasks")}
               </Text>
             )}
           </View>

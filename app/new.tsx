@@ -2,6 +2,7 @@ import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
 import { memo, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import {t} from "../i18n";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -11,18 +12,18 @@ function Page() {
   const [showDurationInput, setShowDurationInput] = useState(false);
   const [showBudgetInput, setShowBudgetInput] = useState(false);
 
-  const INTERVALS = ["1h", "2h", "4h", "6h", "8h", "12h", "其他"];
+  const INTERVALS = ["1h", "2h", "4h", "6h", "8h", "12h", "other"];
 
-  const BUDGETS = ["100", "500", "1000", "其他"];
+  const BUDGETS = ["100", "500", "1000", "other"];
 
   useEffect(() => {
-    if (duration === "其他") {
+    if (duration === "other") {
       setShowDurationInput(true);
     }
   }, [duration]);
 
   useEffect(() => {
-    if (budget === "其他") {
+    if (budget === "other") {
       setShowBudgetInput(true);
     }
   }, [budget]);
@@ -43,7 +44,7 @@ function Page() {
         showsVerticalScrollIndicator={false}
       >
         <View className={"space-y-3"}>
-          <Text className={"text-white font-medium px-3"}>旅途时长</Text>
+          <Text className={"text-white font-medium px-3"}>{t("duration")}</Text>
           <ScrollView
             horizontal={true}
             className={"space-x-2"}
@@ -55,7 +56,7 @@ function Page() {
                 key={item}
                 onPress={() => {
                   setDuration(item);
-                  if (item !== "其他") {
+                  if (item !== "other") {
                     setShowDurationInput(false);
                   }
                 }}
@@ -82,7 +83,7 @@ function Page() {
         </View>
         <View className={"space-y-3"}>
           <Text className={"text-white font-medium px-3"}>
-            旅途预算（当地货币）
+            {t("budget")}
           </Text>
           <View className={"space-x-2 flex flex-row"}>
             <View className={"w-1"}></View>
@@ -91,7 +92,7 @@ function Page() {
                 key={item}
                 onPress={() => {
                   setBudget(item);
-                  if (item !== "其他") {
+                  if (item !== "other") {
                     setShowBudgetInput(false);
                   }
                 }}
@@ -117,7 +118,7 @@ function Page() {
           )}
         </View>
         <View className={"space-y-3 px-3"}>
-          <Text className={"text-white font-medium"}>目的地</Text>
+          <Text className={"text-white font-medium"}>{t("location")}</Text>
           <TextInput
             className={"bg-white p-2 rounded"}
             placeholder={"上海市"}
@@ -134,7 +135,7 @@ function Page() {
           }}
           className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}
         >
-          <Text className={"text-black font-medium"}>生成任务清单</Text>
+          <Text className={"text-black font-medium"}>{t("buildTasks")}</Text>
         </Pressable>
       </View>
     </View>

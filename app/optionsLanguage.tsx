@@ -6,7 +6,7 @@ import { setLanguage } from "../reducers/config/configSlice";
 
 const LANGUAGE = [
   { label: "简体中文", value: "zh" },
-  { label: "英语", value: "en" },
+  { label: "English", value: "en" },
 ];
 
 export default function Page() {

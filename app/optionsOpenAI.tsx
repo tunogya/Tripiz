@@ -3,6 +3,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { setGateway, setKey, setModel } from "../reducers/config/configSlice";
+import {t} from "../i18n";
 
 const OptionsOpenAI = () => {
   const { model, key, gateway } = useSelector(
@@ -101,7 +102,7 @@ const OptionsOpenAI = () => {
         />
       </View>
       <Pressable hitSlop={4}>
-        <Text className={"text-white text-xs text-center"}>点此测试服务</Text>
+        <Text className={"text-white text-xs text-center"}>{t("testAIServer")}</Text>
       </Pressable>
     </View>
   );

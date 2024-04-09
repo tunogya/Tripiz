@@ -15,6 +15,7 @@ import {useEffect, useMemo, useState} from "react";
 import { RootState } from "../store/store";
 import { ensureString } from "./travels/[id]";
 import TaskItem from "../components/TaskItem";
+import {t} from "../i18n";
 
 const NewTask = () => {
   const { duration, location, budget } = useLocalSearchParams();
@@ -120,7 +121,7 @@ const NewTask = () => {
         className={"flex h-full bg-[#121212] px-3 py-6 space-y-1.5"}
       >
         <ActivityIndicator size="small" color="#A7A7A7" />
-        <Text className={"text-[#A7A7A7] text-center text-xs"}>生成中...</Text>
+        <Text className={"text-[#A7A7A7] text-center text-xs"}>{t("wait")}</Text>
       </View>
     );
   }
@@ -129,7 +130,7 @@ const NewTask = () => {
     <View className={"flex h-full bg-[#121212] relative"}>
       <ScrollView className={"pt-4 space-y-6 px-3"}>
         <View className={"space-y-2"}>
-          <Text className={"text-[#1ED760] font-bold text-lg"}>必做任务</Text>
+          <Text className={"text-[#1ED760] font-bold text-lg"}>{t("mainTask")}</Text>
           {tasks
             .filter((item) => item.type === "main")
             .map((item, index) => (
@@ -142,7 +143,7 @@ const NewTask = () => {
             ))}
         </View>
         <View className={"space-y-2"}>
-          <Text className={"text-red-400 font-bold text-lg"}>选做任务</Text>
+          <Text className={"text-red-400 font-bold text-lg"}>{t("optionTask")}</Text>
           {tasks
             .filter((item) => item.type === "option")
             .map((item, index) => (
@@ -176,13 +177,13 @@ const NewTask = () => {
             );
           }}
         >
-          <Text className={"text-white py-3 font-medium"}>重新生成</Text>
+          <Text className={"text-white py-3 font-medium"}>{t("rebuild")}</Text>
         </Pressable>
         <Pressable
           onPress={newTravel}
           className={"rounded-lg bg-[#1ED760] items-center"}
         >
-          <Text className={"text-black py-3 font-medium"}>立即启程</Text>
+          <Text className={"text-black py-3 font-medium"}>{t("go")}</Text>
         </Pressable>
       </View>
     </View>

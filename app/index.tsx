@@ -6,6 +6,7 @@ import { useAuth0 } from "react-native-auth0";
 import { OneSignal } from "react-native-onesignal";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import {t} from "../i18n";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -53,7 +54,9 @@ function Page() {
     >
       <View className={"flex flex-row items-center justify-between px-5 pb-2"}>
         <View className={"flex flex-row items-center space-x-3"}>
-          <Text className={"text-white font-bold text-xl"}>无尽旅途</Text>
+          <Text className={"text-white font-bold text-xl"}>
+            {t("EndlessTravel")}
+          </Text>
         </View>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} className={"pt-4"}>
@@ -67,7 +70,7 @@ function Page() {
                 "w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"
               }
             >
-              <Text className={"text-black font-medium text-lg"}>继续旅行</Text>
+              <Text className={"text-black font-medium text-lg"}>{t("continueTravel")}</Text>
               <Text className={"text-black font-medium text-xs"}>
                 {lastTravel.title}
               </Text>
@@ -82,7 +85,7 @@ function Page() {
             <Text
               className={`${lastTravel ? "text-white" : "text-black"} font-medium`}
             >
-              新旅途
+              {t("newTravel")}
             </Text>
           </Pressable>
           <Pressable
@@ -93,7 +96,9 @@ function Page() {
               "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"
             }
           >
-            <Text className={"text-white font-medium"}>历史旅途</Text>
+            <Text className={"text-white font-medium"}>
+              {t("historyTravel")}
+            </Text>
           </Pressable>
           <View className={"h-4"}></View>
           <Pressable
@@ -104,7 +109,7 @@ function Page() {
               "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"
             }
           >
-            <Text className={"text-white text-xs"}>选项</Text>
+            <Text className={"text-white text-xs"}>{t("option")}</Text>
           </Pressable>
           {user ? (
             <View
@@ -120,7 +125,7 @@ function Page() {
                 }}
               >
                 <Text className={"text-white text-[10px] font-semibold"}>
-                  退出
+                  {t("logout")}
                 </Text>
               </Pressable>
             </View>
@@ -134,7 +139,7 @@ function Page() {
                   "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"
                 }
               >
-                <Text className={"text-white text-xs"}>登陆账号</Text>
+                <Text className={"text-white text-xs"}>{t("login")}</Text>
               </Pressable>
             </View>
           )}

@@ -4,6 +4,7 @@ import {router} from "expo-router";
 import {Travel} from "../reducers/travel/travelSlice";
 import {Ionicons} from "@expo/vector-icons";
 import moment from "moment/moment";
+import {t} from "../i18n";
 
 const HistoryTravelItem: FC<{
   travel?: Travel;
@@ -57,7 +58,7 @@ const HistoryTravelItem: FC<{
           {
             !isEnd && (
               <Text className={"text-[#1ED760] text-xs font-bold"}>
-                {timeLeft.days ? `${timeLeft.days}天 ` : ""}
+                {timeLeft.days ? `${timeLeft.days}${t("day")} ` : ""}
                 {timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}
               </Text>
             )
@@ -73,13 +74,13 @@ const HistoryTravelItem: FC<{
                 {travel?.budget - travel.available}
               </Text>
               <Text className={"text-[#A7A7A7] text-xs font-semibold"}>
-                花费
+                {t("costed")}
               </Text>
             </View>
             <View className={'h-4 border-r border-[#A7A7A7]'} />
             <View className={"flex flex-row items-center space-x-1"}>
               <Text className={"text-white text-xl font-bold"}>2</Text>
-              <Text className={"text-[#A7A7A7] text-xs font-semibold"}>任务</Text>
+              <Text className={"text-[#A7A7A7] text-xs font-semibold"}>{t("tasks")}</Text>
             </View>
           </View>
         </View>

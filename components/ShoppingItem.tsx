@@ -3,6 +3,7 @@ import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import moment from "moment";
+import {t} from "../i18n";
 
 const ShoppingItem: FC<{
   id: string;
@@ -22,7 +23,7 @@ const ShoppingItem: FC<{
           {shopping.amount * -1}
         </Text>
         <Text className={"text-[#A7A7A7] text-xs truncate"}>
-          {shopping.description || "没有描述"}
+          {shopping.description || t("noDescription")}
         </Text>
       </View>
       <Text className={"text-[#A7A7A7] text-xs"}>

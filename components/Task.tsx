@@ -3,6 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Ionicons } from "@expo/vector-icons";
+import {t} from "../i18n";
 
 const Task: FC<{
   id: string;
@@ -31,19 +32,19 @@ const Task: FC<{
                 }
               </View>
               <Text className={"text-[#A7A7A7] font-semibold text-xs"}>
-                {task?.type === "main" ? "必做" : "选做"}
+                {task?.type === "main" ? t("mainTask") : t("optionTask")}
               </Text>
             </View>
             <Pressable
               className={`border ${task?.status === "SUCCESS" ? "border-white" : "border-[#A7A7A7]"} rounded-full px-3 py-1.5`}
             >
               <Text className={"text-white truncate text-xs font-semibold"}>
-                {task?.status === "SUCCESS" ? "已完成" : "完成"}
+                {task?.status === "SUCCESS" ? t("done") : t("undone")}
               </Text>
             </Pressable>
           </View>
           <Text className={"text-xs text-[#A7A7A7]"} numberOfLines={3}>
-            {task.description || "没有任何任务描述。"}
+            {task.description || t("noDescription")}
           </Text>
         </View>
       </View>

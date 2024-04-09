@@ -7,6 +7,7 @@ import { removeAllTasks } from "../reducers/task/taskSlice";
 import { removeAllShopping } from "../reducers/shopping/shoppingSlice";
 import { FlashList } from "@shopify/flash-list";
 import HistoryTravelItem from "../components/HistoryTravelItem";
+import {t} from "../i18n";
 
 const History = () => {
   const insets = useSafeAreaInsets();
@@ -34,12 +35,12 @@ const History = () => {
                 }}
               >
                 <Text className={"text-red-500 text-xs font-medium"}>
-                  一键清空
+                  {t("clearAll")}
                 </Text>
               </Pressable>
             ) : (
               <Text className={"text-white text-center py-4 text-xs"}>
-                没有历史
+                {t("noHistory")}
               </Text>
             )}
             <View
