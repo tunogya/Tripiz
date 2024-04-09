@@ -13,6 +13,7 @@ import Constants from "expo-constants";
 import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import "i18n";
+import I18nComponent from "../components/I18nComponent";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -48,6 +49,7 @@ export default function RootLayout() {
         <PersistGate loading={null} persistor={persistor}>
           <SafeAreaProvider>
             <StatusBar style="light" />
+            <I18nComponent />
             <Stack>
               <Stack.Screen
                 name="index"
