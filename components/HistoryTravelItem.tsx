@@ -63,19 +63,24 @@ const HistoryTravelItem: FC<{
             )
           }
         </View>
-        <View className={"flex flex-row items-center space-x-3 flex-1"}>
-          <View className={"flex flex-row items-center space-x-1"}>
-            <Text className={"text-white text-xl font-bold"}>
-              {travel?.budget - travel.available}
-            </Text>
-            <Text className={"text-[#A7A7A7] text-xs font-semibold"}>
-              花费
-            </Text>
-          </View>
-          <View className={'h-4 border-r border-[#A7A7A7]'} />
-          <View className={"flex flex-row items-center space-x-1"}>
-            <Text className={"text-white text-xl font-bold"}>2</Text>
-            <Text className={"text-[#A7A7A7] text-xs font-semibold"}>任务</Text>
+        <View>
+          <Text className={"text-[#A7A7A7] font-bold text-[10px]"}>
+            {new Date(travel?.timestamp.start * 1000).toLocaleDateString()}
+          </Text>
+          <View className={"flex flex-row items-center space-x-3 flex-1"}>
+            <View className={"flex flex-row items-center space-x-1"}>
+              <Text className={"text-white text-xl font-bold"}>
+                {travel?.budget - travel.available}
+              </Text>
+              <Text className={"text-[#A7A7A7] text-xs font-semibold"}>
+                花费
+              </Text>
+            </View>
+            <View className={'h-4 border-r border-[#A7A7A7]'} />
+            <View className={"flex flex-row items-center space-x-1"}>
+              <Text className={"text-white text-xl font-bold"}>2</Text>
+              <Text className={"text-[#A7A7A7] text-xs font-semibold"}>任务</Text>
+            </View>
           </View>
         </View>
       </View>

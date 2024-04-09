@@ -16,7 +16,7 @@ const History = () => {
   return (
     <View className={"flex h-full bg-[#121212] px-3 min-h-20"}>
       <FlashList
-        data={ids}
+        data={ids.reverse()}
         estimatedItemSize={20}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
