@@ -3,7 +3,7 @@ import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import moment from "moment";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const ShoppingItem: FC<{
   id: string;

@@ -5,7 +5,7 @@ import { RootState } from "../store/store";
 import { FlashList } from "@shopify/flash-list";
 import LikeTaskItem from "../components/LikeTaskItem";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const LikeTask = () => {
   const { ids } = useSelector((state: RootState) => state.likeTask);

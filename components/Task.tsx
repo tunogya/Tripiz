@@ -3,7 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Ionicons } from "@expo/vector-icons";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const Task: FC<{
   id: string;
@@ -19,17 +19,15 @@ const Task: FC<{
         <View className={"p-3 space-y-3"}>
           <View className={"flex flex-row items-center justify-between"}>
             <View className={"flex"}>
-              <View className={'flex flex-row space-x-1.5 items-center'}>
+              <View className={"flex flex-row space-x-1.5 items-center"}>
                 <Text className={"text-white truncate font-bold"}>
                   {task?.title}
                 </Text>
-                {
-                  task?.type === "main" ? (
-                    <Ionicons name="sparkles-sharp" size={16} color="#1ED760" />
-                  ) : (
-                    <Ionicons name="ticket" size={16} color="#A7A7A7" />
-                  )
-                }
+                {task?.type === "main" ? (
+                  <Ionicons name="sparkles-sharp" size={16} color="#1ED760" />
+                ) : (
+                  <Ionicons name="ticket" size={16} color="#A7A7A7" />
+                )}
               </View>
               <Text className={"text-[#A7A7A7] font-semibold text-xs"}>
                 {task?.type === "main" ? t("mainTask") : t("optionTask")}

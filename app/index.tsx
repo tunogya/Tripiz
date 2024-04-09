@@ -6,7 +6,7 @@ import { useAuth0 } from "react-native-auth0";
 import { OneSignal } from "react-native-onesignal";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -70,7 +70,9 @@ function Page() {
                 "w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"
               }
             >
-              <Text className={"text-black font-medium text-lg"}>{t("continueTravel")}</Text>
+              <Text className={"text-black font-medium text-lg"}>
+                {t("continueTravel")}
+              </Text>
               <Text className={"text-black font-medium text-xs"}>
                 {lastTravel.title}
               </Text>

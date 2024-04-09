@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { ProgressCircle } from "react-native-svg-charts";
 import { Ionicons } from "@expo/vector-icons";
 import Task from "../../components/Task";
-import {t} from "../../i18n";
+import { t } from "../../i18n";
 
 export function ensureString(value: string | string[]) {
   if (Array.isArray(value)) {

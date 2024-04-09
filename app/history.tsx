@@ -7,7 +7,7 @@ import { removeAllTasks } from "../reducers/task/taskSlice";
 import { removeAllShopping } from "../reducers/shopping/shoppingSlice";
 import { FlashList } from "@shopify/flash-list";
 import HistoryTravelItem from "../components/HistoryTravelItem";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const History = () => {
   const insets = useSafeAreaInsets();

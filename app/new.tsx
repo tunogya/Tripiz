@@ -2,7 +2,7 @@ import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
 import { memo, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -82,9 +82,7 @@ function Page() {
           )}
         </View>
         <View className={"space-y-3"}>
-          <Text className={"text-white font-medium px-3"}>
-            {t("budget")}
-          </Text>
+          <Text className={"text-white font-medium px-3"}>{t("budget")}</Text>
           <View className={"space-x-2 flex flex-row"}>
             <View className={"w-1"}></View>
             {BUDGETS.map((item) => (

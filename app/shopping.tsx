@@ -16,7 +16,7 @@ import { addOneShopping, Shopping } from "../reducers/shopping/shoppingSlice";
 import uuid from "react-native-uuid";
 import { updateOneTravel } from "../reducers/travel/travelSlice";
 import { FlashList } from "@shopify/flash-list";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const Page = () => {
   const { travelId } = useLocalSearchParams();
@@ -89,7 +89,6 @@ const Page = () => {
       <View className={"px-3 py-2 bg-[#181818] min-h-[240px] rounded-lg"}>
         <FlashList
           estimatedItemSize={10}
-          // scrollEnabled={false}
           data={travel.shoppingIds}
           keyExtractor={(item) => item}
           renderItem={({ item }) => <ShoppingItem id={item} />}

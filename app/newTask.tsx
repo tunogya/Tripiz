@@ -11,11 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOneTravel, Travel } from "../reducers/travel/travelSlice";
 import { addManyTasks, Task } from "../reducers/task/taskSlice";
 import uuid from "react-native-uuid";
-import {useEffect, useMemo, useState} from "react";
+import { useEffect, useMemo, useState } from "react";
 import { RootState } from "../store/store";
 import { ensureString } from "./travels/[id]";
 import TaskItem from "../components/TaskItem";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const NewTask = () => {
   const { duration, location, budget } = useLocalSearchParams();
@@ -52,7 +52,7 @@ const NewTask = () => {
       return [];
     }
     return ids.map((id) => entities[id]).slice(-10);
-  }, [ids])
+  }, [ids]);
 
   const fetchTravelPlan = async (
     duration: string | number,
@@ -121,7 +121,9 @@ const NewTask = () => {
         className={"flex h-full bg-[#121212] px-3 py-6 space-y-1.5"}
       >
         <ActivityIndicator size="small" color="#A7A7A7" />
-        <Text className={"text-[#A7A7A7] text-center text-xs"}>{t("wait")}</Text>
+        <Text className={"text-[#A7A7A7] text-center text-xs"}>
+          {t("wait")}
+        </Text>
       </View>
     );
   }
@@ -130,7 +132,9 @@ const NewTask = () => {
     <View className={"flex h-full bg-[#121212] relative"}>
       <ScrollView className={"pt-4 space-y-6 px-3"}>
         <View className={"space-y-2"}>
-          <Text className={"text-[#1ED760] font-bold text-lg"}>{t("mainTask")}</Text>
+          <Text className={"text-[#1ED760] font-bold text-lg"}>
+            {t("mainTask")}
+          </Text>
           {tasks
             .filter((item) => item.type === "main")
             .map((item, index) => (
@@ -143,7 +147,9 @@ const NewTask = () => {
             ))}
         </View>
         <View className={"space-y-2"}>
-          <Text className={"text-red-400 font-bold text-lg"}>{t("optionTask")}</Text>
+          <Text className={"text-red-400 font-bold text-lg"}>
+            {t("optionTask")}
+          </Text>
           {tasks
             .filter((item) => item.type === "option")
             .map((item, index) => (

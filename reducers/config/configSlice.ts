@@ -24,7 +24,6 @@ export const configSlice = createSlice({
   },
 });
 
-export const { setLocale, setGateway, setKey, setModel } =
-  configSlice.actions;
+export const { setLocale, setGateway, setKey, setModel } = configSlice.actions;
 
 export default configSlice.reducer;
