@@ -1,20 +1,20 @@
-import { FC, memo, useEffect, useState } from "react";
-import { Pressable, Text, View } from "react-native";
-import { router } from "expo-router";
-import { Travel } from "../reducers/travel/travelSlice";
-import { Ionicons } from "@expo/vector-icons";
+import {FC, memo, useEffect, useState} from "react";
+import {Pressable, Text, View} from "react-native";
+import {router} from "expo-router";
+import {Travel} from "../reducers/travel/travelSlice";
+import {Ionicons} from "@expo/vector-icons";
 import moment from "moment/moment";
 
 const HistoryTravelItem: FC<{
   travel?: Travel;
-}> = ({ travel }) => {
+}> = ({travel}) => {
   const calculateTimeLeft = () => {
     const now = moment();
     const duration = moment.duration(
       moment(travel.timestamp.end * 1000).diff(now),
     );
     if (duration.asSeconds() <= 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      return {days: 0, hours: 0, minutes: 0, seconds: 0};
     }
     return {
       days: duration.days() ? duration.days().toString().padStart(2, "0") : 0,
@@ -24,6 +24,8 @@ const HistoryTravelItem: FC<{
     };
   };
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  const isEnd = timeLeft.seconds === 0 && timeLeft.minutes === 0 && timeLeft.hours === 0 && timeLeft.days === 0
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -38,29 +40,43 @@ const HistoryTravelItem: FC<{
       onPress={() => {
         router.push(`travels/${travel?.id}`);
       }}
-      className={"bg-[#292929] my-1.5 rounded-lg flex flex-row overflow-hidden"}
+      className={`${isEnd ? "bg-[#181818]" : "bg-[#292929]"} my-1.5 rounded-lg flex flex-row overflow-hidden shadow-lg`}
     >
       <View
         className={
-          "h-24 w-24 bg-[#292929] shadow-lg items-center justify-center"
+          `h-20 w-20 ${isEnd ? "bg-[#181818]" : "bg-[#292929]"} shadow-lg items-center justify-center`
         }
       >
-        <Ionicons name="image-outline" size={24} color="#A7A7A7" />
+        <Ionicons name="image-outline" size={24} color="#A7A7A7"/>
       </View>
-      <View className={"p-3 space-y-2"}>
-        <Text className={"text-white font-semibold"} numberOfLines={1}>
-          {travel?.title}
-        </Text>
-        <View>
-          <Text className={"text-white text-xs font-semibold"}>
-            预算 {travel.available}/{travel?.budget} (
-            {Math.floor((travel.available / travel.budget) * 100)}%)
+      <View className={"p-3 space-y-2 flex-1 flex justify-center"}>
+        <View className={'flex flex-row items-center justify-between'}>
+          <Text className={"text-white font-semibold truncate"} numberOfLines={1}>
+            {travel?.title}
           </Text>
-          <Text className={"text-white text-xs font-semibold"}>任务 0/4</Text>
-          <Text className={"text-white text-xs font-semibold"}>
-            截止 {timeLeft.days ? `${timeLeft.days}天 ` : ""}
-            {timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}
-          </Text>
+          {
+            !isEnd && (
+              <Text className={"text-[#1ED760] text-xs font-bold"}>
+                {timeLeft.days ? `${timeLeft.days}天 ` : ""}
+                {timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}
+              </Text>
+            )
+          }
+        </View>
+        <View className={"flex flex-row items-center space-x-3 flex-1"}>
+          <View className={"flex flex-row items-center space-x-1"}>
+            <Text className={"text-white text-xl font-bold"}>
+              {travel?.budget - travel.available}
+            </Text>
+            <Text className={"text-[#A7A7A7] text-xs font-semibold"}>
+              花费
+            </Text>
+          </View>
+          <View className={'h-4 border-r border-[#A7A7A7]'} />
+          <View className={"flex flex-row items-center space-x-1"}>
+            <Text className={"text-white text-xl font-bold"}>2</Text>
+            <Text className={"text-[#A7A7A7] text-xs font-semibold"}>任务</Text>
+          </View>
         </View>
       </View>
     </Pressable>
