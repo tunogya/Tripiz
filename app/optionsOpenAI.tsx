@@ -56,7 +56,7 @@ const OptionsOpenAI = () => {
           labelField={"label"}
           valueField={"value"}
           onChange={(item) => {
-            dispatch(setModel(item));
+            dispatch(setModel(item.value));
           }}
           renderItem={(item) => (
             <View className={"px-3 py-1.5"}>

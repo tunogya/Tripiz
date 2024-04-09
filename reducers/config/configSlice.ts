@@ -4,9 +4,9 @@ export const configSlice = createSlice({
   name: "config",
   initialState: {
     language: undefined,
-    gateway: undefined,
+    gateway: "https://api.openai.com/v1",
     key: undefined,
-    model: undefined,
+    model: "gpt-3.5-turbo",
   },
   reducers: {
     setLanguage: (state, action) => {
