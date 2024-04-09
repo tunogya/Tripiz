@@ -90,7 +90,7 @@ function Page() {
             className={`w-full flex items-center justify-center py-4 ${lastTravel ? "bg-[#292929]" : "bg-[#1ED760]"} rounded-lg`}
           >
             <Text
-              className={`${lastTravel ? "text-white" : "text-black"} text-lg font-medium`}
+              className={`${lastTravel ? "text-white" : "text-black"} font-medium`}
             >
               {t("newTravel")}
             </Text>
@@ -103,7 +103,7 @@ function Page() {
               "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"
             }
           >
-            <Text className={"text-white font-medium text-lg"}>
+            <Text className={"text-white font-medium"}>
               {t("historyTravel")}
             </Text>
           </Pressable>
@@ -131,7 +131,7 @@ function Page() {
           {/*        await clearSession();*/}
           {/*      }}*/}
           {/*    >*/}
-          {/*      <Text className={"text-white text-[10px] font-semibold"}>*/}
+          {/*      <Text className={"text-white text-xs font-semibold"}>*/}
           {/*        {t("logout")}*/}
           {/*      </Text>*/}
           {/*    </Pressable>*/}

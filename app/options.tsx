@@ -5,12 +5,12 @@ import { t } from "../i18n";
 
 export default function Page() {
   return (
-    <View className={"flex flex-1 bg-[#121212] w-full h-full pt-2"}>
+    <View className={"flex flex-1 bg-[#121212] w-full h-full"}>
       <Pressable
         onPress={() => {
           router.navigate("optionsOpenAI");
         }}
-        className={"px-3 flex flex-row justify-between items-center py-2"}
+        className={"px-3 flex flex-row justify-between items-center py-3"}
       >
         <Text className={"text-white font-bold"}>{t("openaiConfig")}</Text>
         <Ionicons name="chevron-forward" size={20} color="white" />
@@ -19,7 +19,7 @@ export default function Page() {
         onPress={() => {
           router.navigate("likeTask");
         }}
-        className={"px-3 flex flex-row justify-between items-center py-2"}
+        className={"px-3 flex flex-row justify-between items-center py-3"}
       >
         <Text className={"text-white font-bold"}>{t("likedTasks")}</Text>
         <Ionicons name="chevron-forward" size={20} color="white" />

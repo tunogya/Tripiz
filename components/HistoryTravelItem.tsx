@@ -91,7 +91,7 @@ const HistoryTravelItem: FC<{
             >
               {travel?.title}
             </Text>
-            <Text className={"text-[#A7A7A7] font-bold text-[10px]"}>
+            <Text className={"text-[#A7A7A7] font-bold text-xs"}>
               {new Date(travel?.timestamp.start * 1000).toLocaleDateString()}
             </Text>
           </View>
@@ -109,7 +109,7 @@ const HistoryTravelItem: FC<{
         </View>
         <View className={"flex flex-row items-center space-x-3 flex-1"}>
           <View className={"flex flex-row items-center space-x-1.5"}>
-            <Text className={"text-[#A7A7A7] text-[10px] font-semibold"}>
+            <Text className={"text-[#A7A7A7] text-xs font-semibold"}>
               {t("costed")}
             </Text>
             <Text className={"text-white text-xl font-bold"}>
@@ -118,7 +118,7 @@ const HistoryTravelItem: FC<{
           </View>
           <View className={"h-4 border-r border-[#A7A7A7]"} />
           <View className={"flex flex-row items-center space-x-1.5"}>
-            <Text className={"text-[#A7A7A7] text-[10px] font-semibold"}>
+            <Text className={"text-[#A7A7A7] text-xs font-semibold"}>
               {t("tasks")}
             </Text>
             <Text className={"text-white text-xl font-bold"}>
