@@ -101,7 +101,7 @@ const NewTask = () => {
         console.log("No Tasks");
       }
     } catch (e) {
-      console.log(e);
+      router.navigate(`tips?title=Error&description=${e}`);
     }
   };
 

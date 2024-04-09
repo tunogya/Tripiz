@@ -12,6 +12,7 @@ function Page() {
   const insets = useSafeAreaInsets();
   const { clearSession, authorize, user } = useAuth0();
   const { ids, entities } = useSelector((state: RootState) => state.travel);
+  const { key, model, gateway } = useSelector((state: RootState) => state.config);
 
   const lastTravel = useMemo(() => {
     if (ids.length > 0) {
@@ -80,7 +81,11 @@ function Page() {
           )}
           <Pressable
             onPress={() => {
-              router.navigate("new");
+              if (!key || !model || !gateway) {
+                router.navigate(`optionsOpenAI`)
+              } else {
+                router.navigate("new");
+              }
             }}
             className={`w-full flex items-center justify-center py-4 ${lastTravel ? "bg-[#292929]" : "bg-[#1ED760]"} rounded-lg`}
           >

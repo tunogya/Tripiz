@@ -201,6 +201,17 @@ export default function RootLayout() {
                   },
                 }}
               />
+              <Stack.Screen
+                name="tips"
+                options={{
+                  presentation: "modal",
+                  headerShown: false,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
+              />
             </Stack>
           </SafeAreaProvider>
         </PersistGate>

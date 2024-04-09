@@ -36,4 +36,5 @@ export const zh = {
   costed: "花费",
   tasks: "任务",
   noDescription: "没有描述",
+  tips: "提示",
 };

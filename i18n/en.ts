@@ -36,4 +36,5 @@ export const en = {
   costed: "Costed",
   tasks: "Tasks",
   noDescription: "No description",
+  tips: "Tips",
 };
