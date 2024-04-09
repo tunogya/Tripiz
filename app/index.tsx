@@ -113,38 +113,38 @@ function Page() {
           >
             <Text className={"text-white text-xs"}>{t("option")}</Text>
           </Pressable>
-          {user ? (
-            <View
-              className={
-                "flex flex-row items-center space-x-2 justify-center py-3"
-              }
-            >
-              <Text className={"text-[#A7A7A7] text-xs"}>{user?.email}</Text>
-              <Pressable
-                className={"border px-2 py-0.5 rounded-full border-[#A7A7A7]"}
-                onPress={async () => {
-                  await clearSession();
-                }}
-              >
-                <Text className={"text-white text-[10px] font-semibold"}>
-                  {t("logout")}
-                </Text>
-              </Pressable>
-            </View>
-          ) : (
-            <View>
-              <Pressable
-                onPress={async () => {
-                  await logIn();
-                }}
-                className={
-                  "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"
-                }
-              >
-                <Text className={"text-white text-xs"}>{t("login")}</Text>
-              </Pressable>
-            </View>
-          )}
+          {/*{user ? (*/}
+          {/*  <View*/}
+          {/*    className={*/}
+          {/*      "flex flex-row items-center space-x-2 justify-center py-3"*/}
+          {/*    }*/}
+          {/*  >*/}
+          {/*    <Text className={"text-[#A7A7A7] text-xs"}>{user?.email}</Text>*/}
+          {/*    <Pressable*/}
+          {/*      className={"border px-2 py-0.5 rounded-full border-[#A7A7A7]"}*/}
+          {/*      onPress={async () => {*/}
+          {/*        await clearSession();*/}
+          {/*      }}*/}
+          {/*    >*/}
+          {/*      <Text className={"text-white text-[10px] font-semibold"}>*/}
+          {/*        {t("logout")}*/}
+          {/*      </Text>*/}
+          {/*    </Pressable>*/}
+          {/*  </View>*/}
+          {/*) : (*/}
+          {/*  <View>*/}
+          {/*    <Pressable*/}
+          {/*      onPress={async () => {*/}
+          {/*        await logIn();*/}
+          {/*      }}*/}
+          {/*      className={*/}
+          {/*        "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"*/}
+          {/*      }*/}
+          {/*    >*/}
+          {/*      <Text className={"text-white text-xs"}>{t("login")}</Text>*/}
+          {/*    </Pressable>*/}
+          {/*  </View>*/}
+          {/*)}*/}
         </View>
       </ScrollView>
     </View>
