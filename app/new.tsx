@@ -65,7 +65,7 @@ function Page() {
                 className={`${item === duration ? "bg-[#1ED760]" : "bg-[#292929]"} px-3 py-1.5 rounded-full`}
               >
                 <Text
-                  className={`${item === duration ? "text-black" : "text-white"} text-xs`}
+                  className={`${item === duration ? "text-black" : "text-white"}`}
                 >
                   {item}
                 </Text>
@@ -76,7 +76,7 @@ function Page() {
           {showDurationInput && (
             <View className={"px-3"}>
               <TextInput
-                className={"bg-white p-2 rounded"}
+                className={"bg-white p-3 rounded"}
                 placeholder={"1D"}
                 onChangeText={(e) => setDuration(e)}
               />
@@ -99,7 +99,7 @@ function Page() {
                 className={`${item === budget ? "bg-[#1ED760]" : "bg-[#292929]"} px-3 py-1.5 rounded-full`}
               >
                 <Text
-                  className={`${item === budget ? "text-black" : "text-white"} text-xs`}
+                  className={`${item === budget ? "text-black" : "text-white"}`}
                 >
                   {item}
                 </Text>
@@ -110,7 +110,7 @@ function Page() {
           {showBudgetInput && (
             <View className={"px-3"}>
               <TextInput
-                className={"bg-white p-2 rounded"}
+                className={"bg-white p-3 rounded"}
                 placeholder={"2000"}
                 onChangeText={(text) => {
                   const numericValue = text.replace(/[^0-9.]/g, '');
@@ -130,7 +130,7 @@ function Page() {
         <View className={"space-y-3 px-3"}>
           <Text className={"text-white font-medium"}>{t("location")}</Text>
           <TextInput
-            className={"bg-white p-2 rounded"}
+            className={"bg-white p-3 rounded"}
             placeholder={"..."}
             onChangeText={(e) => setLocation(e)}
           />

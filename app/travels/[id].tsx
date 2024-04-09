@@ -77,7 +77,7 @@ export default function Page() {
           </Text>
         </View>
         <Pressable className={"w-5 h-5 flex items-center justify-center"}>
-          <Ionicons name="ellipsis-horizontal-sharp" size={20} color="white" />
+          {/*<Ionicons name="ellipsis-horizontal-sharp" size={20} color="white" />*/}
         </Pressable>
       </View>
       <ScrollView
@@ -108,7 +108,7 @@ export default function Page() {
           <View className={"flex space-y-1 items-center w-20"}>
             <View className={"flex flex-row items-center space-x-1"}>
               <View className={"bg-[#1ED760] w-2 h-2 rounded-full"}></View>
-              <Text className={"text-[#A7A7A7] text-xs font-medium"}>
+              <Text className={"text-[#A7A7A7] text-xs font-bold"}>
                 {t("available")}
               </Text>
             </View>
@@ -123,7 +123,7 @@ export default function Page() {
             }}
           >
             <View className={"flex flex-row space-x-1 items-center"}>
-              <Text className={"text-[#A7A7A7] text-xs font-medium"}>
+              <Text className={"text-[#A7A7A7] text-xs font-bold"}>
                 {t("used")}
               </Text>
               <Ionicons name="chevron-forward" size={12} color="#A7A7A7" />

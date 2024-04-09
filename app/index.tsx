@@ -68,7 +68,7 @@ function Page() {
                 router.navigate(`travels/${lastTravel.id}`);
               }}
               className={
-                "w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-lg"
+                "w-full flex items-center justify-center py-4 bg-[#1ED760] rounded-xl"
               }
             >
               <Text className={"text-black font-medium text-lg"}>
@@ -90,7 +90,7 @@ function Page() {
             className={`w-full flex items-center justify-center py-4 ${lastTravel ? "bg-[#292929]" : "bg-[#1ED760]"} rounded-lg`}
           >
             <Text
-              className={`${lastTravel ? "text-white" : "text-black"} font-medium`}
+              className={`${lastTravel ? "text-white" : "text-black"} text-lg font-medium`}
             >
               {t("newTravel")}
             </Text>
@@ -103,7 +103,7 @@ function Page() {
               "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"
             }
           >
-            <Text className={"text-white font-medium"}>
+            <Text className={"text-white font-medium text-lg"}>
               {t("historyTravel")}
             </Text>
           </Pressable>
@@ -116,7 +116,7 @@ function Page() {
               "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"
             }
           >
-            <Text className={"text-white text-xs"}>{t("option")}</Text>
+            <Text className={"text-white font-semibold"}>{t("option")}</Text>
           </Pressable>
           {/*{user ? (*/}
           {/*  <View*/}

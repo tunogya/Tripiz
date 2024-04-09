@@ -28,7 +28,7 @@ const OptionsOpenAI = () => {
       className={"flex flex-1 bg-[#121212] w-full h-full space-y-6 pt-4 px-3"}
     >
       <View className={"space-y-3"}>
-        <Text className={"text-white font-medium"}>API Key</Text>
+        <Text className={"text-white font-bold"}>API Key</Text>
         <TextInput
           inputAccessoryViewID={"api-keys"}
           className={"bg-white p-3 rounded-lg"}
@@ -41,7 +41,7 @@ const OptionsOpenAI = () => {
         />
       </View>
       <View className={"space-y-3"}>
-        <Text className={"text-white font-medium"}>Model</Text>
+        <Text className={"text-white font-bold"}>Model</Text>
         <Dropdown
           data={MODELS}
           value={model}
@@ -73,7 +73,7 @@ const OptionsOpenAI = () => {
         />
       </View>
       <View className={"space-y-3"}>
-        <Text className={"text-white font-medium"}>API Gateway</Text>
+        <Text className={"text-white font-bold"}>API Gateway</Text>
         <View className={"space-x-2 flex flex-row"}>
           {GATEWAYS.map((item) => (
             <Pressable
@@ -101,11 +101,6 @@ const OptionsOpenAI = () => {
           }}
         />
       </View>
-      <Pressable hitSlop={4}>
-        <Text className={"text-white text-xs text-center"}>
-          {t("testAIServer")}
-        </Text>
-      </Pressable>
     </View>
   );
 };

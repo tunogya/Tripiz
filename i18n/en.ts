@@ -1,7 +1,7 @@
 export const en = {
   endInfo: "This journey will end after the following time",
   day: " day",
-  initialBudget: "Initial Total Budget",
+  initialBudget: "Initial Budget",
   available: "Available",
   used: "Used",
   allTasks: "All tasks",

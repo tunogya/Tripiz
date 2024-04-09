@@ -4,7 +4,6 @@ import {
   TextInput,
   Pressable,
   ScrollView,
-  FlatList,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
@@ -32,7 +31,7 @@ const Page = () => {
       showsVerticalScrollIndicator={false}
     >
       <View className={"space-y-3"}>
-        <Text className={"text-white font-semibold"}>{t("shopping")}</Text>
+        <Text className={"text-white font-bold"}>{t("shopping")}</Text>
         <TextInput
           className={"p-3 bg-white rounded"}
           placeholder={"0"}
@@ -51,7 +50,7 @@ const Page = () => {
         />
       </View>
       <View className={"space-y-3"}>
-        <Text className={"text-white font-semibold"}>{t("description")}</Text>
+        <Text className={"text-white font-bold"}>{t("description")}</Text>
         <TextInput
           className={"p-3 bg-white rounded"}
           placeholder={t("description")}
