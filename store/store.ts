@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import travelReducer from "../reducers/travel/travelSlice";
 import taskReducer from "../reducers/task/taskSlice";
 import shoppingReducer from "../reducers/shopping/shoppingSlice";
+import hobbyReducer from "../reducers/hobby/hobbySlice";
 
 const rootPersistConfig = {
   key: "root",
