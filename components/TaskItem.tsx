@@ -22,10 +22,12 @@ const TaskItem: FC<{
           onPress={() => {
             setShow(!show);
           }}
+          className={"flex flex-row items-center space-x-0.5"}
         >
           <Text className={"text-white font-semibold text-lg"}>
             {index + 1}. {title}
           </Text>
+          <Ionicons name="information-circle" size={16} color={"#A7A7A7"} />
         </Pressable>
         <View className={"flex flex-row items-center space-x-3"}>
           <Pressable
