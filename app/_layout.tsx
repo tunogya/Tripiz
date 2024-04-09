@@ -13,7 +13,7 @@ import Constants from "expo-constants";
 import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import "i18n";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 SplashScreen.preventAutoHideAsync();
 

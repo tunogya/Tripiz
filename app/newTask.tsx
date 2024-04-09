@@ -16,7 +16,7 @@ import { RootState } from "../store/store";
 import { ensureString } from "./travels/[id]";
 import TaskItem from "../components/TaskItem";
 import { t } from "../i18n";
-import {getLocales} from "expo-localization";
+import { getLocales } from "expo-localization";
 
 const NewTask = () => {
   const { duration, location, budget } = useLocalSearchParams();

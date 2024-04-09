@@ -1,10 +1,10 @@
-import {FC, memo, useEffect, useMemo, useState} from "react";
+import { FC, memo, useEffect, useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { router } from "expo-router";
 import moment from "moment/moment";
 import { t } from "../i18n";
-import {useSelector} from "react-redux";
-import {RootState} from "../store/store";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const HistoryTravelItem: FC<{
   id: string;
@@ -32,7 +32,9 @@ const HistoryTravelItem: FC<{
 
   const calculateDuration = () => {
     const duration = moment.duration(
-      moment(travel.timestamp.end * 1000).diff(moment(travel.timestamp.start * 1000)),
+      moment(travel.timestamp.end * 1000).diff(
+        moment(travel.timestamp.start * 1000),
+      ),
     );
     return {
       days: duration.days() ? duration.days().toString().padStart(2, "0") : 0,
@@ -40,7 +42,7 @@ const HistoryTravelItem: FC<{
       minutes: duration.minutes().toString().padStart(2, "0"),
       seconds: duration.seconds().toString().padStart(2, "0"),
     };
-  }
+  };
 
   const duration = calculateDuration();
 
@@ -66,7 +68,7 @@ const HistoryTravelItem: FC<{
       }
     }
     return sum;
-  }, [tasks])
+  }, [tasks]);
 
   return (
     <Pressable
@@ -119,7 +121,9 @@ const HistoryTravelItem: FC<{
             <Text className={"text-[#A7A7A7] text-[10px] font-semibold"}>
               {t("tasks")}
             </Text>
-            <Text className={"text-white text-xl font-bold"}>{calculateDoneTasks}</Text>
+            <Text className={"text-white text-xl font-bold"}>
+              {calculateDoneTasks}
+            </Text>
           </View>
         </View>
       </View>

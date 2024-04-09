@@ -20,13 +20,13 @@ const History = () => {
         data={ids.reverse()}
         estimatedItemSize={20}
         keyExtractor={(item) => item}
-        renderItem={({ item }) => (
-          <HistoryTravelItem id={item} />
-        )}
+        renderItem={({ item }) => <HistoryTravelItem id={item} />}
         ListHeaderComponent={() => (
           <View>
             {ids.length === 0 && (
-              <Text className={"text-[#A7A7A7] text-center py-3"}>{t("noHistory")}</Text>
+              <Text className={"text-[#A7A7A7] text-center py-3"}>
+                {t("noHistory")}
+              </Text>
             )}
           </View>
         )}
