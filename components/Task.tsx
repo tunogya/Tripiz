@@ -104,7 +104,7 @@ const Task: FC<{
                             title: t("taskCompleted"),
                             body: task.title,
                           },
-                          trigger: { seconds: 0 },
+                          trigger: { seconds: 1 },
                         });
                         dispatch(
                           updateOneTask({

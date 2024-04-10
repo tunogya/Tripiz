@@ -51,7 +51,7 @@ const NewTask = () => {
         title: t("newTravelSuccess"),
         body: travel.title,
       },
-      trigger: { seconds: 0 },
+      trigger: { seconds: 1 },
     });
     router.push(`travels/${travel.id}?canGoBack=false`);
     await scheduleNotificationAsync({
