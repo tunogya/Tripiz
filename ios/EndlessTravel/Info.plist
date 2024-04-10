@@ -95,7 +95,7 @@
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Scan credit card.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
