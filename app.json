@@ -23,7 +23,21 @@
         "NSCameraUsageDescription": "Scan credit card.",
         "ITSAppUsesNonExemptEncryption": false,
         "UIViewControllerBasedStatusBarAppearance": "YES",
-        "LSApplicationQueriesSchemes": ["http", "https"]
+        "LSApplicationQueriesSchemes": ["http", "https"],
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPICategorySystemBootTime": ["35F9.1"]
+          },
+          {
+            "NSPrivacyAccessedAPICategoryDiskSpace": ["E174.1"]
+          },
+          {
+            "NSPrivacyAccessedAPICategoryFileTimestamp": ["0A2A.1"]
+          },
+          {
+            "NSPrivacyAccessedAPICategoryUserDefaults": ["C56D.1"]
+          }
+        ]
       }
     },
     "android": {
