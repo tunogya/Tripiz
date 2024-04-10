@@ -153,37 +153,44 @@ function Page() {
           )}
         </View>
         <View className={"space-y-3 px-3"}>
-          <Text className={"text-white font-medium"}>{t("location")}</Text>
-          {allowLocation && (
-            <Pressable
-              onPress={async () => {
-                const { coords } = await getCurrentPositionAsync();
-                let reverseGeocode = await reverseGeocodeAsync({
-                  latitude: coords.latitude,
-                  longitude: coords.latitude,
-                });
-                if (reverseGeocode.length > 0) {
-                  const { city, street, region, postalCode, country } =
-                    reverseGeocode[0];
-                  setLocation(
-                    `${street}, ${city}, ${region}, ${postalCode}, ${country}`,
-                  );
-                } else {
-                  setLocation(
-                    `latitude: ${coords.latitude}, longitude: ${coords.longitude}`,
-                  );
-                }
-              }}
-              className={`bg-[#292929] px-3 py-1.5 rounded-full`}
-            >
-              <Text className={`"text-white"`}>{t("getCurrentLocation")}</Text>
-            </Pressable>
-          )}
+          <View className={"flex flex-row justify-between"}>
+            <Text className={"text-white font-medium"}>{t("location")}</Text>
+            <View className={'flex flex-row items-center'}>
+              {allowLocation && (
+                <Pressable
+                  onPress={async () => {
+                    const { coords } = await getCurrentPositionAsync();
+                    let reverseGeocode = await reverseGeocodeAsync({
+                      latitude: coords.latitude,
+                      longitude: coords.latitude,
+                    });
+                    if (reverseGeocode.length > 0) {
+                      const { city, street, region, postalCode, country } =
+                        reverseGeocode[0];
+                      setLocation(
+                        `${street}, ${city}, ${region}, ${postalCode}, ${country}`,
+                      );
+                    } else {
+                      setLocation(
+                        `latitude: ${coords.latitude}, longitude: ${coords.longitude}`,
+                      );
+                    }
+                  }}
+                >
+                  <Text className={`text-white text-xs font-semibold underline`}>{t("getCurrentLocation")}</Text>
+                </Pressable>
+              )}
+            </View>
+          </View>
           <TextInput
+            multiline={true}
+            maxLength={40}
             className={"bg-white p-3 rounded"}
             placeholder={"..."}
+            value={location}
             onChangeText={(e) => setLocation(e)}
           />
+
         </View>
       </ScrollView>
       <View className={"pt-8 flex space-y-3 px-3"}>
