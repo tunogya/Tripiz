@@ -14,11 +14,6 @@ Notifications.setNotificationHandler({
   }),
 });
 
-function handleRegistrationError(errorMessage: string) {
-  alert(errorMessage);
-  throw new Error(errorMessage);
-}
-
 async function registerForPushNotificationsAsync() {
   if (Platform.OS === "android") {
     Notifications.setNotificationChannelAsync("default", {
@@ -38,16 +33,13 @@ async function registerForPushNotificationsAsync() {
       finalStatus = status;
     }
     if (finalStatus !== "granted") {
-      handleRegistrationError(
-        "Permission not granted to get push token for push notification!",
-      );
       return;
     }
     const projectId =
       Constants?.expoConfig?.extra?.eas?.projectId ??
       Constants?.easConfig?.projectId;
     if (!projectId) {
-      handleRegistrationError("Project ID not found");
+      return;
     }
     try {
       const pushTokenString = (
@@ -58,10 +50,10 @@ async function registerForPushNotificationsAsync() {
       console.log(pushTokenString);
       return pushTokenString;
     } catch (e: unknown) {
-      handleRegistrationError(`${e}`);
+      return;
     }
   } else {
-    handleRegistrationError("Must use physical device for push notifications");
+    return;
   }
 }
 
