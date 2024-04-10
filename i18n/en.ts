@@ -41,4 +41,5 @@ export const en = {
   travelEnded: "🚩The travel has ended!",
   taskCompleted: "🎉Task completed",
   getCurrentLocation: "Get current location",
+  preference: "Personal Preference",
 };

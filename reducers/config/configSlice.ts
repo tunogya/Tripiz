@@ -7,8 +7,12 @@ export const configSlice = createSlice({
     gateway: "https://api.openai.com/v1",
     key: undefined,
     model: "gpt-3.5-turbo",
+    preference: "",
   },
   reducers: {
+    setPreference: (state, action) => {
+      state.preference = action.payload;
+    },
     setExpoPushToken: (state, action) => {
       state.expoPushToken = action.payload;
     },
@@ -24,7 +28,7 @@ export const configSlice = createSlice({
   },
 });
 
-export const { setGateway, setKey, setModel, setExpoPushToken } =
+export const { setGateway, setKey, setModel, setExpoPushToken, setPreference } =
   configSlice.actions;
 
 export default configSlice.reducer;

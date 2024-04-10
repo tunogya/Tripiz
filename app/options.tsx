@@ -24,6 +24,15 @@ export default function Page() {
         <Text className={"text-white font-bold"}>{t("likedTasks")}</Text>
         <Ionicons name="chevron-forward" size={20} color="white" />
       </Pressable>
+      <Pressable
+        onPress={() => {
+          router.navigate("preference");
+        }}
+        className={"px-3 flex flex-row justify-between items-center py-3"}
+      >
+        <Text className={"text-white font-bold"}>{t("preference")}</Text>
+        <Ionicons name="chevron-forward" size={20} color="white" />
+      </Pressable>
     </View>
   );
 }

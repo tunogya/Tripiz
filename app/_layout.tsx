@@ -163,6 +163,7 @@ export default function RootLayout() {
                 title: t("historyTravel"),
                 headerShown: true,
                 headerTintColor: "white",
+                gestureEnabled: false,
                 headerStyle: {
                   backgroundColor: "#121212",
                 },
@@ -195,6 +196,18 @@ export default function RootLayout() {
               options={{
                 presentation: "modal",
                 headerShown: false,
+                headerTintColor: "white",
+                headerStyle: {
+                  backgroundColor: "#121212",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="preference"
+              options={{
+                presentation: "modal",
+                title: t("preference"),
+                headerShown: true,
                 headerTintColor: "white",
                 headerStyle: {
                   backgroundColor: "#121212",

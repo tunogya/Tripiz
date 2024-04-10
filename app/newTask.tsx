@@ -189,7 +189,7 @@ const NewTask = () => {
         }}
       >
         <Pressable
-          className={"rounded-lg bg-[#292929] items-center"}
+          className={"rounded-lg items-center"}
           onPress={async () => {
             setTasks([]);
             await fetchTravelPlan(
@@ -199,13 +199,13 @@ const NewTask = () => {
             );
           }}
         >
-          <Text className={"text-white py-3 font-medium"}>{t("rebuild")}</Text>
+          <Text className={"text-white py-3 font-bold"}>{t("rebuild")}</Text>
         </Pressable>
         <Pressable
           onPress={newTravel}
           className={"rounded-lg bg-[#1ED760] items-center"}
         >
-          <Text className={"text-black py-3 font-medium"}>{t("go")}</Text>
+          <Text className={"text-black py-3 font-bold"}>{t("go")}</Text>
         </Pressable>
       </View>
     </View>

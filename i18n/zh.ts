@@ -41,4 +41,5 @@ export const zh = {
   travelEnded: "🚩旅途已结束!",
   taskCompleted: "🎉任务已完成",
   getCurrentLocation: "获取当前位置",
+  preference: "个人旅行偏好",
 };

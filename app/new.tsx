@@ -203,6 +203,14 @@ function Page() {
         </View>
       </ScrollView>
       <View className={"pt-8 flex space-y-3 px-3"}>
+        <Pressable
+          onPress={() => {
+            router.push(`preference`);
+          }}
+          className={"py-3 w-full flex rounded items-center"}
+        >
+          <Text className={"text-white font-bold"}>{t("preference")}</Text>
+        </Pressable>
         {!disabled && (
           <Pressable
             onPress={() => {
@@ -212,7 +220,7 @@ function Page() {
             }}
             className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}
           >
-            <Text className={"text-black font-medium"}>{t("buildTasks")}</Text>
+            <Text className={"text-black font-bold"}>{t("buildTasks")}</Text>
           </Pressable>
         )}
       </View>
