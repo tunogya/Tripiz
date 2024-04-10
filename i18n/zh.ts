@@ -23,7 +23,7 @@ export const zh = {
   mainTask: "必做任务",
   optionTask: "选做任务",
   rebuild: "重新生成",
-  go: "立即启程",
+  go: "立即挑战",
   openaiConfig: "OpenAI 配置",
   likedTasks: "已点赞的任务",
   testAIServer: "点此测试服务",
