@@ -5,9 +5,9 @@ import { ExpoConfig } from "expo/config";
 // import { ExpoConfig } from '@expo/config-types';
 
 const config: ExpoConfig = {
-  scheme: "tripin",
-  name: "TripIn",
-  slug: "tripin",
+  scheme: "tripiz",
+  name: "TripIz",
+  slug: "tripiz",
   android: {
     package: "ai.abandon.tripin",
   },
