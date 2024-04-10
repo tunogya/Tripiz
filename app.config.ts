@@ -17,7 +17,7 @@ const config: ExpoConfig = {
   plugins: ["expo-localization", "expo-router"],
   extra: {
     eas: {
-      projectId: "560098d9-8c5b-4575-a97e-2acce22e7ed4",
+      projectId: "2ea4444b-6c97-48cb-8372-92bbdc477513",
     },
   },
 };
