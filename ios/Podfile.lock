@@ -7,6 +7,8 @@ PODS:
     - ExpoModulesCore
   - EXFont (11.10.3):
     - ExpoModulesCore
+  - EXLocation (16.5.5):
+    - ExpoModulesCore
   - EXNotifications (0.27.6):
     - ExpoModulesCore
   - Expo (50.0.14):
@@ -1155,6 +1157,7 @@ DEPENDENCIES:
   - EXApplication (from `../node_modules/expo-application/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXFont (from `../node_modules/expo-font/ios`)
+  - EXLocation (from `../node_modules/expo-location/ios`)
   - EXNotifications (from `../node_modules/expo-notifications/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoBlur (from `../node_modules/expo-blur/ios`)
@@ -1249,6 +1252,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-constants/ios"
   EXFont:
     :path: "../node_modules/expo-font/ios"
+  EXLocation:
+    :path: "../node_modules/expo-location/ios"
   EXNotifications:
     :path: "../node_modules/expo-notifications/ios"
   Expo:
@@ -1393,6 +1398,7 @@ SPEC CHECKSUMS:
   EXApplication: 137189a3f149b4e8e546884629392c3efc94cbd3
   EXConstants: 988aa430ca0f76b43cd46b66e7fae3287f9cc2fc
   EXFont: f20669cb266ef48b004f1eb1f2b20db96cd1df9f
+  EXLocation: a631bd8dc4e7db986fb27edb7fc9ea8174ebe249
   EXNotifications: e11f0e9a5b657c064a481a5d522f3bc5a07bf7cd
   Expo: e01a77c6fa4bc80a6d1bb949cda1d12d21044abd
   ExpoBlur: e832d874bd94afc0645daddbd3162ec1ce172080
