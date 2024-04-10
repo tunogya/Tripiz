@@ -35,7 +35,11 @@ const Task: FC<{
                 className={"flex flex-row items-center justify-between w-full"}
               >
                 <View className={"flex flex-row space-x-1.5 items-center"}>
-                  <Text className={"text-white truncate font-bold w-64"} lineBreakMode={"tail"} numberOfLines={1}>
+                  <Text
+                    className={"text-white truncate font-bold w-64"}
+                    lineBreakMode={"tail"}
+                    numberOfLines={1}
+                  >
                     {task?.title}
                   </Text>
                 </View>

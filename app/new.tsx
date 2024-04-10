@@ -1,4 +1,11 @@
-import {View, Text, Pressable, TextInput, ScrollView, ActivityIndicator} from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { memo, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
@@ -156,7 +163,7 @@ function Page() {
         <View className={"space-y-3 px-3"}>
           <View className={"flex flex-row justify-between"}>
             <Text className={"text-white font-medium"}>{t("location")}</Text>
-            <View className={'flex flex-row items-center'}>
+            <View className={"flex flex-row items-center"}>
               {allowLocation && (
                 <Pressable
                   onPress={async () => {
@@ -181,12 +188,16 @@ function Page() {
                         );
                       }
                     } catch (e) {
-                      setStatus("idle")
+                      setStatus("idle");
                       router.navigate(`tips?title=Error&description=${e}`);
                     }
                   }}
                 >
-                  <Text className={`text-white text-xs font-semibold underline`}>{t("getCurrentLocation")}</Text>
+                  <Text
+                    className={`text-white text-xs font-semibold underline`}
+                  >
+                    {t("getCurrentLocation")}
+                  </Text>
                 </Pressable>
               )}
             </View>
@@ -199,9 +210,9 @@ function Page() {
             value={location}
             onChangeText={(e) => setLocation(e)}
           />
-          {
-            status === "loading" && <ActivityIndicator color={"white"} size={"small"} />
-          }
+          {status === "loading" && (
+            <ActivityIndicator color={"white"} size={"small"} />
+          )}
         </View>
       </ScrollView>
       <View className={"pt-8 flex space-y-3 px-3"}>
