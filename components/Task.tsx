@@ -35,16 +35,11 @@ const Task: FC<{
                 className={"flex flex-row items-center justify-between w-full"}
               >
                 <View className={"flex flex-row space-x-1.5 items-center"}>
-                  <Text className={"text-white truncate font-bold"}>
+                  <Text className={"text-white truncate font-bold w-64"} lineBreakMode={"tail"} numberOfLines={1}>
                     {task?.title}
                   </Text>
-                  {task?.type === "main" ? (
-                    <Ionicons name="sparkles-sharp" size={16} color="#A7A7A7" />
-                  ) : (
-                    <Ionicons name="ticket" size={16} color="#A7A7A7" />
-                  )}
                 </View>
-                <View className={"flex flex-row space-x-3"}>
+                <View className={"flex flex-row space-x-3 stroke-0"}>
                   {isLiked ? (
                     <Pressable
                       onPress={() => {
