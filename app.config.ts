@@ -7,7 +7,7 @@ import { ExpoConfig } from "expo/config";
 const config: ExpoConfig = {
   scheme: "tripin",
   name: "TripIn",
-  slug: "endless-travel",
+  slug: "tripin",
   android: {
     package: "ai.abandon.tripin",
   },

@@ -48,8 +48,8 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>endless-travel</string>
-				<string>ai.abandon.endless-travel</string>
+				<string>tripin</string>
+				<string>ai.abandon.tripin</string>
 			</array>
 		</dict>
 	</array>
