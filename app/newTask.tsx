@@ -17,6 +17,7 @@ import { ensureString } from "./travels/[id]";
 import TaskItem from "../components/TaskItem";
 import { t } from "../i18n";
 import { getLocales } from "expo-localization";
+import {scheduleNotificationAsync} from "expo-notifications";
 
 const NewTask = () => {
   const { duration, location, budget } = useLocalSearchParams();
@@ -45,7 +46,21 @@ const NewTask = () => {
     };
     dispatch(addManyTasks(tasks));
     dispatch(addOneTravel(travel));
+    await scheduleNotificationAsync({
+      content: {
+        title: t("newTravelSuccess"),
+        body: travel.title,
+      },
+      trigger: { seconds: 0 },
+    });
     router.push(`travels/${travel.id}?canGoBack=false`);
+    await scheduleNotificationAsync({
+      content: {
+        title: t("travelEnded"),
+        body: travel.title,
+      },
+      trigger: { date: travel.timestamp.end * 1000 },
+    });
   };
 
   const recentlyLikeTasks = useMemo(() => {

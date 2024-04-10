@@ -37,4 +37,6 @@ export const en = {
   tasks: "Tasks",
   noDescription: "No description",
   tips: "Tips",
+  newTravelSuccess: "New travel success!",
+  travelEnded: "The travel has ended!",
 };
