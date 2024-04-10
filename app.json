@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "TripIz",
+    "name": "Tripiz",
     "slug": "tripiz",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,7 +14,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "usesAppleSignIn": true,
-      "bundleIdentifier": "ai.abandon.tripin",
+      "bundleIdentifier": "ai.abandon.tripiz",
       "config": {
         "usesNonExemptEncryption": false
       },
@@ -22,7 +22,7 @@
       "infoPlist": {}
     },
     "android": {
-      "package": "ai.abandon.tripin",
+      "package": "ai.abandon.tripiz",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

@@ -28,7 +28,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Endless Travel</string>
+	<string>Tripiz</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -48,8 +48,8 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tripin</string>
-				<string>ai.abandon.tripin</string>
+				<string>tripiz</string>
+				<string>ai.abandon.tripiz</string>
 			</array>
 		</dict>
 	</array>

@@ -6,18 +6,18 @@ import { ExpoConfig } from "expo/config";
 
 const config: ExpoConfig = {
   scheme: "tripiz",
-  name: "TripIz",
+  name: "Tripiz",
   slug: "tripiz",
   android: {
-    package: "ai.abandon.tripin",
+    package: "ai.abandon.tripiz",
   },
   ios: {
-    bundleIdentifier: "ai.abandon.tripin",
+    bundleIdentifier: "ai.abandon.tripiz",
   },
   plugins: ["expo-localization", "expo-router"],
   extra: {
     eas: {
-      projectId: "2ea4444b-6c97-48cb-8372-92bbdc477513",
+      projectId: "59018e25-20db-401d-a9b5-39bb4d50a764",
     },
   },
 };
