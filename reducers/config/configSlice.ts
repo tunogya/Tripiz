@@ -24,6 +24,7 @@ export const configSlice = createSlice({
   },
 });
 
-export const { setGateway, setKey, setModel, setExpoPushToken } = configSlice.actions;
+export const { setGateway, setKey, setModel, setExpoPushToken } =
+  configSlice.actions;
 
 export default configSlice.reducer;

@@ -28,7 +28,12 @@ function Page() {
     }
   }, [budget]);
 
-  const disabled = duration === "" || location === "" || budget === "" || duration === "other" || budget === "other";
+  const disabled =
+    duration === "" ||
+    location === "" ||
+    budget === "" ||
+    duration === "other" ||
+    budget === "other";
 
   return (
     <View
@@ -113,11 +118,16 @@ function Page() {
                 className={"bg-white p-3 rounded"}
                 placeholder={"2000"}
                 onChangeText={(text) => {
-                  const numericValue = text.replace(/[^0-9.]/g, '');
-                  const split = numericValue.split('.');
+                  const numericValue = text.replace(/[^0-9.]/g, "");
+                  const split = numericValue.split(".");
                   if (split.length > 2) {
                     const decimalPart = split.pop();
-                    setBudget(split.join('.') + (decimalPart ? '.' + decimalPart.replace(/\./g, '') : ''));
+                    setBudget(
+                      split.join(".") +
+                        (decimalPart
+                          ? "." + decimalPart.replace(/\./g, "")
+                          : ""),
+                    );
                   } else {
                     setBudget(numericValue);
                   }
@@ -137,20 +147,18 @@ function Page() {
         </View>
       </ScrollView>
       <View className={"pt-8 flex space-y-3 px-3"}>
-        {
-          !disabled && (
-            <Pressable
-              onPress={() => {
-                router.push(
-                  `newTask?duration=${duration}&location=${location}&budget=${budget}`,
-                );
-              }}
-              className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}
-            >
-              <Text className={"text-black font-medium"}>{t("buildTasks")}</Text>
-            </Pressable>
-          )
-        }
+        {!disabled && (
+          <Pressable
+            onPress={() => {
+              router.push(
+                `newTask?duration=${duration}&location=${location}&budget=${budget}`,
+              );
+            }}
+            className={"py-3 w-full bg-[#1ED760] flex rounded items-center"}
+          >
+            <Text className={"text-black font-medium"}>{t("buildTasks")}</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );

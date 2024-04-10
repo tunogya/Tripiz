@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  ScrollView,
-} from "react-native";
+import { View, Text, TextInput, Pressable, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,11 +31,14 @@ const Page = () => {
           placeholder={"0"}
           value={amount}
           onChangeText={(text) => {
-            const numericValue = text.replace(/[^0-9.]/g, '');
-            const split = numericValue.split('.');
+            const numericValue = text.replace(/[^0-9.]/g, "");
+            const split = numericValue.split(".");
             if (split.length > 2) {
               const decimalPart = split.pop();
-              setAmount(split.join('.') + (decimalPart ? '.' + decimalPart.replace(/\./g, '') : ''));
+              setAmount(
+                split.join(".") +
+                  (decimalPart ? "." + decimalPart.replace(/\./g, "") : ""),
+              );
             } else {
               setAmount(numericValue);
             }

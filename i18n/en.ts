@@ -38,5 +38,6 @@ export const en = {
   noDescription: "No description",
   tips: "Tips",
   newTravelSuccess: "New travel success!",
-  travelEnded: "The travel has ended!",
+  travelEnded: "🚩The travel has ended!",
+  taskCompleted: "🎉Task completed",
 };

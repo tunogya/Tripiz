@@ -17,7 +17,7 @@ import { ensureString } from "./travels/[id]";
 import TaskItem from "../components/TaskItem";
 import { t } from "../i18n";
 import { getLocales } from "expo-localization";
-import {scheduleNotificationAsync} from "expo-notifications";
+import { scheduleNotificationAsync } from "expo-notifications";
 
 const NewTask = () => {
   const { duration, location, budget } = useLocalSearchParams();

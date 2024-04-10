@@ -9,7 +9,9 @@ import { t } from "../i18n";
 function Page() {
   const insets = useSafeAreaInsets();
   const { ids, entities } = useSelector((state: RootState) => state.travel);
-  const { key, model, gateway } = useSelector((state: RootState) => state.config);
+  const { key, model, gateway } = useSelector(
+    (state: RootState) => state.config,
+  );
 
   const lastTravel = useMemo(() => {
     if (ids.length > 0) {
@@ -61,7 +63,7 @@ function Page() {
           <Pressable
             onPress={() => {
               if (!key || !model || !gateway) {
-                router.navigate(`optionsOpenAI`)
+                router.navigate(`optionsOpenAI`);
               } else {
                 router.navigate("new");
               }

@@ -38,5 +38,6 @@ export const zh = {
   noDescription: "没有描述",
   tips: "提示",
   newTravelSuccess: "新旅程已开启！",
-  travelEnded: "旅途已结束!",
+  travelEnded: "🚩旅途已结束!",
+  taskCompleted: "🎉任务已完成",
 };

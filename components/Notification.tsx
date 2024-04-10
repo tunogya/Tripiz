@@ -1,10 +1,10 @@
-import {memo, useEffect, useRef} from "react";
+import { memo, useEffect, useRef } from "react";
 import * as Notifications from "expo-notifications";
-import {Platform} from "react-native";
+import { Platform } from "react-native";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
-import {useDispatch} from "react-redux";
-import {setExpoPushToken} from "../reducers/config/configSlice";
+import { useDispatch } from "react-redux";
+import { setExpoPushToken } from "../reducers/config/configSlice";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,12 +20,12 @@ function handleRegistrationError(errorMessage: string) {
 }
 
 async function registerForPushNotificationsAsync() {
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
+  if (Platform.OS === "android") {
+    Notifications.setNotificationChannelAsync("default", {
+      name: "default",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
+      lightColor: "#FF231F7C",
     });
   }
 
@@ -33,19 +33,21 @@ async function registerForPushNotificationsAsync() {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
+    if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
-    if (finalStatus !== 'granted') {
-      handleRegistrationError('Permission not granted to get push token for push notification!');
+    if (finalStatus !== "granted") {
+      handleRegistrationError(
+        "Permission not granted to get push token for push notification!",
+      );
       return;
     }
     const projectId =
       Constants?.expoConfig?.extra?.eas?.projectId ??
       Constants?.easConfig?.projectId;
     if (!projectId) {
-      handleRegistrationError('Project ID not found');
+      handleRegistrationError("Project ID not found");
     }
     try {
       const pushTokenString = (
@@ -59,7 +61,7 @@ async function registerForPushNotificationsAsync() {
       handleRegistrationError(`${e}`);
     }
   } else {
-    handleRegistrationError('Must use physical device for push notifications');
+    handleRegistrationError("Must use physical device for push notifications");
   }
 }
 
@@ -69,12 +71,11 @@ const Notification = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    registerForPushNotificationsAsync()
-      .then((token) => {
-        if (token) {
-          dispatch(setExpoPushToken(token))
-        }
-      })
+    registerForPushNotificationsAsync().then((token) => {
+      if (token) {
+        dispatch(setExpoPushToken(token));
+      }
+    });
 
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
@@ -88,15 +89,15 @@ const Notification = () => {
 
     return () => {
       notificationListener.current &&
-      Notifications.removeNotificationSubscription(
-        notificationListener.current,
-      );
+        Notifications.removeNotificationSubscription(
+          notificationListener.current,
+        );
       responseListener.current &&
-      Notifications.removeNotificationSubscription(responseListener.current);
+        Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
 
   return null;
-}
+};
 
-export default memo(Notification)
+export default memo(Notification);

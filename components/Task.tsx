@@ -8,8 +8,8 @@ import {
   addOneLikeTask,
   removeOneLikeTask,
 } from "../reducers/likeTask/likeTaskSlice";
-import uuid from "react-native-uuid";
 import { updateOneTask } from "../reducers/task/taskSlice";
+import { scheduleNotificationAsync } from "expo-notifications";
 
 const Task: FC<{
   id: string;
@@ -98,7 +98,14 @@ const Task: FC<{
                     </Pressable>
                   ) : (
                     <Pressable
-                      onPress={() => {
+                      onPress={async () => {
+                        await scheduleNotificationAsync({
+                          content: {
+                            title: t("taskCompleted"),
+                            body: task.title,
+                          },
+                          trigger: { seconds: 0 },
+                        });
                         dispatch(
                           updateOneTask({
                             id: task.id,
