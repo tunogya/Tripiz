@@ -7,7 +7,7 @@ export const en = {
   allTasks: "All tasks",
   clearAll: "One-click clear",
   noHistory: "No historical data.",
-  EndlessTravel: "Endless Travel",
+  TripIn: "TripIn",
   continueTravel: "Continue",
   newTravel: "New Travel",
   historyTravel: "Historical Travel",

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Endless Travel",
-    "slug": "endless-travel",
+    "name": "TripIn",
+    "slug": "tripin",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,7 +14,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "usesAppleSignIn": true,
-      "bundleIdentifier": "ai.abandon.endless-travel",
+      "bundleIdentifier": "ai.abandon.tripin",
       "config": {
         "usesNonExemptEncryption": false
       },
@@ -22,7 +22,7 @@
       "infoPlist": {}
     },
     "android": {
-      "package": "ai.abandon.endless_travel",
+      "package": "ai.abandon.tripin",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

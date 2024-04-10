@@ -5,14 +5,14 @@ import { ExpoConfig } from "expo/config";
 // import { ExpoConfig } from '@expo/config-types';
 
 const config: ExpoConfig = {
-  scheme: "endless-travel",
-  name: "Endless Travel",
+  scheme: "tripin",
+  name: "TripIn",
   slug: "endless-travel",
   android: {
-    package: "ai.abandon.endless_travel",
+    package: "ai.abandon.tripin",
   },
   ios: {
-    bundleIdentifier: "ai.abandon.endless-travel",
+    bundleIdentifier: "ai.abandon.tripin",
   },
   plugins: ["expo-localization", "expo-router"],
   extra: {

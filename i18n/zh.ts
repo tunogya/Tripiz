@@ -7,7 +7,7 @@ export const zh = {
   allTasks: "所有任务",
   clearAll: "一键清空",
   noHistory: "没有历史数据。",
-  EndlessTravel: "无尽旅途",
+  TripIn: "无尽旅途",
   continueTravel: "继续旅行",
   newTravel: "新旅途",
   historyTravel: "历史旅途",
