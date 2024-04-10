@@ -23,8 +23,11 @@ const clientId = "CwiT1ffw0lEl6bVWR9ka20sRkrim4D7T";
 OneSignal.Debug.setLogLevel(LogLevel.Verbose);
 OneSignal.initialize(Constants.expoConfig.extra.oneSignalAppId);
 
-// Also need enable notifications to complete OneSignal setup
-OneSignal.Notifications.requestPermission(true);
+OneSignal.Notifications.canRequestPermission().then((perm) => {
+  if (perm) {
+    OneSignal.Notifications.requestPermission(true);
+  }
+})
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
