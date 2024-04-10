@@ -4,18 +4,16 @@ import store, { persistor } from "../store/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { PersistGate } from "redux-persist/integration/react";
 import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
-import { useEffect } from "react";
+import {useEffect} from "react";
 import { Stack } from "expo-router/stack";
 import { StatusBar } from "expo-status-bar";
-import { Pressable } from "react-native";
+import {Platform, Pressable} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import "i18n";
 import { t } from "../i18n";
+import Notification from "../components/Notification";
 
 SplashScreen.preventAutoHideAsync();
-
-const domain = "abandon.jp.auth0.com";
-const clientId = "CwiT1ffw0lEl6bVWR9ka20sRkrim4D7T";
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
@@ -37,6 +35,7 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <Notification />
         <SafeAreaProvider>
           <StatusBar style="light" />
           <Stack>

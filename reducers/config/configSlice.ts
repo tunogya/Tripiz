@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const configSlice = createSlice({
   name: "config",
   initialState: {
-    locale: undefined,
+    expoPushToken: undefined,
     gateway: "https://api.openai.com/v1",
     key: undefined,
     model: "gpt-3.5-turbo",
   },
   reducers: {
-    setLocale: (state, action) => {
-      state.locale = action.payload;
+    setExpoPushToken: (state, action) => {
+      state.expoPushToken = action.payload;
     },
     setGateway: (state, action) => {
       state.gateway = action.payload;
@@ -24,6 +24,6 @@ export const configSlice = createSlice({
   },
 });
 
-export const { setLocale, setGateway, setKey, setModel } = configSlice.actions;
+export const { setGateway, setKey, setModel, setExpoPushToken } = configSlice.actions;
 
 export default configSlice.reducer;
