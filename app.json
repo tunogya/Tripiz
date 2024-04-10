@@ -50,20 +50,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "react-native-auth0",
-        {
-          "domain": "abandon.jp.auth0.com"
-        }
-      ],
-      ["expo-apple-authentication"],
-      [
-        "onesignal-expo-plugin",
-        {
-          "mode": "production"
-        }
-      ]
-    ]
+    "plugins": []
   }
 }

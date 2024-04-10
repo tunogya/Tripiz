@@ -2,15 +2,12 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { memo, useMemo } from "react";
 import { router } from "expo-router";
-import { useAuth0 } from "react-native-auth0";
-import { OneSignal } from "react-native-onesignal";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { t } from "../i18n";
 
 function Page() {
   const insets = useSafeAreaInsets();
-  const { clearSession, authorize, user } = useAuth0();
   const { ids, entities } = useSelector((state: RootState) => state.travel);
   const { key, model, gateway } = useSelector((state: RootState) => state.config);
 
@@ -27,24 +24,6 @@ function Page() {
       return null;
     }
   }, [ids]);
-
-  const logIn = async () => {
-    try {
-      const credentials = await authorize({
-        scope: "openid profile email offline_access",
-        audience: "https://api.abandon.ai",
-      });
-      if (credentials) {
-        OneSignal.login(user.sub);
-        if (user.email) {
-          OneSignal.User.addEmail(user.email);
-        }
-        router.replace("home");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <View
@@ -118,38 +97,6 @@ function Page() {
           >
             <Text className={"text-white font-semibold"}>{t("option")}</Text>
           </Pressable>
-          {/*{user ? (*/}
-          {/*  <View*/}
-          {/*    className={*/}
-          {/*      "flex flex-row items-center space-x-2 justify-center py-3"*/}
-          {/*    }*/}
-          {/*  >*/}
-          {/*    <Text className={"text-[#A7A7A7] text-xs"}>{user?.email}</Text>*/}
-          {/*    <Pressable*/}
-          {/*      className={"border px-2 py-0.5 rounded-full border-[#A7A7A7]"}*/}
-          {/*      onPress={async () => {*/}
-          {/*        await clearSession();*/}
-          {/*      }}*/}
-          {/*    >*/}
-          {/*      <Text className={"text-white text-xs font-semibold"}>*/}
-          {/*        {t("logout")}*/}
-          {/*      </Text>*/}
-          {/*    </Pressable>*/}
-          {/*  </View>*/}
-          {/*) : (*/}
-          {/*  <View>*/}
-          {/*    <Pressable*/}
-          {/*      onPress={async () => {*/}
-          {/*        await logIn();*/}
-          {/*      }}*/}
-          {/*      className={*/}
-          {/*        "w-full flex items-center justify-center py-4 bg-[#292929] rounded-lg"*/}
-          {/*      }*/}
-          {/*    >*/}
-          {/*      <Text className={"text-white text-xs"}>{t("login")}</Text>*/}
-          {/*    </Pressable>*/}
-          {/*  </View>*/}
-          {/*)}*/}
         </View>
       </ScrollView>
     </View>

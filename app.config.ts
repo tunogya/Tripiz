@@ -19,7 +19,6 @@ const config: ExpoConfig = {
     eas: {
       projectId: "560098d9-8c5b-4575-a97e-2acce22e7ed4",
     },
-    oneSignalAppId: "ec6a05ac-5e74-4d0b-b846-6dd008c59846",
   },
 };
 
