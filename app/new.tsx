@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
+import {View, Text, Pressable, TextInput, ScrollView, ActivityIndicator} from "react-native";
 import { memo, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
@@ -199,7 +199,9 @@ function Page() {
             value={location}
             onChangeText={(e) => setLocation(e)}
           />
-
+          {
+            status === "loading" && <ActivityIndicator color={"white"} size={"small"} />
+          }
         </View>
       </ScrollView>
       <View className={"pt-8 flex space-y-3 px-3"}>
