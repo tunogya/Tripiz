@@ -18,6 +18,7 @@ function Page() {
   const [showBudgetInput, setShowBudgetInput] = useState(false);
   const [allowLocation, setAllowLocation] = useState(false);
   const INTERVALS = ["1h", "2h", "4h", "6h", "8h", "12h", "other"];
+  const [status, setStatus] = useState("idle");
 
   const BUDGETS = ["100", "500", "1000", "other"];
 
@@ -159,21 +160,29 @@ function Page() {
               {allowLocation && (
                 <Pressable
                   onPress={async () => {
-                    const { coords } = await getCurrentPositionAsync();
-                    let reverseGeocode = await reverseGeocodeAsync({
-                      latitude: coords.latitude,
-                      longitude: coords.latitude,
-                    });
-                    if (reverseGeocode.length > 0) {
-                      const { city, street, region, postalCode, country } =
-                        reverseGeocode[0];
-                      setLocation(
-                        `${street}, ${city}, ${region}, ${postalCode}, ${country}`,
-                      );
-                    } else {
-                      setLocation(
-                        `latitude: ${coords.latitude}, longitude: ${coords.longitude}`,
-                      );
+                    setStatus("loading");
+                    try {
+                      const { coords } = await getCurrentPositionAsync();
+                      let reverseGeocode = await reverseGeocodeAsync({
+                        latitude: coords.latitude,
+                        longitude: coords.latitude,
+                      });
+                      if (reverseGeocode.length > 0) {
+                        const { city, street, region, postalCode, country } =
+                          reverseGeocode[0];
+                        setStatus("idle");
+                        setLocation(
+                          `${street}, ${city}, ${region}, ${postalCode}, ${country}`,
+                        );
+                      } else {
+                        setStatus("idle");
+                        setLocation(
+                          `latitude: ${coords.latitude}, longitude: ${coords.longitude}`,
+                        );
+                      }
+                    } catch (e) {
+                      setStatus("idle")
+                      router.navigate(`tips?title=Error&description=${e}`);
                     }
                   }}
                 >
