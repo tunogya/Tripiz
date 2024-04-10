@@ -1,8 +1,9 @@
-import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
-import { memo, useEffect, useState } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { router } from "expo-router";
-import { t } from "../i18n";
+import {View, Text, Pressable, TextInput, ScrollView} from "react-native";
+import {memo, useEffect, useState} from "react";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {router} from "expo-router";
+import {t} from "../i18n";
+import {getCurrentPositionAsync, requestForegroundPermissionsAsync, reverseGeocodeAsync} from "expo-location";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -11,10 +12,20 @@ function Page() {
   const [location, setLocation] = useState("");
   const [showDurationInput, setShowDurationInput] = useState(false);
   const [showBudgetInput, setShowBudgetInput] = useState(false);
-
+  const [allowLocation, setAllowLocation] = useState(false);
   const INTERVALS = ["1h", "2h", "4h", "6h", "8h", "12h", "other"];
 
   const BUDGETS = ["100", "500", "1000", "other"];
+
+  useEffect(() => {
+    (async () => {
+      let {status} = await requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        return;
+      }
+      setAllowLocation(true);
+    })();
+  }, []);
 
   useEffect(() => {
     if (duration === "other") {
@@ -124,9 +135,9 @@ function Page() {
                     const decimalPart = split.pop();
                     setBudget(
                       split.join(".") +
-                        (decimalPart
-                          ? "." + decimalPart.replace(/\./g, "")
-                          : ""),
+                      (decimalPart
+                        ? "." + decimalPart.replace(/\./g, "")
+                        : ""),
                     );
                   } else {
                     setBudget(numericValue);
@@ -139,6 +150,31 @@ function Page() {
         </View>
         <View className={"space-y-3 px-3"}>
           <Text className={"text-white font-medium"}>{t("location")}</Text>
+          {
+            allowLocation && (
+              <Pressable
+                onPress={async () => {
+                  const {coords} = await getCurrentPositionAsync();
+                  let reverseGeocode = await reverseGeocodeAsync({latitude: coords.latitude, longitude: coords.latitude});
+                  if (reverseGeocode.length > 0) {
+                    const {city, street, region, postalCode, country} = reverseGeocode[0];
+                    setLocation(
+                      `${street}, ${city}, ${region}, ${postalCode}, ${country}`,
+                    );
+                  } else {
+                    setLocation(`latitude: ${coords.latitude}, longitude: ${coords.longitude}`);
+                  }
+                }}
+                className={`bg-[#292929] px-3 py-1.5 rounded-full`}
+              >
+                <Text
+                  className={`"text-white"`}
+                >
+                  {t("getCurrentLocation")}
+                </Text>
+              </Pressable>
+            )
+          }
           <TextInput
             className={"bg-white p-3 rounded"}
             placeholder={"..."}
