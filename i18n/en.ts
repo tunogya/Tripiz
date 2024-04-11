@@ -42,4 +42,5 @@ export const en = {
   taskCompleted: "🎉Task completed",
   getCurrentLocation: "Get current location",
   preference: "Personal Preference",
+  preferencePlaceholder: "Demands, preferences and emotional states",
 };
