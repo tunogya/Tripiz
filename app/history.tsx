@@ -19,7 +19,7 @@ const History = () => {
       <FlashList
         data={ids.reverse()}
         estimatedItemSize={20}
-        keyExtractor={(item) => item}
+        keyExtractor={(index) => index.toString()}
         renderItem={({ item }) => <HistoryTravelItem id={item} />}
         ListHeaderComponent={() => (
           <View>

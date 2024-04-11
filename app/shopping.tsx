@@ -94,7 +94,7 @@ const Page = () => {
         <FlashList
           estimatedItemSize={10}
           data={travel.shoppingIds}
-          keyExtractor={(item) => item}
+          keyExtractor={(index) => index.toString()}
           renderItem={({ item }) => <ShoppingItem id={item} />}
           ListHeaderComponent={() => (
             <View>

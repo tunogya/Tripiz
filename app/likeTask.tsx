@@ -16,7 +16,7 @@ const LikeTask = () => {
       <FlashList
         data={ids}
         estimatedItemSize={20}
-        keyExtractor={(item) => item}
+        keyExtractor={(index) => index.toString()}
         renderItem={({ item }) => <LikeTaskItem id={item} />}
         ListHeaderComponent={() => (
           <View>

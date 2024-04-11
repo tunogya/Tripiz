@@ -155,7 +155,6 @@ export default function RootLayout() {
               name="travels/[id]"
               options={{
                 headerShown: false,
-                gestureEnabled: false,
               }}
             />
             <Stack.Screen
