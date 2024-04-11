@@ -17,13 +17,13 @@ const History = () => {
   return (
     <View className={"flex h-full bg-[#121212] px-3 min-h-20 relative"}>
       <FlashList
-        data={ids.reverse()}
+        data={ids?.reverse()}
         estimatedItemSize={20}
-        keyExtractor={(index) => index.toString()}
+        keyExtractor={(item, index) => `${item}-${index}`}
         renderItem={({ item }) => <HistoryTravelItem id={item} />}
         ListHeaderComponent={() => (
           <View>
-            {ids.length === 0 && (
+            {ids?.length === 0 && (
               <Text className={"text-[#A7A7A7] text-center py-3"}>
                 {t("noHistory")}
               </Text>
@@ -44,7 +44,7 @@ const History = () => {
           bottom: insets.bottom + 12,
         }}
       >
-        {ids.length > 0 && (
+        {ids?.length > 0 && (
           <Pressable
             className={"flex items-center"}
             onPress={() => {
