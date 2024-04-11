@@ -205,6 +205,7 @@ function Page() {
           <TextInput
             multiline={true}
             maxLength={40}
+            numberOfLines={2}
             className={"bg-white p-3 rounded"}
             placeholder={status === "loading" ? "Loading..." : "..."}
             value={location}
