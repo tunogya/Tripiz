@@ -206,7 +206,7 @@ function Page() {
             multiline={true}
             maxLength={40}
             className={"bg-white p-3 rounded"}
-            placeholder={"..."}
+            placeholder={status === "loading" ? "Loading..." : "..."}
             value={location}
             onChangeText={(e) => setLocation(e)}
           />
