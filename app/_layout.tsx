@@ -155,6 +155,7 @@ export default function RootLayout() {
               name="travels/[id]"
               options={{
                 headerShown: false,
+                gestureEnabled: false,
               }}
             />
             <Stack.Screen
@@ -163,7 +164,6 @@ export default function RootLayout() {
                 title: t("historyTravel"),
                 headerShown: true,
                 headerTintColor: "white",
-                gestureEnabled: false,
                 headerStyle: {
                   backgroundColor: "#121212",
                 },
