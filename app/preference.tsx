@@ -12,9 +12,11 @@ const Preference = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      className={"flex h-full bg-[#121212] p-3 space-y-3"}
+      className={"flex h-full bg-[#121212]"}
     >
-      <ScrollView>
+      <ScrollView
+        className={"p-3"}
+      >
         <TextInput
           inputAccessoryViewID={"preference"}
           value={preference}

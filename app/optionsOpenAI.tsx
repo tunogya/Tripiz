@@ -25,9 +25,11 @@ const OptionsOpenAI = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      className={"flex flex-1 bg-[#121212] w-full h-full space-y-6 pt-4 px-3"}
+      className={"flex flex-1 bg-[#121212] w-full h-full"}
     >
-      <ScrollView>
+      <ScrollView
+        className={"space-y-6 pt-4 px-3"}
+      >
         <View className={"space-y-3"}>
           <Text className={"text-white font-bold"}>API Key</Text>
           <TextInput
