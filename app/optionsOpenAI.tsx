@@ -1,19 +1,27 @@
-import {View, Text, TextInput, Pressable, Platform, KeyboardAvoidingView, ScrollView} from "react-native";
-import {Dropdown} from "react-native-element-dropdown";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../store/store";
-import {setGateway, setKey, setModel} from "../reducers/config/configSlice";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  Platform,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { setGateway, setKey, setModel } from "../reducers/config/configSlice";
 
 const OptionsOpenAI = () => {
-  const {model, key, gateway} = useSelector(
+  const { model, key, gateway } = useSelector(
     (state: RootState) => state.config,
   );
   const MODELS = [
-    {label: "gpt-4-turbo-preview", value: "gpt-4-turbo-preview"},
-    {label: "gpt-3.5-turbo", value: "gpt-3.5-turbo"},
+    { label: "gpt-4-turbo-preview", value: "gpt-4-turbo-preview" },
+    { label: "gpt-3.5-turbo", value: "gpt-3.5-turbo" },
   ];
   const GATEWAYS = [
-    {label: "OpenAI", value: "https://api.openai.com/v1"},
+    { label: "OpenAI", value: "https://api.openai.com/v1" },
     {
       label: "Cloudflare Proxy",
       value:
@@ -27,9 +35,7 @@ const OptionsOpenAI = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       className={"flex flex-1 bg-[#121212] w-full h-full"}
     >
-      <ScrollView
-        className={"space-y-6 pt-4 px-3"}
-      >
+      <ScrollView className={"space-y-6 pt-4 px-3"}>
         <View className={"space-y-3"}>
           <Text className={"text-white font-bold"}>API Key</Text>
           <TextInput

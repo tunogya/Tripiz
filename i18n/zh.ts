@@ -42,5 +42,5 @@ export const zh = {
   taskCompleted: "🎉任务已完成",
   getCurrentLocation: "获取当前位置",
   preference: "个人旅行偏好",
-  preferencePlaceholder: "需求、偏好和情感状态"
+  preferencePlaceholder: "需求、偏好和情感状态",
 };

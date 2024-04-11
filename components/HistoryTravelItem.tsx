@@ -5,7 +5,7 @@ import moment from "moment/moment";
 import { t } from "../i18n";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import {Ionicons} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const HistoryTravelItem: FC<{
   id: string;
