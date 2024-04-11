@@ -75,7 +75,27 @@ const NewTask = () => {
     location: string,
     budget: string,
   ) => {
-    const prompt = `请为我生成一个结构化的旅行计划，包括必做任务和选做任务，适用于${duration}的${location}之旅，预算为${budget}当地货币。计划应适合单人或小团体旅行，包括反映当地文化、历史和景点的多种活动，要符合我的个人偏好。这是我的个人需求、偏好和感情状态：${preference || "无"}。这是我最近喜爱的一些任务：${recentlyLikeTasks.join(",")}。返回时使用语言为${getLocales()[0].languageCode}。请将输出格式化为JSON对象，包含 "title" 和 "tasks"键，"title"为本次旅行的标题，"tasks" 指向任务数组，每个任务下包含 "title", "description", "type", 其中 "type" 的取值为 "main" 或者 "option"。`;
+    const prompt = `根据需求，为我定制一个专属的旅行计划，旨在为${duration}天${location}之旅提供一个全面而独特的体验。目标是确保这次短暂旅程不仅符合预算限制：${budget}当地货币，而且也能充分满足我的个人喜好和情感状态：${preference || "未指定"}。此外，可以参考我近喜欢的任务：${recentlyLikeTasks.join(",")}，以进一步个性化我的的旅行计划。计划使用${getLocales()[0].languageCode}语言，以确保我在旅途中的舒适度。
+
+请返回定制的旅行计划，将其格式化为JSON对象，方便我的查阅和使用。计划将分为“必做任务”和“选做任务”，旨在提供一个平衡的旅游体验，以便我能够深入探索${location}的文化、历史和自然美景，适合单人或小团体旅行者。如果有特别的文化或禁忌，请在description里标注，如果没有，忽略。
+
+\`\`\`json
+{
+  "title": "简洁的旅行标题",
+  "tasks": [
+    {
+      "title": "简洁的任务标题",
+      "description": "任务详细介绍，包括为什么这个任务能满足您的个人偏好，以及它如何反应文化或历史特色。",
+      "type": "main"
+    },
+    {
+      "title": "另一个任务标题",
+      "description": "另一个任务的详细介绍，可能是一个选做任务，提供不同的体验或探索地点的另一面。",
+      "type": "option"
+    }
+    // 更多任务...
+  ]
+}`;
     try {
       const response = await fetch(`${gateway}/chat/completions`, {
         method: "POST",
