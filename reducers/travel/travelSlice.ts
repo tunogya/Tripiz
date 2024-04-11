@@ -7,6 +7,7 @@ import {
 export interface Travel {
   id: string;
   title: string;
+  image?: string;
   timestamp: {
     start: number;
     end: number;
