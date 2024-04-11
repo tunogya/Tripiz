@@ -5,6 +5,7 @@ import moment from "moment/moment";
 import { t } from "../i18n";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import {Ionicons} from "@expo/vector-icons";
 
 const HistoryTravelItem: FC<{
   id: string;
@@ -77,11 +78,11 @@ const HistoryTravelItem: FC<{
       }}
       className={`${isEnd ? "bg-[#181818]" : "bg-[#292929]"} my-1.5 rounded-lg flex flex-row overflow-hidden shadow-lg`}
     >
-      {/*<View*/}
-      {/*  className={`h-24 w-24 ${isEnd ? "bg-[#181818]" : "bg-[#292929]"} shadow-lg items-center justify-center`}*/}
-      {/*>*/}
-      {/*  <Ionicons name="image-outline" size={24} color="#A7A7A7" />*/}
-      {/*</View>*/}
+      <View
+        className={`h-24 w-24 ${isEnd ? "bg-[#181818]" : "bg-[#292929]"} shadow-lg items-center justify-center`}
+      >
+        <Ionicons name="image-outline" size={24} color="#A7A7A7" />
+      </View>
       <View className={"p-3 space-y-2 flex-1 flex justify-center"}>
         <View className={"flex flex-row items-start justify-between"}>
           <View className={"flex space-y-1"}>

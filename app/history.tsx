@@ -11,7 +11,7 @@ import { t } from "../i18n";
 
 const History = () => {
   const insets = useSafeAreaInsets();
-  const { entities, ids } = useSelector((state: RootState) => state.travel);
+  const { ids } = useSelector((state: RootState) => state.travel);
   const dispatch = useDispatch();
 
   return (
