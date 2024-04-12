@@ -25,7 +25,7 @@ const OptionsOpenAI = () => {
     {
       label: "Cloudflare Proxy",
       value:
-        "https://gateway.ai.cloudflare.com/v1/702151bcf1ad137360fb347e0353316c/endless-travel/openai",
+        "https://gateway.ai.cloudflare.com/v1/702151bcf1ad137360fb347e0353316c/tripiz/openai",
     },
   ];
   const dispatch = useDispatch();
