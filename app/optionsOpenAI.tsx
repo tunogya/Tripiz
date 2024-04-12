@@ -17,7 +17,7 @@ const OptionsOpenAI = () => {
     (state: RootState) => state.config,
   );
   const MODELS = [
-    { label: "gpt-4-turbo-preview", value: "gpt-4-turbo-preview" },
+    { label: "gpt-4-turbo", value: "gpt-4-turbo" },
     { label: "gpt-3.5-turbo", value: "gpt-3.5-turbo" },
   ];
   const GATEWAYS = [
