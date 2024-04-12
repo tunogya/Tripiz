@@ -60,7 +60,6 @@ const Task: FC<{
                   ) : (
                     <Pressable
                       onPress={() => {
-                        Vibration.vibrate(200);
                         dispatch(
                           addOneLikeTask({
                             id: task.id,
@@ -106,7 +105,6 @@ const Task: FC<{
                           },
                           trigger: { seconds: 1 },
                         });
-                        Vibration.vibrate(200);
                         dispatch(
                           updateOneTask({
                             id: task.id,
@@ -115,6 +113,7 @@ const Task: FC<{
                             },
                           }),
                         );
+                        Vibration.vibrate(100);
                       }}
                     >
                       <Ionicons

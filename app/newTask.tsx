@@ -133,12 +133,12 @@ const NewTask = () => {
             }),
           ),
         );
-        Vibration.vibrate(200);
+        Vibration.vibrate(100);
       } else {
         console.log("No Tasks");
       }
     } catch (e) {
-      Vibration.vibrate([200, 200, 200]);
+      Vibration.vibrate([100, 100, 200]);
       router.navigate(`tips?title=Error&description=${e}`);
     }
   };
