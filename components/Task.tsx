@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, Vibration, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Ionicons } from "@expo/vector-icons";
@@ -60,6 +60,7 @@ const Task: FC<{
                   ) : (
                     <Pressable
                       onPress={() => {
+                        Vibration.vibrate(200);
                         dispatch(
                           addOneLikeTask({
                             id: task.id,
@@ -105,6 +106,7 @@ const Task: FC<{
                           },
                           trigger: { seconds: 1 },
                         });
+                        Vibration.vibrate(200);
                         dispatch(
                           updateOneTask({
                             id: task.id,

@@ -18,6 +18,7 @@ import TaskItem from "../components/TaskItem";
 import { t } from "../i18n";
 import { getLocales } from "expo-localization";
 import { scheduleNotificationAsync } from "expo-notifications";
+import { Vibration } from "react-native";
 
 const NewTask = () => {
   const { duration, location, budget } = useLocalSearchParams();
@@ -132,10 +133,12 @@ const NewTask = () => {
             }),
           ),
         );
+        Vibration.vibrate(200);
       } else {
         console.log("No Tasks");
       }
     } catch (e) {
+      Vibration.vibrate([200, 200, 200]);
       router.navigate(`tips?title=Error&description=${e}`);
     }
   };
