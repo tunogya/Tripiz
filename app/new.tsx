@@ -13,8 +13,11 @@ import { t } from "../i18n";
 import {
   getCurrentPositionAsync,
   requestForegroundPermissionsAsync,
-  reverseGeocodeAsync,
 } from "expo-location";
+import { getLocales } from "expo-localization";
+
+const MAPKIT_API_KEY =
+  "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Iko4Ujk0NEQ5TTIifQ.eyJpc3MiOiJOVFc4R1NBUUIyIiwiaWF0IjoxNzEyOTE2MDEyLCJleHAiOjE3MzU2MDMyMDB9.unP1KGK7gBz7DiCecuoypEWAnh76E7ewclEQPE930dA2g9QchjRwF43D2s4EeocYsxw8zzX40y8nDSLndOx10A";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -50,6 +53,32 @@ function Page() {
       setShowBudgetInput(true);
     }
   }, [budget]);
+
+  const reverseGeocode = async (
+    latitude: number,
+    longitude: number,
+    lang: string,
+  ) => {
+    try {
+      const response = await fetch(
+        `https://maps-api.apple.com/v1/reverseGeocode?loc=${latitude}%2C${longitude}&lang=${lang}`,
+        {
+          headers: {
+            Authorization: `Bearer ${MAPKIT_API_KEY}`,
+          },
+        },
+      ).then((res) => res.json());
+      if (response.results.length > 0) {
+        const result = response.results[0];
+        if (result.formattedAddressLines.length > 0) {
+          return result.formattedAddressLines.join(",");
+        }
+        return result.name;
+      }
+    } catch (error) {
+      return `latitude:${latitude}, longitude:${longitude}`;
+    }
+  };
 
   const disabled =
     duration === "" ||
@@ -170,23 +199,13 @@ function Page() {
                     setStatus("loading");
                     try {
                       const { coords } = await getCurrentPositionAsync();
-                      let reverseGeocode = await reverseGeocodeAsync({
-                        latitude: coords.latitude,
-                        longitude: coords.latitude,
-                      });
-                      if (reverseGeocode.length > 0) {
-                        const { city, street, region, postalCode, country } =
-                          reverseGeocode[0];
-                        setStatus("idle");
-                        setLocation(
-                          `${street}, ${city}, ${region}, ${postalCode}, ${country}`,
-                        );
-                      } else {
-                        setStatus("idle");
-                        setLocation(
-                          `latitude: ${coords.latitude}, longitude: ${coords.longitude}`,
-                        );
-                      }
+                      const address = await reverseGeocode(
+                        coords.latitude,
+                        coords.longitude,
+                        getLocales()[0].languageCode,
+                      );
+                      setStatus("idle");
+                      setLocation(address);
                     } catch (e) {
                       setStatus("idle");
                       router.navigate(`tips?title=Error&description=${e}`);

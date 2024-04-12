@@ -7,7 +7,7 @@ import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
 import { useEffect } from "react";
 import { Stack } from "expo-router/stack";
 import { StatusBar } from "expo-status-bar";
-import { Platform, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import "i18n";
 import { t } from "../i18n";
