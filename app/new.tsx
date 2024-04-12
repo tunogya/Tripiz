@@ -14,10 +14,6 @@ import {
   getCurrentPositionAsync,
   requestForegroundPermissionsAsync,
 } from "expo-location";
-import { getLocales } from "expo-localization";
-
-const MAPKIT_API_KEY =
-  "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Iko4Ujk0NEQ5TTIifQ.eyJpc3MiOiJOVFc4R1NBUUIyIiwiaWF0IjoxNzEyOTE2MDEyLCJleHAiOjE3MzU2MDMyMDB9.unP1KGK7gBz7DiCecuoypEWAnh76E7ewclEQPE930dA2g9QchjRwF43D2s4EeocYsxw8zzX40y8nDSLndOx10A";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -55,28 +51,21 @@ function Page() {
   }, [budget]);
 
   const reverseGeocode = async (
-    latitude: number,
     longitude: number,
-    lang: string,
+    latitude: number,
   ) => {
     try {
       const response = await fetch(
-        `https://maps-api.apple.com/v1/reverseGeocode?loc=${latitude}%2C${longitude}&lang=${lang}`,
+        `https://restapi.amap.com/v3/geocode/regeo?parameters&key=c84e30e83aaf55fa2bf26a730febc98c&location=${longitude.toFixed(6)},${latitude.toFixed(6)}`,
         {
           headers: {
-            Authorization: `Bearer ${MAPKIT_API_KEY}`,
+            "Authorization": `Bearer `,
           },
         },
       ).then((res) => res.json());
-      if (response.results.length > 0) {
-        const result = response.results[0];
-        if (result.formattedAddressLines.length > 0) {
-          return result.formattedAddressLines.join(",");
-        }
-        return result.name;
-      }
+      return response?.regeocode?.formatted_address || "Unknown";
     } catch (error) {
-      return `latitude:${latitude}, longitude:${longitude}`;
+      throw new Error(error);
     }
   };
 
@@ -199,11 +188,7 @@ function Page() {
                     setStatus("loading");
                     try {
                       const { coords } = await getCurrentPositionAsync();
-                      const address = await reverseGeocode(
-                        coords.latitude,
-                        coords.longitude,
-                        getLocales()[0].languageCode,
-                      );
+                      const address = await reverseGeocode(coords.longitude, coords.latitude);
                       setStatus("idle");
                       setLocation(address);
                     } catch (e) {
