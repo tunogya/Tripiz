@@ -1,4 +1,4 @@
-import { router, SplashScreen } from "expo-router";
+import { SplashScreen } from "expo-router";
 import { Provider } from "react-redux";
 import store, { persistor } from "../store/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -7,8 +7,6 @@ import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
 import { useEffect } from "react";
 import { Stack } from "expo-router/stack";
 import { StatusBar } from "expo-status-bar";
-import { Pressable } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import "i18n";
 import { t } from "../i18n";
 import Notification from "../components/Notification";
@@ -47,170 +45,10 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="new"
-              options={{
-                title: t("newTravel"),
-                headerTintColor: "white",
-                headerShown: true,
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-                headerLeft: () => (
-                  <Pressable
-                    hitSlop={4}
-                    onPress={() => {
-                      router.navigate("/");
-                    }}
-                  >
-                    <Ionicons name="close" size={20} color="white" />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="newTask"
-              options={{
-                title: t("buildTasks"),
-                headerTintColor: "white",
-                headerShown: true,
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-                headerLeft: () => (
-                  <Pressable
-                    hitSlop={4}
-                    onPress={() => {
-                      router.navigate("/");
-                    }}
-                  >
-                    <Ionicons name="close" size={20} color="white" />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="options"
-              options={{
-                title: t("option"),
-                headerShown: true,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-                headerLeft: () => (
-                  <Pressable
-                    hitSlop={4}
-                    onPress={() => {
-                      router.back();
-                    }}
-                  >
-                    <Ionicons name="chevron-back" size={20} color="white" />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="likeTask"
-              options={{
-                title: t("likedTasks"),
-                headerShown: true,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-                headerLeft: () => (
-                  <Pressable
-                    hitSlop={4}
-                    onPress={() => {
-                      router.back();
-                    }}
-                  >
-                    <Ionicons name="chevron-back" size={20} color="white" />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="optionsOpenAI"
-              options={{
-                title: t("openaiConfig"),
-                headerShown: true,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-                headerLeft: () => (
-                  <Pressable
-                    hitSlop={4}
-                    onPress={() => {
-                      router.back();
-                    }}
-                  >
-                    <Ionicons name="chevron-back" size={20} color="white" />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="travels/[id]"
+              name="(tabs)"
               options={{
                 headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="history"
-              options={{
-                title: t("historyTravel"),
-                headerShown: true,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-                headerLeft: () => (
-                  <Pressable
-                    hitSlop={4}
-                    onPress={() => {
-                      router.back();
-                    }}
-                  >
-                    <Ionicons name="chevron-back" size={20} color="white" />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="shopping"
-              options={{
-                presentation: "modal",
-                title: t("record"),
-                headerShown: true,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="tips"
-              options={{
-                presentation: "modal",
-                headerShown: false,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="preference"
-              options={{
-                presentation: "modal",
-                title: t("preference"),
-                headerShown: true,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
+                title: "",
               }}
             />
           </Stack>
