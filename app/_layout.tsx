@@ -38,13 +38,6 @@ export default function RootLayout() {
           <StatusBar style="light" />
           <Stack>
             <Stack.Screen
-              name="index"
-              options={{
-                title: t("home"),
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
               name="(tabs)"
               options={{
                 headerShown: false,
