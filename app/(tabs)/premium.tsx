@@ -1,8 +1,8 @@
-import {View} from "react-native";
+import {View, Text} from "react-native";
 import {memo} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
-const Premium = () => {
+const Page = () => {
   const insets = useSafeAreaInsets();
   return (
     <View
@@ -11,9 +11,9 @@ const Premium = () => {
         paddingTop: insets.top + 20,
       }}
     >
-
+      <Text>会员计划</Text>
     </View>
   )
 }
 
-export default memo(Premium);
+export default memo(Page);

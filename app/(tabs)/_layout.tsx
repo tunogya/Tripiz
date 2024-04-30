@@ -29,16 +29,6 @@ function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="search"
-        options={{
-          title: "Search",
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Octicons name="search" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="library"
         options={{
           title: "Library",

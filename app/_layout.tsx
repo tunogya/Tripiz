@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { Stack } from "expo-router/stack";
 import { StatusBar } from "expo-status-bar";
 import "i18n";
-import { t } from "../i18n";
 import Notification from "../components/Notification";
 
 SplashScreen.preventAutoHideAsync();
@@ -42,6 +41,18 @@ export default function RootLayout() {
               options={{
                 headerShown: false,
                 title: "",
+              }}
+            />
+            <Stack.Screen
+              name="add"
+              options={{
+                presentation: "modal",
+                title: "Add",
+                headerShown: false,
+                headerTintColor: "white",
+                headerStyle: {
+                  backgroundColor: "#121212",
+                },
               }}
             />
           </Stack>
