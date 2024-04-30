@@ -8,7 +8,7 @@ export interface Dream {
   id: string;
   title: string;
   description?: string;
-  voiceRecording: string;
+  voiceRecording?: string;
   date: string;
   type: string;
   rate: number;
@@ -17,7 +17,7 @@ export interface Dream {
   sleepQuality: number;
   isPersonally: boolean;
   emotions: string[];
-  notes: string;
+  notes?: string;
 }
 
 interface DreamState extends EntityState<Dream, string> {}
