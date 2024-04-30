@@ -1,11 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import configReducer from "reducers/config/configSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import travelReducer from "../reducers/travel/travelSlice";
-import taskReducer from "../reducers/task/taskSlice";
-import shoppingReducer from "../reducers/shopping/shoppingSlice";
-import likeTaskReducer from "../reducers/likeTask/likeTaskSlice";
+import dreamReducer from "../reducers/dreams/dreamSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -14,11 +10,7 @@ const rootPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-  config: configReducer,
-  travel: travelReducer,
-  task: taskReducer,
-  shopping: shoppingReducer,
-  likeTask: likeTaskReducer,
+  dream: dreamReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

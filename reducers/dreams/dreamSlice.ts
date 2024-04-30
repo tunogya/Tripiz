@@ -7,16 +7,17 @@ import {
 export interface Travel {
   id: string;
   title: string;
-  image?: string;
-  timestamp: {
-    start: number;
-    end: number;
-  };
-  budget: number;
-  costed: number;
-  available: number;
-  shoppingIds: string[];
-  taskIds: string[];
+  description?: string;
+  voiceRecording: string;
+  date: string;
+  type: string;
+  rate: number;
+  images: string[];
+  dreamLength: number;
+  sleepQuality: number;
+  isPersonally: boolean;
+  emotions: string[];
+  notes: string;
 }
 
 interface TravelState extends EntityState<Travel, string> {}
