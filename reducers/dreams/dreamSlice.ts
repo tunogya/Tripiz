@@ -4,7 +4,7 @@ import {
   EntityState,
 } from "@reduxjs/toolkit";
 
-export interface Travel {
+export interface Dream {
   id: string;
   title: string;
   description?: string;
@@ -20,13 +20,13 @@ export interface Travel {
   notes: string;
 }
 
-interface TravelState extends EntityState<Travel, string> {}
+interface DreamState extends EntityState<Dream, string> {}
 
-const entityAdapter = createEntityAdapter<Travel>();
-const initialState: TravelState = entityAdapter.getInitialState();
+const entityAdapter = createEntityAdapter<Dream>();
+const initialState: DreamState = entityAdapter.getInitialState();
 
 export const slice = createSlice({
-  name: "travel",
+  name: "dream",
   initialState: initialState,
   reducers: {
     addOne: entityAdapter.addOne,
@@ -38,11 +38,11 @@ export const slice = createSlice({
 });
 
 export const {
-  addOne: addOneTravel,
-  removeOne: removeOneTravel,
-  updateOne: updateOneTravel,
-  removeAll: removeAllTravels,
-  addMany: addManyTravels,
+  addOne: addOneDream,
+  removeOne: removeOneDream,
+  updateOne: updateOneDream,
+  removeAll: removeAllDreams,
+  addMany: addManyDreams,
 } = slice.actions;
 
 export default slice.reducer;
