@@ -12,7 +12,7 @@ const StoryRoute = () => (
       placeholder={"Write your dream here"}
       multiline={true}
       numberOfLines={5}
-      className={"p-4 bg-white font-bold h-40 rounded-lg"}
+      className={"p-4 bg-white h-40 rounded-lg"}
     />
   </View>
 );
