@@ -18,7 +18,7 @@ const AddDreamButton = () => {
         }}
         className={"bg-white rounded-full items-center justify-center flex flex-row py-3 px-6 space-x-1"}
       >
-        <Ionicons name="add-sharp" size={20} color="#121212"/>
+        <Ionicons name="add-sharp" size={16} color="#121212"/>
         <Text className={"font-bold"}>Dream</Text>
       </Pressable>
     </View>

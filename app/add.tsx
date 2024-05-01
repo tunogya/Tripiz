@@ -57,17 +57,20 @@ const Page = () => {
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>
+      <View className={"flex justify-center items-center py-0.5"}>
+        <View className={"w-10 h-1 bg-white rounded-full"}></View>
+      </View>
       <View className={"flex-row justify-between p-3 items-center"}>
         <Pressable
-          className={"p-1.5"}
+          className={"items-center justify-center flex flex-row space-x-1"}
           onPress={() => {
-            router.back()
           }}
         >
-          <Ionicons name="chevron-down" size={20} color="white" />
+          <Ionicons name="refresh-sharp" size={20} color="white" />
+          <Text className={"text-white font-bold"}>Clear all</Text>
         </Pressable>
         <Pressable className={"bg-white rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1"}>
-          <Ionicons name="checkmark" size={20} color="#121212" />
+          <Ionicons name="checkmark-done-sharp" size={16} color="#121212" />
           <Text className={"font-bold"}>Save dream</Text>
         </Pressable>
       </View>
