@@ -194,7 +194,6 @@ const renderScene = SceneMap({
   lucidity: LucidityRoute,
 });
 
-
 const Page = () => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
@@ -219,7 +218,7 @@ const Page = () => {
         {/*  <Ionicons name="refresh-sharp" size={20} color="white" />*/}
         {/*  <Text className={"text-white font-bold"}>Clear all</Text>*/}
         {/*</Pressable>*/}
-        <Pressable className={"bg-white rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1"}>
+        <Pressable className={`bg-[#B3B3B3] rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1`}>
           <Ionicons name="checkmark-done-sharp" size={20} color="#121212" />
           <Text className={"font-bold"}>Save dream</Text>
         </Pressable>
