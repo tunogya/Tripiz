@@ -1,38 +1,123 @@
-import {useWindowDimensions, View, Text, Pressable, TextInput} from "react-native";
+import {useWindowDimensions, View, Text, Pressable, TextInput, ScrollView} from "react-native";
 import {memo, useState} from "react";
 import {SceneMap, TabBar, TabView} from "react-native-tab-view";
 import {Ionicons} from "@expo/vector-icons";
-import {router} from "expo-router";
 
 const StoryRoute = () => (
-  <View className={"flex-1 mt-4 px-3 space-y-4"}>
-    <TextInput
-      placeholder={"Add a title"}
-      className={"p-4 bg-white rounded-lg font-bold"}
-    />
-    <TextInput
-      placeholder={"Write your dream here"}
-      multiline={true}
-      numberOfLines={5}
-      className={"p-4 bg-white h-40 rounded-lg"}
-    />
-  </View>
+  <ScrollView className={"flex-1 mt-4 px-3 space-y-4"}>
+    <View className={"bg-white rounded-xl px-3 py-4"}>
+      <TextInput
+        placeholder={"Add a title"}
+        className={"font-bold"}
+      />
+    </View>
+    <View className={"bg-white rounded-xl px-3 py-4"}>
+      <TextInput
+        placeholder={"Write your dream here..."}
+        multiline={true}
+        className={"h-40 rounded-lg"}
+      />
+    </View>
+    <View className={"bg-white rounded-xl p-4"}>
+      <View className={"flex flex-row items-center space-x-1"}>
+        <Ionicons name="mic" size={20} color="black" />
+        <Text className={"font-bold"}>Voice recording</Text>
+      </View>
+      <View className={"h-20"}>
+        <Pressable className={""}>
+        </Pressable>
+      </View>
+    </View>
+    <View className={"h-20"}></View>
+  </ScrollView>
 );
 
 const DetailsRoute = () => (
-  <View style={{ flex: 1}} >
-
-  </View>
+  <ScrollView className={"flex-1 pt-4 px-3 space-y-8"}>
+    <View className={"space-y-3"}>
+      <Text className={"text-white text-3xl font-bold"}>
+        General
+      </Text>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Date
+        </Text>
+      </View>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Type
+        </Text>
+      </View>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Rate
+        </Text>
+      </View>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Images
+        </Text>
+      </View>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Dream length
+        </Text>
+      </View>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Sleep quality
+        </Text>
+      </View>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Personally in the dream
+        </Text>
+      </View>
+    </View>
+    <View className={"space-y-3"}>
+      <Text className={"text-white text-3xl font-bold"}>
+        Emotions
+      </Text>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Emotions
+        </Text>
+      </View>
+      <View className={"bg-white rounded-xl p-4"}>
+        <Text className={"font-bold"}>
+          Corresponds to mood
+        </Text>
+      </View>
+    </View>
+    <View className={"space-y-3"}>
+      <Text className={"text-white text-3xl font-bold"}>
+        Context
+      </Text>
+    </View>
+    <View className={"space-y-3"}>
+      <Text className={"text-white text-3xl font-bold"}>
+        Notes
+      </Text>
+      <View className={"bg-white rounded-xl px-3 py-4"}>
+        <TextInput
+          multiline={true}
+          placeholder={"Write down anything else you want about your dream"}
+          className={"font-bold h-40"}
+        />
+      </View>
+    </View>
+    <View className={"h-20"}></View>
+  </ScrollView>
 );
 
 const SymbolsRoute = () => (
-  <View style={{ flex: 1}} >
+  <View className={"flex-1 mt-4 px-3 space-y-4"}>
 
   </View>
 );
 
 const LucidityRoute = () => (
-  <View style={{ flex: 1}} >
+  <View className={"flex-1 mt-4 px-3 space-y-4"}>
 
   </View>
 );
@@ -61,14 +146,15 @@ const Page = () => {
         <View className={"w-10 h-1 bg-white rounded-full"}></View>
       </View>
       <View className={"flex-row justify-between p-3 items-center"}>
-        <Pressable
-          className={"items-center justify-center flex flex-row space-x-1"}
-          onPress={() => {
-          }}
-        >
-          <Ionicons name="refresh-sharp" size={20} color="white" />
-          <Text className={"text-white font-bold"}>Clear all</Text>
-        </Pressable>
+        <View></View>
+        {/*<Pressable*/}
+        {/*  className={"items-center justify-center flex flex-row space-x-1"}*/}
+        {/*  onPress={() => {*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  <Ionicons name="refresh-sharp" size={20} color="white" />*/}
+        {/*  <Text className={"text-white font-bold"}>Clear all</Text>*/}
+        {/*</Pressable>*/}
         <Pressable className={"bg-white rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1"}>
           <Ionicons name="checkmark-done-sharp" size={16} color="#121212" />
           <Text className={"font-bold"}>Save dream</Text>
