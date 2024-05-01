@@ -326,10 +326,11 @@ const Page = () => {
     const newDream = {
       ...draft,
       id: uuid.v4().toString(),
+      date: new Date().getTime(),
     }
-    await dispatch(addOneDream(newDream));
-    await dispatch(clearDraft());
-    await router.back()
+    dispatch(addOneDream(newDream));
+    dispatch(clearDraft());
+    router.back()
   }
 
   return (

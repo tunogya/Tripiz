@@ -9,7 +9,7 @@ export interface Dream {
   title: string;
   description?: string;
   voiceRecording?: string;
-  date: string;
+  date: number;
   rate?: number;
   images?: string[];
   dreamLength?: number;

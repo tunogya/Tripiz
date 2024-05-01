@@ -6,7 +6,6 @@ export const slice = createSlice({
     title: "",
     description: "",
     voiceRecording: "",
-    date: "",
     rate: 3,
     dreamLength: 3,
     sleepQuality: 3,
@@ -23,20 +22,17 @@ export const slice = createSlice({
       }
     },
     clearDraft: (state) => {
-      state = {
-        title: "",
-        description: "",
-        voiceRecording: "",
-        date: "",
-        rate: 3,
-        dreamLength: 3,
-        sleepQuality: 3,
-        isPersonally: false,
-        notes: "",
-        lucidity: false,
-        controllability: false,
-        vividness: 3,
-      };
+      state.title = "";
+      state.description = "";
+      state.voiceRecording = "";
+      state.rate = 3;
+      state.dreamLength = 3;
+      state.sleepQuality = 3;
+      state.isPersonally = false;
+      state.notes = "";
+      state.lucidity = false;
+      state.controllability = false;
+      state.vividness = 3;
     }
   },
 });
