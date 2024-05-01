@@ -5,23 +5,25 @@ import {Ionicons} from "@expo/vector-icons";
 
 const StoryRoute = () => (
   <ScrollView className={"flex-1 mt-4 px-3 space-y-4"}>
-    <View className={"bg-white rounded-xl px-3 py-4"}>
+    <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
       <TextInput
         placeholder={"Add a title"}
-        className={"font-bold"}
+        placeholderTextColor={"#B3B3B3"}
+        className={"font-bold text-white"}
       />
     </View>
-    <View className={"bg-white rounded-xl px-3 py-4"}>
+    <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
       <TextInput
         placeholder={"Write your dream here..."}
+        placeholderTextColor={"#B3B3B3"}
         multiline={true}
         className={"h-40 rounded-lg"}
       />
     </View>
-    <View className={"bg-white rounded-xl p-3"}>
+    <View className={"bg-[#242424] rounded-xl p-3"}>
       <View className={"flex flex-row items-center space-x-1"}>
-        <Ionicons name="mic" size={20} color="black" />
-        <Text className={"font-bold"}>Voice recording</Text>
+        <Ionicons name="mic" size={20} color="white" />
+        <Text className={"font-bold text-white"}>Voice recording</Text>
       </View>
       <View className={"h-20"}>
         <Pressable className={""}>
@@ -38,71 +40,90 @@ const DetailsRoute = () => (
       <Text className={"text-white text-3xl font-bold"}>
         General
       </Text>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
-          Date
-        </Text>
-      </View>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
-          Type
-        </Text>
-      </View>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
+      <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+        <Text className={"font-bold text-white"}>
           Rate
         </Text>
+        <View className={'flex flex-row justify-center space-x-1.5'}>
+          {
+            [1,2,3,4,5].map((item, index) => (
+              <Pressable key={index}
+                className={'w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center'}>
+                <Text className={"text-white font-bold"}>{item}</Text>
+              </Pressable>
+            ))
+          }
+        </View>
+        <View className={"flex flex-row justify-around"}>
+          <Text className={"font-bold text-[#B3B3B3]"}>Very bad</Text>
+          <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
+        </View>
       </View>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
-          Images
-        </Text>
-      </View>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
+      <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+        <Text className={"font-bold text-white"}>
           Dream length
         </Text>
+        <View className={'flex flex-row justify-center space-x-1.5'}>
+          {
+            [1,2,3,4,5].map((item, index) => (
+              <Pressable key={index}
+                         className={'w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center'}>
+                <Text className={"text-white font-bold"}>{item}</Text>
+              </Pressable>
+            ))
+          }
+        </View>
+        <View className={"flex flex-row justify-around"}>
+          <Text className={"font-bold text-[#B3B3B3]"}>Very short</Text>
+          <Text className={"font-bold text-[#B3B3B3]"}>Very long</Text>
+        </View>
       </View>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
+      <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+        <Text className={"font-bold text-white"}>
           Sleep quality
         </Text>
+        <View className={'flex flex-row justify-center space-x-1.5'}>
+          {
+            [1,2,3,4,5].map((item, index) => (
+              <Pressable key={index}
+                         className={'w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center'}>
+                <Text className={"text-white font-bold"}>{item}</Text>
+              </Pressable>
+            ))
+          }
+        </View>
+        <View className={"flex flex-row justify-around"}>
+          <Text className={"font-bold text-[#B3B3B3]"}>Very bad</Text>
+          <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
+        </View>
       </View>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
+      <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+        <Text className={"font-bold text-white"}>
           Personally in the dream
         </Text>
+        <View className={"flex flex-row justify-center space-x-1.5"}>
+          {
+            [false, true].map((item, index) => (
+              <Pressable className={"w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center"}>
+                <Text className={"font-bold text-[#B3B3B3]"}>
+                  {item ? "Yes" : "No"}
+                </Text>
+              </Pressable>
+            ))
+          }
+        </View>
       </View>
-    </View>
-    <View className={"space-y-3"}>
-      <Text className={"text-white text-3xl font-bold"}>
-        Emotions
-      </Text>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
-          Emotions
-        </Text>
-      </View>
-      <View className={"bg-white rounded-xl p-4"}>
-        <Text className={"font-bold"}>
-          Corresponds to mood
-        </Text>
-      </View>
-    </View>
-    <View className={"space-y-3"}>
-      <Text className={"text-white text-3xl font-bold"}>
-        Context
-      </Text>
     </View>
     <View className={"space-y-3"}>
       <Text className={"text-white text-3xl font-bold"}>
         Notes
       </Text>
-      <View className={"bg-white rounded-xl px-3 py-4"}>
+      <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
         <TextInput
           multiline={true}
+          placeholderTextColor={"#B3B3B3"}
           placeholder={"Write down anything else you want about your dream"}
-          className={"font-bold h-40"}
+          className={"font-bold h-40 text-white"}
         />
       </View>
     </View>
@@ -110,58 +131,58 @@ const DetailsRoute = () => (
   </ScrollView>
 );
 
-const SymbolsRoute = () => (
-  <ScrollView className={"flex-1 pt-4 px-3 space-y-3"}>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
-        People
-      </Text>
-    </View>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
-        Objects
-      </Text>
-    </View>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
-        Characters
-      </Text>
-    </View>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
-        Places
-      </Text>
-    </View>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
-        Themes
-      </Text>
-    </View>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
-        Actions
-      </Text>
-    </View>
-    <View className={"h-20"}></View>
-  </ScrollView>
-);
-
 const LucidityRoute = () => (
   <ScrollView className={"flex-1 pt-4 px-3 space-y-3"}>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
+    <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+      <Text className={"font-bold text-white"}>
         Lucid dream
       </Text>
+      <View className={"flex flex-row justify-center space-x-1.5"}>
+        {
+          [false, true].map((item, index) => (
+            <Pressable className={"w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center"}>
+              <Text className={"font-bold text-[#B3B3B3]"}>
+                {item ? "Yes" : "No"}
+              </Text>
+            </Pressable>
+          ))
+        }
+      </View>
     </View>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
+    <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+      <Text className={"font-bold text-white"}>
         Can control dream
       </Text>
+      <View className={"flex flex-row justify-center space-x-1.5"}>
+        {
+          [false, true].map((item, index) => (
+            <Pressable className={"w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center"}>
+              <Text className={"font-bold text-[#B3B3B3]"}>
+                {item ? "Yes" : "No"}
+              </Text>
+            </Pressable>
+          ))
+        }
+      </View>
     </View>
-    <View className={"bg-white rounded-xl p-4"}>
-      <Text className={"font-bold"}>
+    <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+      <Text className={"font-bold text-white"}>
         Vividness
       </Text>
+      <View className={'flex flex-row justify-center space-x-1.5'}>
+        {
+          [1,2,3,4,5].map((item, index) => (
+            <Pressable key={index}
+                       className={'w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center'}>
+              <Text className={"text-white font-bold"}>{item}</Text>
+            </Pressable>
+          ))
+        }
+      </View>
+      <View className={"flex flex-row justify-around"}>
+        <Text className={"font-bold text-[#B3B3B3]"}>Very vague</Text>
+        <Text className={"font-bold text-[#B3B3B3]"}>Very vivid</Text>
+      </View>
     </View>
     <View className={"h-20"}></View>
   </ScrollView>
@@ -170,7 +191,6 @@ const LucidityRoute = () => (
 const renderScene = SceneMap({
   story: StoryRoute,
   details: DetailsRoute,
-  symbols: SymbolsRoute,
   lucidity: LucidityRoute,
 });
 
@@ -181,7 +201,6 @@ const Page = () => {
   const [routes] = useState([
     { key: 'story', title: 'Story' },
     { key: 'details', title: 'Details' },
-    { key: 'symbols', title: 'Symbols' },
     { key: 'lucidity', title: 'Lucidity' },
   ]);
 

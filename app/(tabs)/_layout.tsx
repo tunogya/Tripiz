@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { Tabs } from "expo-router";
 import { BlurView } from "expo-blur";
-import { Octicons } from "@expo/vector-icons";
 import Svg, {Path} from "react-native-svg";
 
 function TabLayout() {
@@ -23,8 +22,19 @@ function TabLayout() {
         options={{
           title: "Home",
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Octicons name="home" size={size} color={color} />
+          tabBarIcon: ({ color, size, focused }) => (
+            focused ? (
+              <Svg width={size} height={size} viewBox="0 0 24 24">
+                <Path fill={color}
+                      d="M13.5 1.515a3 3 0 0 0-3 0L3 5.845a2 2 0 0 0-1 1.732V21a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6h4v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V7.577a2 2 0 0 0-1-1.732l-7.5-4.33z"></Path>
+              </Svg>
+            ) : (
+              <Svg width={size} height={size} viewBox="0 0 24 24">
+                <Path fill={color}
+                  d="M12.5 3.247a1 1 0 0 0-1 0L4 7.577V20h4.5v-6a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v6H20V7.577l-7.5-4.33zm-2-1.732a3 3 0 0 1 3 0l7.5 4.33a2 2 0 0 1 1 1.732V21a1 1 0 0 1-1 1h-6.5a1 1 0 0 1-1-1v-6h-3v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.577a2 2 0 0 1 1-1.732l7.5-4.33z">
+                </Path>
+              </Svg>
+            )
           ),
         }}
       />
@@ -33,8 +43,20 @@ function TabLayout() {
         options={{
           title: "Library",
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Octicons name="package" size={size} color={color} />
+          tabBarIcon: ({color, size, focused}) => (
+            focused ? (
+              <Svg width={size} height={size} viewBox="0 0 24 24">
+                <Path fill={color}
+                  d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z">
+                </Path>
+              </Svg>
+            ) : (
+              <Svg width={size} height={size} viewBox="0 0 24 24">
+                <Path fill={color}
+                  d="M14.5 2.134a1 1 0 0 1 1 0l6 3.464a1 1 0 0 1 .5.866V21a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V3a1 1 0 0 1 .5-.866zM16 4.732V20h4V7.041l-4-2.309zM3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zm6 0a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z">
+                </Path>
+              </Svg>
+            )
           ),
         }}
       />
