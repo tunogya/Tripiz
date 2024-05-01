@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dreamReducer from "../reducers/dreams/dreamSlice";
+import draftReducer from "../reducers/dreams/draftSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -11,6 +12,7 @@ const rootPersistConfig = {
 
 const rootReducer = combineReducers({
   dream: dreamReducer,
+  draft: draftReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
