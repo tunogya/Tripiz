@@ -206,8 +206,8 @@ const Page = () => {
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>
-      <View className={"flex justify-center items-center py-0.5"}>
-        <View className={"w-10 h-1 bg-white rounded-full"}></View>
+      <View className={"flex justify-center items-center pt-2"}>
+        <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
       <View className={"flex-row justify-between p-3 items-center"}>
         <View></View>
