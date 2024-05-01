@@ -5,7 +5,7 @@ export const slice = createSlice({
   initialState: {
     title: "",
     description: "",
-    voiceRecording: 3,
+    voiceRecording: "",
     date: "",
     rate: 3,
     dreamLength: 3,
@@ -26,7 +26,7 @@ export const slice = createSlice({
       state = {
         title: "",
         description: "",
-        voiceRecording: 3,
+        voiceRecording: "",
         date: "",
         rate: 3,
         dreamLength: 3,

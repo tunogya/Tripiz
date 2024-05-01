@@ -13,8 +13,11 @@ import {SceneMap, TabBar, TabView} from "react-native-tab-view";
 import {Ionicons} from "@expo/vector-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
-import {updateDraft} from "../reducers/dreams/draftSlice";
+import {clearDraft, updateDraft} from "../reducers/dreams/draftSlice";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import uuid from "react-native-uuid";
+import {addOneDream} from "../reducers/dreams/dreamSlice";
+import {router} from "expo-router";
 
 const StoryRoute = () => {
   const insets = useSafeAreaInsets();
@@ -309,11 +312,25 @@ const renderScene = SceneMap({
 const Page = () => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
+  const draft = useSelector((state: RootState) => state.draft);
   const [routes] = useState([
     {key: 'story', title: 'Story'},
     {key: 'details', title: 'Details'},
     {key: 'lucidity', title: 'Lucidity'},
   ]);
+  const dispatch = useDispatch();
+
+  const canSave = draft.title && draft.description;
+
+  const save = async () => {
+    const newDream = {
+      ...draft,
+      id: uuid.v4().toString(),
+    }
+    await dispatch(addOneDream(newDream));
+    await dispatch(clearDraft());
+    await router.back()
+  }
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>
@@ -331,7 +348,11 @@ const Page = () => {
         {/*  <Text className={"text-white font-bold"}>Clear all</Text>*/}
         {/*</Pressable>*/}
         <Pressable
-          className={`bg-[#B3B3B3] rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1`}>
+          className={`${canSave ? "bg-white" : "bg-[#B3B3B3]"} rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1`}
+          onPress={async () => {
+            await save();
+          }}
+        >
           <Ionicons name="checkmark-done-sharp" size={20} color="#121212"/>
           <Text className={"font-bold"}>Save dream</Text>
         </Pressable>

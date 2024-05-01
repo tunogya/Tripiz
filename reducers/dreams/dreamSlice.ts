@@ -11,11 +11,11 @@ export interface Dream {
   voiceRecording?: string;
   date: string;
   rate?: number;
-  images: string[];
+  images?: string[];
   dreamLength?: number;
   sleepQuality?: number;
   isPersonally?: boolean;
-  emotions: string[];
+  emotions?: string[];
   notes?: string;
   lucidity?: boolean;
   controllability?: boolean;
