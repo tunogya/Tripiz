@@ -65,7 +65,7 @@ const StoryRoute = () => {
           </View>
         </View>
         <View style={{
-          height: insets.bottom + 20,
+          height: insets.bottom + 80,
         }}></View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -203,7 +203,7 @@ const DetailsRoute = () => {
           </View>
         </View>
         <View style={{
-          height: insets.bottom + 20,
+          height: insets.bottom + 80,
         }}></View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -293,7 +293,7 @@ const LucidityRoute = () => {
           </View>
         </View>
         <View style={{
-          height: insets.bottom + 20,
+          height: insets.bottom + 80,
         }}></View>
       </ScrollView>
     </KeyboardAvoidingView>
