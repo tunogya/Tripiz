@@ -1,137 +1,233 @@
-import {useWindowDimensions, View, Text, Pressable, TextInput, ScrollView} from "react-native";
+import {
+  useWindowDimensions,
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform
+} from "react-native";
 import {memo, useState} from "react";
 import {SceneMap, TabBar, TabView} from "react-native-tab-view";
 import {Ionicons} from "@expo/vector-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {updateDraft} from "../reducers/dreams/draftSlice";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const StoryRoute = () => {
+  const insets = useSafeAreaInsets();
   const {title, description} = useSelector((state: RootState) => state.draft);
   const dispatch = useDispatch();
 
   return (
-    <ScrollView className={"flex-1 mt-4 px-3 space-y-4"}>
-      <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
-        <TextInput
-          value={title}
-          placeholder={"Add a title"}
-          placeholderTextColor={"#B3B3B3"}
-          className={"font-bold text-white"}
-          onChangeText={(text) => {
-            dispatch(updateDraft({title: text}))
-          }}
-        />
-      </View>
-      <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
-        <TextInput
-          value={description}
-          placeholder={"Write your dream here..."}
-          placeholderTextColor={"#B3B3B3"}
-          multiline={true}
-          className={"h-40 rounded-lg text-white"}
-          onChangeText={(text) => {
-            dispatch(updateDraft({description: text}))
-          }}
-        />
-      </View>
-      <View className={"bg-[#242424] rounded-xl p-3"}>
-        <View className={"flex flex-row items-center space-x-1"}>
-          <Ionicons name="mic" size={20} color="white"/>
-          <Text className={"font-bold text-white"}>Voice recording</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      enabled
+      style={{
+        flex: 1,
+      }}
+      keyboardVerticalOffset={insets.top + 20}
+    >
+      <ScrollView className={"flex-1 mt-4 px-3 space-y-4"}>
+        <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
+          <TextInput
+            value={title}
+            placeholder={"Add a title"}
+            placeholderTextColor={"#B3B3B3"}
+            className={"font-bold text-white"}
+            onChangeText={(text) => {
+              dispatch(updateDraft({title: text}))
+            }}
+          />
         </View>
-        <View className={"h-20"}>
-          <Pressable className={""}>
-          </Pressable>
+        <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
+          <TextInput
+            value={description}
+            placeholder={"Write your dream here..."}
+            placeholderTextColor={"#B3B3B3"}
+            multiline={true}
+            className={"h-40 rounded-lg text-white"}
+            onChangeText={(text) => {
+              dispatch(updateDraft({description: text}))
+            }}
+          />
         </View>
-      </View>
-      <View className={"h-20"}></View>
-    </ScrollView>
+        <View className={"bg-[#242424] rounded-xl p-3"}>
+          <View className={"flex flex-row items-center space-x-1"}>
+            <Ionicons name="mic" size={20} color="white"/>
+            <Text className={"font-bold text-white"}>Voice recording</Text>
+          </View>
+          <View className={"h-20"}>
+            <Pressable className={""}>
+            </Pressable>
+          </View>
+        </View>
+        <View style={{
+          height: insets.bottom + 20,
+        }}></View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 };
 
 const DetailsRoute = () => {
+  const insets = useSafeAreaInsets();
   const {rate, dreamLength, sleepQuality, isPersonally, notes} = useSelector((state: RootState) => state.draft);
   const dispatch = useDispatch();
 
   return (
-    <ScrollView className={"flex-1 pt-4 px-3 space-y-8"}>
-      <View className={"space-y-3"}>
-        <Text className={"text-white text-3xl font-bold"}>
-          General
-        </Text>
-        <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-          <Text className={"font-bold text-white"}>
-            Rate
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      enabled
+      style={{
+        flex: 1,
+      }}
+      keyboardVerticalOffset={insets.top + 20}
+    >
+      <ScrollView className={"flex-1 pt-4 px-3 space-y-8"}>
+        <View className={"space-y-3"}>
+          <Text className={"text-white text-3xl font-bold"}>
+            General
           </Text>
-          <View className={'flex flex-row justify-center space-x-1.5'}>
-            {
-              [1, 2, 3, 4, 5].map((item, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => {
-                    dispatch(updateDraft({rate: item}))
-                  }}
-                  className={`${item === rate ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}>
-                  <Text className={`${item === rate ? "text-black" : "text-[#B3B3B3]"} font-bold`}>{item}</Text>
-                </Pressable>
-              ))
-            }
+          <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+            <Text className={"font-bold text-white"}>
+              Rate
+            </Text>
+            <View className={'flex flex-row justify-center space-x-1.5'}>
+              {
+                [1, 2, 3, 4, 5].map((item, index) => (
+                  <Pressable
+                    key={index}
+                    onPress={() => {
+                      dispatch(updateDraft({rate: item}))
+                    }}
+                    className={`${item === rate ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}>
+                    <Text className={`${item === rate ? "text-black" : "text-[#B3B3B3]"} font-bold`}>{item}</Text>
+                  </Pressable>
+                ))
+              }
+            </View>
+            <View className={"flex flex-row justify-around"}>
+              <Text className={"font-bold text-[#B3B3B3]"}>Very bad</Text>
+              <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
+            </View>
           </View>
-          <View className={"flex flex-row justify-around"}>
-            <Text className={"font-bold text-[#B3B3B3]"}>Very bad</Text>
-            <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
+          <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+            <Text className={"font-bold text-white"}>
+              Dream length
+            </Text>
+            <View className={'flex flex-row justify-center space-x-1.5'}>
+              {
+                [1, 2, 3, 4, 5].map((item, index) => (
+                  <Pressable
+                    key={index}
+                    onPress={() => {
+                      dispatch(updateDraft({dreamLength: item}))
+                    }}
+                    className={`${item === dreamLength ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}>
+                    <Text
+                      className={`${item === dreamLength ? "text-black" : "text-[#B3B3B3]"} font-bold`}>{item}</Text>
+                  </Pressable>
+                ))
+              }
+            </View>
+            <View className={"flex flex-row justify-around"}>
+              <Text className={"font-bold text-[#B3B3B3]"}>Very short</Text>
+              <Text className={"font-bold text-[#B3B3B3]"}>Very long</Text>
+            </View>
+          </View>
+          <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+            <Text className={"font-bold text-white"}>
+              Sleep quality
+            </Text>
+            <View className={'flex flex-row justify-center space-x-1.5'}>
+              {
+                [1, 2, 3, 4, 5].map((item, index) => (
+                  <Pressable
+                    key={index}
+                    onPress={() => {
+                      dispatch(updateDraft({sleepQuality: item}))
+                    }}
+                    className={`${item === sleepQuality ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}>
+                    <Text
+                      className={`${item === sleepQuality ? "text-black" : "text-[#B3B3B3]"} font-bold`}>{item}</Text>
+                  </Pressable>
+                ))
+              }
+            </View>
+            <View className={"flex flex-row justify-around"}>
+              <Text className={"font-bold text-[#B3B3B3]"}>Very bad</Text>
+              <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
+            </View>
+          </View>
+          <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+            <Text className={"font-bold text-white"}>
+              Personally in the dream
+            </Text>
+            <View className={"flex flex-row justify-center space-x-1.5"}>
+              {
+                [false, true].map((item, index) => (
+                  <Pressable
+                    key={index}
+                    onPress={() => {
+                      dispatch(updateDraft({isPersonally: item}))
+                    }}
+                    className={`${item === isPersonally ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
+                  >
+                    <Text className={`${item === isPersonally ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
+                      {item ? "Yes" : "No"}
+                    </Text>
+                  </Pressable>
+                ))
+              }
+            </View>
           </View>
         </View>
-        <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-          <Text className={"font-bold text-white"}>
-            Dream length
+        <View className={"space-y-3"}>
+          <Text className={"text-white text-3xl font-bold"}>
+            Notes
           </Text>
-          <View className={'flex flex-row justify-center space-x-1.5'}>
-            {
-              [1, 2, 3, 4, 5].map((item, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => {
-                    dispatch(updateDraft({dreamLength: item}))
-                  }}
-                  className={`${item === dreamLength ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}>
-                  <Text className={`${item === dreamLength ? "text-black" : "text-[#B3B3B3]"} font-bold`}>{item}</Text>
-                </Pressable>
-              ))
-            }
-          </View>
-          <View className={"flex flex-row justify-around"}>
-            <Text className={"font-bold text-[#B3B3B3]"}>Very short</Text>
-            <Text className={"font-bold text-[#B3B3B3]"}>Very long</Text>
+          <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
+            <TextInput
+              value={notes}
+              multiline={true}
+              placeholderTextColor={"#B3B3B3"}
+              onChangeText={(text) => {
+                dispatch(updateDraft({notes: text}))
+              }}
+              placeholder={"Write down anything else you want about your dream"}
+              className={"font-bold h-40 text-white"}
+            />
           </View>
         </View>
+        <View style={{
+          height: insets.bottom + 20,
+        }}></View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  )
+};
+
+const LucidityRoute = () => {
+  const insets = useSafeAreaInsets();
+  const {lucidity, controllability, vividness} = useSelector((state: RootState) => state.draft);
+  const dispatch = useDispatch();
+
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      enabled
+      style={{
+        flex: 1,
+      }}
+      keyboardVerticalOffset={insets.top + 20}
+    >
+      <ScrollView className={"flex-1 pt-4 px-3 space-y-3"}>
         <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
           <Text className={"font-bold text-white"}>
-            Sleep quality
-          </Text>
-          <View className={'flex flex-row justify-center space-x-1.5'}>
-            {
-              [1, 2, 3, 4, 5].map((item, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => {
-                    dispatch(updateDraft({sleepQuality: item}))
-                  }}
-                  className={`${item === sleepQuality ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}>
-                  <Text className={`${item === sleepQuality ? "text-black" : "text-[#B3B3B3]"} font-bold`}>{item}</Text>
-                </Pressable>
-              ))
-            }
-          </View>
-          <View className={"flex flex-row justify-around"}>
-            <Text className={"font-bold text-[#B3B3B3]"}>Very bad</Text>
-            <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
-          </View>
-        </View>
-        <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-          <Text className={"font-bold text-white"}>
-            Personally in the dream
+            Lucid dream
           </Text>
           <View className={"flex flex-row justify-center space-x-1.5"}>
             {
@@ -139,11 +235,11 @@ const DetailsRoute = () => {
                 <Pressable
                   key={index}
                   onPress={() => {
-                    dispatch(updateDraft({isPersonally: item}))
+                    dispatch(updateDraft({lucidity: item}))
                   }}
-                  className={`${item === isPersonally ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
+                  className={`${item === lucidity ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
                 >
-                  <Text className={`${item === isPersonally ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
+                  <Text className={`${item === lucidity ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
                     {item ? "Yes" : "No"}
                   </Text>
                 </Pressable>
@@ -151,104 +247,56 @@ const DetailsRoute = () => {
             }
           </View>
         </View>
-      </View>
-      <View className={"space-y-3"}>
-        <Text className={"text-white text-3xl font-bold"}>
-          Notes
-        </Text>
-        <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
-          <TextInput
-            value={notes}
-            multiline={true}
-            placeholderTextColor={"#B3B3B3"}
-            onChangeText={(text) => {
-              dispatch(updateDraft({notes: text}))
-            }}
-            placeholder={"Write down anything else you want about your dream"}
-            className={"font-bold h-40 text-white"}
-          />
+        <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+          <Text className={"font-bold text-white"}>
+            Can control dream
+          </Text>
+          <View className={"flex flex-row justify-center space-x-1.5"}>
+            {
+              [false, true].map((item, index) => (
+                <Pressable
+                  key={index}
+                  onPress={() => {
+                    dispatch(updateDraft({controllability: item}))
+                  }}
+                  className={`${item === controllability ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
+                >
+                  <Text className={`${item === controllability ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
+                    {item ? "Yes" : "No"}
+                  </Text>
+                </Pressable>
+              ))
+            }
+          </View>
         </View>
-      </View>
-      <View className={"h-20"}></View>
-    </ScrollView>
-  )
-};
-
-const LucidityRoute = () => {
-  const { lucidity, controllability, vividness} = useSelector((state: RootState) => state.draft);
-  const dispatch = useDispatch();
-
-  return (
-    <ScrollView className={"flex-1 pt-4 px-3 space-y-3"}>
-      <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-        <Text className={"font-bold text-white"}>
-          Lucid dream
-        </Text>
-        <View className={"flex flex-row justify-center space-x-1.5"}>
-          {
-            [false, true].map((item, index) => (
-              <Pressable
-                key={index}
-                onPress={() => {
-                  dispatch(updateDraft({lucidity: item}))
-                }}
-                className={`${item === lucidity ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-              >
-                <Text className={`${item === lucidity ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
-                  {item ? "Yes" : "No"}
-                </Text>
-              </Pressable>
-            ))
-          }
+        <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
+          <Text className={"font-bold text-white"}>
+            Vividness
+          </Text>
+          <View className={'flex flex-row justify-center space-x-1.5'}>
+            {
+              [1, 2, 3, 4, 5].map((item, index) => (
+                <Pressable
+                  key={index}
+                  onPress={() => {
+                    dispatch(updateDraft({vividness: item}))
+                  }}
+                  className={`${item === vividness ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}>
+                  <Text className={`${item === vividness ? "text-black" : "text-[#B3B3B3]"} font-bold`}>{item}</Text>
+                </Pressable>
+              ))
+            }
+          </View>
+          <View className={"flex flex-row justify-around"}>
+            <Text className={"font-bold text-[#B3B3B3]"}>Very vague</Text>
+            <Text className={"font-bold text-[#B3B3B3]"}>Very vivid</Text>
+          </View>
         </View>
-      </View>
-      <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-        <Text className={"font-bold text-white"}>
-          Can control dream
-        </Text>
-        <View className={"flex flex-row justify-center space-x-1.5"}>
-          {
-            [false, true].map((item, index) => (
-              <Pressable
-                key={index}
-                onPress={() => {
-                  dispatch(updateDraft({controllability: item}))
-                }}
-                className={`${item === controllability ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-              >
-                <Text className={`${item === controllability ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
-                  {item ? "Yes" : "No"}
-                </Text>
-              </Pressable>
-            ))
-          }
-        </View>
-      </View>
-      <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-        <Text className={"font-bold text-white"}>
-          Vividness
-        </Text>
-        <View className={'flex flex-row justify-center space-x-1.5'}>
-          {
-            [1, 2, 3, 4, 5].map((item, index) => (
-              <Pressable
-                key={index}
-                onPress={() => {
-                  dispatch(updateDraft({vividness: item}))
-                }}
-                className={`${item === vividness ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}>
-                <Text className={`${item === vividness ? "text-black" : "text-[#B3B3B3]"} font-bold`}>{item}</Text>
-              </Pressable>
-            ))
-          }
-        </View>
-        <View className={"flex flex-row justify-around"}>
-          <Text className={"font-bold text-[#B3B3B3]"}>Very vague</Text>
-          <Text className={"font-bold text-[#B3B3B3]"}>Very vivid</Text>
-        </View>
-      </View>
-      <View className={"h-20"}></View>
-    </ScrollView>
+        <View style={{
+          height: insets.bottom + 20,
+        }}></View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 };
 
