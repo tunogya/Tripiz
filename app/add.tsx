@@ -136,8 +136,14 @@ const DetailsRoute = () => {
           <View className={"flex flex-row justify-center space-x-1.5"}>
             {
               [false, true].map((item, index) => (
-                <Pressable className={"w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center"}>
-                  <Text className={"font-bold text-[#B3B3B3]"}>
+                <Pressable
+                  key={index}
+                  onPress={() => {
+                    dispatch(updateDraft({isPersonally: item}))
+                  }}
+                  className={`${item === isPersonally ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
+                >
+                  <Text className={`${item === isPersonally ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
                     {item ? "Yes" : "No"}
                   </Text>
                 </Pressable>
@@ -181,8 +187,14 @@ const LucidityRoute = () => {
         <View className={"flex flex-row justify-center space-x-1.5"}>
           {
             [false, true].map((item, index) => (
-              <Pressable className={"w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center"}>
-                <Text className={"font-bold text-[#B3B3B3]"}>
+              <Pressable
+                key={index}
+                onPress={() => {
+                  dispatch(updateDraft({lucidity: item}))
+                }}
+                className={`${item === lucidity ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
+              >
+                <Text className={`${item === lucidity ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
                   {item ? "Yes" : "No"}
                 </Text>
               </Pressable>
@@ -197,8 +209,14 @@ const LucidityRoute = () => {
         <View className={"flex flex-row justify-center space-x-1.5"}>
           {
             [false, true].map((item, index) => (
-              <Pressable className={"w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center"}>
-                <Text className={"font-bold text-[#B3B3B3]"}>
+              <Pressable
+                key={index}
+                onPress={() => {
+                  dispatch(updateDraft({controllability: item}))
+                }}
+                className={`${item === controllability ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
+              >
+                <Text className={`${item === controllability ? "text-black" : "text-[#B3B3B3]"} font-bold`}>
                   {item ? "Yes" : "No"}
                 </Text>
               </Pressable>
