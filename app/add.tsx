@@ -220,7 +220,7 @@ const Page = () => {
         {/*  <Text className={"text-white font-bold"}>Clear all</Text>*/}
         {/*</Pressable>*/}
         <Pressable className={"bg-white rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1"}>
-          <Ionicons name="checkmark-done-sharp" size={16} color="#121212" />
+          <Ionicons name="checkmark-done-sharp" size={20} color="#121212" />
           <Text className={"font-bold"}>Save dream</Text>
         </Pressable>
       </View>
