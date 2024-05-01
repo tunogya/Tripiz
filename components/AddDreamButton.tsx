@@ -1,4 +1,4 @@
-import {Pressable, View} from "react-native";
+import {Pressable, View, Text} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {memo} from "react";
@@ -16,9 +16,10 @@ const AddDreamButton = () => {
         onPress={() => {
           router.navigate("/add")
         }}
-        className={"bg-white rounded-full w-12 h-12 items-center justify-center"}
+        className={"bg-white rounded-full items-center justify-center flex flex-row py-3 px-6 space-x-1"}
       >
-        <Ionicons name="add" size={24} color="black"/>
+        <Ionicons name="add-sharp" size={20} color="#121212"/>
+        <Text className={"font-bold"}>Dream</Text>
       </Pressable>
     </View>
   )

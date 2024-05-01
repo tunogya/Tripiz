@@ -1,6 +1,8 @@
 import {useWindowDimensions, View, Text, Pressable, TextInput} from "react-native";
 import {memo, useState} from "react";
 import {SceneMap, TabBar, TabView} from "react-native-tab-view";
+import {Ionicons} from "@expo/vector-icons";
+import {router} from "expo-router";
 
 const StoryRoute = () => (
   <View className={"flex-1 mt-4 px-3 space-y-4"}>
@@ -55,8 +57,17 @@ const Page = () => {
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>
-      <View className={"flex-row justify-end p-3"}>
-        <Pressable className={"bg-white rounded-full p-3 items-center justify-center"}>
+      <View className={"flex-row justify-between p-3 items-center"}>
+        <Pressable
+          className={"p-1.5"}
+          onPress={() => {
+            router.back()
+          }}
+        >
+          <Ionicons name="chevron-down" size={20} color="white" />
+        </Pressable>
+        <Pressable className={"bg-white rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1"}>
+          <Ionicons name="checkmark" size={20} color="#121212" />
           <Text className={"font-bold"}>Save dream</Text>
         </Pressable>
       </View>
@@ -71,6 +82,7 @@ const Page = () => {
             scrollEnabled={true}
             tabStyle={{
               width: "auto",
+              marginLeft: 3,
             }}
             indicatorStyle={{
               backgroundColor: "white",

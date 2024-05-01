@@ -4,7 +4,6 @@ import { Platform } from "react-native";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { useDispatch } from "react-redux";
-import { setExpoPushToken } from "../reducers/config/configSlice";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -65,7 +64,7 @@ const Notification = () => {
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
       if (token) {
-        dispatch(setExpoPushToken(token));
+        // expo token
       }
     });
 
