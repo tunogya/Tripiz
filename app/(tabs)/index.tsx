@@ -7,14 +7,14 @@ function Page() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View
-      className={"flex flex-1 h-full bg-[#121212]"}
-      style={{
-        paddingTop: insets.top + 20,
-        paddingBottom: insets.bottom + 66,
-      }}
-    >
-      <ScrollView showsVerticalScrollIndicator={false} className={"pt-4"}>
+    <View className={"flex flex-1 bg-[#121212]"}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          paddingTop: insets.top + 20,
+          paddingBottom: insets.bottom + 66,
+        }}
+      >
         <Text>罗列潜意识中的艺术作品、诗歌、图片、视频</Text>
       </ScrollView>
       <AddDreamButton />
