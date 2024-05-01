@@ -152,8 +152,12 @@ const DetailsRoute = () => {
         </Text>
         <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
           <TextInput
+            value={notes}
             multiline={true}
             placeholderTextColor={"#B3B3B3"}
+            onChangeText={(text) => {
+              dispatch(updateDraft({notes: text}))
+            }}
             placeholder={"Write down anything else you want about your dream"}
             className={"font-bold h-40 text-white"}
           />
