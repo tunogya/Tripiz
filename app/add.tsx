@@ -18,7 +18,7 @@ const StoryRoute = () => (
         className={"h-40 rounded-lg"}
       />
     </View>
-    <View className={"bg-white rounded-xl p-4"}>
+    <View className={"bg-white rounded-xl p-3"}>
       <View className={"flex flex-row items-center space-x-1"}>
         <Ionicons name="mic" size={20} color="black" />
         <Text className={"font-bold"}>Voice recording</Text>
@@ -111,15 +111,60 @@ const DetailsRoute = () => (
 );
 
 const SymbolsRoute = () => (
-  <View className={"flex-1 mt-4 px-3 space-y-4"}>
-
-  </View>
+  <ScrollView className={"flex-1 pt-4 px-3 space-y-3"}>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        People
+      </Text>
+    </View>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        Objects
+      </Text>
+    </View>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        Characters
+      </Text>
+    </View>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        Places
+      </Text>
+    </View>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        Themes
+      </Text>
+    </View>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        Actions
+      </Text>
+    </View>
+    <View className={"h-20"}></View>
+  </ScrollView>
 );
 
 const LucidityRoute = () => (
-  <View className={"flex-1 mt-4 px-3 space-y-4"}>
-
-  </View>
+  <ScrollView className={"flex-1 pt-4 px-3 space-y-3"}>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        Lucid dream
+      </Text>
+    </View>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        Can control dream
+      </Text>
+    </View>
+    <View className={"bg-white rounded-xl p-4"}>
+      <Text className={"font-bold"}>
+        Vividness
+      </Text>
+    </View>
+    <View className={"h-20"}></View>
+  </ScrollView>
 );
 
 const renderScene = SceneMap({
