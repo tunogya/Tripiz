@@ -50,6 +50,7 @@ export default function RootLayout() {
                 title: "Add",
                 headerShown: false,
                 headerTintColor: "white",
+                headerBackTitleVisible: false,
                 headerStyle: {
                   backgroundColor: "#121212",
                 },
@@ -58,7 +59,13 @@ export default function RootLayout() {
             <Stack.Screen
               name="dreams/[id]"
               options={{
-                headerShown: false,
+                headerShown: true,
+                title: "Dream",
+                headerBackTitleVisible: false,
+                headerTintColor: "white",
+                headerStyle: {
+                  backgroundColor: "#121212",
+                },
               }}
             />
           </Stack>
