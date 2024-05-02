@@ -55,6 +55,12 @@ export default function RootLayout() {
                 },
               }}
             />
+            <Stack.Screen
+              name="dreams/[id]"
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack>
         </SafeAreaProvider>
       </PersistGate>

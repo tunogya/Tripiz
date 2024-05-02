@@ -15,7 +15,7 @@ function Page() {
           paddingBottom: insets.bottom + 66,
         }}
       >
-        <Text>罗列潜意识中的艺术作品、诗歌、图片、视频</Text>
+        <Text className={"text-white"}>Tripiz</Text>
       </ScrollView>
       <AddDreamButton />
     </View>
