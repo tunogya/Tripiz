@@ -1,10 +1,15 @@
 import {View, Text, ScrollView, Pressable} from "react-native";
-import {memo} from "react";
+import {memo, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddDreamButton";
+import {Ionicons} from "@expo/vector-icons";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
+
+  const FILTERS = ["Dreams", "People", "Objects", "Characters", "Places", "Themes", "Actions"];
+  const [filter, setFilter] = useState("");
+
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
       <View
@@ -25,10 +30,30 @@ const Page = () => {
           >
             <View className={"w-3"}></View>
             {
-              ["Dreams", "People", "Objects", "Characters", "Places", "Themes", "Actions"].map((item, index) => (
-                <Pressable key={index} className={"px-3 py-1 bg-[#FFFFFF12] rounded-full mx-1"}>
-                  <Text className={"text-white text-[14px]"}>{item}</Text>
+              filter && (
+                <Pressable
+                  className={"h-6 w-6 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"}
+                  onPress={() => {
+                    setFilter("");
+                  }}
+                >
+                  <Ionicons name="close" size={16} color="white" />
                 </Pressable>
+              )
+            }
+            {
+              FILTERS.map((item, index) => (
+                !filter || (filter && filter === item) ? (
+                  <Pressable
+                    key={index}
+                    className={`px-3 py-1 ${filter === item ? "bg-green-500" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
+                    onPress={() => {
+                      setFilter(item);
+                    }}
+                  >
+                    <Text className={`${filter === item ? "text-black" : "text-white"} text-[14px]`}>{item}</Text>
+                  </Pressable>
+                ) : null
               ))
             }
             <View className={"w-3"}></View>
