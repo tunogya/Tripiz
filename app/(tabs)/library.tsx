@@ -79,7 +79,7 @@ const Page = () => {
           keyExtractor={(item) => item.id}
           estimatedItemSize={23}
           ListHeaderComponent={() => (
-            <View className={"h-3"}></View>
+            <View className={"h-2"}></View>
           )}
           ListFooterComponent={() => (
             <View
@@ -90,10 +90,17 @@ const Page = () => {
             </View>
           )}
           renderItem={({item}) => (
-            <View className={"h-24"}>
-              <Text className={"text-white"}>{item.title}</Text>
-              <Text className={"text-white"}>{item.description}</Text>
-              <Text className={"text-white"}>{item.type}</Text>
+            <View className={"h-20 flex flex-row my-2 mx-4 space-x-3"}>
+              <View className={"h-20 w-20 bg-[#FFFFFF12]"}>
+              </View>
+              <View className={"flex justify-center"}>
+                <Text className={"text-white font-bold text-lg"}>{item.title}</Text>
+                {
+                  !filter && (
+                    <Text className={"text-[#B3B3B3]"}>{item.type}</Text>
+                  )
+                }
+              </View>
             </View>
           )}
         />
