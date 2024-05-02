@@ -17,7 +17,7 @@ const Page = () => {
   const DATA = dreamIds.map(id => ({
     ...dreams[id],
     type: "dream",
-  }));
+  })).sort((a, b) => b.date - a.date);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
@@ -27,9 +27,12 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
+        <View className={"px-4"}>
+          <Text className={"text-white font-bold text-2xl"}>Library</Text>
+        </View>
         <ScrollView
           horizontal
-          className={"flex flex-row py-3"}
+          className={"flex flex-row py-4"}
           showsHorizontalScrollIndicator={false}
         >
           <View className={"w-3"}></View>
@@ -83,6 +86,7 @@ const Page = () => {
             <View className={"h-24"}>
               <Text className={"text-white"}>{item.title}</Text>
               <Text className={"text-white"}>{item.description}</Text>
+              <Text className={"text-white"}>{item.type}</Text>
             </View>
           )}
         />
