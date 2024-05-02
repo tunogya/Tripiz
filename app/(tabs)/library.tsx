@@ -27,8 +27,13 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"px-4"}>
+        <View className={"px-4 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-bold text-2xl"}>Library</Text>
+          <Pressable
+            hitSlop={8}
+          >
+            <Ionicons name="search-sharp" size={24} color="white" />
+          </Pressable>
         </View>
         <ScrollView
           horizontal
@@ -39,6 +44,7 @@ const Page = () => {
           {
             filter && (
               <Pressable
+                hitSlop={4}
                 className={"h-6 w-6 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"}
                 onPress={() => {
                   setFilter("");
@@ -52,6 +58,7 @@ const Page = () => {
             FILTERS.map((item, index) => (
               !filter || (filter && filter === item) ? (
                 <Pressable
+                  hitSlop={4}
                   key={index}
                   className={`px-3 py-1 ${filter === item ? "bg-green-500" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
                   onPress={() => {
