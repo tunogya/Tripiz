@@ -12,11 +12,11 @@ import { memo, useState } from "react";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { clearDraft, updateDraft } from "../reducers/dreams/draftSlice";
+import { RootState } from "../../store/store";
+import { clearDraft, updateDraft } from "../../reducers/dreams/draftSlice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
-import { addOneDream } from "../reducers/dreams/dreamSlice";
+import { addOneDream } from "../../reducers/dreams/dreamSlice";
 import { router } from "expo-router";
 
 const StoryRoute = () => {

@@ -9,7 +9,7 @@ const AddDreamButton = () => {
 
   return (
     <View
-      className={"absolute"}
+      className={"absolute flex flex-row items-center"}
       style={{
         right: 20,
         bottom: insets.bottom + 66,
@@ -17,14 +17,21 @@ const AddDreamButton = () => {
     >
       <Pressable
         onPress={() => {
-          router.navigate("/add");
+          router.navigate("/add/dream");
         }}
         className={
-          "bg-white rounded-full items-center justify-center flex flex-row py-3 px-6 space-x-1"
+          "bg-white rounded-l-full items-center justify-center flex flex-row h-10 pl-3 pr-1.5 space-x-1"
         }
       >
         <Ionicons name="add-sharp" size={20} color="#121212" />
         <Text className={"font-bold"}>Dream</Text>
+      </Pressable>
+      <Pressable
+        className={
+          "bg-white rounded-r-full items-center justify-center flex flex-row h-10 pl-1.5 pr-3 space-x-1"
+        }
+      >
+        <Ionicons name="chevron-up" size={20} color="#121212" />
       </Pressable>
     </View>
   );

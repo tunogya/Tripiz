@@ -44,7 +44,7 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="add"
+              name="add/dream"
               options={{
                 presentation: "modal",
                 title: "Add",
