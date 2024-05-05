@@ -1,5 +1,5 @@
 import { Pressable, View, Text } from "react-native";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { memo, useState } from "react";
 import { router } from "expo-router";
@@ -66,11 +66,7 @@ const AddButton = () => {
                 New thought
               </Text>
               <View className={"bg-[#242424] p-2 rounded-full m-1"}>
-                <MaterialCommunityIcons
-                  name="thought-bubble-outline"
-                  size={24}
-                  color="white"
-                />
+                <Ionicons name="flash-outline" size={24} color="white" />
               </View>
             </View>
             <View className={"flex flex-row space-x-6 items-center"}>
