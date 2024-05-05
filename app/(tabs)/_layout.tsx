@@ -10,9 +10,9 @@ function TabLayout() {
         tabBarActiveTintColor: "white",
         tabBarStyle: {
           borderTopWidth: 0,
-          backgroundColor: "#121212",
           position: "absolute",
           bottom: 0,
+          left: 0,
         },
         tabBarHideOnKeyboard: true,
         tabBarBackground: () => <BlurView
