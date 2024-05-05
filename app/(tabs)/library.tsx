@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
 import { memo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AddDreamButton from "../../components/AddDreamButton";
+import AddDreamButton from "../../components/AddButton";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
