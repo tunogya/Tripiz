@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export const slice = createSlice({
   name: "dreamDraft",
@@ -33,13 +33,10 @@ export const slice = createSlice({
       state.lucidity = false;
       state.controllability = false;
       state.vividness = 3;
-    }
+    },
   },
 });
 
-export const {
-  updateDraft,
-  clearDraft,
-} = slice.actions;
+export const { updateDraft, clearDraft } = slice.actions;
 
 export default slice.reducer;

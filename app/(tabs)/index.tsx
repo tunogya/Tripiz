@@ -1,6 +1,6 @@
-import {View, Text, ScrollView} from "react-native";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {memo} from "react";
+import { View, Text, ScrollView } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { memo } from "react";
 import AddDreamButton from "../../components/AddDreamButton";
 
 function Page() {

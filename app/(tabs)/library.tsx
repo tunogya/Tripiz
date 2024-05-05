@@ -1,24 +1,36 @@
-import {View, Text, ScrollView, Pressable} from "react-native";
-import {memo, useState} from "react";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import { View, Text, ScrollView, Pressable } from "react-native";
+import { memo, useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddDreamButton";
-import {Ionicons} from "@expo/vector-icons";
-import {useSelector} from "react-redux";
-import {RootState} from "../../store/store";
-import {FlashList} from "@shopify/flash-list";
+import { Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { FlashList } from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
 
-  const FILTERS = ["Dreams", "People", "Objects", "Characters", "Places", "Themes", "Actions"];
+  const FILTERS = [
+    "Dreams",
+    "People",
+    "Objects",
+    "Characters",
+    "Places",
+    "Themes",
+    "Actions",
+  ];
   const [filter, setFilter] = useState("");
-  const {entities: dreams, ids: dreamIds} = useSelector((state: RootState) => state.dream);
+  const { entities: dreams, ids: dreamIds } = useSelector(
+    (state: RootState) => state.dream,
+  );
 
-  const DATA = dreamIds.map(id => ({
-    ...dreams[id],
-    type: "dream",
-  })).sort((a, b) => b.date - a.date);
+  const DATA = dreamIds
+    .map((id) => ({
+      ...dreams[id],
+      type: "dream",
+    }))
+    .sort((a, b) => b.date - a.date);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
@@ -30,9 +42,7 @@ const Page = () => {
       >
         <View className={"px-4 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-bold text-2xl"}>Library</Text>
-          <Pressable
-            hitSlop={8}
-          >
+          <Pressable hitSlop={8}>
             <Ionicons name="search-sharp" size={24} color="white" />
           </Pressable>
         </View>
@@ -42,35 +52,37 @@ const Page = () => {
           showsHorizontalScrollIndicator={false}
         >
           <View className={"w-3"}></View>
-          {
-            filter && (
+          {filter && (
+            <Pressable
+              hitSlop={4}
+              className={
+                "h-6 w-6 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"
+              }
+              onPress={() => {
+                setFilter("");
+              }}
+            >
+              <Ionicons name="close" size={16} color="white" />
+            </Pressable>
+          )}
+          {FILTERS.map((item, index) =>
+            !filter || (filter && filter === item) ? (
               <Pressable
                 hitSlop={4}
-                className={"h-6 w-6 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"}
+                key={index}
+                className={`px-3 py-1 ${filter === item ? "bg-green-500" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
                 onPress={() => {
-                  setFilter("");
+                  setFilter(item);
                 }}
               >
-                <Ionicons name="close" size={16} color="white"/>
-              </Pressable>
-            )
-          }
-          {
-            FILTERS.map((item, index) => (
-              !filter || (filter && filter === item) ? (
-                <Pressable
-                  hitSlop={4}
-                  key={index}
-                  className={`px-3 py-1 ${filter === item ? "bg-green-500" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
-                  onPress={() => {
-                    setFilter(item);
-                  }}
+                <Text
+                  className={`${filter === item ? "text-black" : "text-white"} text-[14px]`}
                 >
-                  <Text className={`${filter === item ? "text-black" : "text-white"} text-[14px]`}>{item}</Text>
-                </Pressable>
-              ) : null
-            ))
-          }
+                  {item}
+                </Text>
+              </Pressable>
+            ) : null,
+          )}
           <View className={"w-3"}></View>
         </ScrollView>
       </View>
@@ -79,25 +91,22 @@ const Page = () => {
           data={DATA}
           keyExtractor={(item) => item.id}
           estimatedItemSize={8}
-          ListHeaderComponent={() => (
-            <View className={"h-2"}></View>
-          )}
+          ListHeaderComponent={() => <View className={"h-2"}></View>}
           ListFooterComponent={() => (
             <View
               style={{
                 height: insets.bottom + 80,
               }}
-            >
-            </View>
+            ></View>
           )}
-          renderItem={({item}) => (
-            <LibraryShowItem item={item} showType={!filter}/>
+          renderItem={({ item }) => (
+            <LibraryShowItem item={item} showType={!filter} />
           )}
         />
       </View>
-      <AddDreamButton/>
+      <AddDreamButton />
     </View>
-  )
-}
+  );
+};
 
 export default memo(Page);

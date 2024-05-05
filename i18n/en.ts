@@ -1,3 +1,3 @@
 export const en = {
-  Tripiz: "Tripiz"
+  Tripiz: "Tripiz",
 };

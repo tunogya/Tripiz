@@ -1,6 +1,6 @@
-import {View, Text} from "react-native";
-import {memo} from "react";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import { View, Text } from "react-native";
+import { memo } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -13,7 +13,7 @@ const Page = () => {
     >
       <Text>会员计划</Text>
     </View>
-  )
-}
+  );
+};
 
 export default memo(Page);
