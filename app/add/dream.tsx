@@ -33,7 +33,7 @@ const StoryRoute = () => {
       }}
       keyboardVerticalOffset={insets.top + 20}
     >
-      <ScrollView className={"flex-1 mt-4 px-3 space-y-4"}>
+      <ScrollView className={"flex-1 pt-4 px-3 space-y-4"}>
         <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
           <TextInput
             value={title}
