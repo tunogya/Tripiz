@@ -65,7 +65,7 @@ const AddButton = () => {
               <Text className={"text-white text-lg font-bold"}>
                 New thought
               </Text>
-              <View className={"bg-[#242424] p-2 rounded-full m-0.5"}>
+              <View className={"bg-[#242424] p-2 rounded-full m-1"}>
                 <MaterialCommunityIcons
                   name="thought-bubble-outline"
                   size={24}
@@ -75,16 +75,22 @@ const AddButton = () => {
             </View>
             <View className={"flex flex-row space-x-6 items-center"}>
               <Text className={"text-white text-lg font-bold"}>New memory</Text>
-              <View className={"bg-[#242424] p-2 rounded-full m-0.5"}>
+              <View className={"bg-[#242424] p-2 rounded-full m-1"}>
                 <Ionicons name="sunny-outline" size={24} color="white" />
               </View>
             </View>
-            <View className={"flex flex-row space-x-6 items-center"}>
+            <Pressable
+              className={"flex flex-row space-x-6 items-center"}
+              onPress={() => {
+                setOpenMore(false);
+                router.push("/add/dream");
+              }}
+            >
               <Text className={"text-white text-lg font-bold"}>New dream</Text>
-              <View className={"bg-white p-2.5 rounded-full"}>
+              <View className={"bg-white p-3 rounded-full"}>
                 <Ionicons name="moon-outline" size={24} color="black" />
               </View>
-            </View>
+            </Pressable>
           </View>
         </View>
       </BlurView>
