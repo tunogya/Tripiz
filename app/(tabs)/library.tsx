@@ -13,12 +13,8 @@ const Page = () => {
 
   const FILTERS = [
     "Dreams",
-    "People",
-    "Objects",
-    "Characters",
-    "Places",
-    "Themes",
-    "Actions",
+    "Memory",
+    "Thought",
   ];
   const [filter, setFilter] = useState("");
   const { entities: dreams, ids: dreamIds } = useSelector(
