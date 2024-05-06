@@ -57,7 +57,57 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
+              name="add/memory"
+              options={{
+                presentation: "modal",
+                title: "Add",
+                headerShown: false,
+                headerTintColor: "white",
+                headerBackTitleVisible: false,
+                headerStyle: {
+                  backgroundColor: "#121212",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="add/thought"
+              options={{
+                presentation: "modal",
+                title: "Add",
+                headerShown: false,
+                headerTintColor: "white",
+                headerBackTitleVisible: false,
+                headerStyle: {
+                  backgroundColor: "#121212",
+                },
+              }}
+            />
+            <Stack.Screen
               name="dreams/[id]"
+              options={{
+                headerShown: true,
+                title: "Dream",
+                headerBackTitleVisible: false,
+                headerTintColor: "white",
+                headerStyle: {
+                  backgroundColor: "#121212",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="memory/[id]"
+              options={{
+                headerShown: true,
+                title: "Dream",
+                headerBackTitleVisible: false,
+                headerTintColor: "white",
+                headerStyle: {
+                  backgroundColor: "#121212",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="thought/[id]"
               options={{
                 headerShown: true,
                 title: "Dream",
