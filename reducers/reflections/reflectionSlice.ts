@@ -6,9 +6,10 @@ import {
 
 export interface Reflection {
   id: string;
+  title: string;
+  description?: string;
   date: number;
   images?: string[];
-  notes: string;
 }
 
 interface ReflectionState extends EntityState<Reflection, string> {}

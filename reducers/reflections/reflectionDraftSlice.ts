@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const slice = createSlice({
   name: "reflectionDraft",
   initialState: {
-    notes: "",
+    title: "",
+    description: "",
   },
   reducers: {
     updateDraft: (state, action) => {
@@ -12,7 +13,8 @@ export const slice = createSlice({
       }
     },
     clearDraft: (state) => {
-      state.notes = "";
+      state.title = "";
+      state.description = "";
     },
   },
 });

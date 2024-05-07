@@ -24,7 +24,7 @@ import { router } from "expo-router";
 
 const DetailsRoute = () => {
   const insets = useSafeAreaInsets();
-  const { notes } = useSelector((state: RootState) => state.reflectionDraft);
+  const { title, description } = useSelector((state: RootState) => state.reflectionDraft);
   const dispatch = useDispatch();
 
   return (
@@ -41,7 +41,18 @@ const DetailsRoute = () => {
           <Text className={"text-white text-3xl font-bold"}>Reflection</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
-              value={notes}
+              value={title}
+              placeholder={"Add a title"}
+              placeholderTextColor={"#B3B3B3"}
+              className={"font-bold text-white"}
+              onChangeText={(text) => {
+                dispatch(updateDraft({ title: text }));
+              }}
+            />
+          </View>
+          <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
+            <TextInput
+              value={description}
               multiline={true}
               placeholderTextColor={"#B3B3B3"}
               onChangeText={(text) => {
@@ -75,7 +86,7 @@ const Page = () => {
   const [routes] = useState([{ key: "details", title: "Details" }]);
   const dispatch = useDispatch();
 
-  const canSave = draft.notes;
+  const canSave = draft.title && draft.description;
 
   const save = async () => {
     const newReflection = {
@@ -83,7 +94,6 @@ const Page = () => {
       id: uuid.v4().toString(),
       date: new Date().getTime(),
     };
-    console.log(newReflection);
     dispatch(addOneReflection(newReflection));
     dispatch(clearDraft());
     router.back();
