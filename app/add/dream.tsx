@@ -13,7 +13,7 @@ import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { clearDraft, updateDraft } from "../../reducers/dreams/draftSlice";
+import { clearDraft, updateDraft } from "../../reducers/dreams/dreamDraftSlice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
 import { addOneDream } from "../../reducers/dreams/dreamSlice";
@@ -21,7 +21,7 @@ import { router } from "expo-router";
 
 const DreamRoute = () => {
   const insets = useSafeAreaInsets();
-  const { title, description } = useSelector((state: RootState) => state.draft);
+  const { title, description } = useSelector((state: RootState) => state.dreamDraft);
   const dispatch = useDispatch();
 
   return (
@@ -78,8 +78,8 @@ const DreamRoute = () => {
 
 const DetailsRoute = () => {
   const insets = useSafeAreaInsets();
-  const { rate, dreamLength, sleepQuality, isPersonally, notes } = useSelector(
-    (state: RootState) => state.draft,
+  const { rate, notes } = useSelector(
+    (state: RootState) => state.dreamDraft,
   );
   const dispatch = useDispatch();
 
@@ -153,7 +153,7 @@ const renderScene = SceneMap({
 const Page = () => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const draft = useSelector((state: RootState) => state.draft);
+  const draft = useSelector((state: RootState) => state.dreamDraft);
   const [routes] = useState([
     { key: "story", title: "Dream" },
     { key: "details", title: "Details" },
