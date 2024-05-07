@@ -9,14 +9,14 @@ import {
   Platform,
 } from "react-native";
 import { memo, useState } from "react";
-import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import { SceneMap, TabView } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { clearDraft, updateDraft } from "../../reducers/reflections/reflectionDraftSlice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
-import { addOneDream } from "../../reducers/dreams/dreamSlice";
+import { addOneReflection } from "../../reducers/reflections/reflectionSlice";
 import { router } from "expo-router";
 
 const DetailsRoute = () => {
@@ -37,7 +37,7 @@ const DetailsRoute = () => {
     >
       <ScrollView className={"flex-1 pt-4 px-3 space-y-8"}>
         <View className={"space-y-3"}>
-          <Text className={"text-white text-3xl font-bold"}>Reflection</Text>
+          <Text className={"text-white text-3xl font-bold"}>Notes</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
               value={notes}
@@ -77,12 +77,12 @@ const Page = () => {
   const canSave = draft.title && draft.description;
 
   const save = async () => {
-    const newDream = {
+    const newReflection = {
       ...draft,
       id: uuid.v4().toString(),
       date: new Date().getTime(),
     };
-    dispatch(addOneDream(newDream));
+    dispatch(addOneReflection(newReflection));
     dispatch(clearDraft());
     router.back();
   };
@@ -108,7 +108,7 @@ const Page = () => {
             await save();
           }}
         >
-          <Ionicons name="checkmark-done-sharp" size={20} color="#121212" />
+          <Ionicons name="checkmark-sharp" size={20} color="#121212" />
           <Text className={"font-bold"}>Save</Text>
         </Pressable>
       </View>

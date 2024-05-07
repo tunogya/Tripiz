@@ -16,8 +16,8 @@ import { RootState } from "../../store/store";
 import { clearDraft, updateDraft } from "../../reducers/memories/memoryDraftSlice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
-import { addOneDream } from "../../reducers/dreams/dreamSlice";
 import { router } from "expo-router";
+import {addOneMemory} from "../../reducers/memories/memorySlice";
 
 const MemoryRoute = () => {
   const insets = useSafeAreaInsets();
@@ -121,7 +121,7 @@ const DetailsRoute = () => {
           </View>
         </View>
         <View className={"space-y-3"}>
-          <Text className={"text-white text-3xl font-bold"}>Reflection</Text>
+          <Text className={"text-white text-3xl font-bold"}>Notes</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
               value={notes}
@@ -153,7 +153,7 @@ const renderScene = SceneMap({
 const Page = () => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const draft = useSelector((state: RootState) => state.dreamDraft);
+  const draft = useSelector((state: RootState) => state.memoryDraft);
   const [routes] = useState([
     { key: "story", title: "Memory" },
     { key: "details", title: "Details" },
@@ -163,12 +163,12 @@ const Page = () => {
   const canSave = draft.title && draft.description;
 
   const save = async () => {
-    const newDream = {
+    const newMemory = {
       ...draft,
       id: uuid.v4().toString(),
       date: new Date().getTime(),
     };
-    dispatch(addOneDream(newDream));
+    dispatch(addOneMemory(newMemory));
     dispatch(clearDraft());
     router.back();
   };
@@ -194,7 +194,7 @@ const Page = () => {
             await save();
           }}
         >
-          <Ionicons name="checkmark-done-sharp" size={20} color="#121212" />
+          <Ionicons name="checkmark-sharp" size={20} color="#121212" />
           <Text className={"font-bold"}>Save</Text>
         </Pressable>
       </View>

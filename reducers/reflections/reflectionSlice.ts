@@ -34,11 +34,11 @@ export const slice = createSlice({
 });
 
 export const {
-  addOne: addOneDream,
-  removeOne: removeOneDream,
-  updateOne: updateOneDream,
-  removeAll: removeAllDreams,
-  addMany: addManyDreams,
+  addOne: addOneReflection,
+  removeOne: removeOneReflection,
+  updateOne: updateOneReflection,
+  removeAll: removeAllReflections,
+  addMany: addManyReflections,
 } = slice.actions;
 
 export default slice.reducer;

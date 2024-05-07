@@ -121,7 +121,7 @@ const DetailsRoute = () => {
           </View>
         </View>
         <View className={"space-y-3"}>
-          <Text className={"text-white text-3xl font-bold"}>Reflection</Text>
+          <Text className={"text-white text-3xl font-bold"}>Notes</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
               value={notes}
@@ -194,7 +194,7 @@ const Page = () => {
             await save();
           }}
         >
-          <Ionicons name="checkmark-done-sharp" size={20} color="#121212" />
+          <Ionicons name="checkmark-sharp" size={20} color="#121212" />
           <Text className={"font-bold"}>Save</Text>
         </Pressable>
       </View>
