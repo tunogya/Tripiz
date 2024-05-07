@@ -85,7 +85,7 @@ export default function RootLayout() {
             <Stack.Screen
               name="dreams/[id]"
               options={{
-                headerShown: true,
+                headerShown: false,
                 title: "Dream",
                 headerBackTitleVisible: false,
                 headerTintColor: "white",
@@ -97,7 +97,7 @@ export default function RootLayout() {
             <Stack.Screen
               name="memories/[id]"
               options={{
-                headerShown: true,
+                headerShown: false,
                 title: "Memory",
                 headerBackTitleVisible: false,
                 headerTintColor: "white",
@@ -109,7 +109,7 @@ export default function RootLayout() {
             <Stack.Screen
               name="reflections/[id]"
               options={{
-                headerShown: true,
+                headerShown: false,
                 title: "Reflection",
                 headerBackTitleVisible: false,
                 headerTintColor: "white",

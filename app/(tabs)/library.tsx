@@ -80,7 +80,7 @@ const Page = () => {
               <Pressable
                 hitSlop={4}
                 key={index}
-                className={`px-3 py-1 ${filter === item ? "bg-green-500" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
+                className={`px-3 py-1 ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
                 onPress={() => {
                   setFilter(item);
                 }}
@@ -101,6 +101,11 @@ const Page = () => {
           data={DATA}
           keyExtractor={(item) => item.id}
           estimatedItemSize={8}
+          ListEmptyComponent={() => (
+            <View className={"px-4"}>
+              <Text className={"text-white"}>No {filter} content</Text>
+            </View>
+          )}
           ListHeaderComponent={() => <View className={"h-2"}></View>}
           ListFooterComponent={() => (
             <View
