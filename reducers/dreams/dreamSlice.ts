@@ -12,14 +12,8 @@ export interface Dream {
   date: number;
   rate?: number;
   images?: string[];
-  dreamLength?: number;
-  sleepQuality?: number;
-  isPersonally?: boolean;
   emotions?: string[];
   notes?: string;
-  lucidity?: boolean;
-  controllability?: boolean;
-  vividness?: number;
 }
 
 interface DreamState extends EntityState<Dream, string> {}

@@ -19,7 +19,7 @@ import uuid from "react-native-uuid";
 import { addOneDream } from "../../reducers/dreams/dreamSlice";
 import { router } from "expo-router";
 
-const StoryRoute = () => {
+const DreamRoute = () => {
   const insets = useSafeAreaInsets();
   const { title, description } = useSelector((state: RootState) => state.draft);
   const dispatch = useDispatch();
@@ -119,79 +119,9 @@ const DetailsRoute = () => {
               <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
             </View>
           </View>
-          <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-            <Text className={"font-bold text-white"}>Dream length</Text>
-            <View className={"flex flex-row justify-center space-x-1.5"}>
-              {[1, 2, 3, 4, 5].map((item, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => {
-                    dispatch(updateDraft({ dreamLength: item }));
-                  }}
-                  className={`${item === dreamLength ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-                >
-                  <Text
-                    className={`${item === dreamLength ? "text-black" : "text-[#B3B3B3]"} font-bold`}
-                  >
-                    {item}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-            <View className={"flex flex-row justify-around"}>
-              <Text className={"font-bold text-[#B3B3B3]"}>Very short</Text>
-              <Text className={"font-bold text-[#B3B3B3]"}>Very long</Text>
-            </View>
-          </View>
-          <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-            <Text className={"font-bold text-white"}>Sleep quality</Text>
-            <View className={"flex flex-row justify-center space-x-1.5"}>
-              {[1, 2, 3, 4, 5].map((item, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => {
-                    dispatch(updateDraft({ sleepQuality: item }));
-                  }}
-                  className={`${item === sleepQuality ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-                >
-                  <Text
-                    className={`${item === sleepQuality ? "text-black" : "text-[#B3B3B3]"} font-bold`}
-                  >
-                    {item}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-            <View className={"flex flex-row justify-around"}>
-              <Text className={"font-bold text-[#B3B3B3]"}>Very bad</Text>
-              <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
-            </View>
-          </View>
-          <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-            <Text className={"font-bold text-white"}>
-              Personally in the dream
-            </Text>
-            <View className={"flex flex-row justify-center space-x-1.5"}>
-              {[false, true].map((item, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => {
-                    dispatch(updateDraft({ isPersonally: item }));
-                  }}
-                  className={`${item === isPersonally ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-                >
-                  <Text
-                    className={`${item === isPersonally ? "text-black" : "text-[#B3B3B3]"} font-bold`}
-                  >
-                    {item ? "Yes" : "No"}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-          </View>
         </View>
         <View className={"space-y-3"}>
-          <Text className={"text-white text-3xl font-bold"}>Notes</Text>
+          <Text className={"text-white text-3xl font-bold"}>Reflection</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
               value={notes}
@@ -215,101 +145,9 @@ const DetailsRoute = () => {
   );
 };
 
-const LucidityRoute = () => {
-  const insets = useSafeAreaInsets();
-  const { lucidity, controllability, vividness } = useSelector(
-    (state: RootState) => state.draft,
-  );
-  const dispatch = useDispatch();
-
-  return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      enabled
-      style={{
-        flex: 1,
-      }}
-      keyboardVerticalOffset={insets.top + 20}
-    >
-      <ScrollView className={"flex-1 pt-4 px-3 space-y-3"}>
-        <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-          <Text className={"font-bold text-white"}>Lucid dream</Text>
-          <View className={"flex flex-row justify-center space-x-1.5"}>
-            {[false, true].map((item, index) => (
-              <Pressable
-                key={index}
-                onPress={() => {
-                  dispatch(updateDraft({ lucidity: item }));
-                }}
-                className={`${item === lucidity ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-              >
-                <Text
-                  className={`${item === lucidity ? "text-black" : "text-[#B3B3B3]"} font-bold`}
-                >
-                  {item ? "Yes" : "No"}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-        </View>
-        <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-          <Text className={"font-bold text-white"}>Can control dream</Text>
-          <View className={"flex flex-row justify-center space-x-1.5"}>
-            {[false, true].map((item, index) => (
-              <Pressable
-                key={index}
-                onPress={() => {
-                  dispatch(updateDraft({ controllability: item }));
-                }}
-                className={`${item === controllability ? "bg-white" : ""} w-28 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-              >
-                <Text
-                  className={`${item === controllability ? "text-black" : "text-[#B3B3B3]"} font-bold`}
-                >
-                  {item ? "Yes" : "No"}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-        </View>
-        <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-          <Text className={"font-bold text-white"}>Vividness</Text>
-          <View className={"flex flex-row justify-center space-x-1.5"}>
-            {[1, 2, 3, 4, 5].map((item, index) => (
-              <Pressable
-                key={index}
-                onPress={() => {
-                  dispatch(updateDraft({ vividness: item }));
-                }}
-                className={`${item === vividness ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-              >
-                <Text
-                  className={`${item === vividness ? "text-black" : "text-[#B3B3B3]"} font-bold`}
-                >
-                  {item}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-          <View className={"flex flex-row justify-around"}>
-            <Text className={"font-bold text-[#B3B3B3]"}>Very vague</Text>
-            <Text className={"font-bold text-[#B3B3B3]"}>Very vivid</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            height: insets.bottom + 80,
-          }}
-        ></View>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
-};
-
 const renderScene = SceneMap({
-  story: StoryRoute,
+  story: DreamRoute,
   details: DetailsRoute,
-  lucidity: LucidityRoute,
 });
 
 const Page = () => {
@@ -317,9 +155,8 @@ const Page = () => {
   const [index, setIndex] = useState(0);
   const draft = useSelector((state: RootState) => state.draft);
   const [routes] = useState([
-    { key: "story", title: "Story" },
+    { key: "story", title: "Dream" },
     { key: "details", title: "Details" },
-    { key: "lucidity", title: "Lucidity" },
   ]);
   const dispatch = useDispatch();
 
@@ -358,7 +195,7 @@ const Page = () => {
           }}
         >
           <Ionicons name="checkmark-done-sharp" size={20} color="#121212" />
-          <Text className={"font-bold"}>Save dream</Text>
+          <Text className={"font-bold"}>Save</Text>
         </Pressable>
       </View>
       <TabView
