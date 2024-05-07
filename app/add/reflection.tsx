@@ -19,63 +19,6 @@ import uuid from "react-native-uuid";
 import { addOneDream } from "../../reducers/dreams/dreamSlice";
 import { router } from "expo-router";
 
-const DreamRoute = () => {
-  const insets = useSafeAreaInsets();
-  const { title, description } = useSelector((state: RootState) => state.dreamDraft);
-  const dispatch = useDispatch();
-
-  return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      enabled
-      style={{
-        flex: 1,
-      }}
-      keyboardVerticalOffset={insets.top + 20}
-    >
-      <ScrollView className={"flex-1 pt-4 px-3 space-y-4"}>
-        <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
-          <TextInput
-            value={title}
-            placeholder={"Add a title"}
-            placeholderTextColor={"#B3B3B3"}
-            className={"font-bold text-white"}
-            onChangeText={(text) => {
-              dispatch(updateDraft({ title: text }));
-            }}
-          />
-        </View>
-        <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
-          <TextInput
-            value={description}
-            placeholder={"Write your dream here..."}
-            placeholderTextColor={"#B3B3B3"}
-            multiline={true}
-            className={"h-40 rounded-lg text-white"}
-            onChangeText={(text) => {
-              dispatch(updateDraft({ description: text }));
-            }}
-          />
-        </View>
-        <View className={"bg-[#242424] rounded-xl p-3"}>
-          <View className={"flex flex-row items-center space-x-1"}>
-            <Ionicons name="mic" size={20} color="white" />
-            <Text className={"font-bold text-white"}>Voice recording</Text>
-          </View>
-          <View className={"h-20"}>
-            <Pressable className={""}></Pressable>
-          </View>
-        </View>
-        <View
-          style={{
-            height: insets.bottom + 80,
-          }}
-        ></View>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
-};
-
 const DetailsRoute = () => {
   const insets = useSafeAreaInsets();
   const { rate, notes } = useSelector(
@@ -93,33 +36,6 @@ const DetailsRoute = () => {
       keyboardVerticalOffset={insets.top + 20}
     >
       <ScrollView className={"flex-1 pt-4 px-3 space-y-8"}>
-        <View className={"space-y-3"}>
-          <Text className={"text-white text-3xl font-bold"}>General</Text>
-          <View className={"bg-[#242424] rounded-xl p-4 space-y-3"}>
-            <Text className={"font-bold text-white"}>Rate</Text>
-            <View className={"flex flex-row justify-center space-x-1.5"}>
-              {[1, 2, 3, 4, 5].map((item, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => {
-                    dispatch(updateDraft({ rate: item }));
-                  }}
-                  className={`${item === rate ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
-                >
-                  <Text
-                    className={`${item === rate ? "text-black" : "text-[#B3B3B3]"} font-bold`}
-                  >
-                    {item}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-            <View className={"flex flex-row justify-around"}>
-              <Text className={"font-bold text-[#B3B3B3]"}>Very bad</Text>
-              <Text className={"font-bold text-[#B3B3B3]"}>Very good</Text>
-            </View>
-          </View>
-        </View>
         <View className={"space-y-3"}>
           <Text className={"text-white text-3xl font-bold"}>Reflection</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
@@ -146,7 +62,6 @@ const DetailsRoute = () => {
 };
 
 const renderScene = SceneMap({
-  story: DreamRoute,
   details: DetailsRoute,
 });
 
@@ -155,7 +70,6 @@ const Page = () => {
   const [index, setIndex] = useState(0);
   const draft = useSelector((state: RootState) => state.dreamDraft);
   const [routes] = useState([
-    { key: "story", title: "Dream" },
     { key: "details", title: "Details" },
   ]);
   const dispatch = useDispatch();

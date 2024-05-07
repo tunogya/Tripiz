@@ -61,20 +61,32 @@ const AddButton = () => {
               bottom: insets.bottom + 66,
             }}
           >
-            <View className={"flex flex-row space-x-6 items-center"}>
+            <Pressable
+              className={"flex flex-row space-x-6 items-center"}
+              onPress={() => {
+                setOpenMore(false);
+                router.push("/add/reflection");
+              }}
+            >
               <Text className={"text-white text-lg font-bold"}>
                 New reflection
               </Text>
               <View className={"bg-[#242424] p-2 rounded-full m-1"}>
                 <Ionicons name="flash-outline" size={24} color="white" />
               </View>
-            </View>
-            <View className={"flex flex-row space-x-6 items-center"}>
+            </Pressable>
+            <Pressable
+              className={"flex flex-row space-x-6 items-center"}
+              onPress={() => {
+                setOpenMore(false);
+                router.push("/add/memory");
+              }}
+            >
               <Text className={"text-white text-lg font-bold"}>New memory</Text>
               <View className={"bg-[#242424] p-2 rounded-full m-1"}>
                 <Ionicons name="sunny-outline" size={24} color="white" />
               </View>
-            </View>
+            </Pressable>
             <Pressable
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {

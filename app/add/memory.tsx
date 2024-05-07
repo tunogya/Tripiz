@@ -19,7 +19,7 @@ import uuid from "react-native-uuid";
 import { addOneDream } from "../../reducers/dreams/dreamSlice";
 import { router } from "expo-router";
 
-const DreamRoute = () => {
+const MemoryRoute = () => {
   const insets = useSafeAreaInsets();
   const { title, description } = useSelector((state: RootState) => state.dreamDraft);
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const DreamRoute = () => {
         <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
           <TextInput
             value={description}
-            placeholder={"Write your dream here..."}
+            placeholder={"Write your memory here..."}
             placeholderTextColor={"#B3B3B3"}
             multiline={true}
             className={"h-40 rounded-lg text-white"}
@@ -130,7 +130,7 @@ const DetailsRoute = () => {
               onChangeText={(text) => {
                 dispatch(updateDraft({ notes: text }));
               }}
-              placeholder={"Write down anything else you want about your dream"}
+              placeholder={"Write down anything else you want about your memory"}
               className={"font-bold h-40 text-white"}
             />
           </View>
@@ -146,7 +146,7 @@ const DetailsRoute = () => {
 };
 
 const renderScene = SceneMap({
-  story: DreamRoute,
+  story: MemoryRoute,
   details: DetailsRoute,
 });
 
@@ -155,7 +155,7 @@ const Page = () => {
   const [index, setIndex] = useState(0);
   const draft = useSelector((state: RootState) => state.dreamDraft);
   const [routes] = useState([
-    { key: "story", title: "Dream" },
+    { key: "story", title: "Memory" },
     { key: "details", title: "Details" },
   ]);
   const dispatch = useDispatch();
