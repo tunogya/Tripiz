@@ -117,29 +117,7 @@ const Page = () => {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        renderTabBar={(props) => (
-          <TabBar
-            {...props}
-            scrollEnabled={true}
-            tabStyle={{
-              width: "auto",
-              marginLeft: 3,
-            }}
-            indicatorStyle={{
-              backgroundColor: "white",
-              width: 0.382,
-            }}
-            style={{
-              backgroundColor: "#121212",
-            }}
-            activeColor={"white"}
-            renderLabel={({ route, color }) => (
-              <Text style={{ color: color, fontWeight: "bold", fontSize: 16 }}>
-                {route.title}
-              </Text>
-            )}
-          />
-        )}
+        renderTabBar={(props) => null}
       />
     </View>
   );
