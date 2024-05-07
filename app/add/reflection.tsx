@@ -37,7 +37,7 @@ const DetailsRoute = () => {
     >
       <ScrollView className={"flex-1 pt-4 px-3 space-y-8"}>
         <View className={"space-y-3"}>
-          <Text className={"text-white text-3xl font-bold"}>Notes</Text>
+          <Text className={"text-white text-3xl font-bold"}>Reflection</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
               value={notes}
@@ -46,7 +46,7 @@ const DetailsRoute = () => {
               onChangeText={(text) => {
                 dispatch(updateDraft({ notes: text }));
               }}
-              placeholder={"Write down anything else you want about your dream"}
+              placeholder={"Write down anything else you want about your reflection"}
               className={"font-bold h-40 text-white"}
             />
           </View>
