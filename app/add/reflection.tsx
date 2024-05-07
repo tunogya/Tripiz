@@ -56,7 +56,7 @@ const DetailsRoute = () => {
               multiline={true}
               placeholderTextColor={"#B3B3B3"}
               onChangeText={(text) => {
-                dispatch(updateDraft({ notes: text }));
+                dispatch(updateDraft({ description: text }));
               }}
               placeholder={
                 "Write down anything else you want about your reflection"
