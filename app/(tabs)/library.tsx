@@ -12,9 +12,9 @@ const Page = () => {
   const insets = useSafeAreaInsets();
 
   const FILTERS = [
+    "Memories",
     "Dreams",
-    "Memory",
-    "Thought",
+    "Reflections",
   ];
   const [filter, setFilter] = useState("");
   const { entities: dreams, ids: dreamIds } = useSelector(

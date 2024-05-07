@@ -70,7 +70,7 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="add/thought"
+              name="add/reflection"
               options={{
                 presentation: "modal",
                 title: "Add",
@@ -95,10 +95,10 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="memory/[id]"
+              name="memories/[id]"
               options={{
                 headerShown: true,
-                title: "Dream",
+                title: "Memory",
                 headerBackTitleVisible: false,
                 headerTintColor: "white",
                 headerStyle: {
@@ -107,10 +107,10 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="thought/[id]"
+              name="reflections/[id]"
               options={{
                 headerShown: true,
-                title: "Dream",
+                title: "Reflection",
                 headerBackTitleVisible: false,
                 headerTintColor: "white",
                 headerStyle: {
