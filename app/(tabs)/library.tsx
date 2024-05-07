@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
-import { memo, useState } from "react";
+import {memo, useMemo, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,10 +23,24 @@ const Page = () => {
     (state: RootState) => state.reflection,
   );
 
-  const DATA = dreamIds.map((id) => ({ id: id, date: dreams[id].date, type: "dream"}))
-    .concat(memoryIds.map((id) => ({ id: id, date: memories[id].date, type: "memory" })))
-    .concat(reflectionIds.map((id) => ({ id: id, date: reflections[id].date, type: "reflection" })))
-    .sort((a, b) => b.date - a.date);
+  const DATA = useMemo(() => {
+    switch (filter) {
+      case "Memories":
+        return memoryIds.map((id) => ({ id: id, date: memories[id].date, type: "memory"}))
+          .sort((a, b) => b.date - a.date);
+      case "Dreams":
+        return dreamIds.map((id) => ({ id: id, date: dreams[id].date, type: "dream"}))
+          .sort((a, b) => b.date - a.date);
+      case "Reflections":
+        return reflectionIds.map((id) => ({ id: id, date: reflections[id].date, type: "reflection"}))
+          .sort((a, b) => b.date - a.date);
+      default:
+        return dreamIds.map((id) => ({ id: id, date: dreams[id].date, type: "dream"}))
+          .concat(memoryIds.map((id) => ({ id: id, date: memories[id].date, type: "memory" })))
+          .concat(reflectionIds.map((id) => ({ id: id, date: reflections[id].date, type: "reflection" })))
+          .sort((a, b) => b.date - a.date);
+    }
+  }, [dreamIds, memoryIds, reflectionIds, filter]);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
