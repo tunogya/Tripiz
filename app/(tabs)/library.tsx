@@ -16,12 +16,16 @@ const Page = () => {
   const { entities: dreams, ids: dreamIds } = useSelector(
     (state: RootState) => state.dream,
   );
+  const { entities: memories, ids: memoryIds } = useSelector(
+    (state: RootState) => state.memory,
+  );
+  const { entities: reflections, ids: reflectionIds } = useSelector(
+    (state: RootState) => state.reflection,
+  );
 
-  const DATA = dreamIds
-    .map((id) => ({
-      ...dreams[id],
-      type: "dream",
-    }))
+  const DATA = dreamIds.map((id) => ({ id: id, date: dreams[id].date, type: "dream"}))
+    .concat(memoryIds.map((id) => ({ id: id, date: memories[id].date, type: "memory" })))
+    .concat(reflectionIds.map((id) => ({ id: id, date: reflections[id].date, type: "reflection" })))
     .sort((a, b) => b.date - a.date);
 
   return (

@@ -3,10 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const slice = createSlice({
   name: "reflectionDraft",
   initialState: {
-    title: "",
-    description: "",
-    voiceRecording: "",
-    rate: 3,
     notes: "",
   },
   reducers: {
@@ -16,10 +12,6 @@ export const slice = createSlice({
       }
     },
     clearDraft: (state) => {
-      state.title = "";
-      state.description = "";
-      state.voiceRecording = "";
-      state.rate = 3;
       state.notes = "";
     },
   },

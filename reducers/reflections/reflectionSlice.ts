@@ -4,22 +4,17 @@ import {
   EntityState,
 } from "@reduxjs/toolkit";
 
-export interface Dream {
+export interface Reflection {
   id: string;
-  title: string;
-  description?: string;
-  voiceRecording?: string;
   date: number;
-  rate?: number;
   images?: string[];
-  emotions?: string[];
-  notes?: string;
+  notes: string;
 }
 
-interface DreamState extends EntityState<Dream, string> {}
+interface ReflectionState extends EntityState<Reflection, string> {}
 
-const entityAdapter = createEntityAdapter<Dream>();
-const initialState: DreamState = entityAdapter.getInitialState();
+const entityAdapter = createEntityAdapter<Reflection>();
+const initialState: ReflectionState = entityAdapter.getInitialState();
 
 export const slice = createSlice({
   name: "reflection",

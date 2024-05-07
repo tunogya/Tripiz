@@ -4,7 +4,7 @@ import {
   EntityState,
 } from "@reduxjs/toolkit";
 
-export interface Dream {
+export interface Memory {
   id: string;
   title: string;
   description?: string;
@@ -16,10 +16,10 @@ export interface Dream {
   notes?: string;
 }
 
-interface DreamState extends EntityState<Dream, string> {}
+interface MemoryState extends EntityState<Memory, string> {}
 
-const entityAdapter = createEntityAdapter<Dream>();
-const initialState: DreamState = entityAdapter.getInitialState();
+const entityAdapter = createEntityAdapter<Memory>();
+const initialState: MemoryState = entityAdapter.getInitialState();
 
 export const slice = createSlice({
   name: "memory",

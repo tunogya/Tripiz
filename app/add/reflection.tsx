@@ -71,11 +71,11 @@ const renderScene = SceneMap({
 const Page = () => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const draft = useSelector((state: RootState) => state.dreamDraft);
+  const draft = useSelector((state: RootState) => state.reflectionDraft);
   const [routes] = useState([{ key: "details", title: "Details" }]);
   const dispatch = useDispatch();
 
-  const canSave = draft.title && draft.description;
+  const canSave = draft.notes;
 
   const save = async () => {
     const newReflection = {
@@ -83,6 +83,7 @@ const Page = () => {
       id: uuid.v4().toString(),
       date: new Date().getTime(),
     };
+    console.log(newReflection);
     dispatch(addOneReflection(newReflection));
     dispatch(clearDraft());
     router.back();
