@@ -13,15 +13,20 @@ import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { clearDraft, updateDraft } from "../../reducers/memories/memoryDraftSlice";
+import {
+  clearDraft,
+  updateDraft,
+} from "../../reducers/memories/memoryDraftSlice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
 import { router } from "expo-router";
-import {addOneMemory} from "../../reducers/memories/memorySlice";
+import { addOneMemory } from "../../reducers/memories/memorySlice";
 
 const MemoryRoute = () => {
   const insets = useSafeAreaInsets();
-  const { title, description } = useSelector((state: RootState) => state.memoryDraft);
+  const { title, description } = useSelector(
+    (state: RootState) => state.memoryDraft,
+  );
   const dispatch = useDispatch();
 
   return (
@@ -78,9 +83,7 @@ const MemoryRoute = () => {
 
 const DetailsRoute = () => {
   const insets = useSafeAreaInsets();
-  const { rate, notes } = useSelector(
-    (state: RootState) => state.dreamDraft,
-  );
+  const { rate, notes } = useSelector((state: RootState) => state.dreamDraft);
   const dispatch = useDispatch();
 
   return (
@@ -130,7 +133,9 @@ const DetailsRoute = () => {
               onChangeText={(text) => {
                 dispatch(updateDraft({ notes: text }));
               }}
-              placeholder={"Write down anything else you want about your memory"}
+              placeholder={
+                "Write down anything else you want about your memory"
+              }
               className={"font-bold h-40 text-white"}
             />
           </View>

@@ -11,11 +11,7 @@ import LibraryShowItem from "../../components/LibraryShowItem";
 const Page = () => {
   const insets = useSafeAreaInsets();
 
-  const FILTERS = [
-    "Memories",
-    "Dreams",
-    "Reflections",
-  ];
+  const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const { entities: dreams, ids: dreamIds } = useSelector(
     (state: RootState) => state.dream,

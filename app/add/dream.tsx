@@ -21,7 +21,9 @@ import { router } from "expo-router";
 
 const DreamRoute = () => {
   const insets = useSafeAreaInsets();
-  const { title, description } = useSelector((state: RootState) => state.dreamDraft);
+  const { title, description } = useSelector(
+    (state: RootState) => state.dreamDraft,
+  );
   const dispatch = useDispatch();
 
   return (
@@ -78,9 +80,7 @@ const DreamRoute = () => {
 
 const DetailsRoute = () => {
   const insets = useSafeAreaInsets();
-  const { rate, notes } = useSelector(
-    (state: RootState) => state.dreamDraft,
-  );
+  const { rate, notes } = useSelector((state: RootState) => state.dreamDraft);
   const dispatch = useDispatch();
 
   return (

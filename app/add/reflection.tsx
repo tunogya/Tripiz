@@ -13,7 +13,10 @@ import { SceneMap, TabView } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { clearDraft, updateDraft } from "../../reducers/reflections/reflectionDraftSlice";
+import {
+  clearDraft,
+  updateDraft,
+} from "../../reducers/reflections/reflectionDraftSlice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
 import { addOneReflection } from "../../reducers/reflections/reflectionSlice";
@@ -21,9 +24,7 @@ import { router } from "expo-router";
 
 const DetailsRoute = () => {
   const insets = useSafeAreaInsets();
-  const { notes } = useSelector(
-    (state: RootState) => state.reflectionDraft,
-  );
+  const { notes } = useSelector((state: RootState) => state.reflectionDraft);
   const dispatch = useDispatch();
 
   return (
@@ -46,7 +47,9 @@ const DetailsRoute = () => {
               onChangeText={(text) => {
                 dispatch(updateDraft({ notes: text }));
               }}
-              placeholder={"Write down anything else you want about your reflection"}
+              placeholder={
+                "Write down anything else you want about your reflection"
+              }
               className={"font-bold h-40 text-white"}
             />
           </View>
@@ -69,9 +72,7 @@ const Page = () => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
   const draft = useSelector((state: RootState) => state.dreamDraft);
-  const [routes] = useState([
-    { key: "details", title: "Details" },
-  ]);
+  const [routes] = useState([{ key: "details", title: "Details" }]);
   const dispatch = useDispatch();
 
   const canSave = draft.title && draft.description;
