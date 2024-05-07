@@ -21,7 +21,7 @@ const LibraryShowItem = ({ item, showType }) => {
         <Pressable className={"h-20 flex flex-row my-2 mx-4 space-x-3"}>
           <View className={"h-20 w-20 bg-[#FFFFFF12]"}></View>
           <View className={"flex justify-center"}>
-            <Text className={"text-white font-bold text-lg"}>{reflections[item.id].notes}</Text>
+            <Text className={"text-white font-bold text-lg"}>{reflections[item.id].title}</Text>
             {showType && <Text className={"text-[#B3B3B3]"}>reflection</Text>}
           </View>
         </Pressable>
