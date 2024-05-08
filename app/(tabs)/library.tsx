@@ -66,7 +66,7 @@ const Page = () => {
             <Pressable
               hitSlop={4}
               className={
-                "h-6 w-6 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"
+                "h-8 w-8 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"
               }
               onPress={() => {
                 setFilter("");
@@ -80,7 +80,7 @@ const Page = () => {
               <Pressable
                 hitSlop={4}
                 key={index}
-                className={`px-3 py-1 ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
+                className={`px-3 py-2 ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
                 onPress={() => {
                   setFilter(item);
                 }}
