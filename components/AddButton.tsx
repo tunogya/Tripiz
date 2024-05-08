@@ -1,18 +1,18 @@
 import { Pressable, View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {memo, useEffect, useState} from "react";
-import {router} from "expo-router";
+import { memo, useEffect, useState } from "react";
+import { router } from "expo-router";
 import { BlurView } from "expo-blur";
-import {useNavigationState} from "@react-navigation/core";
+import { useNavigationState } from "@react-navigation/core";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
   const [openMore, setOpenMore] = useState(false);
-  const route = useNavigationState(state => state.routes[state.index]);
+  const route = useNavigationState((state) => state.routes[state.index]);
 
   useEffect(() => {
-   setOpenMore(false)
+    setOpenMore(false);
   }, [route.path]);
 
   const normalView = () => (
@@ -86,7 +86,9 @@ const AddButton = () => {
                 router.push("/add/memory");
               }}
             >
-              <Text className={"text-white text-lg font-semibold"}>New memory</Text>
+              <Text className={"text-white text-lg font-semibold"}>
+                New memory
+              </Text>
               <View className={"bg-[#242424] p-2 rounded-full mx-1"}>
                 <Ionicons name="sunny-outline" size={24} color="white" />
               </View>
@@ -98,8 +100,14 @@ const AddButton = () => {
                 router.push("/add/dream");
               }}
             >
-              <Text className={"text-white text-lg font-semibold"}>New dream</Text>
-              <View className={"bg-white h-12 w-12 rounded-full flex items-center justify-center"}>
+              <Text className={"text-white text-lg font-semibold"}>
+                New dream
+              </Text>
+              <View
+                className={
+                  "bg-white h-12 w-12 rounded-full flex items-center justify-center"
+                }
+              >
                 <Ionicons name="moon-outline" size={24} color="black" />
               </View>
             </Pressable>

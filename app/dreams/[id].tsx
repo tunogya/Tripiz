@@ -1,28 +1,24 @@
-import {View, Text, ScrollView, Pressable} from "react-native";
-import {memo} from "react";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {Ionicons} from "@expo/vector-icons";
-import {BlurView} from "expo-blur";
-import {router, useLocalSearchParams} from "expo-router";
-import { Dimensions } from 'react-native';
-import {useSelector} from "react-redux";
-import {RootState} from "../../store/store";
-import {ensureString} from "../../utils/ensureString";
+import { View, Text, ScrollView, Pressable } from "react-native";
+import { memo } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
+import { router, useLocalSearchParams } from "expo-router";
+import { Dimensions } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { ensureString } from "../../utils/ensureString";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const screenWidth = Dimensions.get('window').width;
-  const { entities } = useSelector(
-    (state: RootState) => state.dream,
-  );
+  const screenWidth = Dimensions.get("window").width;
+  const { entities } = useSelector((state: RootState) => state.dream);
 
   const dream = id ? entities?.[ensureString(id)] : null;
 
   return (
-    <View
-      className={"flex flex-1 h-full bg-[#121212] relative"}
-    >
+    <View className={"flex flex-1 h-full bg-[#121212] relative"}>
       <Pressable
         className={"absolute left-4 z-50 rounded-full overflow-hidden"}
         style={{
@@ -35,7 +31,7 @@ const Page = () => {
           tint={"dark"}
           className={"items-center justify-center w-10 h-10"}
         >
-          <Ionicons name="chevron-back" size={24} color="white"/>
+          <Ionicons name="chevron-back" size={24} color="white" />
         </BlurView>
       </Pressable>
       <View
@@ -44,7 +40,7 @@ const Page = () => {
           height: screenWidth * 0.99,
         }}
       >
-      {/*  Image*/}
+        {/*  Image*/}
       </View>
       <ScrollView
         className={"h-full w-full absolute top-0 left-0 z-10"}
@@ -58,14 +54,9 @@ const Page = () => {
             height: screenWidth * 0.99,
           }}
         >
-          <Text className={"text-white text-5xl font-bold"}>
-            {dream.title}
-          </Text>
+          <Text className={"text-white text-5xl font-bold"}>{dream.title}</Text>
         </View>
-        <BlurView
-          intensity={5}
-          tint={"dark"}
-        >
+        <BlurView intensity={5} tint={"dark"}>
           <View className={"p-4 space-y-1.5"}>
             <Text className={"text-[#B3B3B3] font-medium"}>
               {dream.description}
@@ -76,9 +67,7 @@ const Page = () => {
           </View>
         </BlurView>
         <View className={"p-4 mt-2"}>
-          <Text className={"text-white font-bold text-xl"}>
-            可能关联的内容
-          </Text>
+          <Text className={"text-white font-bold text-xl"}>可能关联的内容</Text>
         </View>
       </ScrollView>
     </View>

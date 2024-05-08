@@ -1,28 +1,24 @@
-import {View, Text, ScrollView, Pressable} from "react-native";
-import {memo} from "react";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {Ionicons} from "@expo/vector-icons";
-import {BlurView} from "expo-blur";
-import {router, useLocalSearchParams} from "expo-router";
-import { Dimensions } from 'react-native';
-import {useSelector} from "react-redux";
-import {RootState} from "../../store/store";
-import {ensureString} from "../../utils/ensureString";
+import { View, Text, ScrollView, Pressable } from "react-native";
+import { memo } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
+import { router, useLocalSearchParams } from "expo-router";
+import { Dimensions } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { ensureString } from "../../utils/ensureString";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const screenWidth = Dimensions.get('window').width;
-  const { entities } = useSelector(
-    (state: RootState) => state.reflection,
-  );
+  const screenWidth = Dimensions.get("window").width;
+  const { entities } = useSelector((state: RootState) => state.reflection);
 
   const reflection = id ? entities?.[ensureString(id)] : null;
 
   return (
-    <View
-      className={"flex flex-1 h-full bg-[#121212] relative"}
-    >
+    <View className={"flex flex-1 h-full bg-[#121212] relative"}>
       <Pressable
         className={"absolute left-4 z-50 rounded-full overflow-hidden"}
         style={{
@@ -35,7 +31,7 @@ const Page = () => {
           tint={"dark"}
           className={"items-center justify-center w-10 h-10"}
         >
-          <Ionicons name="chevron-back" size={24} color="white"/>
+          <Ionicons name="chevron-back" size={24} color="white" />
         </BlurView>
       </Pressable>
       <View
@@ -62,10 +58,7 @@ const Page = () => {
             {reflection.title}
           </Text>
         </View>
-        <BlurView
-          intensity={5}
-          tint={"dark"}
-        >
+        <BlurView intensity={5} tint={"dark"}>
           <View className={"p-4 space-y-1.5"}>
             <Text className={"text-[#B3B3B3] font-medium"}>
               {reflection.description}
@@ -76,9 +69,7 @@ const Page = () => {
           </View>
         </BlurView>
         <View className={"p-4 mt-2"}>
-          <Text className={"text-white font-bold text-xl"}>
-            你可能还会喜欢
-          </Text>
+          <Text className={"text-white font-bold text-xl"}>你可能还会喜欢</Text>
         </View>
       </ScrollView>
     </View>

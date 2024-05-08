@@ -24,7 +24,9 @@ import { router } from "expo-router";
 
 const DetailsRoute = () => {
   const insets = useSafeAreaInsets();
-  const { title, description } = useSelector((state: RootState) => state.reflectionDraft);
+  const { title, description } = useSelector(
+    (state: RootState) => state.reflectionDraft,
+  );
   const dispatch = useDispatch();
 
   return (
