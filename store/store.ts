@@ -7,6 +7,7 @@ import memoryReducer from "../reducers/memories/memorySlice";
 import memoryDraftReducer from "../reducers/memories/memoryDraftSlice";
 import reflectionReducer from "../reducers/reflections/reflectionSlice";
 import reflectionDraftReducer from "../reducers/reflections/reflectionDraftSlice";
+import uiReducer from "../reducers/ui/uiSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   memoryDraft: memoryDraftReducer,
   reflection: reflectionReducer,
   reflectionDraft: reflectionDraftReducer,
+  ui: uiReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

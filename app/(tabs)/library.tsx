@@ -3,10 +3,11 @@ import { memo, useMemo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
 import { Ionicons } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { RootState } from "../../store/store";
 import { FlashList } from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
+import {updateScroll} from "../../reducers/ui/uiSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -22,6 +23,7 @@ const Page = () => {
   const { entities: reflections, ids: reflectionIds } = useSelector(
     (state: RootState) => state.reflection,
   );
+  const dispatch = useDispatch();
 
   const DATA = useMemo(() => {
     switch (filter) {
@@ -126,6 +128,9 @@ const Page = () => {
               <Text className={"text-white"}>No {filter} content</Text>
             </View>
           )}
+          onScrollBeginDrag={() => {
+            dispatch(updateScroll({ scroll: true }));
+          }}
           ListHeaderComponent={() => <View className={"h-2"}></View>}
           ListFooterComponent={() => (
             <View
