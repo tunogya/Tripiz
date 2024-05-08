@@ -1,13 +1,19 @@
 import { Pressable, View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { memo, useState } from "react";
-import { router } from "expo-router";
+import {memo, useEffect, useState} from "react";
+import {router} from "expo-router";
 import { BlurView } from "expo-blur";
+import {useNavigationState} from "@react-navigation/core";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
   const [openMore, setOpenMore] = useState(false);
+  const route = useNavigationState(state => state.routes[state.index]);
+
+  useEffect(() => {
+   setOpenMore(false)
+  }, [route.path]);
 
   const normalView = () => (
     <View
@@ -64,7 +70,6 @@ const AddButton = () => {
             <Pressable
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
-                setOpenMore(false);
                 router.push("/add/reflection");
               }}
             >
@@ -78,7 +83,6 @@ const AddButton = () => {
             <Pressable
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
-                setOpenMore(false);
                 router.push("/add/memory");
               }}
             >
