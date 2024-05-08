@@ -70,6 +70,7 @@ const AddButton = () => {
             <Pressable
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
+                setOpenMore(false);
                 router.push("/add/reflection");
               }}
             >
@@ -83,6 +84,7 @@ const AddButton = () => {
             <Pressable
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
+                setOpenMore(false);
                 router.push("/add/memory");
               }}
             >
