@@ -14,8 +14,6 @@ const AddButton = () => {
   const route = useNavigationState((state) => state.routes[state.index]);
   const { scroll } = useSelector((state: RootState) => state.ui);
 
-  console.log(scroll)
-
   useEffect(() => {
     setOpenMore(false);
   }, [route.path]);
