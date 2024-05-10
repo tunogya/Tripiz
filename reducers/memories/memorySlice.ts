@@ -14,6 +14,7 @@ export interface Memory {
   images?: string[];
   emotions?: string[];
   notes?: string;
+  favoured?: boolean;
 }
 
 interface MemoryState extends EntityState<Memory, string> {}

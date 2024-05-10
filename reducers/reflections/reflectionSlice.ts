@@ -10,6 +10,7 @@ export interface Reflection {
   description?: string;
   date: number;
   images?: string[];
+  favoured?: boolean;
 }
 
 interface ReflectionState extends EntityState<Reflection, string> {}

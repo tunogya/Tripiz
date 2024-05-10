@@ -14,6 +14,7 @@ export interface Dream {
   images?: string[];
   emotions?: string[];
   notes?: string;
+  favoured?: boolean;
 }
 
 interface DreamState extends EntityState<Dream, string> {}
