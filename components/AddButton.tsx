@@ -45,7 +45,7 @@ const AddButton = () => {
               rate: 3,
             }),
           );
-          router.navigate(`edit/dream/${id}`);
+          router.navigate(`edit/dreams/${id}`);
         }}
         className={
           "items-center justify-center flex flex-row h-12 pl-4 pr-3 space-x-3"
@@ -98,7 +98,7 @@ const AddButton = () => {
                     date: new Date().getTime(),
                   }),
                 );
-                router.push(`edit/reflection/${id}`);
+                router.push(`edit/reflections/${id}`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -122,7 +122,7 @@ const AddButton = () => {
                     rate: 3,
                   }),
                 );
-                router.push(`edit/memory/${id}`);
+                router.push(`edit/memories/${id}`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -146,7 +146,7 @@ const AddButton = () => {
                     rate: 3,
                   }),
                 );
-                router.push(`edit/dream/${id}`);
+                router.push(`edit/dreams/${id}`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>

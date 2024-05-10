@@ -133,6 +133,9 @@ const Page = () => {
                   className={
                     "bg-green-500 h-12 w-12 rounded-full items-center justify-center"
                   }
+                  onPress={() => {
+                    router.navigate(`edit/memories/${item.id}`);
+                  }}
                 >
                   <Feather name="edit" size={24} color="#121212" />
                 </Pressable>
