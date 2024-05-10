@@ -5,14 +5,19 @@ import { memo, useEffect, useState } from "react";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { useNavigationState } from "@react-navigation/core";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { RootState } from "../store/store";
+import uuid from "react-native-uuid";
+import {addOneDream} from "../reducers/dreams/dreamSlice";
+import {addOneReflection} from "../reducers/reflections/reflectionSlice";
+import {addOneMemory} from "../reducers/memories/memorySlice";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
   const [openMore, setOpenMore] = useState(false);
   const route = useNavigationState((state) => state.routes[state.index]);
   const { scroll } = useSelector((state: RootState) => state.ui);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setOpenMore(false);
@@ -30,7 +35,15 @@ const AddButton = () => {
     >
       <Pressable
         onPress={() => {
-          router.navigate("/add/dream");
+          const id = uuid.v4().toString();
+          dispatch(addOneDream({
+            id: id,
+            title: "",
+            description: "",
+            date: new Date().getTime(),
+            rate: 3,
+          }));
+          router.navigate(`edit/dream/${id}`);
         }}
         className={
           "items-center justify-center flex flex-row h-12 pl-4 pr-3 space-x-3"
@@ -74,7 +87,14 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
                 setOpenMore(false);
-                router.push("/add/reflection");
+                const id = uuid.v4().toString();
+                dispatch(addOneReflection({
+                  id: id,
+                  title: "",
+                  description: "",
+                  date: new Date().getTime(),
+                }))
+                router.push(`edit/reflection/${id}`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -88,7 +108,15 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
                 setOpenMore(false);
-                router.push("/add/memory");
+                const id = uuid.v4().toString();
+                dispatch(addOneMemory({
+                  id: id,
+                  title: "",
+                  description: "",
+                  date: new Date().getTime(),
+                  rate: 3,
+                }))
+                router.push(`edit/memory/${id}`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -102,7 +130,15 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center h-12"}
               onPress={() => {
                 setOpenMore(false);
-                router.push("/add/dream");
+                const id = uuid.v4().toString();
+                dispatch(addOneDream({
+                  id: id,
+                  title: "",
+                  description: "",
+                  date: new Date().getTime(),
+                  rate: 3,
+                }))
+                router.push(`edit/dream/${id}`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>

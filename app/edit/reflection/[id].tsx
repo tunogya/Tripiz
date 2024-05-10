@@ -10,24 +10,20 @@ import {
 } from "react-native";
 import { memo, useState } from "react";
 import { SceneMap, TabView } from "react-native-tab-view";
-import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import {
-  clearDraft,
-  updateDraft,
-} from "../../reducers/reflections/reflectionDraftSlice";
+import { RootState } from "../../../store/store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import uuid from "react-native-uuid";
-import { addOneReflection } from "../../reducers/reflections/reflectionSlice";
-import { router } from "expo-router";
+import {removeOneReflection, updateOneReflection} from "../../../reducers/reflections/reflectionSlice";
+import {router, useLocalSearchParams} from "expo-router";
+import {ensureString} from "../../../utils/ensureString";
 
 const DetailsRoute = () => {
+  const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const { title, description } = useSelector(
-    (state: RootState) => state.reflectionDraft,
-  );
   const dispatch = useDispatch();
+  const { entities } = useSelector((state: RootState) => state.reflection);
+
+  const reflection = id ? entities?.[ensureString(id)] : null;
 
   return (
     <KeyboardAvoidingView
@@ -43,22 +39,32 @@ const DetailsRoute = () => {
           <Text className={"text-white text-3xl font-bold"}>Reflection</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
-              value={title}
+              value={reflection.title}
               placeholder={"Add a title"}
               placeholderTextColor={"#B3B3B3"}
               className={"font-bold text-white"}
               onChangeText={(text) => {
-                dispatch(updateDraft({ title: text }));
+                dispatch(updateOneReflection({
+                  id: ensureString(id),
+                  changes: {
+                    title: text
+                  }
+                }))
               }}
             />
           </View>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
-              value={description}
+              value={reflection.description}
               multiline={true}
               placeholderTextColor={"#B3B3B3"}
               onChangeText={(text) => {
-                dispatch(updateDraft({ description: text }));
+                dispatch(updateOneReflection({
+                  id: ensureString(id),
+                  changes: {
+                    description: text
+                  }
+                }))
               }}
               placeholder={
                 "Write down anything else you want about your reflection"
@@ -82,22 +88,18 @@ const renderScene = SceneMap({
 });
 
 const Page = () => {
+  const { id } = useLocalSearchParams();
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const draft = useSelector((state: RootState) => state.reflectionDraft);
   const [routes] = useState([{ key: "details", title: "Details" }]);
+  const { entities } = useSelector((state: RootState) => state.reflection);
   const dispatch = useDispatch();
-
-  const canSave = draft.title && draft.description;
+  const reflection = id ? entities?.[ensureString(id)] : null;
 
   const save = async () => {
-    const newReflection = {
-      ...draft,
-      id: uuid.v4().toString(),
-      date: new Date().getTime(),
-    };
-    dispatch(addOneReflection(newReflection));
-    dispatch(clearDraft());
+    if (!reflection.title && !reflection.description) {
+      dispatch(removeOneReflection(reflection.id))
+    }
     router.back();
   };
 
@@ -117,13 +119,10 @@ const Page = () => {
         {/*  <Text className={"text-white font-bold"}>Clear all</Text>*/}
         {/*</Pressable>*/}
         <Pressable
-          className={`${canSave ? "bg-white" : "bg-[#B3B3B3]"} rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1`}
-          onPress={async () => {
-            await save();
-          }}
+          className={`rounded-full items-center justify-center flex flex-row space-x-1`}
+          onPress={save}
         >
-          <Ionicons name="checkmark-sharp" size={20} color="#121212" />
-          <Text className={"font-bold"}>Save</Text>
+          <Text className={"font-bold text-white"}>Done</Text>
         </Pressable>
       </View>
       <TabView

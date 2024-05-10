@@ -12,21 +12,18 @@ import { memo, useState } from "react";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import {
-  clearDraft,
-  updateDraft,
-} from "../../reducers/memories/memoryDraftSlice";
+import { RootState } from "../../../store/store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import uuid from "react-native-uuid";
-import { router } from "expo-router";
-import { addOneMemory } from "../../reducers/memories/memorySlice";
+import {router, useLocalSearchParams} from "expo-router";
+import {removeOneMemory, updateOneMemory} from "../../../reducers/memories/memorySlice";
+import {ensureString} from "../../../utils/ensureString";
 
 const MemoryRoute = () => {
+  const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const { title, description } = useSelector(
-    (state: RootState) => state.memoryDraft,
-  );
+  const { entities } = useSelector((state: RootState) => state.memory);
+
+  const memory = id ? entities?.[ensureString(id)] : null;
   const dispatch = useDispatch();
 
   return (
@@ -41,24 +38,34 @@ const MemoryRoute = () => {
       <ScrollView className={"flex-1 pt-4 px-3 space-y-4"}>
         <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
           <TextInput
-            value={title}
+            value={memory.title}
             placeholder={"Add a title"}
             placeholderTextColor={"#B3B3B3"}
             className={"font-bold text-white"}
             onChangeText={(text) => {
-              dispatch(updateDraft({ title: text }));
+              dispatch(updateOneMemory({
+                id: ensureString(id),
+                changes: {
+                  title: text
+                }
+              }));
             }}
           />
         </View>
         <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
           <TextInput
-            value={description}
+            value={memory.description}
             placeholder={"Write your memory here..."}
             placeholderTextColor={"#B3B3B3"}
             multiline={true}
             className={"h-40 rounded-lg text-white"}
             onChangeText={(text) => {
-              dispatch(updateDraft({ description: text }));
+              dispatch(updateOneMemory({
+                id: ensureString(id),
+                changes: {
+                  description: text
+                }
+              }));
             }}
           />
         </View>
@@ -82,9 +89,12 @@ const MemoryRoute = () => {
 };
 
 const DetailsRoute = () => {
+  const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const { rate, notes } = useSelector((state: RootState) => state.dreamDraft);
   const dispatch = useDispatch();
+  const { entities } = useSelector((state: RootState) => state.memory);
+
+  const memory = id ? entities?.[ensureString(id)] : null;
 
   return (
     <KeyboardAvoidingView
@@ -105,12 +115,17 @@ const DetailsRoute = () => {
                 <Pressable
                   key={index}
                   onPress={() => {
-                    dispatch(updateDraft({ rate: item }));
+                    dispatch(updateOneMemory({
+                      id: ensureString(id),
+                      changes: {
+                        rate: item
+                      }
+                    }));
                   }}
-                  className={`${item === rate ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
+                  className={`${item === memory.rate ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
                 >
                   <Text
-                    className={`${item === rate ? "text-black" : "text-[#B3B3B3]"} font-bold`}
+                    className={`${item === memory.rate ? "text-black" : "text-[#B3B3B3]"} font-bold`}
                   >
                     {item}
                   </Text>
@@ -127,11 +142,16 @@ const DetailsRoute = () => {
           <Text className={"text-white text-3xl font-bold"}>Notes</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
-              value={notes}
+              value={memory.notes}
               multiline={true}
               placeholderTextColor={"#B3B3B3"}
               onChangeText={(text) => {
-                dispatch(updateDraft({ notes: text }));
+                dispatch(updateOneMemory({
+                  id: ensureString(id),
+                  changes: {
+                    notes: text
+                  }
+                }));
               }}
               placeholder={
                 "Write down anything else you want about your memory"
@@ -156,25 +176,21 @@ const renderScene = SceneMap({
 });
 
 const Page = () => {
+  const { id } = useLocalSearchParams();
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const draft = useSelector((state: RootState) => state.memoryDraft);
   const [routes] = useState([
     { key: "story", title: "Memory" },
     { key: "details", title: "Details" },
   ]);
+  const { entities } = useSelector((state: RootState) => state.memory);
   const dispatch = useDispatch();
-
-  const canSave = draft.title && draft.description;
+  const memory = id ? entities?.[ensureString(id)] : null;
 
   const save = async () => {
-    const newMemory = {
-      ...draft,
-      id: uuid.v4().toString(),
-      date: new Date().getTime(),
-    };
-    dispatch(addOneMemory(newMemory));
-    dispatch(clearDraft());
+    if (!memory.title && !memory.description) {
+      dispatch(removeOneMemory(memory.id))
+    }
     router.back();
   };
 
@@ -194,13 +210,10 @@ const Page = () => {
         {/*  <Text className={"text-white font-bold"}>Clear all</Text>*/}
         {/*</Pressable>*/}
         <Pressable
-          className={`${canSave ? "bg-white" : "bg-[#B3B3B3]"} rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1`}
-          onPress={async () => {
-            await save();
-          }}
+          className={`rounded-full items-center justify-center flex flex-row space-x-1`}
+          onPress={save}
         >
-          <Ionicons name="checkmark-sharp" size={20} color="#121212" />
-          <Text className={"font-bold"}>Save</Text>
+          <Text className={"font-bold text-white"}>Done</Text>
         </Pressable>
       </View>
       <TabView

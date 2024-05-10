@@ -8,23 +8,23 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { memo, useState } from "react";
-import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import { Ionicons } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { clearDraft, updateDraft } from "../../reducers/dreams/dreamDraftSlice";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import uuid from "react-native-uuid";
-import { addOneDream } from "../../reducers/dreams/dreamSlice";
-import { router } from "expo-router";
+import {memo, useState} from "react";
+import {SceneMap, TabBar, TabView} from "react-native-tab-view";
+import {Ionicons} from "@expo/vector-icons";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {removeOneDream, updateOneDream} from "../../../reducers/dreams/dreamSlice";
+import {router, useLocalSearchParams} from "expo-router";
+import {ensureString} from "../../../utils/ensureString";
 
 const DreamRoute = () => {
+  const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const { title, description } = useSelector(
-    (state: RootState) => state.dreamDraft,
-  );
   const dispatch = useDispatch();
+  const { entities } = useSelector((state: RootState) => state.dream);
+
+  const dream = id ? entities?.[ensureString(id)] : null;
 
   return (
     <KeyboardAvoidingView
@@ -38,30 +38,40 @@ const DreamRoute = () => {
       <ScrollView className={"flex-1 pt-4 px-3 space-y-4"}>
         <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
           <TextInput
-            value={title}
+            value={dream.title}
             placeholder={"Add a title"}
             placeholderTextColor={"#B3B3B3"}
             className={"font-bold text-white"}
             onChangeText={(text) => {
-              dispatch(updateDraft({ title: text }));
+              dispatch(updateOneDream({
+                id: ensureString(id),
+                changes: {
+                  title: text
+                }
+              }));
             }}
           />
         </View>
         <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
           <TextInput
-            value={description}
+            value={dream.description}
             placeholder={"Write your dream here..."}
             placeholderTextColor={"#B3B3B3"}
             multiline={true}
             className={"h-40 rounded-lg text-white"}
             onChangeText={(text) => {
-              dispatch(updateDraft({ description: text }));
+              dispatch(updateOneDream({
+                id: ensureString(id),
+                changes: {
+                  description: text
+                }
+              }));
             }}
           />
         </View>
         <View className={"bg-[#242424] rounded-xl p-3"}>
           <View className={"flex flex-row items-center space-x-1"}>
-            <Ionicons name="mic" size={20} color="white" />
+            <Ionicons name="mic" size={20} color="white"/>
             <Text className={"font-bold text-white"}>Voice recording</Text>
           </View>
           <View className={"h-20"}>
@@ -79,9 +89,12 @@ const DreamRoute = () => {
 };
 
 const DetailsRoute = () => {
+  const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const { rate, notes } = useSelector((state: RootState) => state.dreamDraft);
   const dispatch = useDispatch();
+  const { entities } = useSelector((state: RootState) => state.dream);
+
+  const dream = id ? entities?.[ensureString(id)] : null;
 
   return (
     <KeyboardAvoidingView
@@ -102,12 +115,17 @@ const DetailsRoute = () => {
                 <Pressable
                   key={index}
                   onPress={() => {
-                    dispatch(updateDraft({ rate: item }));
+                    dispatch(updateOneDream({
+                      id: ensureString(id),
+                      changes: {
+                        rate: item
+                      }
+                    }));
                   }}
-                  className={`${item === rate ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
+                  className={`${item === dream.rate ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
                 >
                   <Text
-                    className={`${item === rate ? "text-black" : "text-[#B3B3B3]"} font-bold`}
+                    className={`${item === dream.rate ? "text-black" : "text-[#B3B3B3]"} font-bold`}
                   >
                     {item}
                   </Text>
@@ -124,11 +142,16 @@ const DetailsRoute = () => {
           <Text className={"text-white text-3xl font-bold"}>Notes</Text>
           <View className={"bg-[#242424] rounded-xl px-3 py-4"}>
             <TextInput
-              value={notes}
+              value={dream.notes}
               multiline={true}
               placeholderTextColor={"#B3B3B3"}
               onChangeText={(text) => {
-                dispatch(updateDraft({ notes: text }));
+                dispatch(updateOneDream({
+                  id: ensureString(id),
+                  changes: {
+                    notes: text
+                  }
+                }));
               }}
               placeholder={"Write down anything else you want about your dream"}
               className={"font-bold h-40 text-white"}
@@ -151,25 +174,21 @@ const renderScene = SceneMap({
 });
 
 const Page = () => {
+  const {id} = useLocalSearchParams();
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const draft = useSelector((state: RootState) => state.dreamDraft);
   const [routes] = useState([
-    { key: "story", title: "Dream" },
-    { key: "details", title: "Details" },
+    {key: "story", title: "Dream"},
+    {key: "details", title: "Details"},
   ]);
+  const { entities } = useSelector((state: RootState) => state.dream);
   const dispatch = useDispatch();
-
-  const canSave = draft.title && draft.description;
+  const dream = id ? entities?.[ensureString(id)] : null;
 
   const save = async () => {
-    const newDream = {
-      ...draft,
-      id: uuid.v4().toString(),
-      date: new Date().getTime(),
-    };
-    dispatch(addOneDream(newDream));
-    dispatch(clearDraft());
+    if (!dream.title && !dream.description) {
+      dispatch(removeOneDream(dream.id))
+    }
     router.back();
   };
 
@@ -189,20 +208,17 @@ const Page = () => {
         {/*  <Text className={"text-white font-bold"}>Clear all</Text>*/}
         {/*</Pressable>*/}
         <Pressable
-          className={`${canSave ? "bg-white" : "bg-[#B3B3B3]"} rounded-full py-3 px-6 items-center justify-center flex flex-row space-x-1`}
-          onPress={async () => {
-            await save();
-          }}
+          className={`rounded-full items-center justify-center flex flex-row space-x-1`}
+          onPress={save}
         >
-          <Ionicons name="checkmark-sharp" size={20} color="#121212" />
-          <Text className={"font-bold"}>Save</Text>
+          <Text className={"font-bold text-white"}>Done</Text>
         </Pressable>
       </View>
       <TabView
-        navigationState={{ index, routes }}
+        navigationState={{index, routes}}
         renderScene={renderScene}
         onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
+        initialLayout={{width: layout.width}}
         renderTabBar={(props) => (
           <TabBar
             {...props}
@@ -219,8 +235,8 @@ const Page = () => {
               backgroundColor: "#121212",
             }}
             activeColor={"white"}
-            renderLabel={({ route, color }) => (
-              <Text style={{ color: color, fontWeight: "bold", fontSize: 16 }}>
+            renderLabel={({route, color}) => (
+              <Text style={{color: color, fontWeight: "bold", fontSize: 16}}>
                 {route.title}
               </Text>
             )}

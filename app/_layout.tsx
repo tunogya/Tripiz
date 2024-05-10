@@ -44,7 +44,7 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="add/dream"
+              name="edit/dream/[id]"
               options={{
                 presentation: "modal",
                 title: "Add",
@@ -57,7 +57,7 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="add/memory"
+              name="edit/memory/[id]"
               options={{
                 presentation: "modal",
                 title: "Add",
@@ -70,7 +70,7 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="add/reflection"
+              name="edit/reflection/[id]"
               options={{
                 presentation: "modal",
                 title: "Add",
