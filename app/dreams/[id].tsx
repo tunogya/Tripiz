@@ -5,18 +5,19 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
 import Svg, { Path } from "react-native-svg";
+import {updateOneDream} from "../../reducers/dreams/dreamSlice";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
   const { entities } = useSelector((state: RootState) => state.dream);
-
-  const dream = id ? entities?.[ensureString(id)] : null;
+  const dispatch = useDispatch();
+  const item = id ? entities?.[ensureString(id)] : null;
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212] relative"}>
@@ -55,12 +56,12 @@ const Page = () => {
             height: screenWidth * 0.99,
           }}
         >
-          <Text className={"text-white text-5xl font-bold"}>{dream.title}</Text>
+          <Text className={"text-white text-5xl font-bold"}>{item.title}</Text>
         </View>
         <BlurView intensity={5} tint={"dark"}>
           <View className={"p-4 space-y-1.5"}>
             <Text className={"text-[#B3B3B3] font-medium"}>
-              {dream.description}
+              {item.description}
             </Text>
             <View className={"flex flex-row space-x-2 items-center"}>
               <View
@@ -73,7 +74,7 @@ const Page = () => {
               <Text className={"text-white font-bold"}>Dream</Text>
             </View>
             <Text className={"text-[#B3B3B3] font-medium"}>
-              {dream.rate} Star · {new Date(dream.date).toLocaleDateString()}
+              {item.rate} Star · {new Date(item.date).toLocaleDateString()}
             </Text>
             <View className={"flex flex-row items-center justify-between py-2"}>
               <View className={"flex flex-row items-center space-x-6"}>
@@ -82,12 +83,26 @@ const Page = () => {
                 ></Pressable>
                 <Pressable
                   className={"h-6 w-6 rounded-full items-center justify-center"}
+                  onPress={() => {
+                    dispatch(updateOneDream({
+                      id: item.id,
+                      changes: {
+                        favoured: !item.favoured
+                      }
+                    }))
+                  }}
                 >
-                  <Ionicons
-                    name="add-circle-outline"
-                    size={26}
-                    color="#B3B3B3"
-                  />
+                  {
+                    item.favoured ? (
+                      <Ionicons name="checkmark-circle-sharp" size={26} color="rgb(34,197,94)" />
+                    ) : (
+                      <Ionicons
+                        name="add-circle-outline"
+                        size={26}
+                        color="#B3B3B3"
+                      />
+                    )
+                  }
                 </Pressable>
                 <Pressable
                   className={"h-6 w-6 rounded-full items-center justify-center"}

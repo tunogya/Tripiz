@@ -5,18 +5,18 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
-import Svg, { Path } from "react-native-svg";
+import {updateOneReflection} from "../../reducers/reflections/reflectionSlice";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
   const { entities } = useSelector((state: RootState) => state.reflection);
-
-  const reflection = id ? entities?.[ensureString(id)] : null;
+  const dispatch = useDispatch();
+  const item = id ? entities?.[ensureString(id)] : null;
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212] relative"}>
@@ -56,13 +56,13 @@ const Page = () => {
           }}
         >
           <Text className={"text-white text-5xl font-bold"}>
-            {reflection.title}
+            {item.title}
           </Text>
         </View>
         <BlurView intensity={5} tint={"dark"}>
           <View className={"p-4 space-y-1.5"}>
             <Text className={"text-[#B3B3B3] font-medium"}>
-              {reflection.description}
+              {item.description}
             </Text>
             <View className={"flex flex-row space-x-2 items-center"}>
               <View
@@ -75,7 +75,7 @@ const Page = () => {
               <Text className={"text-white font-bold"}>Reflection</Text>
             </View>
             <Text className={"text-[#B3B3B3] font-medium"}>
-              {new Date(reflection.date).toLocaleDateString()}
+              {new Date(item.date).toLocaleDateString()}
             </Text>
             <View className={"flex flex-row items-center justify-between py-2"}>
               <View className={"flex flex-row items-center space-x-6"}>
@@ -84,12 +84,26 @@ const Page = () => {
                 ></Pressable>
                 <Pressable
                   className={"h-6 w-6 rounded-full items-center justify-center"}
+                  onPress={() => {
+                    dispatch(updateOneReflection({
+                      id: item.id,
+                      changes: {
+                        favoured: !item.favoured
+                      }
+                    }))
+                  }}
                 >
-                  <Ionicons
-                    name="add-circle-outline"
-                    size={26}
-                    color="#B3B3B3"
-                  />
+                  {
+                    item.favoured ? (
+                      <Ionicons name="checkmark-circle-sharp" size={26} color="rgb(34,197,94)" />
+                    ) : (
+                      <Ionicons
+                        name="add-circle-outline"
+                        size={26}
+                        color="#B3B3B3"
+                      />
+                    )
+                  }
                 </Pressable>
                 <Pressable
                   className={"h-6 w-6 rounded-full items-center justify-center"}
