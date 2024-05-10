@@ -22,7 +22,7 @@ const LibraryShowItem = ({ item, showType }) => {
             <Text className={"text-white font-bold text-lg"}>
               {reflections[item.id].title}
             </Text>
-            {showType && <Text className={"text-[#B3B3B3]"}>reflection</Text>}
+            {showType && <Text className={"text-[#B3B3B3]"}>Reflection</Text>}
           </View>
         </Pressable>
       </Link>
@@ -38,7 +38,7 @@ const LibraryShowItem = ({ item, showType }) => {
             <Text className={"text-white font-bold text-lg"}>
               {memories[item.id].title}
             </Text>
-            {showType && <Text className={"text-[#B3B3B3]"}>memory</Text>}
+            {showType && <Text className={"text-[#B3B3B3]"}>Memory</Text>}
           </View>
         </Pressable>
       </Link>
@@ -54,7 +54,7 @@ const LibraryShowItem = ({ item, showType }) => {
             <Text className={"text-white font-bold text-lg"}>
               {dreams[item.id].title}
             </Text>
-            {showType && <Text className={"text-[#B3B3B3]"}>dream</Text>}
+            {showType && <Text className={"text-[#B3B3B3]"}>Dream</Text>}
           </View>
         </Pressable>
       </Link>

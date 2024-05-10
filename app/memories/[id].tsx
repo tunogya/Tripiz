@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
-import { memo } from "react";
+import React, { memo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
@@ -8,6 +8,7 @@ import { Dimensions } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
+import Svg, { Path } from "react-native-svg";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -59,17 +60,28 @@ const Page = () => {
           </Text>
         </View>
         <BlurView intensity={5} tint={"dark"}>
-          <View className={"p-4 space-y-1.5"}>
+          <View className={"p-4 space-y-2"}>
             <Text className={"text-[#B3B3B3] font-medium"}>
               {memory.description}
             </Text>
+            <View className={"flex flex-row space-x-2 items-center"}>
+              <View
+                className={
+                  "bg-green-500 h-6 w-6 rounded-full items-center justify-center"
+                }
+              >
+                <Ionicons name="sunny-sharp" size={18} color="#121212" />
+              </View>
+              <Text className={"text-white font-bold"}>Memory</Text>
+            </View>
             <Text className={"text-[#B3B3B3] font-medium"}>
               {memory.rate} Star · {new Date(memory.date).toLocaleDateString()}
             </Text>
+            <View></View>
           </View>
         </BlurView>
         <View className={"p-4 mt-2"}>
-          <Text className={"text-white font-bold text-xl"}>可能关联的内容</Text>
+          {/*<Text className={"text-white font-bold text-xl"}>可能关联的内容</Text>*/}
         </View>
       </ScrollView>
     </View>

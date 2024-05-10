@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
-import { memo } from "react";
+import React, { memo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
@@ -8,6 +8,7 @@ import { Dimensions } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
+import Svg, { Path } from "react-native-svg";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -61,6 +62,16 @@ const Page = () => {
             <Text className={"text-[#B3B3B3] font-medium"}>
               {dream.description}
             </Text>
+            <View className={"flex flex-row space-x-2 items-center"}>
+              <View
+                className={
+                  "bg-green-500 h-6 w-6 rounded-full items-center justify-center"
+                }
+              >
+                <Ionicons name="moon-sharp" size={18} color="#121212" />
+              </View>
+              <Text className={"text-white font-bold"}>Dream</Text>
+            </View>
             <Text className={"text-[#B3B3B3] font-medium"}>
               {dream.rate} Star · {new Date(dream.date).toLocaleDateString()}
             </Text>
