@@ -19,7 +19,7 @@ const LibraryShowItem = ({ item, showType }) => {
         <Pressable className={"h-20 flex flex-row my-2 mx-4 space-x-3"}>
           <View className={"h-20 w-20 bg-[#FFFFFF12]"}></View>
           <View className={"flex justify-center"}>
-            <Text className={"text-white font-bold text-lg"}>
+            <Text className={"text-white font-bold"}>
               {reflections[item.id].title}
             </Text>
             {showType && <Text className={"text-[#B3B3B3]"}>Reflection</Text>}
@@ -33,9 +33,9 @@ const LibraryShowItem = ({ item, showType }) => {
     return (
       <Link href={`/memories/${item.id}`} asChild>
         <Pressable className={"h-20 flex flex-row my-2 mx-4 space-x-3"}>
-          <View className={"h-20 w-20 bg-[#FFFFFF12]"}></View>
+          <View className={"h-20 w-20 bg-[#FFFFFF12] rounded-xl"}></View>
           <View className={"flex justify-center"}>
-            <Text className={"text-white font-bold text-lg"}>
+            <Text className={"text-white font-bold"}>
               {memories[item.id].title}
             </Text>
             {showType && <Text className={"text-[#B3B3B3]"}>Memory</Text>}
@@ -49,9 +49,9 @@ const LibraryShowItem = ({ item, showType }) => {
     return (
       <Link href={`/dreams/${item.id}`} asChild>
         <Pressable className={"h-20 flex flex-row my-2 mx-4 space-x-3"}>
-          <View className={"h-20 w-20 bg-[#FFFFFF12]"}></View>
+          <View className={"h-20 w-20 bg-[#FFFFFF12] rounded-full"}></View>
           <View className={"flex justify-center"}>
-            <Text className={"text-white font-bold text-lg"}>
+            <Text className={"text-white font-bold"}>
               {dreams[item.id].title}
             </Text>
             {showType && <Text className={"text-[#B3B3B3]"}>Dream</Text>}

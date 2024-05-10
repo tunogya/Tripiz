@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
 import React, { memo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
@@ -70,17 +70,62 @@ const Page = () => {
                   "bg-green-500 h-6 w-6 rounded-full items-center justify-center"
                 }
               >
-                <Ionicons name="flash-sharp" size={18} color="#121212" />
+                <Ionicons name="flash-sharp" size={16} color="#121212" />
               </View>
               <Text className={"text-white font-bold"}>Reflection</Text>
             </View>
             <Text className={"text-[#B3B3B3] font-medium"}>
               {new Date(reflection.date).toLocaleDateString()}
             </Text>
+            <View className={"flex flex-row items-center justify-between py-4"}>
+              <View className={"flex flex-row items-center space-x-6"}>
+                <Pressable
+                  className={"w-9 h-12 border-2 border-[#B3B3B3] rounded"}
+                ></Pressable>
+                <Pressable
+                  className={"h-8 w-8 rounded-full items-center justify-center"}
+                >
+                  <Ionicons
+                    name="add-circle-outline"
+                    size={32}
+                    color="#B3B3B3"
+                  />
+                </Pressable>
+                <Pressable
+                  className={"h-6 w-6 rounded-full items-center justify-center"}
+                >
+                  <Ionicons
+                    name="ellipsis-horizontal"
+                    size={24}
+                    color="#B3B3B3"
+                  />
+                </Pressable>
+              </View>
+              <View className={"flex flex-row items-center space-x-4"}>
+                <Pressable
+                  className={
+                    "h-12 w-12 rounded-full items-center justify-center"
+                  }
+                >
+                  <Ionicons
+                    name="flash-outline"
+                    size={28}
+                    color="rgb(34,197,94)"
+                  />
+                </Pressable>
+                <Pressable
+                  className={
+                    "bg-green-500 h-12 w-12 rounded-full items-center justify-center"
+                  }
+                >
+                  <Feather name="edit" size={24} color="#121212" />
+                </Pressable>
+              </View>
+            </View>
           </View>
         </BlurView>
         <View className={"p-4 mt-2"}>
-          <Text className={"text-white font-bold text-xl"}>你可能还会喜欢</Text>
+          {/*<Text className={"text-white font-bold text-xl"}>你可能还会喜欢</Text>*/}
         </View>
       </ScrollView>
     </View>

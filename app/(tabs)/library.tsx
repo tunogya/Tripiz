@@ -72,7 +72,7 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"px-4 flex flex-row justify-between items-center"}>
+        <View className={"p-4 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-bold text-2xl"}>Library</Text>
           <Pressable hitSlop={8}>
             <Ionicons name="search-sharp" size={24} color="white" />
@@ -88,7 +88,7 @@ const Page = () => {
             <Pressable
               hitSlop={4}
               className={
-                "h-8 w-8 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"
+                "h-6 w-6 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"
               }
               onPress={() => {
                 setFilter("");
@@ -102,7 +102,7 @@ const Page = () => {
               <Pressable
                 hitSlop={4}
                 key={index}
-                className={`px-3 py-2 ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
+                className={`px-4 py-2 ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
                 onPress={() => {
                   setFilter(item);
                 }}
