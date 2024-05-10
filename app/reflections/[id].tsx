@@ -30,9 +30,9 @@ const Page = () => {
         <BlurView
           intensity={100}
           tint={"dark"}
-          className={"items-center justify-center w-10 h-10"}
+          className={"items-center justify-center w-8 h-8"}
         >
-          <Ionicons name="chevron-back" size={24} color="white" />
+          <Ionicons name="chevron-back-sharp" size={20} color="white" />
         </BlurView>
       </Pressable>
       <View
@@ -67,7 +67,7 @@ const Page = () => {
             <View className={"flex flex-row space-x-2 items-center"}>
               <View
                 className={
-                  "bg-green-500 h-6 w-6 rounded-full items-center justify-center"
+                  "bg-green-500 h-5 w-5 rounded-full items-center justify-center"
                 }
               >
                 <Ionicons name="flash-sharp" size={16} color="#121212" />
@@ -77,17 +77,17 @@ const Page = () => {
             <Text className={"text-[#B3B3B3] font-medium"}>
               {new Date(reflection.date).toLocaleDateString()}
             </Text>
-            <View className={"flex flex-row items-center justify-between py-4"}>
+            <View className={"flex flex-row items-center justify-between py-2"}>
               <View className={"flex flex-row items-center space-x-6"}>
                 <Pressable
-                  className={"w-9 h-12 border-2 border-[#B3B3B3] rounded"}
+                  className={"w-8 h-10 border-2 border-[#B3B3B3] rounded"}
                 ></Pressable>
                 <Pressable
-                  className={"h-8 w-8 rounded-full items-center justify-center"}
+                  className={"h-6 w-6 rounded-full items-center justify-center"}
                 >
                   <Ionicons
                     name="add-circle-outline"
-                    size={32}
+                    size={26}
                     color="#B3B3B3"
                   />
                 </Pressable>
@@ -96,7 +96,7 @@ const Page = () => {
                 >
                   <Ionicons
                     name="ellipsis-horizontal"
-                    size={24}
+                    size={20}
                     color="#B3B3B3"
                   />
                 </Pressable>
