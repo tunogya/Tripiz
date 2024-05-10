@@ -2,12 +2,12 @@ import { View, Text, ScrollView, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { memo } from "react";
 import AddDreamButton from "../../components/AddButton";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeAllDreams } from "../../reducers/dreams/dreamSlice";
 import { removeAllMemories } from "../../reducers/memories/memorySlice";
 import { removeAllReflections } from "../../reducers/reflections/reflectionSlice";
-import {RootState} from "../../store/store";
-import {updateScroll} from "../../reducers/ui/uiSlice";
+import { RootState } from "../../store/store";
+import { updateScroll } from "../../reducers/ui/uiSlice";
 
 function Page() {
   const insets = useSafeAreaInsets();

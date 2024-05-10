@@ -5,8 +5,8 @@ import { memo, useEffect, useState } from "react";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { useNavigationState } from "@react-navigation/core";
-import {useSelector} from "react-redux";
-import {RootState} from "../store/store";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
@@ -37,11 +37,7 @@ const AddButton = () => {
         }
       >
         <Ionicons name="moon-outline" size={24} color="#121212" />
-        {
-          !scroll && (
-            <Text className={"font-semibold text-lg"}>New dream</Text>
-          )
-        }
+        {!scroll && <Text className={"font-semibold text-lg"}>New dream</Text>}
       </Pressable>
       <View className={"bg-[#121212] w-0.5 h-8 opacity-20"}></View>
       <Pressable

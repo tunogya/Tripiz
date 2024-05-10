@@ -3,11 +3,11 @@ import { memo, useMemo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
 import { Ionicons } from "@expo/vector-icons";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { FlashList } from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
-import {updateScroll} from "../../reducers/ui/uiSlice";
+import { updateScroll } from "../../reducers/ui/uiSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
