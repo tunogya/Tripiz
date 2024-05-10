@@ -5,12 +5,12 @@ import { memo, useEffect, useState } from "react";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { useNavigationState } from "@react-navigation/core";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import uuid from "react-native-uuid";
-import {addOneDream} from "../reducers/dreams/dreamSlice";
-import {addOneReflection} from "../reducers/reflections/reflectionSlice";
-import {addOneMemory} from "../reducers/memories/memorySlice";
+import { addOneDream } from "../reducers/dreams/dreamSlice";
+import { addOneReflection } from "../reducers/reflections/reflectionSlice";
+import { addOneMemory } from "../reducers/memories/memorySlice";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
@@ -36,13 +36,15 @@ const AddButton = () => {
       <Pressable
         onPress={() => {
           const id = uuid.v4().toString();
-          dispatch(addOneDream({
-            id: id,
-            title: "",
-            description: "",
-            date: new Date().getTime(),
-            rate: 3,
-          }));
+          dispatch(
+            addOneDream({
+              id: id,
+              title: "",
+              description: "",
+              date: new Date().getTime(),
+              rate: 3,
+            }),
+          );
           router.navigate(`edit/dream/${id}`);
         }}
         className={
@@ -88,12 +90,14 @@ const AddButton = () => {
               onPress={() => {
                 setOpenMore(false);
                 const id = uuid.v4().toString();
-                dispatch(addOneReflection({
-                  id: id,
-                  title: "",
-                  description: "",
-                  date: new Date().getTime(),
-                }))
+                dispatch(
+                  addOneReflection({
+                    id: id,
+                    title: "",
+                    description: "",
+                    date: new Date().getTime(),
+                  }),
+                );
                 router.push(`edit/reflection/${id}`);
               }}
             >
@@ -109,13 +113,15 @@ const AddButton = () => {
               onPress={() => {
                 setOpenMore(false);
                 const id = uuid.v4().toString();
-                dispatch(addOneMemory({
-                  id: id,
-                  title: "",
-                  description: "",
-                  date: new Date().getTime(),
-                  rate: 3,
-                }))
+                dispatch(
+                  addOneMemory({
+                    id: id,
+                    title: "",
+                    description: "",
+                    date: new Date().getTime(),
+                    rate: 3,
+                  }),
+                );
                 router.push(`edit/memory/${id}`);
               }}
             >
@@ -131,13 +137,15 @@ const AddButton = () => {
               onPress={() => {
                 setOpenMore(false);
                 const id = uuid.v4().toString();
-                dispatch(addOneDream({
-                  id: id,
-                  title: "",
-                  description: "",
-                  date: new Date().getTime(),
-                  rate: 3,
-                }))
+                dispatch(
+                  addOneDream({
+                    id: id,
+                    title: "",
+                    description: "",
+                    date: new Date().getTime(),
+                    rate: 3,
+                  }),
+                );
                 router.push(`edit/dream/${id}`);
               }}
             >

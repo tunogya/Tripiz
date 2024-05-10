@@ -5,11 +5,11 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
 import Svg, { Path } from "react-native-svg";
-import {updateOneDream} from "../../reducers/dreams/dreamSlice";
+import { updateOneDream } from "../../reducers/dreams/dreamSlice";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -84,25 +84,29 @@ const Page = () => {
                 <Pressable
                   className={"h-6 w-6 rounded-full items-center justify-center"}
                   onPress={() => {
-                    dispatch(updateOneDream({
-                      id: item.id,
-                      changes: {
-                        favoured: !item.favoured
-                      }
-                    }))
+                    dispatch(
+                      updateOneDream({
+                        id: item.id,
+                        changes: {
+                          favoured: !item.favoured,
+                        },
+                      }),
+                    );
                   }}
                 >
-                  {
-                    item.favoured ? (
-                      <Ionicons name="checkmark-circle-sharp" size={26} color="rgb(34,197,94)" />
-                    ) : (
-                      <Ionicons
-                        name="add-circle-outline"
-                        size={26}
-                        color="#B3B3B3"
-                      />
-                    )
-                  }
+                  {item.favoured ? (
+                    <Ionicons
+                      name="checkmark-circle-sharp"
+                      size={26}
+                      color="rgb(34,197,94)"
+                    />
+                  ) : (
+                    <Ionicons
+                      name="add-circle-outline"
+                      size={26}
+                      color="#B3B3B3"
+                    />
+                  )}
                 </Pressable>
                 <Pressable
                   className={"h-6 w-6 rounded-full items-center justify-center"}

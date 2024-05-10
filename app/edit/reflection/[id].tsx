@@ -13,9 +13,12 @@ import { SceneMap, TabView } from "react-native-tab-view";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {removeOneReflection, updateOneReflection} from "../../../reducers/reflections/reflectionSlice";
-import {router, useLocalSearchParams} from "expo-router";
-import {ensureString} from "../../../utils/ensureString";
+import {
+  removeOneReflection,
+  updateOneReflection,
+} from "../../../reducers/reflections/reflectionSlice";
+import { router, useLocalSearchParams } from "expo-router";
+import { ensureString } from "../../../utils/ensureString";
 
 const DetailsRoute = () => {
   const { id } = useLocalSearchParams();
@@ -44,12 +47,14 @@ const DetailsRoute = () => {
               placeholderTextColor={"#B3B3B3"}
               className={"font-bold text-white"}
               onChangeText={(text) => {
-                dispatch(updateOneReflection({
-                  id: ensureString(id),
-                  changes: {
-                    title: text
-                  }
-                }))
+                dispatch(
+                  updateOneReflection({
+                    id: ensureString(id),
+                    changes: {
+                      title: text,
+                    },
+                  }),
+                );
               }}
             />
           </View>
@@ -59,12 +64,14 @@ const DetailsRoute = () => {
               multiline={true}
               placeholderTextColor={"#B3B3B3"}
               onChangeText={(text) => {
-                dispatch(updateOneReflection({
-                  id: ensureString(id),
-                  changes: {
-                    description: text
-                  }
-                }))
+                dispatch(
+                  updateOneReflection({
+                    id: ensureString(id),
+                    changes: {
+                      description: text,
+                    },
+                  }),
+                );
               }}
               placeholder={
                 "Write down anything else you want about your reflection"
@@ -98,7 +105,7 @@ const Page = () => {
 
   const save = async () => {
     if (!reflection.title && !reflection.description) {
-      dispatch(removeOneReflection(reflection.id))
+      dispatch(removeOneReflection(reflection.id));
     }
     router.back();
   };

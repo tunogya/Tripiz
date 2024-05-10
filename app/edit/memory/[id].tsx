@@ -14,9 +14,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {router, useLocalSearchParams} from "expo-router";
-import {removeOneMemory, updateOneMemory} from "../../../reducers/memories/memorySlice";
-import {ensureString} from "../../../utils/ensureString";
+import { router, useLocalSearchParams } from "expo-router";
+import {
+  removeOneMemory,
+  updateOneMemory,
+} from "../../../reducers/memories/memorySlice";
+import { ensureString } from "../../../utils/ensureString";
 
 const MemoryRoute = () => {
   const { id } = useLocalSearchParams();
@@ -43,12 +46,14 @@ const MemoryRoute = () => {
             placeholderTextColor={"#B3B3B3"}
             className={"font-bold text-white"}
             onChangeText={(text) => {
-              dispatch(updateOneMemory({
-                id: ensureString(id),
-                changes: {
-                  title: text
-                }
-              }));
+              dispatch(
+                updateOneMemory({
+                  id: ensureString(id),
+                  changes: {
+                    title: text,
+                  },
+                }),
+              );
             }}
           />
         </View>
@@ -60,12 +65,14 @@ const MemoryRoute = () => {
             multiline={true}
             className={"h-40 rounded-lg text-white"}
             onChangeText={(text) => {
-              dispatch(updateOneMemory({
-                id: ensureString(id),
-                changes: {
-                  description: text
-                }
-              }));
+              dispatch(
+                updateOneMemory({
+                  id: ensureString(id),
+                  changes: {
+                    description: text,
+                  },
+                }),
+              );
             }}
           />
         </View>
@@ -115,12 +122,14 @@ const DetailsRoute = () => {
                 <Pressable
                   key={index}
                   onPress={() => {
-                    dispatch(updateOneMemory({
-                      id: ensureString(id),
-                      changes: {
-                        rate: item
-                      }
-                    }));
+                    dispatch(
+                      updateOneMemory({
+                        id: ensureString(id),
+                        changes: {
+                          rate: item,
+                        },
+                      }),
+                    );
                   }}
                   className={`${item === memory.rate ? "bg-white" : ""} w-12 h-12 border border-[#727272] rounded-lg flex items-center justify-center`}
                 >
@@ -146,12 +155,14 @@ const DetailsRoute = () => {
               multiline={true}
               placeholderTextColor={"#B3B3B3"}
               onChangeText={(text) => {
-                dispatch(updateOneMemory({
-                  id: ensureString(id),
-                  changes: {
-                    notes: text
-                  }
-                }));
+                dispatch(
+                  updateOneMemory({
+                    id: ensureString(id),
+                    changes: {
+                      notes: text,
+                    },
+                  }),
+                );
               }}
               placeholder={
                 "Write down anything else you want about your memory"
@@ -189,7 +200,7 @@ const Page = () => {
 
   const save = async () => {
     if (!memory.title && !memory.description) {
-      dispatch(removeOneMemory(memory.id))
+      dispatch(removeOneMemory(memory.id));
     }
     router.back();
   };

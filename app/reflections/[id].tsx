@@ -5,10 +5,10 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
-import {updateOneReflection} from "../../reducers/reflections/reflectionSlice";
+import { updateOneReflection } from "../../reducers/reflections/reflectionSlice";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -55,9 +55,7 @@ const Page = () => {
             height: screenWidth * 0.99,
           }}
         >
-          <Text className={"text-white text-5xl font-bold"}>
-            {item.title}
-          </Text>
+          <Text className={"text-white text-5xl font-bold"}>{item.title}</Text>
         </View>
         <BlurView intensity={5} tint={"dark"}>
           <View className={"p-4 space-y-1.5"}>
@@ -85,25 +83,29 @@ const Page = () => {
                 <Pressable
                   className={"h-6 w-6 rounded-full items-center justify-center"}
                   onPress={() => {
-                    dispatch(updateOneReflection({
-                      id: item.id,
-                      changes: {
-                        favoured: !item.favoured
-                      }
-                    }))
+                    dispatch(
+                      updateOneReflection({
+                        id: item.id,
+                        changes: {
+                          favoured: !item.favoured,
+                        },
+                      }),
+                    );
                   }}
                 >
-                  {
-                    item.favoured ? (
-                      <Ionicons name="checkmark-circle-sharp" size={26} color="rgb(34,197,94)" />
-                    ) : (
-                      <Ionicons
-                        name="add-circle-outline"
-                        size={26}
-                        color="#B3B3B3"
-                      />
-                    )
-                  }
+                  {item.favoured ? (
+                    <Ionicons
+                      name="checkmark-circle-sharp"
+                      size={26}
+                      color="rgb(34,197,94)"
+                    />
+                  ) : (
+                    <Ionicons
+                      name="add-circle-outline"
+                      size={26}
+                      color="#B3B3B3"
+                    />
+                  )}
                 </Pressable>
                 <Pressable
                   className={"h-6 w-6 rounded-full items-center justify-center"}
