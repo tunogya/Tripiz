@@ -131,19 +131,9 @@ const Page = () => {
           <Pressable
             className={"h-12 w-12 rounded-full items-center justify-center"}
             onPress={() => {
-              const id = uuid.v4().toString();
-              dispatch(
-                addOneReflection({
-                  id: id,
-                  title: "",
-                  description: "",
-                  date: new Date().getTime(),
-                }),
-              );
-              router.push(`edit/reflections/${id}`);
             }}
           >
-            <Ionicons name="flash-outline" size={28} color="rgb(34,197,94)" />
+            <Ionicons name="sparkles-outline" size={24} color="rgb(34,197,94)" />
           </Pressable>
           <Pressable
             className={
