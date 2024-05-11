@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
 import { updateOneMemory } from "../../reducers/memories/memorySlice";
+import uuid from "react-native-uuid";
+import {addOneReflection} from "../../reducers/reflections/reflectionSlice";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -127,6 +129,18 @@ const Page = () => {
         <View className={"flex flex-row items-center space-x-4"}>
           <Pressable
             className={"h-12 w-12 rounded-full items-center justify-center"}
+            onPress={() => {
+              const id = uuid.v4().toString();
+              dispatch(
+                addOneReflection({
+                  id: id,
+                  title: "",
+                  description: "",
+                  date: new Date().getTime(),
+                }),
+              );
+              router.push(`edit/reflections/${id}`);
+            }}
           >
             <Ionicons name="flash-outline" size={28} color="rgb(34,197,94)" />
           </Pressable>

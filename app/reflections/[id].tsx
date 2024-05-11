@@ -123,11 +123,6 @@ const Page = () => {
         </View>
         <View className={"flex flex-row items-center space-x-4"}>
           <Pressable
-            className={"h-12 w-12 rounded-full items-center justify-center"}
-          >
-            <Ionicons name="flash-outline" size={28} color="rgb(34,197,94)" />
-          </Pressable>
-          <Pressable
             className={
               "bg-green-500 h-12 w-12 rounded-full items-center justify-center"
             }
