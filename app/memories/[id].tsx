@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
 import { updateOneMemory } from "../../reducers/memories/memorySlice";
-import uuid from "react-native-uuid";
-import {addOneReflection} from "../../reducers/reflections/reflectionSlice";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
