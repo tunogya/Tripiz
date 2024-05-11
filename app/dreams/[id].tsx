@@ -44,12 +44,7 @@ const Page = () => {
       >
         {/*  Image*/}
       </View>
-      <ScrollView
-        className={"h-full w-full absolute top-0 left-0 z-10"}
-        style={{
-          paddingBottom: insets.bottom + 66,
-        }}
-      >
+      <ScrollView className={"h-full w-full absolute top-0 left-0 z-10"}>
         <View
           className={"justify-end p-4"}
           style={{
@@ -58,11 +53,8 @@ const Page = () => {
         >
           <Text className={"text-white text-5xl font-bold"}>{item.title}</Text>
         </View>
-        <BlurView intensity={5} tint={"dark"}>
-          <View className={"p-4 space-y-1.5"}>
-            <Text className={"text-[#B3B3B3] font-medium"}>
-              {item.description}
-            </Text>
+        <View className={"p-4 space-y-4"}>
+          <View className={"flex flex-row justify-between"}>
             <View className={"flex flex-row space-x-2 items-center"}>
               <View
                 className={
@@ -76,78 +68,81 @@ const Page = () => {
             <Text className={"text-[#B3B3B3] font-medium"}>
               {item.rate} Star · {new Date(item.date).toLocaleDateString()}
             </Text>
-            <View className={"flex flex-row items-center justify-between py-2"}>
-              <View className={"flex flex-row items-center space-x-6"}>
-                <Pressable
-                  className={"w-8 h-10 border-2 border-[#B3B3B3] rounded"}
-                ></Pressable>
-                <Pressable
-                  className={"h-6 w-6 rounded-full items-center justify-center"}
-                  onPress={() => {
-                    dispatch(
-                      updateOneDream({
-                        id: item.id,
-                        changes: {
-                          favoured: !item.favoured,
-                        },
-                      }),
-                    );
-                  }}
-                >
-                  {item.favoured ? (
-                    <Ionicons
-                      name="checkmark-circle-sharp"
-                      size={26}
-                      color="rgb(34,197,94)"
-                    />
-                  ) : (
-                    <Ionicons
-                      name="add-circle-outline"
-                      size={26}
-                      color="#B3B3B3"
-                    />
-                  )}
-                </Pressable>
-                <Pressable
-                  className={"h-6 w-6 rounded-full items-center justify-center"}
-                >
-                  <Ionicons
-                    name="ellipsis-horizontal"
-                    size={20}
-                    color="#B3B3B3"
-                  />
-                </Pressable>
-              </View>
-              <View className={"flex flex-row items-center space-x-4"}>
-                <Pressable
-                  className={
-                    "h-12 w-12 rounded-full items-center justify-center"
-                  }
-                >
-                  <Ionicons
-                    name="flash-outline"
-                    size={28}
-                    color="rgb(34,197,94)"
-                  />
-                </Pressable>
-                <Pressable
-                  className={
-                    "bg-green-500 h-12 w-12 rounded-full items-center justify-center"
-                  }
-                  onPress={() => {
-                    router.navigate(`edit/dreams/${item.id}`);
-                  }}
-                >
-                  <Feather name="edit" size={24} color="#121212" />
-                </Pressable>
-              </View>
-            </View>
           </View>
-        </BlurView>
+          <Text className={"text-[#B3B3B3] font-medium"}>
+            {item.description}
+          </Text>
+        </View>
         <View className={"p-4 mt-2"}>
           {/*<Text className={"text-white font-bold text-xl"}>可能关联的内容</Text>*/}
         </View>
+        <View
+          style={{
+            height: insets.bottom + 200,
+          }}
+        ></View>
       </ScrollView>
+      <BlurView
+        intensity={100}
+        tint={"dark"}
+        className={
+          "flex flex-row items-center justify-between px-4 py-2 w-full absolute left-0 bottom-0 bg-[#121212] z-50"
+        }
+        style={{
+          paddingBottom: insets.bottom,
+        }}
+      >
+        <View className={"flex flex-row items-center space-x-6"}>
+          <Pressable
+            className={"w-8 h-10 border-2 border-[#B3B3B3] rounded"}
+          ></Pressable>
+          <Pressable
+            className={"h-6 w-6 rounded-full items-center justify-center"}
+            onPress={() => {
+              dispatch(
+                updateOneDream({
+                  id: item.id,
+                  changes: {
+                    favoured: !item.favoured,
+                  },
+                }),
+              );
+            }}
+          >
+            {item.favoured ? (
+              <Ionicons
+                name="checkmark-circle-sharp"
+                size={26}
+                color="rgb(34,197,94)"
+              />
+            ) : (
+              <Ionicons name="add-circle-outline" size={26} color="#B3B3B3" />
+            )}
+          </Pressable>
+          <Pressable
+            className={"h-6 w-6 rounded-full items-center justify-center"}
+          >
+            <Ionicons name="ellipsis-horizontal" size={20} color="#B3B3B3" />
+          </Pressable>
+        </View>
+        <View className={"flex flex-row items-center space-x-4"}>
+          <Pressable
+            className={"h-12 w-12 rounded-full items-center justify-center"}
+          >
+            <Ionicons name="flash-outline" size={28} color="rgb(34,197,94)" />
+          </Pressable>
+          <Pressable
+            className={
+              "bg-green-500 h-12 w-12 rounded-full items-center justify-center"
+            }
+            onPress={() => {
+              router.navigate(`edit/dreams/${item.id}`);
+            }}
+          >
+            <Feather name="edit" size={24} color="#121212" />
+          </Pressable>
+        </View>
+      </BlurView>
     </View>
   );
 };
