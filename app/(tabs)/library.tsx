@@ -80,7 +80,7 @@ const Page = () => {
         </View>
         <ScrollView
           horizontal
-          className={"flex flex-row py-4"}
+          className={"flex flex-row pb-4"}
           showsHorizontalScrollIndicator={false}
         >
           <View className={"w-3"}></View>
