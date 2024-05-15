@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export const slice = createSlice({
   name: "ui",
   initialState: {
-    scroll: false,
+    scroll2Down: false,
   },
   reducers: {
-    updateScroll: (state, action) => {
+    updateValue: (state, action) => {
       for (const key in action.payload) {
         state[key] = action.payload[key];
       }
@@ -14,6 +14,6 @@ export const slice = createSlice({
   },
 });
 
-export const { updateScroll } = slice.actions;
+export const { updateValue } = slice.actions;
 
 export default slice.reducer;

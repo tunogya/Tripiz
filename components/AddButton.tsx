@@ -16,7 +16,7 @@ const AddButton = () => {
   const insets = useSafeAreaInsets();
   const [openMore, setOpenMore] = useState(false);
   const route = useNavigationState((state) => state.routes[state.index]);
-  const { scroll } = useSelector((state: RootState) => state.ui);
+  const { scroll2Down } = useSelector((state: RootState) => state.ui);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const AddButton = () => {
         }
       >
         <Ionicons name="moon-outline" size={24} color="#121212" />
-        {!scroll && <Text className={"font-semibold text-lg"}>New dream</Text>}
+        {scroll2Down && <Text className={"font-semibold text-lg"}>New dream</Text>}
       </Pressable>
       <View className={"bg-[#121212] w-0.5 h-8 opacity-20"}></View>
       <Pressable

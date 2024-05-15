@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { FlashList } from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
-import { updateScroll } from "../../reducers/ui/uiSlice";
+import { updateValue } from "../../reducers/ui/uiSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -63,6 +63,23 @@ const Page = () => {
           .sort((a, b) => b.date - a.date);
     }
   }, [dreamIds, memoryIds, reflectionIds, filter]);
+
+  const [lastScrollPosition, setLastScrollPosition] = useState(0);
+
+  const handleScroll = (event: any) => {
+    const currentScrollPosition = event.nativeEvent.contentOffset.y;
+
+    if (currentScrollPosition > lastScrollPosition) {
+      dispatch(updateValue({
+        scroll2Down: false,
+      }))
+    } else {
+      dispatch(updateValue({
+        scroll2Down: true,
+      }))
+    }
+    setLastScrollPosition(currentScrollPosition);
+  };
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
@@ -121,6 +138,7 @@ const Page = () => {
       <View className={"flex-1"}>
         <FlashList
           data={DATA}
+          onScroll={handleScroll}
           keyExtractor={(item) => item.id}
           estimatedItemSize={8}
           ListEmptyComponent={() => (
@@ -128,9 +146,6 @@ const Page = () => {
               <Text className={"text-white"}>No {filter} content</Text>
             </View>
           )}
-          onScrollBeginDrag={() => {
-            dispatch(updateScroll({ scroll: true }));
-          }}
           ListHeaderComponent={() => <View className={"h-2"}></View>}
           ListFooterComponent={() => (
             <View
