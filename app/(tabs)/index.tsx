@@ -33,6 +33,7 @@ function Page() {
     <View className={"flex flex-1 bg-[#121212]"}>
       <ScrollView
         onScroll={handleScroll}
+        scrollEventThrottle={1000}
         showsVerticalScrollIndicator={false}
         style={{
           paddingTop: insets.top + 20,

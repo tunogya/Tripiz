@@ -139,6 +139,7 @@ const Page = () => {
         <FlashList
           data={DATA}
           onScroll={handleScroll}
+          scrollEventThrottle={1000}
           keyExtractor={(item) => item.id}
           estimatedItemSize={8}
           ListEmptyComponent={() => (
