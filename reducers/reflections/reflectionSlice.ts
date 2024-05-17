@@ -11,6 +11,8 @@ export interface Reflection {
   date: number;
   images: string[];
   favoured: boolean;
+  paraphrase: string;
+  choices: string[];
 }
 
 interface ReflectionState extends EntityState<Reflection, string> {}

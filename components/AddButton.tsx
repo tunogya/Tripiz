@@ -48,6 +48,8 @@ const AddButton = () => {
               emotions: [],
               notes: "",
               favoured: false,
+              paraphrase: "",
+              choices: []
             }),
           );
           router.navigate(`edit/dreams/${id}`);
@@ -105,6 +107,8 @@ const AddButton = () => {
                     date: new Date().getTime(),
                     images: [],
                     favoured: false,
+                    paraphrase: "",
+                    choices: []
                   }),
                 );
                 router.push(`edit/reflections/${id}`);
@@ -133,6 +137,9 @@ const AddButton = () => {
                     images: [],
                     emotions: [],
                     notes: "",
+                    paraphrase: "",
+                    choices: [],
+                    favoured: false,
                   }),
                 );
                 router.push(`edit/memories/${id}`);
@@ -162,6 +169,8 @@ const AddButton = () => {
                     emotions: [],
                     notes: "",
                     favoured: false,
+                    paraphrase: "",
+                    choices: []
                   }),
                 );
                 router.push(`edit/dreams/${id}`);
