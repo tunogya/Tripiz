@@ -7,10 +7,10 @@ import {
 export interface Reflection {
   id: string;
   title: string;
-  description?: string;
+  description: string;
   date: number;
-  images?: string[];
-  favoured?: boolean;
+  images: string[];
+  favoured: boolean;
 }
 
 interface ReflectionState extends EntityState<Reflection, string> {}

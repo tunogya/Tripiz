@@ -7,13 +7,13 @@ import {
 export interface Memory {
   id: string;
   title: string;
-  description?: string;
-  voiceRecording?: string;
+  description: string;
+  voiceRecording: string;
   date: number;
-  rate?: number;
-  images?: string[];
-  emotions?: string[];
-  notes?: string;
+  rate: number;
+  images: string[];
+  emotions: string[];
+  notes: string;
   favoured?: boolean;
 }
 

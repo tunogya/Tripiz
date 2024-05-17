@@ -43,6 +43,11 @@ const AddButton = () => {
               description: "",
               date: new Date().getTime(),
               rate: 3,
+              voiceRecording: "",
+              images: [],
+              emotions: [],
+              notes: "",
+              favoured: false
             }),
           );
           router.navigate(`edit/dreams/${id}`);
@@ -96,6 +101,8 @@ const AddButton = () => {
                     title: "",
                     description: "",
                     date: new Date().getTime(),
+                    images: [],
+                    favoured: false
                   }),
                 );
                 router.push(`edit/reflections/${id}`);
@@ -120,6 +127,10 @@ const AddButton = () => {
                     description: "",
                     date: new Date().getTime(),
                     rate: 3,
+                    voiceRecording: "",
+                    images: [],
+                    emotions: [],
+                    notes: ""
                   }),
                 );
                 router.push(`edit/memories/${id}`);
@@ -144,6 +155,11 @@ const AddButton = () => {
                     description: "",
                     date: new Date().getTime(),
                     rate: 3,
+                    voiceRecording: "",
+                    images: [],
+                    emotions: [],
+                    notes: "",
+                    favoured: false
                   }),
                 );
                 router.push(`edit/dreams/${id}`);

@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
-import React, { memo } from "react";
+import { View, Text, ScrollView, Pressable, Image } from "react-native";
+import React, {memo, useEffect} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
@@ -17,6 +17,12 @@ const Page = () => {
   const { entities } = useSelector((state: RootState) => state.dream);
   const dispatch = useDispatch();
   const item = id ? entities?.[ensureString(id)] : null;
+
+  useEffect(() => {
+    if (item?.images?.length === 0) {
+      console.log("No image")
+    }
+  }, [item])
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212] relative"}>
@@ -41,7 +47,11 @@ const Page = () => {
           height: screenWidth * 0.99,
         }}
       >
-        {/*  Image*/}
+        <Image
+          source={{
+            uri: "",
+          }}
+        />
       </View>
       <ScrollView className={"h-full w-full absolute top-0 left-0 z-10"}>
         <View

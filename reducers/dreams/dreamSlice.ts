@@ -7,14 +7,14 @@ import {
 export interface Dream {
   id: string;
   title: string;
-  description?: string;
-  voiceRecording?: string;
+  description: string;
+  voiceRecording: string;
   date: number;
-  rate?: number;
-  images?: string[];
-  emotions?: string[];
-  notes?: string;
-  favoured?: boolean;
+  rate: number;
+  images: string[];
+  emotions: string[];
+  notes: string;
+  favoured: boolean;
 }
 
 interface DreamState extends EntityState<Dream, string> {}
