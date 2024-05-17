@@ -70,13 +70,17 @@ const Page = () => {
     const currentScrollPosition = event.nativeEvent.contentOffset.y;
 
     if (currentScrollPosition > lastScrollPosition) {
-      dispatch(updateValue({
-        scroll2Down: false,
-      }))
+      dispatch(
+        updateValue({
+          scroll2Down: false,
+        }),
+      );
     } else {
-      dispatch(updateValue({
-        scroll2Down: true,
-      }))
+      dispatch(
+        updateValue({
+          scroll2Down: true,
+        }),
+      );
     }
     setLastScrollPosition(currentScrollPosition);
   };

@@ -47,7 +47,7 @@ const AddButton = () => {
               images: [],
               emotions: [],
               notes: "",
-              favoured: false
+              favoured: false,
             }),
           );
           router.navigate(`edit/dreams/${id}`);
@@ -57,7 +57,9 @@ const AddButton = () => {
         }
       >
         <Ionicons name="moon-outline" size={24} color="#121212" />
-        {scroll2Down && <Text className={"font-semibold text-lg"}>New dream</Text>}
+        {scroll2Down && (
+          <Text className={"font-semibold text-lg"}>New dream</Text>
+        )}
       </Pressable>
       <View className={"bg-[#121212] w-0.5 h-8 opacity-20"}></View>
       <Pressable
@@ -102,7 +104,7 @@ const AddButton = () => {
                     description: "",
                     date: new Date().getTime(),
                     images: [],
-                    favoured: false
+                    favoured: false,
                   }),
                 );
                 router.push(`edit/reflections/${id}`);
@@ -130,7 +132,7 @@ const AddButton = () => {
                     voiceRecording: "",
                     images: [],
                     emotions: [],
-                    notes: ""
+                    notes: "",
                   }),
                 );
                 router.push(`edit/memories/${id}`);
@@ -159,7 +161,7 @@ const AddButton = () => {
                     images: [],
                     emotions: [],
                     notes: "",
-                    favoured: false
+                    favoured: false,
                   }),
                 );
                 router.push(`edit/dreams/${id}`);

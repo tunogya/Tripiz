@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
 import { updateOneReflection } from "../../reducers/reflections/reflectionSlice";
-import {LinearGradient} from "expo-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -51,10 +51,10 @@ const Page = () => {
             height: screenWidth * 0.99,
           }}
         >
-          <LinearGradient
-            colors={['transparent', 'rgba(18,18,18,0.8)']}
-          >
-            <Text className={"text-white text-5xl font-bold p-4"}>{item.title}</Text>
+          <LinearGradient colors={["transparent", "rgba(18,18,18,0.8)"]}>
+            <Text className={"text-white text-5xl font-bold p-4"}>
+              {item.title}
+            </Text>
           </LinearGradient>
         </View>
         <View className={"p-4 space-y-4"}>
@@ -129,10 +129,13 @@ const Page = () => {
         <View className={"flex flex-row items-center space-x-4"}>
           <Pressable
             className={"h-12 w-12 rounded-full items-center justify-center"}
-            onPress={() => {
-            }}
+            onPress={() => {}}
           >
-            <Ionicons name="sparkles-outline" size={24} color="rgb(34,197,94)" />
+            <Ionicons
+              name="sparkles-outline"
+              size={24}
+              color="rgb(34,197,94)"
+            />
           </Pressable>
           <Pressable
             className={

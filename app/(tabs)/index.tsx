@@ -1,12 +1,12 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {memo, useState} from "react";
+import { memo, useState } from "react";
 import AddDreamButton from "../../components/AddButton";
 import { useDispatch } from "react-redux";
 import { removeAllDreams } from "../../reducers/dreams/dreamSlice";
 import { removeAllMemories } from "../../reducers/memories/memorySlice";
 import { removeAllReflections } from "../../reducers/reflections/reflectionSlice";
-import {updateValue} from "../../reducers/ui/uiSlice";
+import { updateValue } from "../../reducers/ui/uiSlice";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -18,13 +18,17 @@ function Page() {
     const currentScrollPosition = event.nativeEvent.contentOffset.y;
 
     if (currentScrollPosition > lastScrollPosition) {
-      dispatch(updateValue({
-        scroll2Down: false,
-      }))
+      dispatch(
+        updateValue({
+          scroll2Down: false,
+        }),
+      );
     } else {
-      dispatch(updateValue({
-        scroll2Down: true,
-      }))
+      dispatch(
+        updateValue({
+          scroll2Down: true,
+        }),
+      );
     }
     setLastScrollPosition(currentScrollPosition);
   };

@@ -2,8 +2,8 @@ import React, { memo } from "react";
 import { Tabs } from "expo-router";
 import { BlurView } from "expo-blur";
 import Svg, { Path } from "react-native-svg";
-import {useSelector} from "react-redux";
-import {RootState} from "../../store/store";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 function TabLayout() {
   const { scroll2Down } = useSelector((state: RootState) => state.ui);
