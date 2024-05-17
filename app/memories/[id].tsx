@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ensureString } from "../../utils/ensureString";
 import { updateOneMemory } from "../../reducers/memories/memorySlice";
+import {LinearGradient} from "expo-linear-gradient";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -45,12 +46,16 @@ const Page = () => {
       </View>
       <ScrollView className={"h-full w-full absolute top-0 left-0 z-10"}>
         <View
-          className={"justify-end p-4"}
+          className={"justify-end"}
           style={{
             height: screenWidth * 0.99,
           }}
         >
-          <Text className={"text-white text-5xl font-bold"}>{item.title}</Text>
+          <LinearGradient
+            colors={['transparent', 'rgba(18,18,18,0.8)']}
+          >
+            <Text className={"text-white text-5xl font-bold p-4"}>{item.title}</Text>
+          </LinearGradient>
         </View>
         <View className={"p-4 space-y-4"}>
           <View className={"flex flex-row justify-between"}>

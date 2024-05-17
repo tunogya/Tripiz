@@ -1,28 +1,23 @@
-import { View, Text, ScrollView, Pressable, Image } from "react-native";
+import {View, Text, ScrollView, Pressable, Image} from "react-native";
 import React, {memo, useEffect} from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Feather, Ionicons } from "@expo/vector-icons";
-import { BlurView } from "expo-blur";
-import { router, useLocalSearchParams } from "expo-router";
-import { Dimensions } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { ensureString } from "../../utils/ensureString";
-import { updateOneDream } from "../../reducers/dreams/dreamSlice";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Feather, Ionicons} from "@expo/vector-icons";
+import {BlurView} from "expo-blur";
+import {router, useLocalSearchParams} from "expo-router";
+import {Dimensions} from "react-native";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/store";
+import {ensureString} from "../../utils/ensureString";
+import {updateOneDream} from "../../reducers/dreams/dreamSlice";
+import {LinearGradient} from "expo-linear-gradient";
 
 const Page = () => {
-  const { id } = useLocalSearchParams();
+  const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
-  const { entities } = useSelector((state: RootState) => state.dream);
+  const {entities} = useSelector((state: RootState) => state.dream);
   const dispatch = useDispatch();
   const item = id ? entities?.[ensureString(id)] : null;
-
-  useEffect(() => {
-    if (item?.images?.length === 0) {
-      console.log("No image")
-    }
-  }, [item])
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212] relative"}>
@@ -38,7 +33,7 @@ const Page = () => {
           tint={"dark"}
           className={"items-center justify-center w-8 h-8"}
         >
-          <Ionicons name="chevron-back-sharp" size={20} color="white" />
+          <Ionicons name="chevron-back-sharp" size={20} color="white"/>
         </BlurView>
       </Pressable>
       <View
@@ -48,21 +43,26 @@ const Page = () => {
         }}
       >
         <Image
+          className={"w-full h-full"}
           source={{
-            uri: "",
+            uri: "https://img95.699pic.com/photo/50136/1351.jpg_wh300.jpg",
           }}
         />
       </View>
       <ScrollView className={"h-full w-full absolute top-0 left-0 z-10"}>
         <View
-          className={"justify-end p-4"}
+          className={"justify-end"}
           style={{
             height: screenWidth * 0.99,
           }}
         >
-          <Text className={"text-white text-5xl font-bold"}>{item.title}</Text>
+          <LinearGradient
+            colors={['transparent', 'rgba(18,18,18,0.8)']}
+          >
+            <Text className={"text-white text-5xl font-bold p-4"}>{item.title}</Text>
+          </LinearGradient>
         </View>
-        <View className={"p-4 space-y-4"}>
+        <View className={"p-4 space-y-4 bg-[#121212] h-full"}>
           <View className={"flex flex-row justify-between"}>
             <View className={"flex flex-row space-x-2 items-center"}>
               <View
@@ -70,7 +70,7 @@ const Page = () => {
                   "bg-green-500 h-5 w-5 rounded-full items-center justify-center"
                 }
               >
-                <Ionicons name="moon-sharp" size={16} color="#121212" />
+                <Ionicons name="moon-sharp" size={16} color="#121212"/>
               </View>
               <Text className={"text-white font-bold"}>Dream</Text>
             </View>
@@ -125,13 +125,13 @@ const Page = () => {
                 color="rgb(34,197,94)"
               />
             ) : (
-              <Ionicons name="add-circle-outline" size={26} color="#B3B3B3" />
+              <Ionicons name="add-circle-outline" size={26} color="#B3B3B3"/>
             )}
           </Pressable>
           <Pressable
             className={"h-6 w-6 rounded-full items-center justify-center"}
           >
-            <Ionicons name="ellipsis-horizontal" size={20} color="#B3B3B3" />
+            <Ionicons name="ellipsis-horizontal" size={20} color="#B3B3B3"/>
           </Pressable>
         </View>
         <View className={"flex flex-row items-center space-x-4"}>
@@ -140,7 +140,7 @@ const Page = () => {
             onPress={() => {
             }}
           >
-            <Ionicons name="sparkles-outline" size={24} color="rgb(34,197,94)" />
+            <Ionicons name="sparkles-outline" size={24} color="rgb(34,197,94)"/>
           </Pressable>
           <Pressable
             className={
@@ -150,7 +150,7 @@ const Page = () => {
               router.navigate(`edit/dreams/${item.id}`);
             }}
           >
-            <Feather name="edit" size={24} color="#121212" />
+            <Feather name="edit" size={24} color="#121212"/>
           </Pressable>
         </View>
       </BlurView>
