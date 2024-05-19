@@ -85,32 +85,8 @@ export default function RootLayout() {
             <Stack.Screen
               name="dreams/[id]"
               options={{
-                headerShown: false,
+                headerShown: true,
                 title: "Dream",
-                headerBackTitleVisible: false,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="memories/[id]"
-              options={{
-                headerShown: false,
-                title: "Memory",
-                headerBackTitleVisible: false,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="reflections/[id]"
-              options={{
-                headerShown: false,
-                title: "Reflection",
                 headerBackTitleVisible: false,
                 headerTintColor: "white",
                 headerStyle: {
