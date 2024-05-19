@@ -47,33 +47,7 @@ export default function RootLayout() {
               name="edit/dreams/[id]"
               options={{
                 presentation: "modal",
-                title: "Add",
-                headerShown: false,
-                headerTintColor: "white",
-                headerBackTitleVisible: false,
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="edit/memories/[id]"
-              options={{
-                presentation: "modal",
-                title: "Add",
-                headerShown: false,
-                headerTintColor: "white",
-                headerBackTitleVisible: false,
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="edit/reflections/[id]"
-              options={{
-                presentation: "modal",
-                title: "Add",
+                title: "",
                 headerShown: false,
                 headerTintColor: "white",
                 headerBackTitleVisible: false,
