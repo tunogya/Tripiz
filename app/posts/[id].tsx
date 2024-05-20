@@ -4,11 +4,27 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
+import useSWR from "swr";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
+
+  const { data, isLoading } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url)
+    .then((res) => res.json())
+    .then((res) => res.data)
+  );
+
+  if (isLoading) {
+    return (
+      <View
+        className={"flex flex-1 h-full bg-[#121212] relative"}
+      >
+        <Text className={"text-white"}>Loading</Text>
+      </View>
+    )
+  }
 
   return (
     <View
@@ -17,25 +33,29 @@ const Page = () => {
       <ScrollView
         className={"h-full w-full"}
       >
-        <View
-          className={"w-full"}
-          style={{
-            height: screenWidth * 0.99,
-          }}
-        >
-          <Image
-            className={"w-full h-full"}
-            source={{
-              uri: "https://preview.qiantucdn.com/58pic/20231114/00058PICChzpR3rwfa86b_PIC2018_PIC2018.jpg!qt_h320",
-            }}
-          />
-        </View>
+        {
+          data.entities && data.entities?.media?.length > 0 && (
+            <View
+              className={"w-full"}
+              style={{
+                height: screenWidth * 0.99,
+              }}
+            >
+              <Image
+                className={"w-full h-full"}
+                source={{
+                  uri: "https://preview.qiantucdn.com/58pic/20231114/00058PICChzpR3rwfa86b_PIC2018_PIC2018.jpg!qt_h320",
+                }}
+              />
+            </View>
+          )
+        }
         <View className={"p-3 space-y-1"}>
-          <Text className={"pt-1 text-[#B3B3B3] font-medium"}>
-            {/*{item.description}*/}
+          <Text className={"text-[#B3B3B3] font-medium"}>
+            {data.text}
           </Text>
           <Text className={"pt-3 text-[#B3B3B3] text-xs font-medium"}>
-            {/*{new Date(item.date).toLocaleDateString()}*/}
+            Updated at {new Date(data.updatedAt).toLocaleDateString()}
           </Text>
         </View>
       </ScrollView>

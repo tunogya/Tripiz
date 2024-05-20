@@ -9,7 +9,7 @@ import LibraryShowItem from "../../components/LibraryShowItem";
 import {updateValue} from "../../reducers/ui/uiSlice";
 import useSWR from "swr";
 import {RootState} from "../../store/store";
-import {router, useNavigation} from "expo-router";
+import {useNavigation} from "expo-router";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -22,7 +22,7 @@ const Page = () => {
     data,
     mutate,
     isLoading
-  } = useSWR(address ? `http://localhost:3000/api/users/${address}/posts?category=${filter.toLowerCase()}` : undefined, (url: string) => fetch(url)
+  } = useSWR(address ? `https://tripiz.abandon.ai/api/users/${address}/posts?category=${filter.toLowerCase()}` : undefined, (url: string) => fetch(url)
       .then((res) => res.json())
       .then((res) => res.data),
   );
