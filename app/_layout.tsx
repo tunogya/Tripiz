@@ -44,7 +44,7 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="edit/dreams/[id]"
+              name="edit/posts/[id]"
               options={{
                 presentation: "modal",
                 title: "",
@@ -57,10 +57,10 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="dreams/[id]"
+              name="posts/[id]"
               options={{
                 headerShown: true,
-                title: "Dream",
+                title: "",
                 headerBackTitleVisible: false,
                 headerTintColor: "white",
                 headerStyle: {

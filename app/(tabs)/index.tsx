@@ -1,11 +1,8 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
+import { View, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { memo, useState } from "react";
 import AddDreamButton from "../../components/AddButton";
 import { useDispatch } from "react-redux";
-import { removeAllDreams } from "../../reducers/dreams/dreamSlice";
-import { removeAllMemories } from "../../reducers/memories/memorySlice";
-import { removeAllReflections } from "../../reducers/reflections/reflectionSlice";
 import { updateValue } from "../../reducers/ui/uiSlice";
 
 function Page() {
@@ -44,16 +41,6 @@ function Page() {
           paddingBottom: insets.bottom + 66,
         }}
       >
-        <Pressable
-          className={"p-3 bg-red-500 rounded-full"}
-          onPress={() => {
-            dispatch(removeAllDreams());
-            dispatch(removeAllMemories());
-            dispatch(removeAllReflections());
-          }}
-        >
-          <Text className={"text-white font-bold"}>Clear All DATA</Text>
-        </Pressable>
       </ScrollView>
       <AddDreamButton />
     </View>

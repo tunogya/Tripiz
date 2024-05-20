@@ -14,55 +14,9 @@ const Page = () => {
 
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
-  const { entities: dreams, ids: dreamIds } = useSelector(
-    (state: RootState) => state.dream,
-  );
-  const { entities: memories, ids: memoryIds } = useSelector(
-    (state: RootState) => state.memory,
-  );
-  const { entities: reflections, ids: reflectionIds } = useSelector(
-    (state: RootState) => state.reflection,
-  );
   const dispatch = useDispatch();
 
-  const DATA = useMemo(() => {
-    switch (filter) {
-      case "Memories":
-        return memoryIds
-          .map((id) => ({ id: id, date: memories[id].date, type: "memory" }))
-          .sort((a, b) => b.date - a.date);
-      case "Dreams":
-        return dreamIds
-          .map((id) => ({ id: id, date: dreams[id].date, type: "dream" }))
-          .sort((a, b) => b.date - a.date);
-      case "Reflections":
-        return reflectionIds
-          .map((id) => ({
-            id: id,
-            date: reflections[id].date,
-            type: "reflection",
-          }))
-          .sort((a, b) => b.date - a.date);
-      default:
-        return dreamIds
-          .map((id) => ({ id: id, date: dreams[id].date, type: "dream" }))
-          .concat(
-            memoryIds.map((id) => ({
-              id: id,
-              date: memories[id].date,
-              type: "memory",
-            })),
-          )
-          .concat(
-            reflectionIds.map((id) => ({
-              id: id,
-              date: reflections[id].date,
-              type: "reflection",
-            })),
-          )
-          .sort((a, b) => b.date - a.date);
-    }
-  }, [dreamIds, memoryIds, reflectionIds, filter]);
+  const DATA = [];
 
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
 

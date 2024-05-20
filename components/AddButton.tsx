@@ -8,9 +8,6 @@ import { useNavigationState } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import uuid from "react-native-uuid";
-import { addOneDream } from "../reducers/dreams/dreamSlice";
-import { addOneReflection } from "../reducers/reflections/reflectionSlice";
-import { addOneMemory } from "../reducers/memories/memorySlice";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
@@ -36,22 +33,6 @@ const AddButton = () => {
       <Pressable
         onPress={() => {
           const id = uuid.v4().toString();
-          dispatch(
-            addOneDream({
-              id: id,
-              title: "",
-              description: "",
-              date: new Date().getTime(),
-              rate: 3,
-              voiceRecording: "",
-              images: [],
-              emotions: [],
-              notes: "",
-              favoured: false,
-              paraphrase: "",
-              choices: []
-            }),
-          );
           router.navigate(`edit/dreams/${id}`);
         }}
         className={
@@ -99,18 +80,6 @@ const AddButton = () => {
               onPress={() => {
                 setOpenMore(false);
                 const id = uuid.v4().toString();
-                dispatch(
-                  addOneReflection({
-                    id: id,
-                    title: "",
-                    description: "",
-                    date: new Date().getTime(),
-                    images: [],
-                    favoured: false,
-                    paraphrase: "",
-                    choices: []
-                  }),
-                );
                 router.push(`edit/reflections/${id}`);
               }}
             >
@@ -126,22 +95,6 @@ const AddButton = () => {
               onPress={() => {
                 setOpenMore(false);
                 const id = uuid.v4().toString();
-                dispatch(
-                  addOneMemory({
-                    id: id,
-                    title: "",
-                    description: "",
-                    date: new Date().getTime(),
-                    rate: 3,
-                    voiceRecording: "",
-                    images: [],
-                    emotions: [],
-                    notes: "",
-                    paraphrase: "",
-                    choices: [],
-                    favoured: false,
-                  }),
-                );
                 router.push(`edit/memories/${id}`);
               }}
             >
@@ -157,22 +110,6 @@ const AddButton = () => {
               onPress={() => {
                 setOpenMore(false);
                 const id = uuid.v4().toString();
-                dispatch(
-                  addOneDream({
-                    id: id,
-                    title: "",
-                    description: "",
-                    date: new Date().getTime(),
-                    rate: 3,
-                    voiceRecording: "",
-                    images: [],
-                    emotions: [],
-                    notes: "",
-                    favoured: false,
-                    paraphrase: "",
-                    choices: []
-                  }),
-                );
                 router.push(`edit/dreams/${id}`);
               }}
             >

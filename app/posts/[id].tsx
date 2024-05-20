@@ -2,19 +2,13 @@ import { View, Text, ScrollView, Image } from "react-native";
 import React, {memo} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { ensureString } from "../../utils/ensureString";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
-  const { entities } = useSelector((state: RootState) => state.dream);
-  const dispatch = useDispatch();
-  const item = id ? entities?.[ensureString(id)] : null;
 
   return (
     <View
@@ -37,14 +31,11 @@ const Page = () => {
           />
         </View>
         <View className={"p-3 space-y-1"}>
-          <Text className={"text-white text-lg font-bold"}>
-            {item.title}
-          </Text>
           <Text className={"pt-1 text-[#B3B3B3] font-medium"}>
-            {item.description}
+            {/*{item.description}*/}
           </Text>
           <Text className={"pt-3 text-[#B3B3B3] text-xs font-medium"}>
-            {new Date(item.date).toLocaleDateString()}
+            {/*{new Date(item.date).toLocaleDateString()}*/}
           </Text>
         </View>
       </ScrollView>
