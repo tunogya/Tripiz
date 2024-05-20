@@ -1,9 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import dreamReducer from "../reducers/dreams/dreamSlice";
-import memoryReducer from "../reducers/memories/memorySlice";
-import reflectionReducer from "../reducers/reflections/reflectionSlice";
 import uiReducer from "../reducers/ui/uiSlice";
 
 const rootPersistConfig = {
@@ -13,9 +10,6 @@ const rootPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-  dream: dreamReducer,
-  memory: memoryReducer,
-  reflection: reflectionReducer,
   ui: uiReducer,
 });
 
