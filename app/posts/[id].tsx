@@ -57,6 +57,7 @@ const Page = () => {
           <Text className={"pt-3 text-[#B3B3B3] text-xs font-medium"}>
             {new Date(data.updatedAt).toLocaleDateString().replaceAll('/', '-')}
           </Text>
+          <View className={"w-full border-b p-1.5 border-[#2F2F2F]"}></View>
         </View>
       </ScrollView>
       <BlurView
@@ -67,7 +68,10 @@ const Page = () => {
         }
       >
         <TextInput
-          className={"bg-[#2F2F2F] w-[50%] h-10 rounded-full px-4"}
+          placeholder={"Talk something..."}
+          placeholderTextColor={"#B3B3B3"}
+          autoFocus={false}
+          className={"bg-[#2F2F2F] w-full h-10 rounded-full px-4"}
         />
         <View style={{
           height: insets.bottom,
