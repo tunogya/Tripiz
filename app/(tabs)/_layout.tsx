@@ -21,7 +21,7 @@ function TabLayout() {
         tabBarHideOnKeyboard: true,
         tabBarBackground: () => (
           <BlurView
-            intensity={scroll2Down ? 20 : 100}
+            intensity={scroll2Down ? 100 : 10}
             tint={"dark"}
             style={{
               position: "absolute",
