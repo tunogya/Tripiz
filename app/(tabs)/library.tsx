@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, Pressable} from "react-native";
+import {View, Text, ScrollView, Pressable, RefreshControl, ActivityIndicator} from "react-native";
 import {memo, useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
@@ -7,9 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {FlashList} from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import {updateValue} from "../../reducers/ui/uiSlice";
-import useSWR from "swr";
 import {RootState} from "../../store/store";
-import {useNavigation} from "expo-router";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -17,17 +15,12 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState(false);
   const {address} = useSelector((state: RootState) => state.user);
-  const {
-    data,
-    mutate,
-    isLoading
-  } = useSWR(address ? `https://tripiz.abandon.ai/api/users/${address}/posts?category=${filter.toLowerCase()}` : undefined, (url: string) => fetch(url)
-      .then((res) => res.json())
-      .then((res) => res.data),
-  );
-
-  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [nextSkip, setNextSkip] = useState<number | null>(0);
+  const [hasNext, setHasNext] = useState(true);
 
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
 
@@ -50,13 +43,36 @@ const Page = () => {
     setLastScrollPosition(currentScrollPosition);
   };
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('state', (e) => {
-      mutate()
-    });
+  const fetchData = async (category: string, skip: number) => {
+    setIsLoading(true);
+    const result = await fetch(`https://tripiz.abandon.ai/api/users/${address}/posts?category=${category}&skip=${skip}`)
+      .then((res) => res.json());
+    setIsLoading(false);
 
-    return unsubscribe;
-  }, [navigation]);
+    if (skip === 0) {
+      setData(result.data)
+    } else {
+      setData([
+        ...data,
+        ...result.data,
+      ])
+    }
+    setHasNext(result.pagination.hasNext);
+    setNextSkip(result.pagination.nextSkip);
+  }
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchData(filter.toLowerCase(), 0);
+    setRefreshing(false);
+  };
+
+  // fetch data when filter changed
+  useEffect(() => {
+    setData([]);
+    setNextSkip(0);
+    fetchData(filter.toLowerCase(), 0);
+  }, [filter]);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
@@ -116,21 +132,32 @@ const Page = () => {
         <FlashList
           data={data}
           onScroll={handleScroll}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={['#B3B3B3']}
+              progressBackgroundColor="#121212"
+              tintColor="#B3B3B3"
+              title="Loading..."
+              titleColor="#B3B3B3"
+            />
+          }
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
           estimatedItemSize={8}
           ListEmptyComponent={() => (
             isLoading ? (
-              <View className={"px-4"}>
-                <Text className={"text-white"}>Loading</Text>
+              <View className={"px-3"}>
+                <ActivityIndicator size="small" color="#B3B3B3" />
               </View>
             ) : (
-              <View className={"px-4"}>
+              <View className={"px-3"}>
                 <Text className={"text-white"}>No {filter} content</Text>
               </View>
             )
           )}
-          ListHeaderComponent={() => <View className={"h-2"}></View>}
+          ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View
               style={{
