@@ -20,6 +20,7 @@ const Page = () => {
     entities: {},
     category: ensureString(category) || "reflections"
   })
+  const [status, setStatus] = useState("idle");
 
   const { data } = useSWR(id !== "new" ? `https://tripiz.abandon.ai/api/posts/${id}` : undefined, (url: string) => fetch(url).then((res) => res.json()));
 
@@ -30,28 +31,37 @@ const Page = () => {
   }, [data])
 
   const save = async () => {
-    if (ensureString(id) === "new") {
-      const result = await fetch(`https://tripiz.abandon.ai/api/posts/`, {
-        method: "POST",
-        body: JSON.stringify({
-          text: post.text,
-          entities: post.entities,
-          category: post.category,
-          user: address,
-        })
-      }).then((res) => res.json());
-      router.back();
-      console.log(result);
-    } else {
-      const result = await fetch(`https://tripiz.abandon.ai/api/posts/${ensureString(id)}`, {
-        method: "PUT",
-        body: JSON.stringify({
-          text: post.text,
-          entities: post.entities,
-        })
-      }).then((res) => res.json());
-      router.back();
-      console.log(result);
+    setStatus("loading");
+    try {
+      if (ensureString(id) === "new") {
+        await fetch(`https://tripiz.abandon.ai/api/posts/`, {
+          method: "POST",
+          body: JSON.stringify({
+            text: post.text,
+            entities: post.entities,
+            category: post.category,
+            user: address,
+          })
+        }).then((res) => res.json());
+      } else {
+        await fetch(`https://tripiz.abandon.ai/api/posts/${ensureString(id)}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            text: post.text,
+            entities: post.entities,
+          })
+        }).then((res) => res.json());
+      }
+      setStatus("success")
+      setTimeout(() => {
+        router.back();
+        setStatus("idle")
+      }, 500)
+    } catch (e) {
+      setStatus("error")
+      setTimeout(() => {
+        setStatus("idle")
+      }, 3000)
     }
   }
 
@@ -63,10 +73,16 @@ const Page = () => {
       <View className={"flex-row justify-between p-3 items-center"}>
         <View></View>
         <Pressable
+          disabled={status !== "idle"}
           className={`rounded-full items-center justify-center flex flex-row space-x-1`}
           onPress={save}
         >
-          <Text className={"font-bold text-white"}>Post</Text>
+          <Text className={"font-bold text-white"}>
+            { status === "idle" && "Post" }
+            { status === "error" && "Error" }
+            { status === "success" && "Success" }
+            { status === "loading" && "Waiting" }
+          </Text>
         </Pressable>
       </View>
       <View className={"px-3 pb-4"}>
