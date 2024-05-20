@@ -148,8 +148,8 @@ const Page = () => {
           estimatedItemSize={8}
           ListEmptyComponent={() => (
             isLoading ? (
-              <View className={"px-3"}>
-                <ActivityIndicator size="small" color="#B3B3B3" />
+              <View className={"p-3 w-full"}>
+                <ActivityIndicator size={"small"} color="#B3B3B3" />
               </View>
             ) : (
               <View className={"px-3"}>
