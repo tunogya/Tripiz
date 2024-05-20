@@ -3,9 +3,8 @@ import { Pressable, Text, View } from "react-native";
 import { Link } from "expo-router";
 
 const LibraryShowItem = ({ item, showType }) => {
-
   return (
-    <Link href={`/${item.category}/${item.id}`} asChild>
+    <Link href={`/posts/${item._id}`} asChild>
       <Pressable className={"h-20 flex flex-row my-2 mx-4 space-x-3"}>
         <View className={"h-20 w-20 bg-[#FFFFFF12]"}></View>
         <View className={"flex justify-center"}>
