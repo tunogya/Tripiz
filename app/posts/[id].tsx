@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import {View, Text, ScrollView, Image, ActivityIndicator, TextInput} from "react-native";
 import React, {memo} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
@@ -21,7 +21,7 @@ const Page = () => {
       <View
         className={"flex flex-1 h-full bg-[#121212] relative"}
       >
-        <Text className={"text-white"}>Loading</Text>
+        <ActivityIndicator size={"small"} color="#B3B3B3" />
       </View>
     )
   }
@@ -55,7 +55,7 @@ const Page = () => {
             {data.text}
           </Text>
           <Text className={"pt-3 text-[#B3B3B3] text-xs font-medium"}>
-            Updated at {new Date(data.updatedAt).toLocaleDateString()}
+            {new Date(data.updatedAt).toLocaleDateString().replaceAll('/', '-')}
           </Text>
         </View>
       </ScrollView>
@@ -63,12 +63,15 @@ const Page = () => {
         intensity={100}
         tint={"dark"}
         className={
-          "flex flex-row items-center justify-between px-4 py-2 w-full absolute left-0 bottom-0 bg-[#121212] z-50"
+          "flex px-4 py-3 w-full absolute left-0 bottom-0 bg-[#121212] z-50"
         }
-        style={{
-          paddingBottom: insets.bottom,
-        }}
       >
+        <TextInput
+          className={"bg-[#2F2F2F] w-[50%] h-10 rounded-full px-4"}
+        />
+        <View style={{
+          height: insets.bottom,
+        }}></View>
       </BlurView>
     </View>
   );
