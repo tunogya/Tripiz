@@ -9,8 +9,9 @@ import {memo, useEffect, useState} from "react";
 import {router, useLocalSearchParams} from "expo-router";
 import {ensureString} from "../../../utils/ensureString";
 import useSWR from "swr";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
+import {increaseVersion} from "../../../reducers/ui/uiSlice";
 
 const Page = () => {
   const { id, category } = useLocalSearchParams();
@@ -21,6 +22,7 @@ const Page = () => {
     category: ensureString(category) || "reflections"
   })
   const [status, setStatus] = useState("idle");
+  const dispatch = useDispatch();
 
   const { data } = useSWR(id !== "new" ? `https://tripiz.abandon.ai/api/posts/${id}` : undefined, (url: string) => fetch(url).then((res) => res.json()));
 
@@ -44,6 +46,8 @@ const Page = () => {
             publicKey: publicKey,
           })
         }).then((res) => res.json());
+        // send signal to mutate api
+        dispatch(increaseVersion());
       } else {
         await fetch(`https://tripiz.abandon.ai/api/posts/${ensureString(id)}`, {
           method: "PUT",

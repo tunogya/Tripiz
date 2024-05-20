@@ -17,6 +17,7 @@ const Page = () => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const {address} = useSelector((state: RootState) => state.user);
+  const { version} = useSelector((state: RootState) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [nextSkip, setNextSkip] = useState<number | null>(0);
@@ -67,12 +68,12 @@ const Page = () => {
     setRefreshing(false);
   };
 
-  // fetch data when filter changed
+  // fetch data when filter changed, or version changed
   useEffect(() => {
     setData([]);
     setNextSkip(0);
     fetchData(filter.toLowerCase(), 0);
-  }, [filter]);
+  }, [filter, version]);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>

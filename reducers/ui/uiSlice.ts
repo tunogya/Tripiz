@@ -4,6 +4,7 @@ export const slice = createSlice({
   name: "ui",
   initialState: {
     scroll2Down: false,
+    version: 0,
   },
   reducers: {
     updateValue: (state, action) => {
@@ -11,9 +12,12 @@ export const slice = createSlice({
         state[key] = action.payload[key];
       }
     },
+    increaseVersion: (state) => {
+      state.version += 1;
+    }
   },
 });
 
-export const { updateValue } = slice.actions;
+export const { updateValue, increaseVersion } = slice.actions;
 
 export default slice.reducer;
