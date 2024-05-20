@@ -1,14 +1,15 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
-import { memo, useState } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {View, Text, ScrollView, Pressable} from "react-native";
+import {memo, useEffect, useState} from "react";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
-import { Ionicons } from "@expo/vector-icons";
+import {Ionicons} from "@expo/vector-icons";
 import {useDispatch, useSelector} from "react-redux";
-import { FlashList } from "@shopify/flash-list";
+import {FlashList} from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
-import { updateValue } from "../../reducers/ui/uiSlice";
+import {updateValue} from "../../reducers/ui/uiSlice";
 import useSWR from "swr";
 import {RootState} from "../../store/store";
+import {router, useNavigation} from "expo-router";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -16,11 +17,17 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const dispatch = useDispatch();
-  const { address } = useSelector((state: RootState) => state.user);
-  const { data, mutate, isLoading } = useSWR(address ? `http://localhost:3000/api/users/${address}/posts?category=${filter.toLowerCase()}` : undefined, (url: string) => fetch(url)
-    .then((res) => res.json())
-    .then((res) => res.data)
+  const {address} = useSelector((state: RootState) => state.user);
+  const {
+    data,
+    mutate,
+    isLoading
+  } = useSWR(address ? `http://localhost:3000/api/users/${address}/posts?category=${filter.toLowerCase()}` : undefined, (url: string) => fetch(url)
+      .then((res) => res.json())
+      .then((res) => res.data),
   );
+
+  const navigation = useNavigation();
 
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
 
@@ -43,6 +50,14 @@ const Page = () => {
     setLastScrollPosition(currentScrollPosition);
   };
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('state', (e) => {
+      mutate()
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
       <View
@@ -54,7 +69,7 @@ const Page = () => {
         <View className={"p-4 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-bold text-2xl"}>Library</Text>
           <Pressable hitSlop={8}>
-            <Ionicons name="search-sharp" size={24} color="white" />
+            <Ionicons name="search-sharp" size={24} color="white"/>
           </Pressable>
         </View>
         <ScrollView
@@ -73,7 +88,7 @@ const Page = () => {
                 setFilter("");
               }}
             >
-              <Ionicons name="close" size={16} color="white" />
+              <Ionicons name="close" size={16} color="white"/>
             </Pressable>
           )}
           {FILTERS.map((item, index) =>
@@ -123,12 +138,12 @@ const Page = () => {
               }}
             ></View>
           )}
-          renderItem={({ item }) => (
-            <LibraryShowItem item={item} showType={!filter} />
+          renderItem={({item}) => (
+            <LibraryShowItem item={item} showType={!filter}/>
           )}
         />
       </View>
-      <AddDreamButton />
+      <AddDreamButton/>
     </View>
   );
 };
