@@ -5,16 +5,14 @@ import { memo, useEffect, useState } from "react";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { useNavigationState } from "@react-navigation/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import uuid from "react-native-uuid";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
   const [openMore, setOpenMore] = useState(false);
   const route = useNavigationState((state) => state.routes[state.index]);
   const { scroll2Down } = useSelector((state: RootState) => state.ui);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setOpenMore(false);
@@ -32,8 +30,7 @@ const AddButton = () => {
     >
       <Pressable
         onPress={() => {
-          const id = uuid.v4().toString();
-          router.navigate(`edit/posts/${id}`);
+          router.navigate(`edit/posts/new?category=dreams`);
         }}
         className={
           "items-center justify-center flex flex-row h-12 pl-4 pr-3 space-x-3"
@@ -79,8 +76,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
                 setOpenMore(false);
-                const id = uuid.v4().toString();
-                router.push(`edit/reflections/${id}`);
+                router.push(`edit/posts/new?category=reflections`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -94,8 +90,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
                 setOpenMore(false);
-                const id = uuid.v4().toString();
-                router.push(`edit/memories/${id}`);
+                router.push(`edit/posts/new?category=memories`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -109,8 +104,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center h-12"}
               onPress={() => {
                 setOpenMore(false);
-                const id = uuid.v4().toString();
-                router.push(`edit/posts/${id}`);
+                router.push(`edit/posts/new?category=dreams`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>

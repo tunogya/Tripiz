@@ -10,6 +10,8 @@ import { StatusBar } from "expo-status-bar";
 import "i18n";
 import Notification from "../components/Notification";
 import CheckUser from "../components/CheckUser";
+import {SWRConfig} from "swr";
+import {AppState} from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,47 +34,82 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Notification />
-        <CheckUser />
-        <SafeAreaProvider>
-          <StatusBar style="light" />
-          <Stack>
-            <Stack.Screen
-              name="(tabs)"
-              options={{
-                headerShown: false,
-                title: "",
-              }}
-            />
-            <Stack.Screen
-              name="edit/posts/[id]"
-              options={{
-                presentation: "modal",
-                title: "",
-                headerShown: false,
-                headerTintColor: "white",
-                headerBackTitleVisible: false,
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="posts/[id]"
-              options={{
-                headerShown: true,
-                title: "",
-                headerBackTitleVisible: false,
-                headerTintColor: "white",
-                headerStyle: {
-                  backgroundColor: "#121212",
-                },
-              }}
-            />
-          </Stack>
-        </SafeAreaProvider>
-      </PersistGate>
+      <SWRConfig
+        value={{
+          provider: () => new Map(),
+          isOnline() {
+            /* Customize the network state detector */
+            return true
+          },
+          isVisible() {
+            /* Customize the visibility state detector */
+            return true
+          },
+          initFocus(callback) {
+            let appState = AppState.currentState
+
+            const onAppStateChange = (nextAppState: any) => {
+              /* If it's resuming from background or inactive mode to active one */
+              if (appState.match(/inactive|background/) && nextAppState === 'active') {
+                callback()
+              }
+              appState = nextAppState
+            }
+
+            // Subscribe to the app state change events
+            const subscription = AppState.addEventListener('change', onAppStateChange)
+
+            return () => {
+              subscription.remove()
+            }
+          },
+          initReconnect(callback) {
+            /* Register the listener with your state provider */
+          }
+        }}
+      >
+        <PersistGate loading={null} persistor={persistor}>
+          <Notification />
+          <CheckUser />
+          <SafeAreaProvider>
+            <StatusBar style="light" />
+            <Stack>
+              <Stack.Screen
+                name="(tabs)"
+                options={{
+                  headerShown: false,
+                  title: "",
+                }}
+              />
+              <Stack.Screen
+                name="edit/posts/[id]"
+                options={{
+                  presentation: "modal",
+                  title: "",
+                  headerShown: false,
+                  headerTintColor: "white",
+                  headerBackTitleVisible: false,
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="posts/[id]"
+                options={{
+                  headerShown: true,
+                  title: "",
+                  headerBackTitleVisible: false,
+                  headerTintColor: "white",
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
+              />
+            </Stack>
+          </SafeAreaProvider>
+        </PersistGate>
+      </SWRConfig>
     </Provider>
   );
 }
