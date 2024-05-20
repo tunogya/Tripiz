@@ -14,7 +14,7 @@ import {RootState} from "../../../store/store";
 
 const Page = () => {
   const { id, category } = useLocalSearchParams();
-  const { address } = useSelector((state: RootState) => state.user);
+  const { address, publicKey, privateKey } = useSelector((state: RootState) => state.user);
   const [ post, setPost ] = useState({
     text: "",
     entities: {},
@@ -41,6 +41,7 @@ const Page = () => {
             entities: post.entities,
             category: post.category,
             user: address,
+            publicKey: publicKey,
           })
         }).then((res) => res.json());
       } else {
@@ -49,6 +50,7 @@ const Page = () => {
           body: JSON.stringify({
             text: post.text,
             entities: post.entities,
+            publicKey: publicKey,
           })
         }).then((res) => res.json());
       }

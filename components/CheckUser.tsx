@@ -4,13 +4,12 @@ import {useEffect} from "react";
 import {initialize} from "../reducers/user/userSlice";
 
 const CheckUser = () => {
-  const { address } = useSelector((state: RootState) => state.user)
+  const { address, publicKey, privateKey } = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("address: ", address)
-
-    if (!address) {
+    if (!address || !publicKey || !privateKey) {
       dispatch(initialize())
     }
   }, [address])
