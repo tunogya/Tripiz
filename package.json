@@ -12,6 +12,7 @@
     "prettier": "prettier . --write"
   },
   "dependencies": {
+    "@ethersproject/shims": "^5.7.0",
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo/webpack-config": "^19.0.1",
     "@react-native-async-storage/async-storage": "^1.21.0",
@@ -22,6 +23,7 @@
     "@reduxjs/toolkit": "^2.1.0",
     "@shopify/flash-list": "1.6.3",
     "@types/react": "~18.2.45",
+    "ethers": "^6.12.1",
     "expo": "~50.0.14",
     "expo-application": "~5.8.3",
     "expo-blur": "~12.9.2",
@@ -45,6 +47,7 @@
     "react-native-element-dropdown": "^2.10.4",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "~2.14.0",
+    "react-native-get-random-values": "^1.11.0",
     "react-native-pager-view": "6.2.3",
     "react-native-purchases": "^7.24.0",
     "react-native-reanimated": "~3.6.2",
@@ -61,6 +64,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@types/react-native-get-random-values": "^1.8.2",
     "@types/react-native-svg-charts": "^5.0.16",
     "prettier": "3.2.4",
     "tailwindcss": "3.3.2",

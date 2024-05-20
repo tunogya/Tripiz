@@ -36,14 +36,6 @@ const Page = () => {
           <View className={"h-10 w-10 bg-gray-500 rounded"}></View>
         </ScrollView>
       </View>
-      <View className={"px-3"}>
-        <TextInput
-          placeholder="Title"
-          placeholderTextColor={"#B3B3B3"}
-          className={"text-white text-lg font-bold py-3 border-b border-[#222222]"}
-          // value={dream?.title}
-        />
-      </View>
       <View className={"px-3 flex-1"}>
         <TextInput
           multiline

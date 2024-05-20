@@ -33,7 +33,7 @@ const AddButton = () => {
       <Pressable
         onPress={() => {
           const id = uuid.v4().toString();
-          router.navigate(`edit/dreams/${id}`);
+          router.navigate(`edit/posts/${id}`);
         }}
         className={
           "items-center justify-center flex flex-row h-12 pl-4 pr-3 space-x-3"
@@ -110,7 +110,7 @@ const AddButton = () => {
               onPress={() => {
                 setOpenMore(false);
                 const id = uuid.v4().toString();
-                router.push(`edit/dreams/${id}`);
+                router.push(`edit/posts/${id}`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>

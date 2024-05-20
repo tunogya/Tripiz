@@ -9,6 +9,7 @@ import { Stack } from "expo-router/stack";
 import { StatusBar } from "expo-status-bar";
 import "i18n";
 import Notification from "../components/Notification";
+import CheckUser from "../components/CheckUser";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,6 +34,7 @@ export default function RootLayout() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Notification />
+        <CheckUser />
         <SafeAreaProvider>
           <StatusBar style="light" />
           <Stack>
