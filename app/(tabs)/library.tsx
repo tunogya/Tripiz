@@ -1,13 +1,14 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
-import { memo, useMemo, useState } from "react";
+import { memo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
 import { Ionicons } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import {useDispatch, useSelector} from "react-redux";
 import { FlashList } from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import { updateValue } from "../../reducers/ui/uiSlice";
+import useSWR from "swr";
+import {RootState} from "../../store/store";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -15,8 +16,11 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const dispatch = useDispatch();
-
-  const DATA = [];
+  const { address } = useSelector((state: RootState) => state.user);
+  const { data, mutate, isLoading } = useSWR(address ? `http://localhost:3000/api/users/${address}/posts?category=${filter.toLowerCase()}` : undefined, (url: string) => fetch(url)
+    .then((res) => res.json())
+    .then((res) => res.data)
+  );
 
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
 
@@ -95,15 +99,21 @@ const Page = () => {
       </View>
       <View className={"flex-1"}>
         <FlashList
-          data={DATA}
+          data={data}
           onScroll={handleScroll}
           scrollEventThrottle={1000}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item: any) => item._id}
           estimatedItemSize={8}
           ListEmptyComponent={() => (
-            <View className={"px-4"}>
-              <Text className={"text-white"}>No {filter} content</Text>
-            </View>
+            isLoading ? (
+              <View className={"px-4"}>
+                <Text className={"text-white"}>Loading</Text>
+              </View>
+            ) : (
+              <View className={"px-4"}>
+                <Text className={"text-white"}>No {filter} content</Text>
+              </View>
+            )
           )}
           ListHeaderComponent={() => <View className={"h-2"}></View>}
           ListFooterComponent={() => (
