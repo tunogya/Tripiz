@@ -51,7 +51,7 @@ const Page = () => {
           )
         }
         <View className={"p-3 space-y-1"}>
-          <Text className={"text-white font-medium text-lg"}>
+          <Text className={"text-[#B3B3B3] font-medium text-lg"}>
             {data.text}
           </Text>
           <Text className={"pt-3 text-[#B3B3B3] text-xs font-medium"}>
