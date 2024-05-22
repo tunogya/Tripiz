@@ -6,7 +6,7 @@ const LibraryShowItem = ({ item, showType }) => {
   return (
     <Link href={`/posts/${item._id}`} asChild>
       <Pressable className={"h-20 flex flex-row my-2 px-4 space-x-3"}>
-        <View className={"h-20 w-20 bg-[#FFFFFF12]"}></View>
+        <View className={`h-20 w-20 bg-[#FFFFFF12] ${ item.category === "reflections" ? "" : (item.category === "dreams" ? "rounded-full" : "rounded-xl") }`}></View>
         <View className={"flex justify-center flex-1"}>
           <Text className={"text-white font-bold"} numberOfLines={2}>
             {item.text}

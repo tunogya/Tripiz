@@ -69,6 +69,7 @@ const Page = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          parent_post_id: id,
           text: comment.text,
           entities: comment.entities,
           category: comment.category,
