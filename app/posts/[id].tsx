@@ -69,7 +69,9 @@ const Page = () => {
           </Text>
           <View className={"w-full border-b p-1.5 border-[#2F2F2F]"}></View>
         </View>
-        <View className={"p-3"}>
+        <View className={"p-3"} style={{
+          minHeight: Dimensions.get("window").height - 96 - insets.bottom - insets.top,
+        }}>
           <Text className={"text-white font-semibold text-lg"}>评论</Text>
         </View>
         <View style={{ paddingBottom: 64 + insets.bottom  }}></View>
