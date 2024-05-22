@@ -13,11 +13,13 @@ const CommentShowItem: FC<{
   const { address } = useSelector((state: RootState) => state.user);
 
   return (
-    <View className={"py-3 border-b border-[#2F2F2F]"}>
-      <Text className={"text-[#B3B3B3]"}>{ item.user === address ? "Me" : item.user}</Text>
+    <View className={"p-3 border-b border-[#2F2F2F] w-[350px] bg-[#2F2F2F] rounded-lg mr-3 space-y-1.5"}>
+      <View className={"flex flex-row justify-between items-end"}>
+        <Text className={"text-[#B3B3B3]"}>{ item.user === address ? "Me" : item.user}</Text>
+        <Text className={"text-[#B3B3B3]"}>{new Date(item.updatedAt).toLocaleDateString().replaceAll('/', '-')}</Text>
+      </View>
       <View className={"flex flex-row items-end flex-wrap"}>
         <Text className={"text-white mr-1.5 leading-5"}>{item.text}</Text>
-        <Text className={"text-[#B3B3B3] text-xs"}>{new Date(item.updatedAt).toLocaleDateString().replaceAll('/', '-')}</Text>
       </View>
     </View>
   )

@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
-  Platform, Keyboard, Pressable
+  Platform, Keyboard, Pressable, FlatList
 } from "react-native";
 import React, {memo, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -145,14 +145,13 @@ const Page = () => {
           </Text>
           <View className={"w-full border-b mt-6 p-1.5 h-[1px] border-[#2F2F2F]"}></View>
         </View>
-        <View className={"p-3"} style={{
-          minHeight: Dimensions.get("window").height - 96 - insets.bottom - insets.top,
-        }}>
+        <View className={"p-3 space-y-3"}>
           <Text className={"text-white font-bold text-2xl"}>评论</Text>
-          <FlashList
-            scrollEnabled={false}
-            estimatedItemSize={10}
+          <FlatList
+            horizontal={true}
             data={comments}
+            className={"h-[240px]"}
+            showsHorizontalScrollIndicator={false}
             ListEmptyComponent={() => (
               !isCommentLoading && (
                 <View className={"py-3"}>
@@ -162,13 +161,9 @@ const Page = () => {
             )}
             ListFooterComponent={() => (
               <View className={"py-3"}>
-                { isCommentLoading ? (
+                { isCommentLoading && (
                   <ActivityIndicator size={"small"} color="#B3B3B3" />
-                ) : (
-                  comments.length > 0 && (
-                    <Text className={"text-[#B3B3B3] text-center"}>No more comments</Text>
-                  )
-                ) }
+                )}
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -177,7 +172,7 @@ const Page = () => {
             )}
           />
         </View>
-        <View style={{ paddingBottom: 64 + insets.bottom  }}></View>
+        <View style={{ paddingBottom: 200 + insets.bottom  }}></View>
       </ScrollView>
       <KeyboardAvoidingView
         keyboardVerticalOffset={64}
