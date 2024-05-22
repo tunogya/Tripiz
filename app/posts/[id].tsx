@@ -60,14 +60,14 @@ const Page = () => {
             </View>
           )
         }
-        <View className={"px-3 space-y-3"}>
+        <View className={"px-3"}>
           <Text className={"text-[#B3B3B3] font-medium text-lg"}>
             {data.text}
           </Text>
-          <Text className={"text-[#B3B3B3] text-xs font-medium"}>
+          <Text className={"text-[#B3B3B3] text-xs font-medium mt-3"}>
             {new Date(data.updatedAt).toLocaleDateString().replaceAll('/', '-')}
           </Text>
-          <View className={"w-full border-b p-1.5 border-[#2F2F2F]"}></View>
+          <View className={"w-full border-b p-1.5 h-[1px] border-[#2F2F2F]"}></View>
         </View>
         <View className={"p-3"} style={{
           minHeight: Dimensions.get("window").height - 96 - insets.bottom - insets.top,
