@@ -14,12 +14,38 @@ import { BlurView } from "expo-blur";
 import { useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
 import useSWR from "swr";
+import {useDispatch, useSelector} from "react-redux";
+import {updateValue} from "../../reducers/ui/uiSlice";
+import {RootState} from "../../store/store";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
+  const { scroll2Down } = useSelector((state: RootState) => state.ui);
   const screenWidth = Dimensions.get("window").width;
   const [isFocused, setIsFocused] = useState(false);
+  const dispatch = useDispatch();
+
+  const [lastScrollPosition, setLastScrollPosition] = useState(0);
+
+  const handleScroll = (event: any) => {
+    const currentScrollPosition = event.nativeEvent.contentOffset.y;
+
+    if (currentScrollPosition > lastScrollPosition) {
+      dispatch(
+        updateValue({
+          scroll2Down: false,
+        }),
+      );
+    } else {
+      dispatch(
+        updateValue({
+          scroll2Down: true,
+        }),
+      );
+    }
+    setLastScrollPosition(currentScrollPosition);
+  };
 
   const { data, isLoading } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url)
     .then((res) => res.json())
@@ -41,6 +67,7 @@ const Page = () => {
       className={"flex flex-1 h-full bg-[#121212] relative"}
     >
       <ScrollView
+        onScroll={handleScroll}
         className={"h-full w-full"}
       >
         {
@@ -82,7 +109,7 @@ const Page = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <BlurView
-          intensity={100}
+          intensity={scroll2Down ? 100 : 10}
           tint={"dark"}
           className={
             "flex w-full bg-[#121212]"
