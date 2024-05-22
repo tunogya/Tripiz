@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
-  Platform
+  Platform, Keyboard, Pressable
 } from "react-native";
 import React, {memo, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -22,9 +22,17 @@ const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const { scroll2Down } = useSelector((state: RootState) => state.ui);
+  const { address } = useSelector((state: RootState) => state.user);
   const screenWidth = Dimensions.get("window").width;
   const [isFocused, setIsFocused] = useState(false);
   const dispatch = useDispatch();
+  const [comment, setComment] = useState({
+    text: "",
+    entities: {},
+    category: "reflections",
+    user: address,
+  })
+  const [status, setStatus] = useState("idle");
 
   const [lastScrollPosition, setLastScrollPosition] = useState(0);
 
@@ -51,6 +59,38 @@ const Page = () => {
     .then((res) => res.json())
     .then((res) => res.data)
   );
+
+  const newComment = async () => {
+    try {
+      setStatus("loading");
+      await fetch(`https://tripiz.abandon.ai/api/posts`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: comment.text,
+          entities: comment.entities,
+          category: comment.category,
+          user: comment.user,
+        })
+      }).then((res) => res.json());
+      setComment({
+        ...comment,
+        text: "",
+      });
+      setStatus("success");
+      setTimeout(() => {
+        setStatus("idle");
+        Keyboard.dismiss();
+      }, 1_000)
+    } catch (e) {
+      setStatus("error");
+      setTimeout(() => {
+        setStatus("idle");
+      }, 3_000)
+    }
+  }
 
   if (isLoading) {
     return (
@@ -123,12 +163,27 @@ const Page = () => {
               className={"bg-[#2F2F2F] h-10 rounded-full px-4 text-white flex-1"}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
+              onChangeText={(text) => {
+                setComment({
+                  ...comment,
+                  text: text,
+                })
+              }}
             />
             {
               isFocused && (
-                <View className={"bg-green-500 h-10 px-3 rounded-full items-center justify-center"}>
-                  <Text className={"font-bold"}>Send</Text>
-                </View>
+                <Pressable
+                  disabled={status !== "idle"}
+                  className={"bg-green-500 h-10 px-3 rounded-full items-center justify-center"}
+                  onPress={newComment}
+                >
+                  <Text className={"font-bold"}>
+                    { status === "idle" && "Send" }
+                    { status === "success" && "Success" }
+                    { status === "error" && "Error" }
+                    { status === "loading" && "Sending" }
+                  </Text>
+                </Pressable>
               )
             }
           </View>

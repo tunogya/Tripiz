@@ -43,7 +43,6 @@ const Page = () => {
             entities: post.entities,
             category: post.category,
             user: address,
-            publicKey: publicKey,
           })
         }).then((res) => res.json());
         // send signal to mutate api
@@ -54,7 +53,6 @@ const Page = () => {
           body: JSON.stringify({
             text: post.text,
             entities: post.entities,
-            publicKey: publicKey,
           })
         }).then((res) => res.json());
       }
