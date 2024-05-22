@@ -88,7 +88,7 @@ const Page = () => {
             "flex w-full bg-[#121212]"
           }
         >
-          <View className={"px-4 h-16 flex justify-center items-center flex-row space-x-3"}>
+          <View className={"px-3 h-16 flex justify-center items-center flex-row space-x-3"}>
             <TextInput
               placeholder={"Talk something..."}
               placeholderTextColor={"#B3B3B3"}
