@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform
 } from "react-native";
-import React, {memo} from "react";
+import React, {memo, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { useLocalSearchParams } from "expo-router";
@@ -19,6 +19,7 @@ const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
+  const [isFocused, setIsFocused] = useState(false);
 
   const { data, isLoading } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url)
     .then((res) => res.json())
@@ -70,7 +71,6 @@ const Page = () => {
         </View>
         <View className={"p-3"}>
           <Text className={"text-white font-semibold text-lg"}>评论</Text>
-
         </View>
         <View style={{ paddingBottom: 64 + insets.bottom  }}></View>
       </ScrollView>
@@ -86,13 +86,22 @@ const Page = () => {
             "flex w-full bg-[#121212]"
           }
         >
-          <View className={"px-4 h-16 flex justify-center"}>
+          <View className={"px-4 h-16 flex justify-center items-center flex-row space-x-3"}>
             <TextInput
               placeholder={"Talk something..."}
               placeholderTextColor={"#B3B3B3"}
               autoFocus={false}
-              className={"bg-[#2F2F2F] w-full h-10 rounded-full px-4"}
+              className={"bg-[#2F2F2F] h-10 rounded-full px-4 text-white flex-1"}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
             />
+            {
+              isFocused && (
+                <View className={"bg-green-500 h-10 px-3 rounded-full items-center justify-center"}>
+                  <Text className={"font-bold"}>Send</Text>
+                </View>
+              )
+            }
           </View>
           <View style={{
             height: insets.bottom,
