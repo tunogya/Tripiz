@@ -1,8 +1,15 @@
-import { memo } from "react";
+import {FC, memo} from "react";
 import { Pressable, Text, View } from "react-native";
 import { Link } from "expo-router";
 
-const LibraryShowItem = ({ item, showType }) => {
+const LibraryShowItem: FC<{
+  item: {
+    _id: string,
+    text: string,
+    category: string,
+  },
+  showType: boolean
+}> = ({ item, showType }) => {
   return (
     <Link href={`/posts/${item._id}`} asChild>
       <Pressable className={"h-20 flex flex-row my-2 px-4 space-x-3"}>

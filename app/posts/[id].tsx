@@ -17,6 +17,8 @@ import useSWR from "swr";
 import {useDispatch, useSelector} from "react-redux";
 import {updateValue} from "../../reducers/ui/uiSlice";
 import {RootState} from "../../store/store";
+import {FlashList} from "@shopify/flash-list";
+import CommentShowItem from "../../components/CommentShowItem";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -60,6 +62,11 @@ const Page = () => {
     .then((res) => res.data)
   );
 
+  const { data: comments, isLoading: isCommentLoading, mutate: mutateComment } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}/replies`, (url: string) => fetch(url)
+    .then((res) => res.json())
+    .then((res) => res.data)
+  );
+
   const newComment = async () => {
     try {
       setStatus("loading");
@@ -84,6 +91,7 @@ const Page = () => {
       setTimeout(() => {
         setStatus("idle");
         Keyboard.dismiss();
+        mutateComment();
       }, 1_000)
     } catch (e) {
       setStatus("error");
@@ -137,10 +145,37 @@ const Page = () => {
           </Text>
           <View className={"w-full border-b p-1.5 h-[1px] border-[#2F2F2F]"}></View>
         </View>
-        <View className={"p-3"} style={{
+        <View className={"p-3 mt-8"} style={{
           minHeight: Dimensions.get("window").height - 96 - insets.bottom - insets.top,
         }}>
-          <Text className={"text-white font-semibold text-lg"}>评论</Text>
+          <Text className={"text-white font-bold text-2xl"}>评论</Text>
+          <FlashList
+            scrollEnabled={false}
+            estimatedItemSize={10}
+            data={comments}
+            ListEmptyComponent={() => (
+              !isCommentLoading && (
+                <View className={"py-3"}>
+                  <Text className={"text-[#B3B3B3]"}>No comments</Text>
+                </View>
+              )
+            )}
+            ListFooterComponent={() => (
+              <View className={"py-3"}>
+                { isCommentLoading ? (
+                  <ActivityIndicator size={"small"} color="#B3B3B3" />
+                ) : (
+                  comments.length > 0 && (
+                    <Text className={"text-[#B3B3B3] text-center"}>No more comments</Text>
+                  )
+                ) }
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}: any) => (
+              <CommentShowItem item={item} />
+            )}
+          />
         </View>
         <View style={{ paddingBottom: 64 + insets.bottom  }}></View>
       </ScrollView>
@@ -158,6 +193,7 @@ const Page = () => {
         >
           <View className={"px-3 h-16 flex justify-center items-center flex-row space-x-3"}>
             <TextInput
+              value={comment.text}
               placeholder={"Talk something..."}
               placeholderTextColor={"#B3B3B3"}
               autoFocus={false}
