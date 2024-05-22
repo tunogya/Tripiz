@@ -15,8 +15,8 @@ const CommentShowItem: FC<{
   return (
     <View className={"py-3 border-b border-[#2F2F2F]"}>
       <Text className={"text-[#B3B3B3]"}>{ item.user === address ? "Me" : item.user}</Text>
-      <View className={"flex flex-row space-x-1.5 items-end"}>
-        <Text className={"text-white"}>{item.text}</Text>
+      <View className={"flex flex-row items-end flex-wrap"}>
+        <Text className={"text-white mr-1.5 leading-5"}>{item.text}</Text>
         <Text className={"text-[#B3B3B3] text-xs"}>{new Date(item.updatedAt).toLocaleDateString().replaceAll('/', '-')}</Text>
       </View>
     </View>

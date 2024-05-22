@@ -143,9 +143,9 @@ const Page = () => {
           <Text className={"text-[#B3B3B3] text-xs font-medium mt-3"}>
             {new Date(data.updatedAt).toLocaleDateString().replaceAll('/', '-')}
           </Text>
-          <View className={"w-full border-b p-1.5 h-[1px] border-[#2F2F2F]"}></View>
+          <View className={"w-full border-b mt-6 p-1.5 h-[1px] border-[#2F2F2F]"}></View>
         </View>
-        <View className={"p-3 mt-8"} style={{
+        <View className={"p-3"} style={{
           minHeight: Dimensions.get("window").height - 96 - insets.bottom - insets.top,
         }}>
           <Text className={"text-white font-bold text-2xl"}>评论</Text>
