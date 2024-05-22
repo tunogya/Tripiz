@@ -51,7 +51,7 @@ const Page = () => {
           )
         }
         <View className={"p-3 space-y-1"}>
-          <Text className={"text-[#B3B3B3] font-medium"}>
+          <Text className={"text-white font-medium text-lg"}>
             {data.text}
           </Text>
           <Text className={"pt-3 text-[#B3B3B3] text-xs font-medium"}>
@@ -59,20 +59,23 @@ const Page = () => {
           </Text>
           <View className={"w-full border-b p-1.5 border-[#2F2F2F]"}></View>
         </View>
+        <View style={{ paddingBottom: 64 + insets.bottom  }}></View>
       </ScrollView>
       <BlurView
         intensity={100}
         tint={"dark"}
         className={
-          "flex px-4 py-3 w-full absolute left-0 bottom-0 bg-[#121212] z-50"
+          "flex w-full absolute left-0 bottom-0 bg-[#121212] z-50"
         }
       >
-        <TextInput
-          placeholder={"Talk something..."}
-          placeholderTextColor={"#B3B3B3"}
-          autoFocus={false}
-          className={"bg-[#2F2F2F] w-full h-10 rounded-full px-4"}
-        />
+        <View className={"px-4 h-16 flex justify-center"}>
+          <TextInput
+            placeholder={"Talk something..."}
+            placeholderTextColor={"#B3B3B3"}
+            autoFocus={false}
+            className={"bg-[#2F2F2F] w-full h-10 rounded-full px-4"}
+          />
+        </View>
         <View style={{
           height: insets.bottom,
         }}></View>
