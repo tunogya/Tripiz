@@ -4,6 +4,8 @@
   <dict>
     <key>CADisableMinimumFrameDurationOnPhone</key>
     <true/>
+    <key>CFBundleAllowMixedLocalizations</key>
+    <true/>
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
@@ -81,5 +83,55 @@
     <string>Light</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>http</string>
+        <string>https</string>
+    </array>
+    <key>NSCameraUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to use your camera</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to use your location</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to use your location</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to use your location</string>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>E174.1</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>0A2A.1</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>35F9.1</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>C56D.1</string>
+            </array>
+        </dict>
+    </array>
   </dict>
 </plist>
