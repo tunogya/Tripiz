@@ -12,6 +12,7 @@ import useSWR from "swr";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {increaseVersion} from "../../../reducers/ui/uiSlice";
+import {Ionicons} from "@expo/vector-icons";
 
 const Page = () => {
   const { id, category } = useLocalSearchParams();
@@ -95,7 +96,9 @@ const Page = () => {
           className={"flex flex-row"}
           showsHorizontalScrollIndicator={false}
         >
-          <View className={"h-10 w-10 bg-gray-500 rounded"}></View>
+          <View className={"h-10 w-10 rounded border-2 border-[#B3B3B3] flex items-center justify-center"}>
+            <Ionicons name="add" size={24} color="white" />
+          </View>
         </ScrollView>
       </View>
       <View className={"px-3 flex-1"}>
