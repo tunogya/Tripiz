@@ -1,4 +1,4 @@
-import {Text, View} from "react-native";
+import {Dimensions, Text, View} from "react-native";
 import React, {FC} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
@@ -13,7 +13,12 @@ const CommentShowItem: FC<{
   const { address } = useSelector((state: RootState) => state.user);
 
   return (
-    <View className={"p-3 border-b border-[#2F2F2F] w-[350px] bg-[#2F2F2F] rounded-lg mr-3 space-y-1.5"}>
+    <View
+      className={"p-3 border-b border-[#2F2F2F] bg-[#2F2F2F] rounded-lg mr-3 space-y-1.5"}
+      style={{
+        width: Dimensions.get('window').width - 48,
+      }}
+    >
       <View className={"flex flex-row justify-between items-end"}>
         <Text className={"text-[#B3B3B3]"}>{ item.user === address ? "Me" : item.user}</Text>
         <Text className={"text-[#B3B3B3]"}>{new Date(item.updatedAt).toLocaleDateString().replaceAll('/', '-')}</Text>
