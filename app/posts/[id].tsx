@@ -159,7 +159,7 @@ const Page = () => {
             )}
             ListEmptyComponent={() => (
               !isCommentLoading && (
-                <View className={"py-3 w-full"}>
+                <View className={"w-full"}>
                   <Text className={"text-[#B3B3B3]"}>No comments</Text>
                 </View>
               )
