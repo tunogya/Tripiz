@@ -14,9 +14,9 @@ const CommentShowItem: FC<{
 
   return (
     <View
-      className={"p-3 border-b border-[#2F2F2F] bg-[#2F2F2F] rounded-lg mr-3 space-y-1.5"}
+      className={"p-3 bg-[#FFFFFF12] rounded-lg mr-3 space-y-1.5"}
       style={{
-        width: Dimensions.get('window').width - 48,
+        width: Dimensions.get('window').width - 32,
       }}
     >
       <View className={"flex flex-row justify-between items-end"}>

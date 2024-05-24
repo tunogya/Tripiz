@@ -17,7 +17,6 @@ import useSWR from "swr";
 import {useDispatch, useSelector} from "react-redux";
 import {updateValue} from "../../reducers/ui/uiSlice";
 import {RootState} from "../../store/store";
-import {FlashList} from "@shopify/flash-list";
 import CommentShowItem from "../../components/CommentShowItem";
 
 const Page = () => {
@@ -145,26 +144,25 @@ const Page = () => {
           </Text>
           <View className={"w-full border-b mt-6 p-1.5 h-[1px] border-[#2F2F2F]"}></View>
         </View>
-        <View className={"p-3 space-y-3"}>
-          <Text className={"text-white font-bold text-2xl"}>评论</Text>
+        <View className={"py-3 space-y-3"}>
+          <Text className={"text-white font-bold text-2xl px-4"}>评论</Text>
           <FlatList
             horizontal={true}
             data={comments}
             className={"h-[240px]"}
             showsHorizontalScrollIndicator={false}
+            ListHeaderComponent={() => (
+              <View className={"w-4"}></View>
+            )}
+            ListFooterComponent={() => (
+              <View className={"w-1"}></View>
+            )}
             ListEmptyComponent={() => (
               !isCommentLoading && (
-                <View className={"py-3"}>
+                <View className={"py-3 w-full"}>
                   <Text className={"text-[#B3B3B3]"}>No comments</Text>
                 </View>
               )
-            )}
-            ListFooterComponent={() => (
-              <View className={"py-3"}>
-                { isCommentLoading && (
-                  <ActivityIndicator size={"small"} color="#B3B3B3" />
-                )}
-              </View>
             )}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}: any) => (
