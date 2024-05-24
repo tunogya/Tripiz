@@ -2,6 +2,7 @@ import {View, Text, Pressable, TextInput} from "react-native";
 import { memo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {Ionicons} from "@expo/vector-icons";
+import AddDreamButton from "../../components/AddButton";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -28,6 +29,7 @@ const Page = () => {
           />
         </View>
       </View>
+      <AddDreamButton/>
     </View>
   );
 };
