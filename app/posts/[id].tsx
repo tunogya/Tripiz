@@ -160,7 +160,7 @@ const Page = () => {
             ListEmptyComponent={() => (
               !isCommentLoading && (
                 <View className={"w-full"}>
-                  <Text className={"text-[#B3B3B3]"}>No comments</Text>
+                  <Text className={"text-[#B3B3B3] text-xs"}>No comments</Text>
                 </View>
               )
             )}

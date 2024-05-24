@@ -156,7 +156,7 @@ const Page = () => {
           ListEmptyComponent={() => (
             !isLoading && (
               <View className={"px-3"}>
-                <Text className={"text-white"}>No {filter} content</Text>
+                <Text className={"text-[#B3B3B3] text-xs"}>No {filter} content</Text>
               </View>
             )
           )}
@@ -167,7 +167,7 @@ const Page = () => {
                 <ActivityIndicator size={"small"} color="#B3B3B3" />
               ) : (
                 data.length > 0 && !hasNext && (
-                  <Text className={"text-[#B3B3B3] p-3 text-center"}>No more data</Text>
+                  <Text className={"text-[#B3B3B3] p-3 text-center text-xs"}>No more data</Text>
                 )
               ) }
               <View
