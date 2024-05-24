@@ -90,7 +90,7 @@ const Page = () => {
           </Text>
         </Pressable>
       </View>
-      <View className={"px-3 pb-4"}>
+      <View className={"px-4 pb-4"}>
         <ScrollView
           horizontal
           className={"flex flex-row"}
@@ -101,7 +101,7 @@ const Page = () => {
           </View>
         </ScrollView>
       </View>
-      <View className={"px-3 flex-1"}>
+      <View className={"px-4 flex-1"}>
         <TextInput
           multiline
           numberOfLines={5}

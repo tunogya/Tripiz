@@ -86,7 +86,7 @@ const Page = () => {
         <View className={"p-4 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-bold text-2xl"}>Library</Text>
           <Pressable hitSlop={8}>
-            <Ionicons name="search-sharp" size={24} color="white"/>
+            {/*<Ionicons name="search-sharp" size={24} color="white"/>*/}
           </Pressable>
         </View>
         <ScrollView

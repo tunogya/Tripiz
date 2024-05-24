@@ -135,7 +135,7 @@ const Page = () => {
             </View>
           )
         }
-        <View className={"px-3"}>
+        <View className={"px-4"}>
           <Text className={"text-white font-medium leading-5"}>
             {data.text}
           </Text>
@@ -184,7 +184,7 @@ const Page = () => {
             "flex w-full bg-[#121212]"
           }
         >
-          <View className={"px-3 h-16 flex justify-center items-center flex-row space-x-3"}>
+          <View className={"px-4 h-16 flex justify-center items-center flex-row space-x-3"}>
             <TextInput
               value={comment.text}
               placeholder={"Talk something..."}
@@ -204,7 +204,7 @@ const Page = () => {
               isFocused && (
                 <Pressable
                   disabled={status !== "idle"}
-                  className={"bg-green-500 h-10 px-3 rounded-full items-center justify-center"}
+                  className={"bg-green-500 h-10 px-4 rounded-full items-center justify-center"}
                   onPress={newComment}
                 >
                   <Text className={"font-bold"}>
