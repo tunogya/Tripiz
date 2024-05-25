@@ -14,7 +14,7 @@ import { BlurView } from "expo-blur";
 import { useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
 import useSWR from "swr";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 
@@ -24,7 +24,6 @@ const Page = () => {
   const { address } = useSelector((state: RootState) => state.user);
   const screenWidth = Dimensions.get("window").width;
   const [isFocused, setIsFocused] = useState(false);
-  const dispatch = useDispatch();
   const [comment, setComment] = useState({
     text: "",
     entities: {},
@@ -123,6 +122,7 @@ const Page = () => {
         <View className={"py-3 space-y-3"}>
           <Text className={"text-white font-bold text-2xl px-4"}>评论</Text>
           <FlatList
+            scrollEnabled={false}
             data={comments}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={() => (
