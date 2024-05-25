@@ -40,7 +40,6 @@ const Page = () => {
       className={"flex flex-1 h-full bg-[#121212]"}
     >
       <View
-        className={"flex h-full"}
         style={{
           paddingTop: insets.top + 20,
         }}
@@ -51,7 +50,7 @@ const Page = () => {
             {/*<Ionicons name="camera-outline" size={24} color="white" />*/}
           </Pressable>
         </View>
-        <View className={"px-4"}>
+        <View className={"px-4 pb-4"}>
           <View className={"flex flex-row bg-white rounded-lg h-12 px-3 items-center space-x-3"}>
             <Ionicons name="search" size={24} color="black" />
             <TextInput
@@ -76,30 +75,30 @@ const Page = () => {
             }
           </View>
         </View>
-        <View className={"flex-1"}>
-          <FlashList
-            data={data}
-            scrollEventThrottle={1000}
-            keyExtractor={(item: any) => item._id}
-            estimatedItemSize={10}
-            ListHeaderComponent={() => <View className={"h-3"}></View>}
-            ListFooterComponent={() => (
-              <View>
-                { isLoading && (
-                  <ActivityIndicator size={"small"} color="#B3B3B3" />
-                ) }
-                <View
-                  style={{
-                    height: insets.bottom + 80,
-                  }}
-                ></View>
-              </View>
-            )}
-            renderItem={({item}) => (
-              <LibraryShowItem item={item} showType={true}/>
-            )}
-          />
-        </View>
+      </View>
+      <View className={"flex-1"}>
+        <FlashList
+          data={data}
+          scrollEventThrottle={1000}
+          keyExtractor={(item: any) => item._id}
+          estimatedItemSize={10}
+          ListHeaderComponent={() => <View className={"h-3"}></View>}
+          ListFooterComponent={() => (
+            <View>
+              { isLoading && (
+                <ActivityIndicator size={"small"} color="#B3B3B3" />
+              ) }
+              <View
+                style={{
+                  height: insets.bottom + 80,
+                }}
+              ></View>
+            </View>
+          )}
+          renderItem={({item}) => (
+            <LibraryShowItem item={item} showType={true}/>
+          )}
+        />
       </View>
       <AddDreamButton/>
     </View>
