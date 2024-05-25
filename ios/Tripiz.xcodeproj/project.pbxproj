@@ -10,7 +10,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		174CF7E92C01D8E900E2F819 /* avatar in Resources */ = {isa = PBXBuildFile; fileRef = 174CF7E82C01D8E800E2F819 /* avatar */; };
 		174CF7EB2C01DE3200E2F819 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 174CF7EA2C01DE3200E2F819 /* PrivacyInfo.xcprivacy */; };
 		3DB39AEE818D4AA4B5CF1016 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46035D82998F45DA82B75237 /* noop-file.swift */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
@@ -26,7 +25,6 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Tripiz/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tripiz/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Tripiz/main.m; sourceTree = "<group>"; };
-		174CF7E82C01D8E800E2F819 /* avatar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = avatar; path = ../assets/avatar; sourceTree = "<group>"; };
 		174CF7EA2C01DE3200E2F819 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		46035D82998F45DA82B75237 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "Tripiz/noop-file.swift"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Tripiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tripiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +52,6 @@
 		13B07FAE1A68108700A75B9A /* Tripiz */ = {
 			isa = PBXGroup;
 			children = (
-				174CF7E82C01D8E800E2F819 /* avatar */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -204,7 +201,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
-				174CF7E92C01D8E900E2F819 /* avatar in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				174CF7EB2C01DE3200E2F819 /* PrivacyInfo.xcprivacy in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,

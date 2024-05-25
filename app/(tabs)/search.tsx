@@ -10,6 +10,7 @@ import {FlashList} from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import useSWR from "swr";
 import Avatar from "../../components/Avatar";
+import {router} from "expo-router";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -46,7 +47,13 @@ const Page = () => {
         }}
       >
         <View className={"p-4 flex flex-row space-x-3 items-center"}>
-          <Avatar address={address} />
+          <Pressable
+            onPress={() => {
+              router.navigate(`account`);
+            }}
+          >
+            <Avatar address={address} />
+          </Pressable>
           <Text className={"text-white font-bold text-2xl"}>Search</Text>
         </View>
         <View className={"px-4 pb-4"}>

@@ -2,7 +2,7 @@ import * as Crypto from "expo-crypto";
 import { Image, View } from "react-native";
 import { FC, memo, useEffect, useState } from "react";
 
-async function mapAddressToNumber(address: string) {
+export async function mapAddressToNumber(address: string) {
   const hash = await Crypto.digestStringAsync(
     Crypto.CryptoDigestAlgorithm.SHA256,
     address
@@ -11,7 +11,10 @@ async function mapAddressToNumber(address: string) {
   return Number(bigInt % 10000n);
 }
 
-const Avatar: FC<{ address: string }> = ({ address }) => {
+const Avatar: FC<{
+  address: string,
+  classname?: string,
+}> = ({ address, classname }) => {
   const [number, setNumber] = useState<string | undefined>(undefined);
 
   const fetchNumber = async (address: string) => {
@@ -24,7 +27,7 @@ const Avatar: FC<{ address: string }> = ({ address }) => {
   }, [address]);
 
   if (!number) {
-    return <View className={"w-10 h-10 rounded-full bg-gray-400"}></View>;
+    return <View className={classname ? classname : "w-10 h-10 rounded-full bg-gray-400"}></View>;
   }
 
   return (
@@ -33,7 +36,7 @@ const Avatar: FC<{ address: string }> = ({ address }) => {
       source={{
         uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${number}.png`
       }}
-      className={"w-10 h-10 rounded-full bg-gray-400"}
+      className={classname ? classname : "w-10 h-10 rounded-full bg-gray-400"}
     />
   );
 };

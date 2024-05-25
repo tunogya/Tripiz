@@ -1,10 +1,11 @@
-import {Image, Text, View} from "react-native";
+import {Pressable, ScrollView, Text, View} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {memo} from "react";
 import AddDreamButton from "../../components/AddButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import Avatar from "../../components/Avatar";
+import {router} from "expo-router";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -20,14 +21,23 @@ function Page() {
         }}
       >
         <View className={"p-4 flex flex-row items-center space-x-3"}>
-          <Avatar address={address} />
+          <Pressable
+            onPress={() => {
+              router.navigate(`account`);
+            }}
+          >
+            <Avatar address={address} />
+          </Pressable>
           <Text className={"text-white font-bold text-2xl"}>
             {address.slice(0, 7)}...{address.slice(-5)}
           </Text>
         </View>
       </View>
-      <View className={"flex-1"}>
-      </View>
+      <ScrollView>
+        <View className={"flex-1"}>
+
+        </View>
+      </ScrollView>
       <AddDreamButton/>
     </View>
   );

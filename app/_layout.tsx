@@ -106,6 +106,19 @@ export default function RootLayout() {
                   },
                 }}
               />
+              <Stack.Screen
+                name="account/index"
+                options={{
+                  presentation: "modal",
+                  title: "",
+                  headerShown: false,
+                  headerTintColor: "white",
+                  headerBackTitleVisible: false,
+                  headerStyle: {
+                    backgroundColor: "#121212",
+                  },
+                }}
+              />
             </Stack>
           </SafeAreaProvider>
         </PersistGate>
