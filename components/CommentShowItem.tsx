@@ -1,4 +1,4 @@
-import {Dimensions, Text, View} from "react-native";
+import {Text, View} from "react-native";
 import React, {FC} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
@@ -14,10 +14,7 @@ const CommentShowItem: FC<{
 
   return (
     <View
-      className={"p-3 bg-[#FFFFFF12] rounded-lg mr-3 space-y-1.5"}
-      style={{
-        width: Dimensions.get('window').width - 32,
-      }}
+      className={"p-4 bg-[#FFFFFF12] rounded-lg my-1.5 mx-4 space-y-1.5"}
     >
       <View className={"flex flex-row justify-between items-end"}>
         <Text className={"text-[#B3B3B3]"}>{ item.user === address ? "Me" : item.user}</Text>

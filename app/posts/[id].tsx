@@ -147,16 +147,8 @@ const Page = () => {
         <View className={"py-3 space-y-3"}>
           <Text className={"text-white font-bold text-2xl px-4"}>评论</Text>
           <FlatList
-            horizontal={true}
             data={comments}
-            className={"h-[240px]"}
-            showsHorizontalScrollIndicator={false}
-            ListHeaderComponent={() => (
-              <View className={"w-4"}></View>
-            )}
-            ListFooterComponent={() => (
-              <View className={"w-1"}></View>
-            )}
+            showsVerticalScrollIndicator={false}
             ListEmptyComponent={() => (
               !isCommentLoading && (
                 <View className={"w-full"}>
