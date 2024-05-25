@@ -139,13 +139,9 @@ const Page = () => {
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>
-              { isLoading ? (
+              { isLoading && (
                 <ActivityIndicator size={"small"} color="#B3B3B3" />
-              ) : (
-                data.length > 0 && !hasNext && (
-                  <Text className={"text-[#B3B3B3] p-4 text-center text-xs"}>No more data</Text>
-                )
-              ) }
+              )}
               <View
                 style={{
                   height: insets.bottom + 80,
