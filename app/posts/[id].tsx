@@ -22,7 +22,6 @@ import CommentShowItem from "../../components/CommentShowItem";
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const { scroll2Down } = useSelector((state: RootState) => state.ui);
   const { address } = useSelector((state: RootState) => state.user);
   const screenWidth = Dimensions.get("window").width;
   const [isFocused, setIsFocused] = useState(false);
@@ -170,7 +169,7 @@ const Page = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <BlurView
-          intensity={scroll2Down ? 100 : 10}
+          intensity={10}
           tint={"dark"}
           className={
             "flex w-full bg-[#121212]"

@@ -2,12 +2,8 @@ import React, { memo } from "react";
 import { Tabs } from "expo-router";
 import { BlurView } from "expo-blur";
 import Svg, { Path } from "react-native-svg";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 
 function TabLayout() {
-  const { scroll2Down } = useSelector((state: RootState) => state.ui);
-
   return (
     <Tabs
       screenOptions={{
@@ -21,7 +17,7 @@ function TabLayout() {
         tabBarHideOnKeyboard: true,
         tabBarBackground: () => (
           <BlurView
-            intensity={scroll2Down ? 100 : 10}
+            intensity={10}
             tint={"dark"}
             style={{
               position: "absolute",
