@@ -48,7 +48,7 @@ const Page = () => {
         <View className={"p-4 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-bold text-2xl"}>Search</Text>
           <Pressable hitSlop={8}>
-            <Ionicons name="camera-outline" size={24} color="white" />
+            {/*<Ionicons name="camera-outline" size={24} color="white" />*/}
           </Pressable>
         </View>
         <View className={"px-4"}>
