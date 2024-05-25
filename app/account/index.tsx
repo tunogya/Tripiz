@@ -5,10 +5,13 @@ import {RootState} from "../../store/store";
 import {mapAddressToNumber} from "../../components/Avatar";
 import QRCode from "react-native-qrcode-svg";
 import Clipboard from '@react-native-clipboard/clipboard';
+import {BlurView} from "expo-blur";
+import {Ionicons} from "@expo/vector-icons";
 
 const Page = () => {
   const { address, privateKey } = useSelector((state: RootState) => state.user);
   const [number, setNumber] = useState<string | undefined>(undefined);
+  const [show, setShow] = useState(false);
 
   const fetchNumber = async (address: string) => {
     const data = await mapAddressToNumber(address);
@@ -26,7 +29,21 @@ const Page = () => {
       </View>
       <View className={"items-center my-20 space-y-8 mx-4"}>
         <Text className={"text-white text-xl font-bold"}>{address.slice(0, 7)}...{address.slice(-5)}</Text>
-        <View className={"bg-white p-3 rounded-lg"}>
+        <View className={"bg-white p-3 rounded-lg relative"}>
+          {
+            !show && (
+              <BlurView
+                intensity={100} tint="dark"
+                className={"absolute w-64 h-64 m-3 z-50 flex items-center justify-center"}
+              >
+                <Pressable onPress={() => {
+                  setShow(true);
+                }}>
+                  <Ionicons name="eye-outline" size={30} color="white" />
+                </Pressable>
+              </BlurView>
+            )
+          }
           <QRCode
             color={'#121212'}
             size={256}
