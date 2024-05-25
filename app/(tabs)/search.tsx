@@ -9,6 +9,7 @@ import fetch from "node-fetch";
 import {FlashList} from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import useSWR from "swr";
+import Avatar from "../../components/Avatar";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -44,11 +45,9 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"p-4 flex flex-row justify-between items-center"}>
+        <View className={"p-4 flex flex-row space-x-3 items-center"}>
+          <Avatar address={address} />
           <Text className={"text-white font-bold text-2xl"}>Search</Text>
-          <Pressable hitSlop={8}>
-            {/*<Ionicons name="camera-outline" size={24} color="white" />*/}
-          </Pressable>
         </View>
         <View className={"px-4 pb-4"}>
           <View className={"flex flex-row bg-white rounded-lg h-12 px-3 items-center space-x-3"}>

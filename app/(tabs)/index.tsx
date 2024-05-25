@@ -1,9 +1,10 @@
-import {View, Text } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { memo } from "react";
+import {Image, Text, View} from "react-native";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {memo} from "react";
 import AddDreamButton from "../../components/AddButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
+import Avatar from "../../components/Avatar";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -18,9 +19,10 @@ function Page() {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"p-4 flex flex-row justify-between items-center"}>
+        <View className={"p-4 flex flex-row items-center space-x-3"}>
+          <Avatar address={address} />
           <Text className={"text-white font-bold text-2xl"}>
-            {address.slice(0, 6)}...{address.slice(-6)}
+            {address.slice(0, 7)}...{address.slice(-5)}
           </Text>
         </View>
       </View>

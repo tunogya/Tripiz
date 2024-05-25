@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {FlashList} from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import {RootState} from "../../store/store";
+import Avatar from "../../components/Avatar";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -60,11 +61,9 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"p-4 flex flex-row justify-between items-center"}>
+        <View className={"p-4 flex flex-row space-x-3 items-center"}>
+          <Avatar address={address} />
           <Text className={"text-white font-bold text-2xl"}>Library</Text>
-          <Pressable hitSlop={8}>
-            {/*<Ionicons name="search-sharp" size={24} color="white"/>*/}
-          </Pressable>
         </View>
         <ScrollView
           horizontal
