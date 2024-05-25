@@ -3,10 +3,9 @@ import {memo, useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
 import {Ionicons} from "@expo/vector-icons";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {FlashList} from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
-import {updateValue} from "../../reducers/ui/uiSlice";
 import {RootState} from "../../store/store";
 
 const Page = () => {
@@ -14,7 +13,6 @@ const Page = () => {
 
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
-  const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const {address} = useSelector((state: RootState) => state.user);
   const { version} = useSelector((state: RootState) => state.ui);
@@ -22,27 +20,6 @@ const Page = () => {
   const [data, setData] = useState([]);
   const [nextSkip, setNextSkip] = useState<number | null>(0);
   const [hasNext, setHasNext] = useState(true);
-
-  const [lastScrollPosition, setLastScrollPosition] = useState(0);
-
-  const handleScroll = (event: any) => {
-    const currentScrollPosition = event.nativeEvent.contentOffset.y;
-
-    if (currentScrollPosition > lastScrollPosition) {
-      dispatch(
-        updateValue({
-          scroll2Down: false,
-        }),
-      );
-    } else {
-      dispatch(
-        updateValue({
-          scroll2Down: true,
-        }),
-      );
-    }
-    setLastScrollPosition(currentScrollPosition);
-  };
 
   const fetchData = async (category: string, skip: number) => {
     setIsLoading(true);
@@ -132,7 +109,6 @@ const Page = () => {
       <View className={"flex-1"}>
         <FlashList
           data={data}
-          onScroll={handleScroll}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

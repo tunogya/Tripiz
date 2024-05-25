@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const slice = createSlice({
   name: "ui",
   initialState: {
-    scroll2Down: false,
     version: 0,
   },
   reducers: {

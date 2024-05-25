@@ -15,7 +15,6 @@ import { useLocalSearchParams } from "expo-router";
 import { Dimensions } from "react-native";
 import useSWR from "swr";
 import {useDispatch, useSelector} from "react-redux";
-import {updateValue} from "../../reducers/ui/uiSlice";
 import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 
@@ -33,27 +32,6 @@ const Page = () => {
     user: address,
   })
   const [status, setStatus] = useState("idle");
-
-  const [lastScrollPosition, setLastScrollPosition] = useState(0);
-
-  const handleScroll = (event: any) => {
-    const currentScrollPosition = event.nativeEvent.contentOffset.y;
-
-    if (currentScrollPosition > lastScrollPosition) {
-      dispatch(
-        updateValue({
-          scroll2Down: false,
-        }),
-      );
-    } else {
-      dispatch(
-        updateValue({
-          scroll2Down: true,
-        }),
-      );
-    }
-    setLastScrollPosition(currentScrollPosition);
-  };
 
   const { data, isLoading } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url)
     .then((res) => res.json())
@@ -114,7 +92,6 @@ const Page = () => {
       className={"flex flex-1 h-full bg-[#121212] relative"}
     >
       <ScrollView
-        onScroll={handleScroll}
         className={"h-full w-full"}
       >
         {

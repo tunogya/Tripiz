@@ -5,14 +5,11 @@ import { memo, useEffect, useState } from "react";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { useNavigationState } from "@react-navigation/core";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
   const [openMore, setOpenMore] = useState(false);
   const route = useNavigationState((state) => state.routes[state.index]);
-  const { scroll2Down } = useSelector((state: RootState) => state.ui);
 
   useEffect(() => {
     setOpenMore(false);
@@ -37,9 +34,6 @@ const AddButton = () => {
         }
       >
         <Ionicons name="moon-outline" size={24} color="#121212" />
-        {scroll2Down && (
-          <Text className={"font-semibold text-lg"}>New dream</Text>
-        )}
       </Pressable>
       <View className={"bg-[#121212] w-0.5 h-8 opacity-20"}></View>
       <Pressable
