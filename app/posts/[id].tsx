@@ -127,7 +127,7 @@ const Page = () => {
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={() => (
               !isCommentLoading && (
-                <View className={"w-full"}>
+                <View className={"w-full px-4"}>
                   <Text className={"text-[#B3B3B3] text-xs"}>No comments</Text>
                 </View>
               )

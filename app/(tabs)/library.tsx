@@ -122,7 +122,7 @@ const Page = () => {
           }
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
-          estimatedItemSize={8}
+          estimatedItemSize={10}
           onEndReached={async () => {
             if (hasNext) {
               await fetchData(filter.toLowerCase(), nextSkip);
@@ -131,7 +131,7 @@ const Page = () => {
           onEndReachedThreshold={0.3}
           ListEmptyComponent={() => (
             !isLoading && (
-              <View className={"px-3"}>
+              <View className={"px-4"}>
                 <Text className={"text-[#B3B3B3] text-xs"}>No {filter} content</Text>
               </View>
             )
@@ -143,7 +143,7 @@ const Page = () => {
                 <ActivityIndicator size={"small"} color="#B3B3B3" />
               ) : (
                 data.length > 0 && !hasNext && (
-                  <Text className={"text-[#B3B3B3] p-3 text-center text-xs"}>No more data</Text>
+                  <Text className={"text-[#B3B3B3] p-4 text-center text-xs"}>No more data</Text>
                 )
               ) }
               <View
