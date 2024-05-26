@@ -67,9 +67,6 @@ const Page = () => {
           <Text className={"text-[#B3B3B3]"}>请不要分享私钥给其他人！</Text>
         </View>
       </View>
-      <Pressable className={"mx-4 mt-40 items-center"}>
-        <Text className={"text-red-500 font-bold"}>Delete This Account</Text>
-      </Pressable>
     </View>
   )
 }
