@@ -52,7 +52,7 @@ const Page = () => {
               router.navigate(`account`);
             }}
           >
-            <Avatar address={address} />
+            <Avatar />
           </Pressable>
           <Text className={"text-white font-bold text-2xl"}>Search</Text>
         </View>

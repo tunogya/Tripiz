@@ -27,7 +27,7 @@ function Page() {
               router.navigate(`account`);
             }}
           >
-            <Avatar address={address} />
+            <Avatar />
           </Pressable>
           <Text className={"text-white font-bold text-2xl"}>
             {address.slice(0, 7)}...{address.slice(-5)}
@@ -35,6 +35,7 @@ function Page() {
         </View>
       </View>
       <ScrollView>
+        <Text className={"text-[#B3B3B3] px-6 mt-4"}>我的移动城堡</Text>
         <View
           className={"flex-1 bg-[#FFFFFF12] mx-4 rounded-xl my-4"}
           style={{

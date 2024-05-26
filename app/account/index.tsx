@@ -1,26 +1,18 @@
 import {View, Text, Pressable, TouchableOpacity} from "react-native";
-import {memo, useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {memo, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import {mapAddressToNumber} from "../../components/Avatar";
 import QRCode from "react-native-qrcode-svg";
 import Clipboard from '@react-native-clipboard/clipboard';
 import {BlurView} from "expo-blur";
 import {Ionicons} from "@expo/vector-icons";
+import {randomAvatar} from "../../reducers/ui/uiSlice";
 
 const Page = () => {
   const { address, privateKey } = useSelector((state: RootState) => state.user);
-  const [number, setNumber] = useState<string | undefined>(undefined);
   const [show, setShow] = useState(false);
-
-  const fetchNumber = async (address: string) => {
-    const data = await mapAddressToNumber(address);
-    setNumber(data.toString().padStart(4, '0'));
-  };
-
-  useEffect(() => {
-    fetchNumber(address);
-  }, [address]);
+  const { avatar } = useSelector((state: RootState) => state.ui);
+  const dispatch = useDispatch();
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>
@@ -47,22 +39,34 @@ const Page = () => {
           <QRCode
             color={'#121212'}
             size={256}
+            logoSize={80}
             logoBackgroundColor={"white"}
+            logoBorderRadius={50}
             logo={{
-              uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${number}.png`
+              uri:  `https://www.larvalabs.com/cryptopunks/cryptopunk${(avatar || 0)?.toString().padStart(4, '0')}.png`
             }}
             value={privateKey}
           />
           <Text className={"text-black text-center pt-2 font-bold"}>Tripiz Private Key</Text>
         </View>
-        <TouchableOpacity
-          className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
-          onPress={() => {
-            Clipboard.setString(privateKey);
-          }}
-        >
-          <Text className={"text-white"}>Copy Private Key</Text>
-        </TouchableOpacity>
+        <View className={"flex flex-row space-x-3"}>
+          <TouchableOpacity
+            className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
+            onPress={() => {
+              dispatch(randomAvatar());
+            }}
+          >
+            <Text className={"text-white"}>Shuffle Avatar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
+            onPress={() => {
+              Clipboard.setString(privateKey);
+            }}
+          >
+            <Text className={"text-white"}>Copy Private Key</Text>
+          </TouchableOpacity>
+        </View>
         <View>
           <Text className={"text-[#B3B3B3]"}>请不要分享私钥给其他人！</Text>
         </View>
