@@ -40,8 +40,40 @@ function Page() {
         <FlashList
           data={[{
             _id: "0",
-            text: "Hello, World!",
+            text: "简介: 影片为庆祝哥斯拉诞生70周年的纪念作品，也是东宝第30部哥斯拉大作。故事设定在二战后的日本，哥斯拉的出现仿佛要给已经变得一无所有（归0）的日本再添一击，将这个国家打到负值（负1.0）。",
             category: "reflection",
+            entities: {
+              media: [
+                {
+                  id: "0000",
+                  url: "https://www.larvalabs.com/cryptopunks/cryptopunk0000.png",
+                  media_url: "https://www.larvalabs.com/cryptopunks/cryptopunk0000.png",
+                  media_url_https: "https://www.larvalabs.com/cryptopunks/cryptopunk0000.png",
+                  type: "photo",
+                },
+                {
+                  id: "0001",
+                  url: "https://www.larvalabs.com/cryptopunks/cryptopunk0001.png",
+                  media_url: "https://www.larvalabs.com/cryptopunks/cryptopunk0001.png",
+                  media_url_https: "https://www.larvalabs.com/cryptopunks/cryptopunk0001.png",
+                  type: "photo",
+                },
+                {
+                  id: "0002",
+                  url: "https://www.larvalabs.com/cryptopunks/cryptopunk0002.png",
+                  media_url: "https://www.larvalabs.com/cryptopunks/cryptopunk0002.png",
+                  media_url_https: "https://www.larvalabs.com/cryptopunks/cryptopunk0002.png",
+                  type: "photo",
+                },
+                {
+                  id: "0003",
+                  url: "https://www.larvalabs.com/cryptopunks/cryptopunk0003.png",
+                  media_url: "https://www.larvalabs.com/cryptopunks/cryptopunk0003.png",
+                  media_url_https: "https://www.larvalabs.com/cryptopunks/cryptopunk0003.png",
+                  type: "photo",
+                },
+              ]
+            }
           }]}
           showsVerticalScrollIndicator={false}
           estimatedItemSize={10}

@@ -93,23 +93,23 @@ const Page = () => {
       <ScrollView
         className={"h-full w-full"}
       >
-        {
-          data.entities && data.entities?.media?.length > 0 && (
-            <View
-              className={"w-full"}
-              style={{
-                height: screenWidth * 0.99,
-              }}
-            >
-              <Image
-                className={"w-full h-full"}
-                source={{
-                  uri: "https://preview.qiantucdn.com/58pic/20231114/00058PICChzpR3rwfa86b_PIC2018_PIC2018.jpg!qt_h320",
-                }}
-              />
-            </View>
-          )
-        }
+        {/*{*/}
+        {/*  data.entities && data.entities?.media?.length > 0 && (*/}
+        {/*    <View*/}
+        {/*      className={"w-full"}*/}
+        {/*      style={{*/}
+        {/*        height: screenWidth * 0.99,*/}
+        {/*      }}*/}
+        {/*    >*/}
+        {/*      <Image*/}
+        {/*        className={"w-full h-full"}*/}
+        {/*        source={{*/}
+        {/*          uri: "https://preview.qiantucdn.com/58pic/20231114/00058PICChzpR3rwfa86b_PIC2018_PIC2018.jpg!qt_h320",*/}
+        {/*        }}*/}
+        {/*      />*/}
+        {/*    </View>*/}
+        {/*  )*/}
+        {/*}*/}
         <View className={"p-4"}>
           <Text
             className={"text-white font-medium leading-5"}
