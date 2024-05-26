@@ -72,50 +72,54 @@ const Feed: FC<{
             <Ionicons name="add-circle-outline" size={28} color="white"/>
           </TouchableOpacity>
         </View>
-        <View className={"w-full flex flex-row justify-between items-center px-4"}>
-          <Pressable
-            className={"w-10 h-10 rounded-full relative overflow-hidden"}
-            onPress={() => {
-              setIndex((index - 1 + item.entities.media.length) % item.entities.media.length);
-            }}
-          >
-            <BlurView
-              intensity={20}
-              tint={"dark"}
-              style={{
-                position: "absolute",
-                left: 0,
-                bottom: 0,
-                right: 0,
-                top: 0,
-              }}
-              className={"items-center justify-center"}
-            >
-              <Ionicons name="chevron-back" size={24} color="white"/>
-            </BlurView>
-          </Pressable>
-          <Pressable
-            className={"w-10 h-10 rounded-full relative overflow-hidden"}
-            onPress={() => {
-              setIndex((index + 1 + item.entities.media.length) % item.entities.media.length);
-            }}
-          >
-            <BlurView
-              intensity={20}
-              tint={"dark"}
-              style={{
-                position: "absolute",
-                left: 0,
-                bottom: 0,
-                right: 0,
-                top: 0,
-              }}
-              className={"items-center justify-center"}
-            >
-              <Ionicons name="chevron-forward" size={24} color="white"/>
-            </BlurView>
-          </Pressable>
-        </View>
+        {
+          item.entities.media.length > 1 && (
+            <View className={"w-full flex flex-row justify-between items-center px-4"}>
+              <Pressable
+                className={"w-10 h-10 rounded-full relative overflow-hidden"}
+                onPress={() => {
+                  setIndex((index - 1 + item.entities.media.length) % item.entities.media.length);
+                }}
+              >
+                <BlurView
+                  intensity={20}
+                  tint={"dark"}
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    top: 0,
+                  }}
+                  className={"items-center justify-center"}
+                >
+                  <Ionicons name="chevron-back" size={24} color="white"/>
+                </BlurView>
+              </Pressable>
+              <Pressable
+                className={"w-10 h-10 rounded-full relative overflow-hidden"}
+                onPress={() => {
+                  setIndex((index + 1 + item.entities.media.length) % item.entities.media.length);
+                }}
+              >
+                <BlurView
+                  intensity={20}
+                  tint={"dark"}
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    top: 0,
+                  }}
+                  className={"items-center justify-center"}
+                >
+                  <Ionicons name="chevron-forward" size={24} color="white"/>
+                </BlurView>
+              </Pressable>
+            </View>
+          )
+        }
         <View className={"w-full p-4 space-y-3 h-18"}>
           <Text className={"text-white font-semibold"} numberOfLines={2}>
             {item.text}
