@@ -90,17 +90,17 @@ const Page = () => {
           </Text>
         </Pressable>
       </View>
-      <View className={"px-4 pb-4"}>
-        <ScrollView
-          horizontal
-          className={"flex flex-row"}
-          showsHorizontalScrollIndicator={false}
-        >
-          <View className={"h-10 w-10 rounded border-2 border-[#B3B3B3] flex items-center justify-center"}>
-            <Ionicons name="add" size={24} color="white" />
-          </View>
-        </ScrollView>
-      </View>
+      {/*<View className={"px-4 pb-4"}>*/}
+      {/*  <ScrollView*/}
+      {/*    horizontal*/}
+      {/*    className={"flex flex-row"}*/}
+      {/*    showsHorizontalScrollIndicator={false}*/}
+      {/*  >*/}
+      {/*    <View className={"h-10 w-10 rounded border-2 border-[#B3B3B3] flex items-center justify-center"}>*/}
+      {/*      <Ionicons name="add" size={24} color="white" />*/}
+      {/*    </View>*/}
+      {/*  </ScrollView>*/}
+      {/*</View>*/}
       <View className={"px-4 flex-1"}>
         <TextInput
           multiline
