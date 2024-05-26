@@ -40,7 +40,7 @@ const Feed: FC<{
         ></Image>
       </View>
       <View className={"absolute w-full h-full justify-between"}>
-        <View className={"w-full flex flex-row items-center p-4 space-x-3"}>
+        <View className={"w-full flex flex-row items-center p-4 space-x-5"}>
           <View className={"flex flex-row space-x-3 w-full flex-1"}>
             <View className={"flex justify-center flex-row items-center space-x-1"}>
               {
@@ -62,12 +62,12 @@ const Feed: FC<{
             </View>
           </View>
           <TouchableOpacity
-            className={"p-1"}
+            hitSlop={1}
           >
             <Ionicons name="remove-circle-outline" size={28} color="white"/>
           </TouchableOpacity>
           <TouchableOpacity
-            className={"p-1"}
+            hitSlop={1}
           >
             <Ionicons name="add-circle-outline" size={28} color="white"/>
           </TouchableOpacity>
