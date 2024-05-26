@@ -1,4 +1,4 @@
-import {Pressable, ScrollView, Text, View} from "react-native";
+import {Dimensions, Pressable, ScrollView, Text, View} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {memo} from "react";
 import AddDreamButton from "../../components/AddButton";
@@ -9,6 +9,7 @@ import {router} from "expo-router";
 
 function Page() {
   const insets = useSafeAreaInsets();
+  const screenWidth = Dimensions.get('window').width;
   const { address } = useSelector((state: RootState) => state.user);
 
   return (
@@ -34,8 +35,13 @@ function Page() {
         </View>
       </View>
       <ScrollView>
-        <View className={"flex-1"}>
-
+        <View
+          className={"flex-1 bg-[#FFFFFF12] mx-4 rounded-xl my-4"}
+          style={{
+            width: screenWidth - 32,
+            height: screenWidth - 32,
+          }}
+        >
         </View>
       </ScrollView>
       <AddDreamButton/>
