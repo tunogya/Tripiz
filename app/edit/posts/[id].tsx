@@ -56,9 +56,7 @@ const Page = () => {
             category: post.category,
             user: address,
           })
-        }).then((res) => res.json());
-        // send signal to mutate api
-        dispatch(increaseVersion());
+        })
       } else {
         await fetch(`https://tripiz.abandon.ai/api/posts/${ensureString(id)}`, {
           method: "PUT",
@@ -66,8 +64,9 @@ const Page = () => {
             text: post.text,
             entities: post.entities,
           })
-        }).then((res) => res.json());
+        })
       }
+      dispatch(increaseVersion());
       setStatus("success")
       setTimeout(() => {
         router.back();

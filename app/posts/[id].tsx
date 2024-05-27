@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform, Keyboard, Pressable, FlatList, Image, Dimensions
 } from "react-native";
-import React, {memo, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {BlurView} from "expo-blur";
 import {useLocalSearchParams} from "expo-router";
@@ -33,8 +33,9 @@ const Page = () => {
   })
   const [status, setStatus] = useState("idle");
   const [index, setIndex] = useState(0);
+  const { version} = useSelector((state: RootState) => state.ui);
 
-  const {data, isLoading} = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url, {
+  const {data, isLoading, mutate} = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
       headers: {
         "Tripiz-User": address,
@@ -44,6 +45,10 @@ const Page = () => {
       .then((res) => res.json())
       .then((res) => res.data)
   );
+
+  useEffect(() => {
+    mutate();
+  }, [version]);
 
   const {
     data: comments,
