@@ -26,4 +26,6 @@ export const en = {
   "New dream": "New dream",
   "New reflection": "New reflection",
   "New memory": "New memory",
+  Delete: "Delete",
+  Deleting: "Deleting",
 };

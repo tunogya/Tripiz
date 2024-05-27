@@ -1,5 +1,5 @@
 import {Text, View} from "react-native";
-import React, {FC} from "react";
+import React, {FC, memo} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
 
@@ -27,4 +27,4 @@ const CommentShowItem: FC<{
   )
 }
 
-export default CommentShowItem
+export default memo(CommentShowItem);

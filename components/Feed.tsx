@@ -1,7 +1,7 @@
 import {Dimensions, Pressable, Text, View, Image, TouchableOpacity} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import {BlurView} from "expo-blur";
-import React, {FC, useState} from "react";
+import React, {FC, memo, useState} from "react";
 import {LinearGradient} from "expo-linear-gradient";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
@@ -191,4 +191,4 @@ const Feed: FC<{
   )
 }
 
-export default Feed;
+export default memo(Feed);

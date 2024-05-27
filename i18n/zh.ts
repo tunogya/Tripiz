@@ -26,4 +26,6 @@ export const zh = {
   "New dream": "新的梦",
   "New reflection": "新的思考",
   "New memory": "新的回忆",
+  Delete: "删除",
+  Deleting: "删除中",
 };

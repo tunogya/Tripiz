@@ -17,6 +17,7 @@ import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 import {Ionicons} from "@expo/vector-icons";
 import {t} from "../../i18n";
+import PostMoreModal from "../../components/PostMoreModal";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -269,6 +270,7 @@ const Page = () => {
           }}></View>
         </BlurView>
       </KeyboardAvoidingView>
+      <PostMoreModal />
     </View>
   );
 };

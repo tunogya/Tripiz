@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
-import {useEffect} from "react";
+import {memo, useEffect} from "react";
 import {initialize} from "../reducers/user/userSlice";
 
 const CheckUser = () => {
@@ -16,4 +16,4 @@ const CheckUser = () => {
   return null;
 }
 
-export default CheckUser;
+export default memo(CheckUser);

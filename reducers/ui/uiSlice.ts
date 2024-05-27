@@ -5,6 +5,7 @@ export const slice = createSlice({
   initialState: {
     avatar: Math.floor(Math.random() * 10000),
     version: 0,
+    currentPost: "",
   },
   reducers: {
     increaseVersion: (state) => {
@@ -12,10 +13,13 @@ export const slice = createSlice({
     },
     randomAvatar: (state) => {
       state.avatar = Math.floor(Math.random() * 10000);
+    },
+    updateCurrentPost: (state, action) => {
+      state.currentPost = action.payload;
     }
   },
 });
 
-export const { increaseVersion, randomAvatar } = slice.actions;
+export const { increaseVersion, randomAvatar, updateCurrentPost } = slice.actions;
 
 export default slice.reducer;
