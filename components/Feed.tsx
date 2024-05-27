@@ -81,7 +81,7 @@ const Feed: FC<{
           }}
         ></Image>
       </View>
-      <View className={"absolute w-full h-full justify-between"}>
+      <View className={"absolute w-full h-full justify-between z-50"}>
         <LinearGradient colors={["rgba(18,18,18,0.5)", "transparent"]} className={'pb-4'}>
           <View className={"w-full flex flex-row items-center p-4 space-x-5"}>
             <View className={"flex flex-row space-x-3 w-full flex-1"}>

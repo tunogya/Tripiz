@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
-  Platform, Keyboard, Pressable, FlatList
+  Platform, Keyboard, Pressable, FlatList, Image, Dimensions
 } from "react-native";
 import React, {memo, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -15,10 +15,12 @@ import useSWR from "swr";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
+import {Ionicons} from "@expo/vector-icons";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
+  const screenWidth = Dimensions.get("window").width;
   const {address} = useSelector((state: RootState) => state.user);
   const [isFocused, setIsFocused] = useState(false);
   const [comment, setComment] = useState({
@@ -28,6 +30,7 @@ const Page = () => {
     user: address,
   })
   const [status, setStatus] = useState("idle");
+  const [index, setIndex] = useState(0);
 
   const {data, isLoading} = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
@@ -108,23 +111,75 @@ const Page = () => {
       <ScrollView
         className={"h-full w-full"}
       >
-        {/*{*/}
-        {/*  data.entities && data.entities?.media?.length > 0 && (*/}
-        {/*    <View*/}
-        {/*      className={"w-full"}*/}
-        {/*      style={{*/}
-        {/*        height: screenWidth * 0.99,*/}
-        {/*      }}*/}
-        {/*    >*/}
-        {/*      <Image*/}
-        {/*        className={"w-full h-full"}*/}
-        {/*        source={{*/}
-        {/*          uri: "https://preview.qiantucdn.com/58pic/20231114/00058PICChzpR3rwfa86b_PIC2018_PIC2018.jpg!qt_h320",*/}
-        {/*        }}*/}
-        {/*      />*/}
-        {/*    </View>*/}
-        {/*  )*/}
-        {/*}*/}
+        {
+          data.entities && data.entities?.media?.length > 0 && (
+            <View
+              className={"w-full relative"}
+              style={{
+                width: screenWidth,
+                height: screenWidth * 0.99,
+              }}
+            >
+              <View className={"absolute w-full h-full justify-center items-center z-50"}>
+                {
+                  data.entities?.media?.length > 1 && (
+                    <View className={"w-full flex flex-row justify-between items-center px-4"}>
+                      <Pressable
+                        className={"w-10 h-10 rounded-full relative overflow-hidden"}
+                        onPress={() => {
+                          setIndex((index - 1 + data.entities?.media?.length) % data.entities?.media?.length);
+                        }}
+                      >
+                        <BlurView
+                          intensity={20}
+                          tint={"dark"}
+                          style={{
+                            position: "absolute",
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            top: 0,
+                          }}
+                          className={"items-center justify-center"}
+                        >
+                          <Ionicons name="chevron-back" size={24} color="white"/>
+                        </BlurView>
+                      </Pressable>
+                      <Pressable
+                        className={"w-10 h-10 rounded-full relative overflow-hidden"}
+                        onPress={() => {
+                          setIndex((index + 1 + data.entities?.media?.length) % data.entities?.media?.length);
+                        }}
+                      >
+                        <BlurView
+                          intensity={20}
+                          tint={"dark"}
+                          style={{
+                            position: "absolute",
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            top: 0,
+                          }}
+                          className={"items-center justify-center"}
+                        >
+                          <Ionicons name="chevron-forward" size={24} color="white"/>
+                        </BlurView>
+                      </Pressable>
+                    </View>
+                  )
+                }
+              </View>
+              <Image
+                className={"w-full h-full"}
+                resizeMode={"cover"}
+                source={{
+                  uri: data.entities?.media?.[index]?.media_url_https,
+                }}
+              />
+            </View>
+          )
+        }
         <View className={"p-4"}>
           <Text
             className={"text-white font-medium leading-5"}
