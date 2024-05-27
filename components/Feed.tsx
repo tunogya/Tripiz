@@ -23,6 +23,24 @@ const Feed: FC<{
   const screenWidth = Dimensions.get('window').width;
   const [index, setIndex] = useState(0);
 
+  const remove = async () => {
+    const res = await fetch(`https://tripiz.abandon.ai/api/feeds/${item._id}`, {
+      method: 'DELETE',
+      headers: {
+        "Tripiz-User": address,
+        "Tripiz-Signature": "Signature",
+      }
+    })
+  }
+
+  const add = async () => {
+    const res = await fetch(`https://tripiz.abandon.ai/api/feeds/${item._id}`, {
+      method: 'POST',
+      "Tripiz-User": address,
+      "Tripiz-Signature": "Signature",
+    })
+  }
+
   return (
     <View
       className={"flex-1 bg-[#FFFFFF12] rounded-2xl mt-4 mb-6 relative overflow-hidden"}
@@ -65,11 +83,13 @@ const Feed: FC<{
             </View>
             <TouchableOpacity
               hitSlop={1}
+              onPress={remove}
             >
               <Ionicons name="remove-circle-outline" size={28} color="white"/>
             </TouchableOpacity>
             <TouchableOpacity
               hitSlop={1}
+              onPress={add}
             >
               <Ionicons name="add-circle-outline" size={28} color="white"/>
             </TouchableOpacity>

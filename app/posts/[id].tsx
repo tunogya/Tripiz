@@ -8,20 +8,18 @@ import {
   Platform, Keyboard, Pressable, FlatList
 } from "react-native";
 import React, {memo, useState} from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { BlurView } from "expo-blur";
-import { useLocalSearchParams } from "expo-router";
-import { Dimensions } from "react-native";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {BlurView} from "expo-blur";
+import {useLocalSearchParams} from "expo-router";
 import useSWR from "swr";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 
 const Page = () => {
-  const { id } = useLocalSearchParams();
+  const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const { address } = useSelector((state: RootState) => state.user);
-  const screenWidth = Dimensions.get("window").width;
+  const {address} = useSelector((state: RootState) => state.user);
   const [isFocused, setIsFocused] = useState(false);
   const [comment, setComment] = useState({
     text: "",
@@ -31,14 +29,30 @@ const Page = () => {
   })
   const [status, setStatus] = useState("idle");
 
-  const { data, isLoading } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url)
-    .then((res) => res.json())
-    .then((res) => res.data)
+  const {data, isLoading} = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url, {
+      method: "GET",
+      headers: {
+        "Tripiz-User": address,
+        "Tripiz-Signature": "Signature",
+      }
+    })
+      .then((res) => res.json())
+      .then((res) => res.data)
   );
 
-  const { data: comments, isLoading: isCommentLoading, mutate: mutateComment } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}/replies`, (url: string) => fetch(url)
-    .then((res) => res.json())
-    .then((res) => res.data)
+  const {
+    data: comments,
+    isLoading: isCommentLoading,
+    mutate: mutateComment
+  } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}/replies`, (url: string) => fetch(url, {
+      method: "GET",
+      headers: {
+        "Tripiz-User": address,
+        "Tripiz-Signature": "Signature",
+      }
+    })
+      .then((res) => res.json())
+      .then((res) => res.data)
   );
 
   const newComment = async () => {
@@ -48,6 +62,8 @@ const Page = () => {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
+          "Tripiz-User": address,
+          "Tripiz-Signature": "Signature",
         },
         body: JSON.stringify({
           parent_post_id: id,
@@ -80,7 +96,7 @@ const Page = () => {
       <View
         className={"flex flex-1 h-full bg-[#121212] relative"}
       >
-        <ActivityIndicator size={"small"} color="#B3B3B3" />
+        <ActivityIndicator size={"small"} color="#B3B3B3"/>
       </View>
     )
   }
@@ -137,11 +153,11 @@ const Page = () => {
             )}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}: any) => (
-              <CommentShowItem item={item} />
+              <CommentShowItem item={item}/>
             )}
           />
         </View>
-        <View style={{ paddingBottom: 200 + insets.bottom  }}></View>
+        <View style={{paddingBottom: 200 + insets.bottom}}></View>
       </ScrollView>
       <KeyboardAvoidingView
         keyboardVerticalOffset={64}
@@ -179,10 +195,10 @@ const Page = () => {
                   onPress={newComment}
                 >
                   <Text className={"font-bold"}>
-                    { status === "idle" && "Send" }
-                    { status === "success" && "Success" }
-                    { status === "error" && "Error" }
-                    { status === "loading" && "Sending" }
+                    {status === "idle" && "Send"}
+                    {status === "success" && "Success"}
+                    {status === "error" && "Error"}
+                    {status === "loading" && "Sending"}
                   </Text>
                 </Pressable>
               )

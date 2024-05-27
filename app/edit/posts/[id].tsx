@@ -25,7 +25,13 @@ const Page = () => {
   const [status, setStatus] = useState("idle");
   const dispatch = useDispatch();
 
-  const { data } = useSWR(id !== "new" ? `https://tripiz.abandon.ai/api/posts/${id}` : undefined, (url: string) => fetch(url).then((res) => res.json()));
+  const { data } = useSWR(id !== "new" ? `https://tripiz.abandon.ai/api/posts/${id}` : undefined, (url: string) => fetch(url, {
+    method: "GET",
+    headers: {
+      "Tripiz-User": address,
+      "Tripiz-Signature": "Signature",
+    }
+  }).then((res) => res.json()));
 
   useEffect(() => {
     if (data) {

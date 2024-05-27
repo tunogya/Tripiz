@@ -25,7 +25,13 @@ const Page = () => {
 
   const fetchData = async (category: string, skip: number) => {
     setIsLoading(true);
-    const result = await fetch(`https://tripiz.abandon.ai/api/users/${address}/posts?category=${category}&skip=${skip}`)
+    const result = await fetch(`https://tripiz.abandon.ai/api/users/${address}/posts?category=${category}&skip=${skip}`, {
+      method: "GET",
+      headers: {
+        "Tripiz-User": address,
+        "Tripiz-Signature": "Signature",
+      }
+    })
       .then((res) => res.json());
     setIsLoading(false);
 

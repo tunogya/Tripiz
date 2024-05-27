@@ -16,7 +16,13 @@ function Page() {
 
   const {address} = useSelector((state: RootState) => state.user);
 
-  const { data: feeds, isLoading: isFeedsLoading, mutate: mutateFeeds } = useSWR(`https://tripiz.abandon.ai/api/users/${address}/feeds`, (url) => fetch(url).then((res) => res.json()).then((res) => res.data));
+  const { data: feeds, isLoading: isFeedsLoading, mutate: mutateFeeds } = useSWR(`https://tripiz.abandon.ai/api/users/${address}/feeds`, (url) => fetch(url, {
+    method: "GET",
+    headers: {
+      "Tripiz-User": address,
+      "Tripiz-Signature": "Signature",
+    }
+  }).then((res) => res.json()).then((res) => res.data));
 
   return (
     <View
