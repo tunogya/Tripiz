@@ -84,7 +84,7 @@ const Page = () => {
       </View>
       <View className={"flex-1"}>
         <FlashList
-          data={data}
+          data={data || []}
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
           estimatedItemSize={10}

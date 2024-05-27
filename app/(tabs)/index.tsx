@@ -8,11 +8,15 @@ import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import Feed from "../../components/Feed";
 import {FlashList} from "@shopify/flash-list";
+import useSWR from "swr";
+import fetch from "node-fetch";
 
 function Page() {
   const insets = useSafeAreaInsets();
 
   const {address} = useSelector((state: RootState) => state.user);
+
+  const { data: feeds, isLoading: isFeedsLoading, mutate: mutateFeeds } = useSWR(`https://tripiz.abandon.ai/api/users/${address}/feeds`, (url) => fetch(url).then((res) => res.json()).then((res) => res.data));
 
   return (
     <View
@@ -38,47 +42,11 @@ function Page() {
       </View>
       <View className={"flex-1 px-4"}>
         <FlashList
-          data={[{
-            _id: "0",
-            text: "简介: 影片为庆祝哥斯拉诞生70周年的纪念作品，也是东宝第30部哥斯拉大作。故事设定在二战后的日本，哥斯拉的出现仿佛要给已经变得一无所有（归0）的日本再添一击，将这个国家打到负值（负1.0）。",
-            category: "reflection",
-            entities: {
-              media: [
-                {
-                  id: "0000",
-                  url: "https://www.larvalabs.com/cryptopunks/cryptopunk0000.png",
-                  media_url: "https://www.larvalabs.com/cryptopunks/cryptopunk0000.png",
-                  media_url_https: "https://www.larvalabs.com/cryptopunks/cryptopunk0000.png",
-                  type: "photo",
-                },
-                {
-                  id: "0001",
-                  url: "https://www.larvalabs.com/cryptopunks/cryptopunk0001.png",
-                  media_url: "https://www.larvalabs.com/cryptopunks/cryptopunk0001.png",
-                  media_url_https: "https://www.larvalabs.com/cryptopunks/cryptopunk0001.png",
-                  type: "photo",
-                },
-                {
-                  id: "0002",
-                  url: "https://www.larvalabs.com/cryptopunks/cryptopunk0002.png",
-                  media_url: "https://www.larvalabs.com/cryptopunks/cryptopunk0002.png",
-                  media_url_https: "https://www.larvalabs.com/cryptopunks/cryptopunk0002.png",
-                  type: "photo",
-                },
-                {
-                  id: "0003",
-                  url: "https://www.larvalabs.com/cryptopunks/cryptopunk0003.png",
-                  media_url: "https://www.larvalabs.com/cryptopunks/cryptopunk0003.png",
-                  media_url_https: "https://www.larvalabs.com/cryptopunks/cryptopunk0003.png",
-                  type: "photo",
-                },
-              ]
-            }
-          }]}
+          data={feeds || []}
           showsVerticalScrollIndicator={false}
           estimatedItemSize={10}
           ListEmptyComponent={() => (
-            <Text className={"text-[#B3B3B3] px-4 text-xs"}>404</Text>
+            <Text className={"text-[#B3B3B3] text-xs"}>404</Text>
           )}
           ListFooterComponent={() => (
             <View
