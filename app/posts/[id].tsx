@@ -2,7 +2,6 @@ import {
   View,
   Text,
   ScrollView,
-  Image,
   ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,

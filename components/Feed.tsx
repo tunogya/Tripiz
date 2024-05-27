@@ -2,6 +2,7 @@ import {Dimensions, Pressable, Text, View, Image, TouchableOpacity} from "react-
 import {Ionicons} from "@expo/vector-icons";
 import {BlurView} from "expo-blur";
 import React, {FC, useState} from "react";
+import {LinearGradient} from "expo-linear-gradient";
 
 const Feed: FC<{
   item: {
@@ -40,38 +41,40 @@ const Feed: FC<{
         ></Image>
       </View>
       <View className={"absolute w-full h-full justify-between"}>
-        <View className={"w-full flex flex-row items-center p-4 space-x-5"}>
-          <View className={"flex flex-row space-x-3 w-full flex-1"}>
-            <View className={"flex justify-center flex-row items-center space-x-1"}>
-              {
-                item.category === "reflection" && (
-                  <Ionicons name="flash-outline" size={20} color="white" />
-                )
-              }
-              {
-                item.category === "memory" && (
-                  <Ionicons name="sunny-outline" size={20} color="white" />
-                )
-              }
-              {
-                item.category === "dreams" && (
-                  <Ionicons name="moon-outline" size={20} color="white" />
-                )
-              }
-              <Text className={"text-white"}>{item.category}</Text>
+        <LinearGradient colors={["rgba(18,18,18,0.5)", "transparent"]} className={'pb-4'}>
+          <View className={"w-full flex flex-row items-center p-4 space-x-5"}>
+            <View className={"flex flex-row space-x-3 w-full flex-1"}>
+              <View className={"flex justify-center flex-row items-center space-x-1"}>
+                {
+                  item.category === "reflection" && (
+                    <Ionicons name="flash-outline" size={20} color="white" />
+                  )
+                }
+                {
+                  item.category === "memory" && (
+                    <Ionicons name="sunny-outline" size={20} color="white" />
+                  )
+                }
+                {
+                  item.category === "dreams" && (
+                    <Ionicons name="moon-outline" size={20} color="white" />
+                  )
+                }
+                <Text className={"text-white"}>{item.category}</Text>
+              </View>
             </View>
+            <TouchableOpacity
+              hitSlop={1}
+            >
+              <Ionicons name="remove-circle-outline" size={28} color="white"/>
+            </TouchableOpacity>
+            <TouchableOpacity
+              hitSlop={1}
+            >
+              <Ionicons name="add-circle-outline" size={28} color="white"/>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            hitSlop={1}
-          >
-            <Ionicons name="remove-circle-outline" size={28} color="white"/>
-          </TouchableOpacity>
-          <TouchableOpacity
-            hitSlop={1}
-          >
-            <Ionicons name="add-circle-outline" size={28} color="white"/>
-          </TouchableOpacity>
-        </View>
+        </LinearGradient>
         {
           item.entities.media.length > 1 && (
             <View className={"w-full flex flex-row justify-between items-center px-4"}>
@@ -120,11 +123,13 @@ const Feed: FC<{
             </View>
           )
         }
-        <View className={"w-full p-4 space-y-3 h-18"}>
-          <Text className={"text-white font-semibold"} numberOfLines={2}>
-            {item.text}
-          </Text>
-        </View>
+        <LinearGradient colors={["transparent", "rgba(18,18,18,0.5)"]} className={"pt-4"}>
+          <View className={"w-full p-4 space-y-3 h-18"}>
+            <Text className={"text-white font-semibold"} numberOfLines={2}>
+              {item.text}
+            </Text>
+          </View>
+        </LinearGradient>
       </View>
     </View>
   )
