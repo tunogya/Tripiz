@@ -3,6 +3,8 @@ import {Ionicons} from "@expo/vector-icons";
 import {BlurView} from "expo-blur";
 import React, {FC, useState} from "react";
 import {LinearGradient} from "expo-linear-gradient";
+import {useSelector} from "react-redux";
+import {RootState} from "../store/store";
 
 const Feed: FC<{
   item: {
@@ -22,23 +24,44 @@ const Feed: FC<{
 }> = ({item}) => {
   const screenWidth = Dimensions.get('window').width;
   const [index, setIndex] = useState(0);
+  const {address} = useSelector((state: RootState) => state.user);
+  const [added, setAdded] = useState(false);
+  const [removed, setRemoved] = useState(false);
 
   const remove = async () => {
-    const res = await fetch(`https://tripiz.abandon.ai/api/feeds/${item._id}`, {
-      method: 'DELETE',
-      headers: {
-        "Tripiz-User": address,
-        "Tripiz-Signature": "Signature",
-      }
-    })
+    if (added || removed) {
+      return
+    }
+    try {
+      await fetch(`https://tripiz.abandon.ai/api/feeds/${item._id}`, {
+        method: 'DELETE',
+        headers: {
+          "Tripiz-User": address,
+          "Tripiz-Signature": "Signature",
+        }
+      })
+      setRemoved(true);
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const add = async () => {
-    const res = await fetch(`https://tripiz.abandon.ai/api/feeds/${item._id}`, {
-      method: 'POST',
-      "Tripiz-User": address,
-      "Tripiz-Signature": "Signature",
-    })
+    if (added || removed) {
+      return
+    }
+    try {
+      await fetch(`https://tripiz.abandon.ai/api/feeds/${item._id}`, {
+        method: 'POST',
+        headers: {
+          "Tripiz-User": address,
+          "Tripiz-Signature": "Signature",
+        }
+      })
+      setAdded(true);
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -81,18 +104,31 @@ const Feed: FC<{
                 <Text className={"text-white"}>{item.category}</Text>
               </View>
             </View>
-            <TouchableOpacity
-              hitSlop={1}
-              onPress={remove}
-            >
-              <Ionicons name="remove-circle-outline" size={28} color="white"/>
-            </TouchableOpacity>
-            <TouchableOpacity
-              hitSlop={1}
-              onPress={add}
-            >
-              <Ionicons name="add-circle-outline" size={28} color="white"/>
-            </TouchableOpacity>
+            {
+              !added && !removed && (
+                <TouchableOpacity
+                  hitSlop={1}
+                  onPress={remove}
+                >
+                  <Ionicons name="remove-circle-outline" size={28} color="white"/>
+                </TouchableOpacity>
+              )
+            }
+            {
+              !added && !removed && (
+                <TouchableOpacity
+                  hitSlop={1}
+                  onPress={add}
+                >
+                  <Ionicons name="add-circle-outline" size={28} color="white"/>
+                </TouchableOpacity>
+              )
+            }
+            {
+              added && (
+                <Ionicons name="checkmark-circle" size={28} color="green" />
+              )
+            }
           </View>
         </LinearGradient>
         {
