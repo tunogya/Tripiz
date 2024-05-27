@@ -3,7 +3,6 @@ import {
   Text,
   Pressable,
   TextInput,
-  ScrollView,
 } from "react-native";
 import {memo, useEffect, useState} from "react";
 import {router, useLocalSearchParams} from "expo-router";
@@ -12,7 +11,6 @@ import useSWR from "swr";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {increaseVersion} from "../../../reducers/ui/uiSlice";
-import {Ionicons} from "@expo/vector-icons";
 import {t} from "../../../i18n";
 
 const Page = () => {
@@ -25,6 +23,7 @@ const Page = () => {
   })
   const [status, setStatus] = useState("idle");
   const dispatch = useDispatch();
+  const [updated, setUpdated] = useState(false);
 
   const { data } = useSWR(id !== "new" ? `https://tripiz.abandon.ai/api/posts/${id}` : undefined, (url: string) => fetch(url, {
     method: "GET",
@@ -32,13 +31,18 @@ const Page = () => {
       "Tripiz-User": address,
       "Tripiz-Signature": "Signature",
     }
-  }).then((res) => res.json()));
+  }).then((res) => res.json()).then((res) => res.data));
 
   useEffect(() => {
-    if (data) {
-      console.log(data)
+    if (data && !updated) {
+      setUpdated(true);
+      setPost({
+        ...post,
+        text: data.text,
+        entities: data.entities,
+      })
     }
-  }, [data])
+  }, [data, updated])
 
   const save = async () => {
     setStatus("loading");
@@ -97,17 +101,6 @@ const Page = () => {
           </Text>
         </Pressable>
       </View>
-      {/*<View className={"px-4 pb-4"}>*/}
-      {/*  <ScrollView*/}
-      {/*    horizontal*/}
-      {/*    className={"flex flex-row"}*/}
-      {/*    showsHorizontalScrollIndicator={false}*/}
-      {/*  >*/}
-      {/*    <View className={"h-10 w-10 rounded border-2 border-[#B3B3B3] flex items-center justify-center"}>*/}
-      {/*      <Ionicons name="add" size={24} color="white" />*/}
-      {/*    </View>*/}
-      {/*  </ScrollView>*/}
-      {/*</View>*/}
       <View className={"px-4 flex-1"}>
         <TextInput
           multiline

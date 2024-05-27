@@ -28,4 +28,5 @@ export const en = {
   Delete: "Delete",
   Deleting: "Deleting",
   "No content": "No content",
+  Edit: "Edit",
 };

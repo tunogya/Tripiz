@@ -28,4 +28,5 @@ export const zh = {
   Delete: "删除",
   Deleting: "删除中",
   "No content": "没有内容",
+  Edit: "编辑",
 };
