@@ -54,7 +54,7 @@ function Page() {
           estimatedItemSize={10}
           ListEmptyComponent={() => (
             <Text className={"text-[#B3B3B3] text-xs"}>
-              {t("404")}
+              {t("No content")}
             </Text>
           )}
           ListFooterComponent={() => (

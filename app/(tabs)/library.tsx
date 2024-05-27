@@ -147,7 +147,7 @@ const Page = () => {
           ListEmptyComponent={() => (
             !isLoading && (
               <View className={"px-4"}>
-                <Text className={"text-[#B3B3B3] text-xs"}>No {filter} content</Text>
+                <Text className={"text-[#B3B3B3] text-xs"}>{t(`No content`)}</Text>
               </View>
             )
           )}

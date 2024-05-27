@@ -1,5 +1,5 @@
 import {Pressable, View, Text} from "react-native";
-import {memo, useState} from "react";
+import React, {memo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {BlurView} from "expo-blur";
@@ -8,6 +8,7 @@ import {t} from "../i18n";
 import {router} from "expo-router";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import useSWR from "swr";
+import {Ionicons} from "@expo/vector-icons";
 
 const PostMoreModal = () => {
   const insets = useSafeAreaInsets();
@@ -91,7 +92,24 @@ const PostMoreModal = () => {
                 bottom: insets.bottom + 60,
               }}
             >
-              <Text className={"text-[#B3B3B3]"}>{t(data.category)}</Text>
+              <View className={"flex flex-row space-x-1 items-center"}>
+                {
+                  data.category === "reflection" && (
+                    <Ionicons name="flash-outline" size={14} color="#B3B3B3" />
+                  )
+                }
+                {
+                  data.category === "memory" && (
+                    <Ionicons name="sunny-outline" size={14} color="#B3B3B3" />
+                  )
+                }
+                {
+                  data.category === "dreams" && (
+                    <Ionicons name="moon-outline" size={14} color="#B3B3B3" />
+                  )
+                }
+                <Text className={"text-[#B3B3B3]"}>{t(data.category)}</Text>
+              </View>
               <Text className={"text-white text-lg"}>{data.text}</Text>
             </View>
           )

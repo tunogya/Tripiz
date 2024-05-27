@@ -4,7 +4,6 @@ export const en = {
   Search: "Search",
   "Search dot dot dot": "Search...",
   Library: "Library",
-  "404": "404",
   "Shuffle Avatar": "Shuffle Avatar",
   "Copy Private Key": "Copy Private Key",
   "Please don't share Private Key with anyone!": "Please don't share Private Key with anyone!",
@@ -28,4 +27,5 @@ export const en = {
   "New memory": "New memory",
   Delete: "Delete",
   Deleting: "Deleting",
+  "No content": "No content",
 };

@@ -4,7 +4,6 @@ export const zh = {
   Search: "搜索",
   "Search dot dot dot": "搜索...",
   Library: "资料库",
-  "404": "404",
   "Shuffle Avatar": "切换头像",
   "Copy Private Key": "复制私钥",
   "Please don't share Private Key with anyone!": "请不要分享私钥给任何人！",
@@ -28,4 +27,5 @@ export const zh = {
   "New memory": "新的回忆",
   Delete: "删除",
   Deleting: "删除中",
+  "No content": "没有内容",
 };
