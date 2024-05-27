@@ -10,6 +10,7 @@ import Feed from "../../components/Feed";
 import {FlashList} from "@shopify/flash-list";
 import useSWR from "swr";
 import fetch from "node-fetch";
+import {t} from "../../i18n";
 
 function Page() {
   const insets = useSafeAreaInsets();
@@ -52,7 +53,9 @@ function Page() {
           showsVerticalScrollIndicator={false}
           estimatedItemSize={10}
           ListEmptyComponent={() => (
-            <Text className={"text-[#B3B3B3] text-xs"}>404</Text>
+            <Text className={"text-[#B3B3B3] text-xs"}>
+              {t("404")}
+            </Text>
           )}
           ListFooterComponent={() => (
             <View
@@ -61,7 +64,7 @@ function Page() {
               }}
             ></View>
           )}
-          renderItem={({item}) => (
+          renderItem={({item}: any) => (
             <Feed item={item}/>
           )}
         />

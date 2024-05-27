@@ -8,7 +8,6 @@ const CheckUser = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("address: ", address)
     if (!address || !publicKey || !privateKey) {
       dispatch(initialize())
     }

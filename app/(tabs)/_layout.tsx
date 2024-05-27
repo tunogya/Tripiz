@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { Tabs } from "expo-router";
 import { BlurView } from "expo-blur";
 import Svg, { Path } from "react-native-svg";
+import {t} from "../../i18n";
 
 function TabLayout() {
   return (
@@ -33,7 +34,7 @@ function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: t("Home"),
           headerShown: false,
           tabBarIcon: ({ color, size, focused }) =>
             focused ? (
@@ -56,7 +57,7 @@ function TabLayout() {
       <Tabs.Screen
         name="search"
         options={{
-          title: "Search",
+          title: t("Search"),
           headerShown: false,
           tabBarIcon: ({ color, size, focused }) =>
             focused ? (
@@ -77,7 +78,7 @@ function TabLayout() {
       <Tabs.Screen
         name="library"
         options={{
-          title: "Library",
+          title: t("Library"),
           headerShown: false,
           tabBarIcon: ({color, size, focused}) =>
             focused ? (

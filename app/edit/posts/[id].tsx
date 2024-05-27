@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {increaseVersion} from "../../../reducers/ui/uiSlice";
 import {Ionicons} from "@expo/vector-icons";
+import {t} from "../../../i18n";
 
 const Page = () => {
   const { id, category } = useLocalSearchParams();
@@ -111,7 +112,7 @@ const Page = () => {
         <TextInput
           multiline
           numberOfLines={5}
-          placeholder="Content"
+          placeholder={t("Content")}
           placeholderTextColor={"#B3B3B3"}
           className={"text-white py-3 flex-1"}
           value={post.text}

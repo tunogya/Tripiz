@@ -9,6 +9,7 @@ import LibraryShowItem from "../../components/LibraryShowItem";
 import {RootState} from "../../store/store";
 import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
+import {t} from "../../i18n";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -76,7 +77,9 @@ const Page = () => {
           >
             <Avatar />
           </Pressable>
-          <Text className={"text-white font-bold text-2xl"}>Library</Text>
+          <Text className={"text-white font-bold text-2xl"}>
+            {t("Library")}
+          </Text>
         </View>
         <ScrollView
           horizontal
@@ -110,7 +113,7 @@ const Page = () => {
                 <Text
                   className={`${filter === item ? "text-black" : "text-white"} text-[14px]`}
                 >
-                  {item}
+                  {t(item)}
                 </Text>
               </Pressable>
             ) : null,

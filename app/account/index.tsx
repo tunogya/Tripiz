@@ -7,6 +7,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import {BlurView} from "expo-blur";
 import {Ionicons} from "@expo/vector-icons";
 import {randomAvatar} from "../../reducers/ui/uiSlice";
+import {t} from "../../i18n";
 
 const Page = () => {
   const { address, privateKey } = useSelector((state: RootState) => state.user);
@@ -47,7 +48,9 @@ const Page = () => {
             }}
             value={privateKey}
           />
-          <Text className={"text-black text-center pt-2 font-bold"}>Tripiz Private Key</Text>
+          <Text className={"text-black text-center pt-2 font-bold"}>
+            {t("Tripiz Private Key")}
+          </Text>
         </View>
         <View className={"flex flex-row space-x-3"}>
           <TouchableOpacity
@@ -56,7 +59,9 @@ const Page = () => {
               dispatch(randomAvatar());
             }}
           >
-            <Text className={"text-white"}>Shuffle Avatar</Text>
+            <Text className={"text-white"}>
+              {t("Shuffle Avatar")}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
@@ -64,11 +69,15 @@ const Page = () => {
               Clipboard.setString(privateKey);
             }}
           >
-            <Text className={"text-white"}>Copy Private Key</Text>
+            <Text className={"text-white"}>
+              {t("Copy Private Key")}
+            </Text>
           </TouchableOpacity>
         </View>
         <View>
-          <Text className={"text-[#B3B3B3]"}>请不要分享私钥给其他人！</Text>
+          <Text className={"text-[#B3B3B3]"}>
+            {t("Please don't share Private Key with anyone!")}
+          </Text>
         </View>
       </View>
     </View>

@@ -16,6 +16,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 import {Ionicons} from "@expo/vector-icons";
+import {t} from "../../i18n";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -194,7 +195,9 @@ const Page = () => {
           <View className={"w-full border-b mt-6 p-1.5 h-[1px] border-[#2F2F2F]"}></View>
         </View>
         <View className={"py-3 space-y-3"}>
-          <Text className={"text-white font-bold text-2xl px-4"}>评论</Text>
+          <Text className={"text-white font-bold text-2xl px-4"}>
+            {t("Comments")}
+          </Text>
           <FlatList
             scrollEnabled={false}
             data={comments}
@@ -202,7 +205,9 @@ const Page = () => {
             ListEmptyComponent={() => (
               !isCommentLoading && (
                 <View className={"w-full px-4"}>
-                  <Text className={"text-[#B3B3B3] text-xs"}>No comments</Text>
+                  <Text className={"text-[#B3B3B3] text-xs"}>
+                    {t("No comments")}
+                  </Text>
                 </View>
               )
             )}
@@ -229,7 +234,7 @@ const Page = () => {
           <View className={"px-4 h-16 flex justify-center items-center flex-row space-x-3"}>
             <TextInput
               value={comment.text}
-              placeholder={"Talk something..."}
+              placeholder={t("Talk something")}
               placeholderTextColor={"#B3B3B3"}
               autoFocus={false}
               className={"bg-[#2F2F2F] h-10 rounded-full px-4 text-white flex-1"}
@@ -250,10 +255,10 @@ const Page = () => {
                   onPress={newComment}
                 >
                   <Text className={"font-bold"}>
-                    {status === "idle" && "Send"}
-                    {status === "success" && "Success"}
-                    {status === "error" && "Error"}
-                    {status === "loading" && "Sending"}
+                    {status === "idle" && t("Send")}
+                    {status === "success" && t("Success")}
+                    {status === "error" && t("Error")}
+                    {status === "loading" && t("Sending")}
                   </Text>
                 </Pressable>
               )

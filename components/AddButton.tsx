@@ -5,6 +5,7 @@ import { memo, useEffect, useState } from "react";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { useNavigationState } from "@react-navigation/core";
+import {t} from "../i18n";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();
@@ -74,7 +75,7 @@ const AddButton = () => {
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
-                New reflection
+                {t("New reflection")}
               </Text>
               <View className={"bg-[#242424] p-2 rounded-full mx-1"}>
                 <Ionicons name="flash-outline" size={24} color="white" />
@@ -88,7 +89,7 @@ const AddButton = () => {
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
-                New memory
+                {t("New memory")}
               </Text>
               <View className={"bg-[#242424] p-2 rounded-full mx-1"}>
                 <Ionicons name="sunny-outline" size={24} color="white" />
@@ -102,7 +103,7 @@ const AddButton = () => {
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
-                New dream
+                {t("New dream")}
               </Text>
               <View
                 className={

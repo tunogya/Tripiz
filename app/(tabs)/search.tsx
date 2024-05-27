@@ -11,6 +11,7 @@ import LibraryShowItem from "../../components/LibraryShowItem";
 import useSWR from "swr";
 import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
+import {t} from "../../i18n";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -54,7 +55,9 @@ const Page = () => {
           >
             <Avatar />
           </Pressable>
-          <Text className={"text-white font-bold text-2xl"}>Search</Text>
+          <Text className={"text-white font-bold text-2xl"}>
+            {t("Search")}
+          </Text>
         </View>
         <View className={"px-4 pb-4"}>
           <View className={"flex flex-row bg-white rounded-lg h-12 px-3 items-center space-x-3"}>
@@ -65,7 +68,7 @@ const Page = () => {
                 setQuery(text);
               }}
               placeholderTextColor={"#B3B3B3"}
-              placeholder={"Search..."}
+              placeholder={t("Search dot dot dot")}
               className={"flex-1 h-full"}
             />
             {

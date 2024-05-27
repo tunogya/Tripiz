@@ -1,6 +1,7 @@
 import {FC, memo} from "react";
 import { Pressable, Text, View } from "react-native";
 import { Link } from "expo-router";
+import {t} from "../i18n";
 
 const LibraryShowItem: FC<{
   item: {
@@ -18,7 +19,7 @@ const LibraryShowItem: FC<{
           <Text className={"text-white font-bold"} numberOfLines={2}>
             {item.text}
           </Text>
-          {showType && <Text className={"text-[#B3B3B3]"}>{item.category}</Text>}
+          {showType && <Text className={"text-[#B3B3B3]"}>{t(item.category)}</Text>}
         </View>
       </Pressable>
     </Link>
