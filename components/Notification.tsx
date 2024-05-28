@@ -65,7 +65,8 @@ const Notification = () => {
       await fetch(`https://tripiz.abandon.ai/api/users`, {
         method: "POST",
         headers: {
-
+          "Tripiz-User": address,
+          "Tripiz-Signature": "Signature",
         },
         body: JSON.stringify({
           user: address,
