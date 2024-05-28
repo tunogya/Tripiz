@@ -1,9 +1,10 @@
-import { memo, useEffect, useRef } from "react";
+import {memo, useEffect, useRef} from "react";
 import * as Notifications from "expo-notifications";
-import { Platform } from "react-native";
+import {Platform} from "react-native";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
-import { useDispatch } from "react-redux";
+import {useSelector} from "react-redux";
+import {RootState} from "../store/store";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -15,7 +16,7 @@ Notifications.setNotificationHandler({
 
 async function registerForPushNotificationsAsync() {
   if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("default", {
+    await Notifications.setNotificationChannelAsync("default", {
       name: "default",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
@@ -41,13 +42,11 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     try {
-      const pushTokenString = (
+      return (
         await Notifications.getExpoPushTokenAsync({
           projectId,
         })
       ).data;
-      // console.log(pushTokenString);
-      return pushTokenString;
     } catch (e: unknown) {
       return;
     }
@@ -59,12 +58,29 @@ async function registerForPushNotificationsAsync() {
 const Notification = () => {
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef<Notifications.Subscription>();
-  const dispatch = useDispatch();
+  const { address } = useSelector((state: RootState) => state.user);
+
+  const updateExpoPushToken = async (expoPushToken: string) => {
+    try {
+      await fetch(`https://tripiz.abandon.ai/api/users`, {
+        method: "POST",
+        headers: {
+
+        },
+        body: JSON.stringify({
+          user: address,
+          expoPushToken: expoPushToken,
+        })
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
       if (token) {
-        // expo token
+        updateExpoPushToken(token);
       }
     });
 
