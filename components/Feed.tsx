@@ -12,6 +12,7 @@ const Feed: FC<{
     text: string,
     category: string,
     entities: {
+      ai?: boolean,
       media?: {
         id: string,
         url: string,
@@ -33,12 +34,16 @@ const Feed: FC<{
       return
     }
     try {
-      await fetch(`https://tripiz.abandon.ai/api/feeds/${item._id}`, {
-        method: 'DELETE',
+      await fetch(`https://tripiz.abandon.ai/api/posts/${item._id}`, {
+        method: 'PUT',
         headers: {
           "Tripiz-User": address,
           "Tripiz-Signature": "Signature",
-        }
+        },
+        body: JSON.stringify({
+          text: item.text,
+          entities: {},
+        }),
       })
       setRemoved(true);
     } catch (e) {
@@ -51,12 +56,16 @@ const Feed: FC<{
       return
     }
     try {
-      await fetch(`https://tripiz.abandon.ai/api/feeds/${item._id}`, {
-        method: 'POST',
+      await fetch(`https://tripiz.abandon.ai/api/posts/${item._id}`, {
+        method: 'PUT',
         headers: {
           "Tripiz-User": address,
           "Tripiz-Signature": "Signature",
-        }
+        },
+        body: JSON.stringify({
+          text: item.text,
+          entities: (({ ai, ...rest }) => rest)(item.entities),
+        }),
       })
       setAdded(true);
     } catch (e) {
