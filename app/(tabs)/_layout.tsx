@@ -55,7 +55,7 @@ function TabLayout() {
       {/*  }}*/}
       {/*/>*/}
       <Tabs.Screen
-        name="search"
+        name="index"
         options={{
           title: t("Search"),
           headerShown: false,
