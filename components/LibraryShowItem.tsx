@@ -1,5 +1,5 @@
-import {FC, memo} from "react";
-import {Pressable, Text, View} from "react-native";
+import React, {FC, memo} from "react";
+import {Image, Pressable, Text, View} from "react-native";
 import {router} from "expo-router";
 import {t} from "../i18n";
 
@@ -9,6 +9,16 @@ const LibraryShowItem: FC<{
     flagged?: boolean,
     text: string,
     category: string,
+    entities: {
+      ai?: boolean,
+      media?: {
+        id: string,
+        url: string,
+        media_url: string,
+        media_url_https: string,
+        type: string,
+      }[],
+    },
   },
   showType: boolean
 }> = ({item, showType}) => {
@@ -20,7 +30,19 @@ const LibraryShowItem: FC<{
       }}
     >
       <View
-        className={`h-20 w-20 bg-[#FFFFFF12] ${item.category === "reflections" ? "" : (item.category === "dreams" ? "rounded-full" : "rounded-xl")}`}></View>
+        className={`h-20 w-20 bg-[#FFFFFF12] ${item.category === "reflections" ? "" : (item.category === "dreams" ? "rounded-full" : "rounded-xl")}`}>
+        {
+          item.entities?.media && (
+            <Image
+              resizeMode={"cover"}
+              className={"w-full h-full"}
+              source={{
+                uri: item.entities.media[0].media_url_https,
+              }}
+            ></Image>
+          )
+        }
+      </View>
       <View className={"flex justify-center flex-1 space-y-0.5"}>
         <Text className={"text-white font-medium text-lg"} numberOfLines={1}>
           {item.text}

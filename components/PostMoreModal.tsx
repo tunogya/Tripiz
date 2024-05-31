@@ -123,7 +123,7 @@ const PostMoreModal = () => {
                 }
                 <Text className={"text-[#B3B3B3]"}>{t(data.category)}</Text>
               </View>
-              <Text className={"text-white text-lg"}>{data.text}</Text>
+              <Text className={"text-white text-lg"} numberOfLines={4}>{data.text}</Text>
             </View>
           )
         }

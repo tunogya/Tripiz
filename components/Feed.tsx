@@ -94,7 +94,7 @@ const Feed: FC<{
       <View className={"absolute w-full h-full justify-between z-50"}>
         <LinearGradient colors={["rgba(18,18,18,1)", "transparent"]} className={'pb-8'}>
           <View className={"w-full flex flex-row items-center p-4 space-x-3"}>
-            <View className={"flex flex-row space-x-1.5 w-full flex-1"}>
+            <View className={"flex flex-row space-x-1.5 w-full flex-1 py-1"}>
               <View className={"flex justify-center flex-row items-center space-x-1.5"}>
                 {
                   item.category === "reflections" && (
