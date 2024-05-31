@@ -26,7 +26,11 @@ const LibraryShowItem: FC<{
           {item.text}
         </Text>
         <View className={"flex flex-row space-x-1 items-center"}>
-          <Text className={"w-3.5 h-3.5 bg-[#B3B3B3] text-[#121212] text-[12px] text-center"}>E</Text>
+          {
+            item.flagged && (
+              <Text className={"w-3.5 h-3.5 bg-[#B3B3B3] text-[#121212] text-[12px] text-center"}>E</Text>
+            )
+          }
           {showType && <Text className={"text-[#B3B3B3]"}>{t(item.category)}</Text>}
         </View>
       </View>
