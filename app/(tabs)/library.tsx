@@ -1,10 +1,9 @@
-import {View, Text, ScrollView, Pressable, RefreshControl, ActivityIndicator} from "react-native";
+import {View, Text, ScrollView, Pressable, RefreshControl, ActivityIndicator, FlatList} from "react-native";
 import {memo, useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
 import {Ionicons} from "@expo/vector-icons";
 import {useSelector} from "react-redux";
-import {FlashList} from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import {RootState} from "../../store/store";
 import Avatar from "../../components/Avatar";
@@ -122,7 +121,7 @@ const Page = () => {
         </ScrollView>
       </View>
       <View className={"flex-1"}>
-        <FlashList
+        <FlatList
           data={data}
           refreshControl={
             <RefreshControl
@@ -137,7 +136,6 @@ const Page = () => {
           }
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
-          estimatedItemSize={100}
           onEndReached={async () => {
             if (hasNext) {
               await fetchData(filter.toLowerCase(), nextSkip);

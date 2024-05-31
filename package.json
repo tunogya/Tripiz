@@ -1,6 +1,6 @@
 {
   "name": "tripiz.abandon.ai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "expo-router/entry",
   "scripts": {
     "prebuild": "expo prebuild --clean",
@@ -22,7 +22,6 @@
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@reduxjs/toolkit": "^2.1.0",
-    "@shopify/flash-list": "1.6.4",
     "@types/react": "~18.2.79",
     "ethers": "^6.12.1",
     "expo": "^51.0.8",
