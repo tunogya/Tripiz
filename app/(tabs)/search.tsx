@@ -90,7 +90,7 @@ const Page = () => {
           data={data || []}
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
-          estimatedItemSize={10}
+          estimatedItemSize={100}
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>

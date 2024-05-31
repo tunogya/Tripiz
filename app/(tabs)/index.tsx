@@ -51,7 +51,7 @@ function Page() {
         <FlashList
           data={feeds || []}
           showsVerticalScrollIndicator={false}
-          estimatedItemSize={10}
+          estimatedItemSize={100}
           ListEmptyComponent={() => (
             <Text className={"text-[#B3B3B3] text-xs"}>
               {t("No content")}

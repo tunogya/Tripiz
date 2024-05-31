@@ -137,7 +137,7 @@ const Page = () => {
           }
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
-          estimatedItemSize={10}
+          estimatedItemSize={100}
           onEndReached={async () => {
             if (hasNext) {
               await fetchData(filter.toLowerCase(), nextSkip);
