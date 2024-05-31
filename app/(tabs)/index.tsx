@@ -1,13 +1,12 @@
-import {Pressable, Text, View} from "react-native";
+import {FlatList, Pressable, RefreshControl, Text, View} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {memo} from "react";
+import {memo, useMemo} from "react";
 import AddDreamButton from "../../components/AddButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import Feed from "../../components/Feed";
-import {FlashList} from "@shopify/flash-list";
 import useSWR from "swr";
 import fetch from "node-fetch";
 import {t} from "../../i18n";
@@ -48,15 +47,25 @@ function Page() {
         </View>
       </View>
       <View className={"flex-1 px-4"}>
-        <FlashList
+        <FlatList
           data={feeds || []}
           showsVerticalScrollIndicator={false}
-          estimatedItemSize={100}
           ListEmptyComponent={() => (
             <Text className={"text-[#B3B3B3] text-xs"}>
               {t("No content")}
             </Text>
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={isFeedsLoading}
+              onRefresh={mutateFeeds}
+              colors={['#B3B3B3']}
+              progressBackgroundColor="#121212"
+              tintColor="#B3B3B3"
+              title="Loading..."
+              titleColor="#B3B3B3"
+            />
+          }
           ListFooterComponent={() => (
             <View
               style={{

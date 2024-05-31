@@ -16,7 +16,7 @@ export const slice = createSlice({
     },
     updateCurrentPost: (state, action) => {
       state.currentPost = action.payload;
-    }
+    },
   },
 });
 

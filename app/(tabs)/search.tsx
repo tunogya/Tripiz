@@ -1,4 +1,4 @@
-import {View, Text, Pressable, TextInput, ActivityIndicator} from "react-native";
+import {View, Text, Pressable, TextInput, ActivityIndicator, FlatList} from "react-native";
 import {memo, useEffect, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {Ionicons} from "@expo/vector-icons";
@@ -6,7 +6,6 @@ import AddDreamButton from "../../components/AddButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import fetch from "node-fetch";
-import {FlashList} from "@shopify/flash-list";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import useSWR from "swr";
 import Avatar from "../../components/Avatar";
@@ -86,11 +85,10 @@ const Page = () => {
         </View>
       </View>
       <View className={"flex-1"}>
-        <FlashList
+        <FlatList
           data={data || []}
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
-          estimatedItemSize={100}
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>

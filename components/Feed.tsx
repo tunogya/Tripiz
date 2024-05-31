@@ -5,6 +5,7 @@ import React, {FC, memo, useState} from "react";
 import {LinearGradient} from "expo-linear-gradient";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
+import {t} from "../i18n";
 
 const Feed: FC<{
   item: {
@@ -91,17 +92,17 @@ const Feed: FC<{
         ></Image>
       </View>
       <View className={"absolute w-full h-full justify-between z-50"}>
-        <LinearGradient colors={["rgba(18,18,18,0.5)", "transparent"]} className={'pb-4'}>
-          <View className={"w-full flex flex-row items-center p-4 space-x-5"}>
-            <View className={"flex flex-row space-x-3 w-full flex-1"}>
-              <View className={"flex justify-center flex-row items-center space-x-1"}>
+        <LinearGradient colors={["rgba(18,18,18,1)", "transparent"]} className={'pb-8'}>
+          <View className={"w-full flex flex-row items-center p-4 space-x-3"}>
+            <View className={"flex flex-row space-x-1.5 w-full flex-1"}>
+              <View className={"flex justify-center flex-row items-center space-x-1.5"}>
                 {
-                  item.category === "reflection" && (
+                  item.category === "reflections" && (
                     <Ionicons name="flash-outline" size={20} color="white" />
                   )
                 }
                 {
-                  item.category === "memory" && (
+                  item.category === "memories" && (
                     <Ionicons name="sunny-outline" size={20} color="white" />
                   )
                 }
@@ -110,7 +111,7 @@ const Feed: FC<{
                     <Ionicons name="moon-outline" size={20} color="white" />
                   )
                 }
-                <Text className={"text-white"}>{item.category}</Text>
+                <Text className={"text-white font-bold"}>{t(item.category)}</Text>
               </View>
             </View>
             {
@@ -188,7 +189,7 @@ const Feed: FC<{
             </View>
           )
         }
-        <LinearGradient colors={["transparent", "rgba(18,18,18,0.5)"]} className={"pt-4"}>
+        <LinearGradient colors={["transparent", "rgba(18,18,18, 1)"]} className={"pt-8"}>
           <View className={"w-full p-4 space-y-3 h-18"}>
             <Text className={"text-white font-semibold"} numberOfLines={2}>
               {item.text}
