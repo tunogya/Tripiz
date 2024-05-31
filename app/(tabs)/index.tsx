@@ -1,28 +1,41 @@
-import {FlatList, Pressable, RefreshControl, Text, View} from "react-native";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {memo, useMemo} from "react";
+import {View, Text, Pressable, TextInput, ActivityIndicator, FlatList} from "react-native";
+import {memo, useEffect, useState} from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {Ionicons} from "@expo/vector-icons";
 import AddDreamButton from "../../components/AddButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
+import fetch from "node-fetch";
+import LibraryShowItem from "../../components/LibraryShowItem";
+import useSWR from "swr";
 import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
-import Feed from "../../components/Feed";
-import useSWR from "swr";
-import fetch from "node-fetch";
 import {t} from "../../i18n";
 
-function Page() {
+const Page = () => {
   const insets = useSafeAreaInsets();
-
-  const {address} = useSelector((state: RootState) => state.user);
-
-  const { data: feeds, isLoading: isFeedsLoading, mutate: mutateFeeds } = useSWR(`https://tripiz.abandon.ai/api/users/${address}/feeds`, (url) => fetch(url, {
+  const { address } = useSelector((state: RootState) => state.user);
+  const [query, setQuery] = useState("");
+  const [typingTimeout, setTypingTimeout] = useState(null);
+  const { data, isLoading, mutate } = useSWR(query ? `https://tripiz.abandon.ai/api/posts/search/all?query=${query}` : undefined, (url) => fetch(url, {
     method: "GET",
     headers: {
       "Tripiz-User": address,
       "Tripiz-Signature": "Signature",
-    }
+    },
   }).then((res) => res.json()).then((res) => res.data));
+
+  useEffect(() => {
+    if (query.length > 0) {
+      if (typingTimeout) {
+        clearTimeout(typingTimeout);
+      }
+      const timeout = setTimeout(() => {
+        mutate();
+      }, 1000);
+      setTypingTimeout(timeout);
+    }
+  }, [query]);
 
   return (
     <View
@@ -33,54 +46,70 @@ function Page() {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"p-4 flex flex-row items-center space-x-3"}>
+        <View className={"p-4 flex flex-row space-x-3 items-center"}>
           <Pressable
             onPress={() => {
               router.navigate(`account`);
             }}
           >
-            <Avatar/>
+            <Avatar />
           </Pressable>
           <Text className={"text-white font-bold text-2xl"}>
-            {address.slice(0, 7)}...{address.slice(-5)}
+            {t("Search")}
           </Text>
         </View>
-      </View>
-      <View className={"flex-1 px-4"}>
-        <FlatList
-          data={feeds || []}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={() => (
-            <Text className={"text-[#B3B3B3] text-xs"}>
-              {t("No content")}
-            </Text>
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={isFeedsLoading}
-              onRefresh={mutateFeeds}
-              colors={['#B3B3B3']}
-              progressBackgroundColor="#121212"
-              tintColor="#B3B3B3"
-              title="Loading..."
-              titleColor="#B3B3B3"
-            />
-          }
-          ListFooterComponent={() => (
-            <View
-              style={{
-                height: insets.bottom + 80,
+        <View className={"px-4 pb-4"}>
+          <View className={"flex flex-row bg-white rounded-lg h-12 px-3 items-center space-x-3"}>
+            <Ionicons name="search" size={24} color="black" />
+            <TextInput
+              value={query}
+              onChangeText={(text) => {
+                setQuery(text);
               }}
-            ></View>
+              placeholderTextColor={"#B3B3B3"}
+              placeholder={t("Search dot dot dot")}
+              className={"flex-1 h-full"}
+            />
+            {
+              query && (
+                <Pressable
+                  onPress={() => {
+                    setQuery("");
+                  }}
+                >
+                  <Ionicons name="close" size={24} color="black" />
+                </Pressable>
+              )
+            }
+          </View>
+        </View>
+      </View>
+      <View className={"flex-1"}>
+        <FlatList
+          data={data || []}
+          scrollEventThrottle={1000}
+          keyExtractor={(item: any) => item._id}
+          ListHeaderComponent={() => <View className={"h-3"}></View>}
+          ListFooterComponent={() => (
+            <View>
+              { isLoading && (
+                <ActivityIndicator size={"small"} color="#B3B3B3" />
+              ) }
+              <View
+                style={{
+                  height: insets.bottom + 80,
+                }}
+              ></View>
+            </View>
           )}
-          renderItem={({item}: any) => (
-            <Feed item={item}/>
+          renderItem={({item}) => (
+            <LibraryShowItem item={item} showType={true}/>
           )}
         />
       </View>
       <AddDreamButton/>
     </View>
   );
-}
+};
 
 export default memo(Page);
