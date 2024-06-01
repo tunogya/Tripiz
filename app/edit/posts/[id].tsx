@@ -19,7 +19,6 @@ const Page = () => {
   const {address, privateKey} = useSelector((state: RootState) => state.user);
   const [post, setPost] = useState({
     text: "",
-    entities: {},
     category: ensureString(category) || "reflections"
   })
   const [status, setStatus] = useState("idle");
@@ -42,7 +41,6 @@ const Page = () => {
       setPost({
         ...post,
         text: data.text,
-        entities: data.entities,
       })
     }
   }, [data, updated])
@@ -60,7 +58,6 @@ const Page = () => {
           },
           body: JSON.stringify({
             text: post.text,
-            entities: post.entities,
             category: post.category,
             user: address,
             signature: sig,
@@ -75,7 +72,6 @@ const Page = () => {
           },
           body: JSON.stringify({
             text: post.text,
-            entities: post.entities,
             signature: sig,
           })
         })

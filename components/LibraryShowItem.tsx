@@ -1,7 +1,9 @@
-import React, {FC, memo} from "react";
-import {Image, Pressable, Text, View} from "react-native";
+import React, {FC, memo, useEffect, useState} from "react";
+import {Pressable, Text, View} from "react-native";
 import {router} from "expo-router";
 import {t} from "../i18n";
+import {SvgUri} from "react-native-svg";
+import * as Crypto from "expo-crypto";
 
 const LibraryShowItem: FC<{
   item: {
@@ -9,19 +11,23 @@ const LibraryShowItem: FC<{
     flagged?: boolean,
     text: string,
     category: string,
-    entities: {
-      ai?: boolean,
-      media?: {
-        id: string,
-        url: string,
-        media_url: string,
-        media_url_https: string,
-        type: string,
-      }[],
-    },
   },
   showType: boolean
 }> = ({item, showType}) => {
+  const [hash, setHash] = useState("");
+
+  const getHash = async (data: string) => {
+    const _hash = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      data,
+    )
+    setHash(`0x${_hash}`);
+  }
+
+  useEffect(() => {
+    getHash(item.text);
+  }, [item.text]);
+
   return (
     <Pressable
       className={"h-20 flex flex-row my-2 px-4 space-x-3"}
@@ -32,14 +38,12 @@ const LibraryShowItem: FC<{
       <View
         className={`h-20 w-20 bg-[#FFFFFF12]`}>
         {
-          item?.entities?.media?.[0]?.media_url_https && (
-            <Image
-              resizeMode={"cover"}
-              className={"w-full h-full"}
-              source={{
-                uri: item.entities.media[0].media_url_https,
-              }}
-            ></Image>
+          hash && (
+            <SvgUri
+              width="80"
+              height="80"
+              uri={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
+            />
           )
         }
       </View>

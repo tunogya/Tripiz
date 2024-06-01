@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
-  Platform, Keyboard, Pressable, Image, Dimensions
+  Platform, Keyboard, Pressable, Dimensions
 } from "react-native";
 import React, {memo, useEffect, useRef, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -21,6 +21,8 @@ import PostMoreModal from "../../components/PostMoreModal";
 import PostMoreButton from "../../components/PostMoreButton";
 import {SwipeListView} from "react-native-swipe-list-view";
 import CommentHiddenItem from "../../components/CommentHiddenItem";
+import * as Crypto from "expo-crypto";
+import {SvgUri} from "react-native-svg";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -30,12 +32,10 @@ const Page = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [comment, setComment] = useState({
     text: "",
-    entities: {},
     category: "reflections",
     user: address,
   })
   const [status, setStatus] = useState("idle");
-  const [index, setIndex] = useState(0);
   const {version} = useSelector((state: RootState) => state.ui);
 
   const {data, isLoading, mutate} = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url, {
@@ -49,11 +49,27 @@ const Page = () => {
       .then((res) => res.data)
   );
 
+  const [hash, setHash] = useState("");
+
+  const getHash = async (data: string) => {
+    const _hash = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      data,
+    )
+    setHash(`0x${_hash}`);
+  }
+
+  useEffect(() => {
+    if (data && data?.text) {
+      getHash(data?.text);
+    }
+  }, [data?.text]);
+
   const {
     data: comments,
     isLoading: isCommentLoading,
     mutate: mutateComment
-  } = useSWR(`https://tripiz.abandon.ai/api/posts/${id}/replies`, (url: string) => fetch(url, {
+  } = useSWR(id ? `https://tripiz.abandon.ai/api/posts/${id}/replies` : undefined, (url: string) => fetch(url, {
       method: "GET",
       headers: {
         "Tripiz-User": address,
@@ -77,7 +93,6 @@ const Page = () => {
         body: JSON.stringify({
           parent_post_id: id,
           text: comment.text,
-          entities: comment.entities,
           category: comment.category,
           user: comment.user,
         })
@@ -165,72 +180,12 @@ const Page = () => {
         className={"h-full w-full"}
       >
         {
-          data.entities && data.entities?.media?.length > 0 && (
-            <View
-              className={"w-full relative"}
-              style={{
-                width: screenWidth,
-                height: screenWidth * 0.99,
-              }}
-            >
-              <View className={"absolute w-full h-full justify-center items-center z-50"}>
-                {
-                  data.entities?.media?.length > 1 && (
-                    <View className={"w-full flex flex-row justify-between items-center px-4"}>
-                      <Pressable
-                        className={"w-10 h-10 rounded-full relative overflow-hidden"}
-                        onPress={() => {
-                          setIndex((index - 1 + data.entities?.media?.length) % data.entities?.media?.length);
-                        }}
-                      >
-                        <BlurView
-                          intensity={20}
-                          tint={"dark"}
-                          style={{
-                            position: "absolute",
-                            left: 0,
-                            bottom: 0,
-                            right: 0,
-                            top: 0,
-                          }}
-                          className={"items-center justify-center"}
-                        >
-                          <Ionicons name="chevron-back" size={24} color="white"/>
-                        </BlurView>
-                      </Pressable>
-                      <Pressable
-                        className={"w-10 h-10 rounded-full relative overflow-hidden"}
-                        onPress={() => {
-                          setIndex((index + 1 + data.entities?.media?.length) % data.entities?.media?.length);
-                        }}
-                      >
-                        <BlurView
-                          intensity={20}
-                          tint={"dark"}
-                          style={{
-                            position: "absolute",
-                            left: 0,
-                            bottom: 0,
-                            right: 0,
-                            top: 0,
-                          }}
-                          className={"items-center justify-center"}
-                        >
-                          <Ionicons name="chevron-forward" size={24} color="white"/>
-                        </BlurView>
-                      </Pressable>
-                    </View>
-                  )
-                }
-              </View>
-              <Image
-                className={"w-full h-full"}
-                resizeMode={"cover"}
-                source={{
-                  uri: data.entities?.media?.[index]?.media_url_https,
-                }}
-              />
-            </View>
+          hash && screenWidth && (
+            <SvgUri
+              width={`${screenWidth}`}
+              height={`${screenWidth}`}
+              uri={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
+            />
           )
         }
         <View className={"p-4"}>
