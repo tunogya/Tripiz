@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform, Keyboard, Pressable, Image, Dimensions
 } from "react-native";
-import React, {memo, useEffect, useState} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {BlurView} from "expo-blur";
 import {router, useLocalSearchParams} from "expo-router";
@@ -105,6 +105,15 @@ const Page = () => {
     mutateComment();
   }, [version]);
 
+  const scrollViewRef = useRef(null);
+
+  const handleSwipeValueChange = (swipeData) => {
+    const { value } = swipeData;
+    if (scrollViewRef.current) {
+      scrollViewRef.current.setNativeProps({ scrollEnabled: Math.abs(value) <= 10 });
+    }
+  };
+
   if (isLoading) {
     return (
       <View
@@ -148,6 +157,7 @@ const Page = () => {
         <PostMoreButton/>
       </View>
       <ScrollView
+        ref={scrollViewRef}
         className={"h-full w-full"}
       >
         {
@@ -242,8 +252,6 @@ const Page = () => {
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             disableRightSwipe
-            closeOnScroll
-            closeOnRowOpen
             renderItem={({item}: any) => (
               <CommentShowItem item={item}/>
             )}
@@ -259,10 +267,13 @@ const Page = () => {
                 </View>
               )
             )}
+            stopLeftSwipe={0}
+            stopRightSwipe={-100}
             leftOpenValue={0}
             rightOpenValue={-100}
             // @ts-ignore
             keyExtractor={(item, index) => index}
+            onSwipeValueChange={handleSwipeValueChange}
           />
         </View>
         <View style={{paddingBottom: 200 + insets.bottom}}></View>
