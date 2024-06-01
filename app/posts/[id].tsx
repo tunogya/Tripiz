@@ -109,6 +109,9 @@ const Page = () => {
     return (
       <View
         className={"flex flex-1 h-full bg-[#121212] relative"}
+        style={{
+          paddingTop: insets.top + 20,
+        }}
       >
         <ActivityIndicator size={"small"} color="#B3B3B3"/>
       </View>
