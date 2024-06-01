@@ -193,7 +193,7 @@ const Page = () => {
                 }}
                 source={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
                 contentFit="cover"
-                transition={200}
+                transition={500}
               />
             </View>
           )

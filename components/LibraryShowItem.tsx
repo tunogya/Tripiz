@@ -43,7 +43,6 @@ const LibraryShowItem: FC<{
               className={"w-20 h-20"}
               source={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
               contentFit="cover"
-              transition={200}
             />
           )
         }
