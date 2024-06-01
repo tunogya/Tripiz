@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
-  Platform, Keyboard, Pressable, FlatList,
+  Platform, Keyboard, Pressable,
 } from "react-native";
 import React, {memo, useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -20,6 +20,8 @@ import PostMoreModal from "../../components/PostMoreModal";
 import PostMoreButton from "../../components/PostMoreButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ethers} from "ethers";
+import {SwipeListView} from 'react-native-swipe-list-view';
+import CommentHiddenItem from "../../components/CommentHiddenItem";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -33,7 +35,7 @@ const Page = () => {
     user: address,
   })
   const [status, setStatus] = useState("idle");
-  const { version} = useSelector((state: RootState) => state.ui);
+  const {version} = useSelector((state: RootState) => state.ui);
 
   const wallet = new ethers.Wallet(privateKey);
 
@@ -47,10 +49,6 @@ const Page = () => {
       .then((res) => res.json())
       .then((res) => res.data)
   );
-
-  useEffect(() => {
-    mutate();
-  }, [version]);
 
   const {
     data: comments,
@@ -66,6 +64,11 @@ const Page = () => {
       .then((res) => res.json())
       .then((res) => res.data)
   );
+
+  useEffect(() => {
+    mutate();
+    mutateComment();
+  }, [version]);
 
   const newComment = async () => {
     try {
@@ -132,9 +135,9 @@ const Page = () => {
             router.back();
           }}
         >
-          <Ionicons name="chevron-back" size={24} color="white" />
+          <Ionicons name="chevron-back" size={24} color="white"/>
         </Pressable>
-        <PostMoreButton />
+        <PostMoreButton/>
       </View>
       <ScrollView
         className={"h-full w-full"}
@@ -157,10 +160,20 @@ const Page = () => {
           <Text className={"text-white font-medium text-[16px] px-4"}>
             {t("Comments")}
           </Text>
-          <FlatList
-            scrollEnabled={false}
+          <SwipeListView
             data={comments}
+            scrollEnabled={false}
             showsVerticalScrollIndicator={false}
+            disableRightSwipe
+            closeOnScroll
+            closeOnRowOpen
+            renderItem={({item}: any) => (
+              <CommentShowItem item={item}/>
+            )}
+            renderHiddenItem={({item}: any, rowMap) => (
+              <CommentHiddenItem item={item} rowMap={rowMap}/>
+            )}
+            useAnimatedList={true}
             ListEmptyComponent={() => (
               !isCommentLoading && (
                 <View className={"w-full px-4"}>
@@ -170,10 +183,9 @@ const Page = () => {
                 </View>
               )
             )}
+            leftOpenValue={0}
+            rightOpenValue={-100}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}: any) => (
-              <CommentShowItem item={item}/>
-            )}
           />
         </View>
         <View style={{paddingBottom: 200 + insets.bottom}}></View>
@@ -228,7 +240,7 @@ const Page = () => {
           }}></View>
         </BlurView>
       </KeyboardAvoidingView>
-      <PostMoreModal />
+      <PostMoreModal/>
     </View>
   );
 };

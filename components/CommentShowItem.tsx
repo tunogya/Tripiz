@@ -35,7 +35,7 @@ const CommentShowItem: FC<{
 
   return (
     <View
-      className={"px-4 pt-4 rounded-lg flex flex-row space-x-3"}
+      className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}
     >
       {
         number ? (
