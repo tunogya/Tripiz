@@ -22,7 +22,7 @@ import PostMoreButton from "../../components/PostMoreButton";
 import {SwipeListView} from "react-native-swipe-list-view";
 import CommentHiddenItem from "../../components/CommentHiddenItem";
 import * as Crypto from "expo-crypto";
-import {SvgUri} from "react-native-svg";
+import { Image } from 'expo-image';
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -186,11 +186,15 @@ const Page = () => {
               width: screenWidth,
               height: screenWidth,
             }}>
-              <SvgUri
-              width={`${screenWidth}`}
-              height={`${screenWidth}`}
-              uri={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
-            />
+              <Image
+                style={{
+                  width: screenWidth,
+                  height: screenWidth,
+                }}
+                source={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
+                contentFit="cover"
+                transition={200}
+              />
             </View>
           )
         }

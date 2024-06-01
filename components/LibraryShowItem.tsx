@@ -2,8 +2,8 @@ import React, {FC, memo, useEffect, useState} from "react";
 import {Pressable, Text, View} from "react-native";
 import {router} from "expo-router";
 import {t} from "../i18n";
-import {SvgUri} from "react-native-svg";
 import * as Crypto from "expo-crypto";
+import { Image } from 'expo-image';
 
 const LibraryShowItem: FC<{
   item: {
@@ -39,10 +39,11 @@ const LibraryShowItem: FC<{
         className={`h-20 w-20 bg-[#FFFFFF12]`}>
         {
           hash && (
-            <SvgUri
-              width="80"
-              height="80"
-              uri={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
+            <Image
+              className={"w-20 h-20"}
+              source={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
+              contentFit="cover"
+              transition={200}
             />
           )
         }
