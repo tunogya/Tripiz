@@ -1,4 +1,5 @@
-import {Image, Text, View} from "react-native";
+import {Text, View} from "react-native";
+import { Image } from 'expo-image';
 import React, {FC, memo, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
@@ -39,7 +40,7 @@ const CommentShowItem: FC<{
       {
         number ? (
           <Image
-            resizeMode={"stretch"}
+            contentFit={"cover"}
             source={{
               uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(number || 0)?.toString().padStart(4, '0')}.png`
             }}

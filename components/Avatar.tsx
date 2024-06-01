@@ -1,16 +1,16 @@
-import { Image } from "react-native";
-import { FC, memo } from "react"
+import {Image} from 'expo-image';
+import {FC, memo} from "react"
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
 
 const Avatar: FC<{
   classname?: string,
-}> = ({classname }) => {
-  const { avatar } = useSelector((state: RootState) => state.ui);
+}> = ({classname}) => {
+  const {avatar} = useSelector((state: RootState) => state.ui);
 
   return (
     <Image
-      resizeMode={"stretch"}
+      contentFit={"cover"}
       source={{
         uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(avatar || 0)?.toString().padStart(4, '0')}.png`
       }}
