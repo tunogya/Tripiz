@@ -103,9 +103,13 @@ const Page = () => {
   useEffect(() => {
     mutate();
     mutateComment();
+    if (swipeListViewRef.current) {
+      swipeListViewRef.current.closeAllOpenRows();
+    }
   }, [version]);
 
   const scrollViewRef = useRef(null);
+  const swipeListViewRef = useRef(null);
 
   const handleSwipeValueChange = (swipeData) => {
     const { value } = swipeData;
@@ -248,10 +252,12 @@ const Page = () => {
             {t("Comments")}
           </Text>
           <SwipeListView
+            ref={swipeListViewRef}
             data={comments}
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             disableRightSwipe
+            useAnimatedList={true}
             renderItem={({item}: any) => (
               <CommentShowItem item={item}/>
             )}

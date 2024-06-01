@@ -46,7 +46,7 @@ const CommentHiddenItem: FC<{
         onPress={deleteComment}
       >
         <Text className={"w-[100px] text-center font-bold text-white"}>
-          { status === "loading" && "..." }
+          { status === "loading" && "Waiting" }
           { status === "idle" && "Delete" }
           { status === "success" && "Success" }
           { status === "error" && "Error" }
