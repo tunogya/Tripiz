@@ -120,7 +120,7 @@ const Page = () => {
           numberOfLines={5}
           placeholder={t("Content")}
           placeholderTextColor={"#B3B3B3"}
-          className={"text-white py-3 flex-1"}
+          className={"text-white text-[16px] py-3 flex-1"}
           value={post.text}
           onChangeText={(text) => {
             setPost({
