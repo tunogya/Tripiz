@@ -12,7 +12,6 @@ import Notification from "../components/Notification";
 import CheckUser from "../components/CheckUser";
 import {SWRConfig} from "swr";
 import {AppState} from "react-native";
-import PostMoreButton from "../components/PostMoreButton";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -98,14 +97,13 @@ export default function RootLayout() {
               <Stack.Screen
                 name="posts/[id]"
                 options={{
-                  headerShown: true,
+                  headerShown: false,
                   title: "",
                   headerBackTitleVisible: false,
                   headerTintColor: "white",
                   headerStyle: {
                     backgroundColor: "#121212",
                   },
-                  headerRight: () => <PostMoreButton />
                 }}
               />
               <Stack.Screen

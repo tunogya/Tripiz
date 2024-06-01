@@ -10,13 +10,15 @@ import {
 import React, {memo, useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {BlurView} from "expo-blur";
-import {useLocalSearchParams} from "expo-router";
+import {router, useLocalSearchParams} from "expo-router";
 import useSWR from "swr";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 import {t} from "../../i18n";
 import PostMoreModal from "../../components/PostMoreModal";
+import PostMoreButton from "../../components/PostMoreButton";
+import {Ionicons} from "@expo/vector-icons";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -111,7 +113,21 @@ const Page = () => {
   return (
     <View
       className={"flex flex-1 h-full bg-[#121212] relative"}
+      style={{
+        paddingTop: insets.top + 20,
+      }}
     >
+      <View className={"flex flex-row h-12 items-center justify-between px-4"}>
+        <Pressable
+          hitSlop={4}
+          onPress={() => {
+            router.back();
+          }}
+        >
+          <Ionicons name="chevron-back" size={24} color="white" />
+        </Pressable>
+        <PostMoreButton />
+      </View>
       <ScrollView
         className={"h-full w-full"}
       >
