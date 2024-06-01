@@ -5,6 +5,7 @@ import * as Device from "expo-device";
 import Constants from "expo-constants";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
+import {ethers} from "ethers";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -58,19 +59,22 @@ async function registerForPushNotificationsAsync() {
 const Notification = () => {
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef<Notifications.Subscription>();
-  const { address } = useSelector((state: RootState) => state.user);
+  const { address, privateKey } = useSelector((state: RootState) => state.user);
+  const wallet = new ethers.Wallet(privateKey);
 
   const updateExpoPushToken = async (expoPushToken: string) => {
     try {
+      const sig = wallet.signMessageSync(expoPushToken);
       await fetch(`https://tripiz.abandon.ai/api/users`, {
         method: "POST",
         headers: {
           "Tripiz-User": address,
-          "Tripiz-Signature": "Signature",
+          "Tripiz-Signature": sig,
         },
         body: JSON.stringify({
           user: address,
           expoPushToken: expoPushToken,
+          signature: sig,
         })
       })
     } catch (e) {

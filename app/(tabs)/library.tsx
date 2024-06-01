@@ -9,6 +9,7 @@ import {RootState} from "../../store/store";
 import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import {t} from "../../i18n";
+import {ethers} from "ethers";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -16,12 +17,14 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const {address} = useSelector((state: RootState) => state.user);
+  const {address, privateKey} = useSelector((state: RootState) => state.user);
   const { version} = useSelector((state: RootState) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [nextSkip, setNextSkip] = useState<number | null>(0);
   const [hasNext, setHasNext] = useState(true);
+
+  const wallet = new ethers.Wallet(privateKey);
 
   const fetchData = async (category: string, skip: number) => {
     setIsLoading(true);
@@ -29,7 +32,7 @@ const Page = () => {
       method: "GET",
       headers: {
         "Tripiz-User": address,
-        "Tripiz-Signature": "Signature",
+        "Tripiz-Signature": wallet.signMessageSync(address),
       }
     })
       .then((res) => res.json());

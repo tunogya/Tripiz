@@ -1,6 +1,6 @@
 import {View, Text, Pressable, TextInput, ActivityIndicator, FlatList} from "react-native";
 import {memo, useEffect, useState} from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Ionicons} from "@expo/vector-icons";
 import AddDreamButton from "../../components/AddButton";
 import {useSelector} from "react-redux";
@@ -11,17 +11,23 @@ import useSWR from "swr";
 import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import {t} from "../../i18n";
+import {ethers} from "ethers";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
-  const { address } = useSelector((state: RootState) => state.user);
+  const {address, privateKey} = useSelector((state: RootState) => state.user);
   const [query, setQuery] = useState("");
   const [typingTimeout, setTypingTimeout] = useState(null);
-  const { data, isLoading, mutate } = useSWR(query ? `https://tripiz.abandon.ai/api/posts/search/all?query=${query}` : undefined, (url) => fetch(url, {
+  const wallet = new ethers.Wallet(privateKey);
+  const {
+    data,
+    isLoading,
+    mutate
+  } = useSWR(query ? `https://tripiz.abandon.ai/api/posts/search/all?query=${query}` : undefined, (url) => fetch(url, {
     method: "GET",
     headers: {
       "Tripiz-User": address,
-      "Tripiz-Signature": "Signature",
+      "Tripiz-Signature": wallet.signMessageSync(address),
     },
   }).then((res) => res.json()).then((res) => res.data));
 
@@ -52,7 +58,7 @@ const Page = () => {
               router.navigate(`account`);
             }}
           >
-            <Avatar />
+            <Avatar/>
           </Pressable>
           <Text className={"text-white font-bold text-2xl"}>
             {t("Search")}
@@ -60,7 +66,7 @@ const Page = () => {
         </View>
         <View className={"px-4 pb-4"}>
           <View className={"flex flex-row bg-white rounded-lg h-12 px-3 items-center space-x-3"}>
-            <Ionicons name="search" size={24} color="black" />
+            <Ionicons name="search" size={24} color="black"/>
             <TextInput
               value={query}
               onChangeText={(text) => {
@@ -77,7 +83,7 @@ const Page = () => {
                     setQuery("");
                   }}
                 >
-                  <Ionicons name="close" size={24} color="black" />
+                  <Ionicons name="close" size={24} color="black"/>
                 </Pressable>
               )
             }
@@ -92,9 +98,9 @@ const Page = () => {
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>
-              { isLoading && (
-                <ActivityIndicator size={"small"} color="#B3B3B3" />
-              ) }
+              {isLoading && (
+                <ActivityIndicator size={"small"} color="#B3B3B3"/>
+              )}
               <View
                 style={{
                   height: insets.bottom + 80,

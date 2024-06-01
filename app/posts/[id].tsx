@@ -19,11 +19,12 @@ import {t} from "../../i18n";
 import PostMoreModal from "../../components/PostMoreModal";
 import PostMoreButton from "../../components/PostMoreButton";
 import {Ionicons} from "@expo/vector-icons";
+import {ethers} from "ethers";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const {address} = useSelector((state: RootState) => state.user);
+  const {address, privateKey} = useSelector((state: RootState) => state.user);
   const [isFocused, setIsFocused] = useState(false);
   const [comment, setComment] = useState({
     text: "",
@@ -34,11 +35,13 @@ const Page = () => {
   const [status, setStatus] = useState("idle");
   const { version} = useSelector((state: RootState) => state.ui);
 
+  const wallet = new ethers.Wallet(privateKey);
+
   const {data, isLoading, mutate} = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
       headers: {
         "Tripiz-User": address,
-        "Tripiz-Signature": "Signature",
+        "Tripiz-Signature": wallet.signMessageSync(address),
       }
     })
       .then((res) => res.json())
@@ -57,7 +60,7 @@ const Page = () => {
       method: "GET",
       headers: {
         "Tripiz-User": address,
-        "Tripiz-Signature": "Signature",
+        "Tripiz-Signature": wallet.signMessageSync(address),
       }
     })
       .then((res) => res.json())
@@ -67,12 +70,13 @@ const Page = () => {
   const newComment = async () => {
     try {
       setStatus("loading");
+      const sig = wallet.signMessageSync(comment.text);
       await fetch(`https://tripiz.abandon.ai/api/posts`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
           "Tripiz-User": address,
-          "Tripiz-Signature": "Signature",
+          "Tripiz-Signature": sig,
         },
         body: JSON.stringify({
           parent_post_id: id,
@@ -80,6 +84,7 @@ const Page = () => {
           entities: comment.entities,
           category: comment.category,
           user: comment.user,
+          signature: sig,
         })
       }).then((res) => res.json());
       setComment({

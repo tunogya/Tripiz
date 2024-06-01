@@ -12,11 +12,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {increaseVersion} from "../../../reducers/ui/uiSlice";
 import {t} from "../../../i18n";
+import {ethers} from "ethers";
 
 const Page = () => {
-  const { id, category } = useLocalSearchParams();
-  const { address, publicKey, privateKey } = useSelector((state: RootState) => state.user);
-  const [ post, setPost ] = useState({
+  const {id, category} = useLocalSearchParams();
+  const {address, privateKey} = useSelector((state: RootState) => state.user);
+  const [post, setPost] = useState({
     text: "",
     entities: {},
     category: ensureString(category) || "reflections"
@@ -25,11 +26,13 @@ const Page = () => {
   const dispatch = useDispatch();
   const [updated, setUpdated] = useState(false);
 
-  const { data } = useSWR(id !== "new" ? `https://tripiz.abandon.ai/api/posts/${id}` : undefined, (url: string) => fetch(url, {
+  const wallet = new ethers.Wallet(privateKey);
+
+  const {data} = useSWR(id !== "new" ? `https://tripiz.abandon.ai/api/posts/${id}` : undefined, (url: string) => fetch(url, {
     method: "GET",
     headers: {
       "Tripiz-User": address,
-      "Tripiz-Signature": "Signature",
+      "Tripiz-Signature": wallet.signMessageSync(address),
     }
   }).then((res) => res.json()).then((res) => res.data));
 
@@ -46,23 +49,34 @@ const Page = () => {
 
   const save = async () => {
     setStatus("loading");
+    const sig = wallet.signMessageSync(post.text);
     try {
       if (ensureString(id) === "new") {
         await fetch(`https://tripiz.abandon.ai/api/posts/`, {
           method: "POST",
+          headers: {
+            "Tripiz-User": address,
+            "Tripiz-Signature": sig,
+          },
           body: JSON.stringify({
             text: post.text,
             entities: post.entities,
             category: post.category,
             user: address,
+            signature: sig,
           })
         })
       } else {
         await fetch(`https://tripiz.abandon.ai/api/posts/${ensureString(id)}`, {
           method: "PUT",
+          headers: {
+            "Tripiz-User": address,
+            "Tripiz-Signature": sig,
+          },
           body: JSON.stringify({
             text: post.text,
             entities: post.entities,
+            signature: sig,
           })
         })
       }
@@ -93,10 +107,10 @@ const Page = () => {
           onPress={save}
         >
           <Text className={"font-bold text-white"}>
-            { status === "idle" && "Post" }
-            { status === "error" && "Error" }
-            { status === "success" && "Success" }
-            { status === "loading" && "Waiting" }
+            {status === "idle" && "Post"}
+            {status === "error" && "Error"}
+            {status === "success" && "Success"}
+            {status === "loading" && "Waiting"}
           </Text>
         </Pressable>
       </View>
