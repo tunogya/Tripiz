@@ -49,7 +49,7 @@ const Page = () => {
       .then((res) => res.data)
   );
 
-  const [hash, setHash] = useState("");
+  const [hash, setHash] = useState<string | undefined>(undefined);
 
   const getHash = async (data: string) => {
     const _hash = await Crypto.digestStringAsync(
@@ -63,7 +63,7 @@ const Page = () => {
     if (data && data?.text) {
       getHash(data?.text);
     }
-  }, [data?.text]);
+  }, [data]);
 
   const {
     data: comments,
@@ -180,12 +180,18 @@ const Page = () => {
         className={"h-full w-full"}
       >
         {
-          hash && screenWidth && (
-            <SvgUri
+          screenWidth && hash && (
+            <View className={"bg-[#FFFFFF12]"}
+              style={{
+              width: screenWidth,
+              height: screenWidth,
+            }}>
+              <SvgUri
               width={`${screenWidth}`}
               height={`${screenWidth}`}
               uri={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
             />
+            </View>
           )
         }
         <View className={"p-4"}>

@@ -26,7 +26,7 @@ const LibraryShowItem: FC<{
 
   useEffect(() => {
     getHash(item.text);
-  }, [item.text]);
+  }, []);
 
   return (
     <Pressable
