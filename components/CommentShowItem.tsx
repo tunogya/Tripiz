@@ -24,7 +24,7 @@ const CommentShowItem: FC<{
   const { address } = useSelector((state: RootState) => state.user);
 
   const fetchNumber = async (address: string) => {
-    const data = await mapAddressToNumber(address);
+    const data = await mapAddressToNumber(item.user);
     setNumber(data.toString().padStart(4, '0'));
   };
 
@@ -36,13 +36,19 @@ const CommentShowItem: FC<{
     <View
       className={"px-4 pt-4 rounded-lg flex flex-row space-x-3"}
     >
-      <Image
-        resizeMode={"stretch"}
-        source={{
-          uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(0)?.toString().padStart(4, '0')}.png`
-        }}
-        className={"w-10 h-10 rounded-full bg-gray-400"}
-      />
+      {
+        number ? (
+          <Image
+            resizeMode={"stretch"}
+            source={{
+              uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(number || 0)?.toString().padStart(4, '0')}.png`
+            }}
+            className={"w-10 h-10 rounded-full bg-gray-400"}
+          />
+          ) : (
+          <View className={"w-10 h-10 rounded-full bg-gray-400"}></View>
+        )
+      }
       <View className={"space-y-1.5 pb-4 flex-1 border-b border-[#FFFFFF12]"}>
         <View className={"flex flex-row justify-between items-end"}>
           <Text className={"text-[#B3B3B3] text-[16px]"}>{ item.user === address ? "Me" : item.user}</Text>
