@@ -4,15 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {ethers} from "ethers";
 import {increaseVersion} from "../reducers/ui/uiSlice";
-import {RowMap} from "react-native-swipe-list-view";
 
 const CommentHiddenItem: FC<{
-  item: {
-    _id: string,
-    key: string,
-  },
-  rowMap: RowMap<unknown>,
-}> = ({item, rowMap}) => {
+  rowData: any,
+}> = ({rowData}) => {
   const [status, setStatue] = useState("idle");
   const {address, privateKey} = useSelector((state: RootState) => state.user);
   const wallet = new ethers.Wallet(privateKey);
@@ -21,7 +16,7 @@ const CommentHiddenItem: FC<{
   const deleteComment = async () => {
     try {
       setStatue("loading");
-      await fetch(`https://tripiz.abandon.ai/api/posts/${item._id}`, {
+      await fetch(`https://tripiz.abandon.ai/api/posts/${rowData.item._id}`, {
         method: "DELETE",
         headers: {
           "Tripiz-User": address,
@@ -29,8 +24,10 @@ const CommentHiddenItem: FC<{
         }
       })
       dispatch(increaseVersion());
-      rowMap[item.key].closeRow()
       setStatue("success");
+      setTimeout(() => {
+        setStatue("idle");
+      }, 1_000)
     } catch (e) {
       setStatue("error");
       setTimeout(() => {
@@ -49,7 +46,10 @@ const CommentHiddenItem: FC<{
         onPress={deleteComment}
       >
         <Text className={"w-[100px] text-center font-bold text-white"}>
-          Delete
+          { status === "loading" && "..." }
+          { status === "idle" && "Delete" }
+          { status === "success" && "Success" }
+          { status === "error" && "Error" }
         </Text>
       </Pressable>
     </View>

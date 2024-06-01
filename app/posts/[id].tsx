@@ -49,10 +49,6 @@ const Page = () => {
       .then((res) => res.data)
   );
 
-  useEffect(() => {
-    mutate();
-  }, [version]);
-
   const {
     data: comments,
     isLoading: isCommentLoading,
@@ -103,6 +99,11 @@ const Page = () => {
       }, 3_000)
     }
   }
+
+  useEffect(() => {
+    mutate();
+    mutateComment();
+  }, [version]);
 
   if (isLoading) {
     return (
@@ -246,10 +247,9 @@ const Page = () => {
             renderItem={({item}: any) => (
               <CommentShowItem item={item}/>
             )}
-            renderHiddenItem={({item}: any, rowMap) => (
-              <CommentHiddenItem item={item} rowMap={rowMap}/>
+            renderHiddenItem={(rowData, rowMap) => (
+              <CommentHiddenItem rowData={rowData}/>
             )}
-            useAnimatedList={true}
             ListEmptyComponent={() => (
               !isCommentLoading && (
                 <View className={"w-full px-4"}>
@@ -261,7 +261,8 @@ const Page = () => {
             )}
             leftOpenValue={0}
             rightOpenValue={-100}
-            keyExtractor={(item, index) => index.toString()}
+            // @ts-ignore
+            keyExtractor={(item, index) => index}
           />
         </View>
         <View style={{paddingBottom: 200 + insets.bottom}}></View>
