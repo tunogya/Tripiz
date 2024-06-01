@@ -1,5 +1,5 @@
 import React, {FC, memo} from "react";
-import {Pressable, Text, View} from "react-native";
+import {Image, Pressable, Text, View} from "react-native";
 import {router} from "expo-router";
 import {t} from "../i18n";
 
@@ -30,7 +30,18 @@ const LibraryShowItem: FC<{
       }}
     >
       <View
-        className={`h-20 w-20 bg-[#FFFFFF12] ${item.category === "reflections" ? "" : (item.category === "dreams" ? "rounded-full" : "rounded-xl")}`}>
+        className={`h-20 w-20 bg-[#FFFFFF12]`}>
+        {
+          item?.entities?.media?.[0]?.media_url_https && (
+            <Image
+              resizeMode={"cover"}
+              className={"w-full h-full"}
+              source={{
+                uri: item.entities.media[0].media_url_https,
+              }}
+            ></Image>
+          )
+        }
       </View>
       <View className={"flex justify-center flex-1 space-y-0.5"}>
         <Text className={"text-white font-medium text-lg"} numberOfLines={1}>

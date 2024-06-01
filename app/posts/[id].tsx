@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
-  Platform, Keyboard, Pressable,
+  Platform, Keyboard, Pressable, Image, Dimensions
 } from "react-native";
 import React, {memo, useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -15,18 +15,18 @@ import useSWR from "swr";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
+import {Ionicons} from "@expo/vector-icons";
 import {t} from "../../i18n";
 import PostMoreModal from "../../components/PostMoreModal";
 import PostMoreButton from "../../components/PostMoreButton";
-import {Ionicons} from "@expo/vector-icons";
-import {ethers} from "ethers";
-import {SwipeListView} from 'react-native-swipe-list-view';
+import {SwipeListView} from "react-native-swipe-list-view";
 import CommentHiddenItem from "../../components/CommentHiddenItem";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
-  const {address, privateKey} = useSelector((state: RootState) => state.user);
+  const screenWidth = Dimensions.get("window").width;
+  const {address} = useSelector((state: RootState) => state.user);
   const [isFocused, setIsFocused] = useState(false);
   const [comment, setComment] = useState({
     text: "",
@@ -35,20 +35,23 @@ const Page = () => {
     user: address,
   })
   const [status, setStatus] = useState("idle");
+  const [index, setIndex] = useState(0);
   const {version} = useSelector((state: RootState) => state.ui);
-
-  const wallet = new ethers.Wallet(privateKey);
 
   const {data, isLoading, mutate} = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
       headers: {
         "Tripiz-User": address,
-        "Tripiz-Signature": wallet.signMessageSync(address),
+        "Tripiz-Signature": "Signature",
       }
     })
       .then((res) => res.json())
       .then((res) => res.data)
   );
+
+  useEffect(() => {
+    mutate();
+  }, [version]);
 
   const {
     data: comments,
@@ -58,28 +61,22 @@ const Page = () => {
       method: "GET",
       headers: {
         "Tripiz-User": address,
-        "Tripiz-Signature": wallet.signMessageSync(address),
+        "Tripiz-Signature": "Signature",
       }
     })
       .then((res) => res.json())
       .then((res) => res.data)
   );
 
-  useEffect(() => {
-    mutate();
-    mutateComment();
-  }, [version]);
-
   const newComment = async () => {
     try {
       setStatus("loading");
-      const sig = wallet.signMessageSync(comment.text);
       await fetch(`https://tripiz.abandon.ai/api/posts`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
           "Tripiz-User": address,
-          "Tripiz-Signature": sig,
+          "Tripiz-Signature": "Signature",
         },
         body: JSON.stringify({
           parent_post_id: id,
@@ -87,7 +84,6 @@ const Page = () => {
           entities: comment.entities,
           category: comment.category,
           user: comment.user,
-          signature: sig,
         })
       }).then((res) => res.json());
       setComment({
@@ -116,6 +112,17 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
+        <View className={"flex flex-row h-12 items-center justify-between px-4"}>
+          <Pressable
+            hitSlop={4}
+            onPress={() => {
+              router.back();
+            }}
+          >
+            <Ionicons name="chevron-back" size={24} color="white"/>
+          </Pressable>
+          <PostMoreButton/>
+        </View>
         <ActivityIndicator size={"small"} color="#B3B3B3"/>
       </View>
     )
@@ -142,6 +149,75 @@ const Page = () => {
       <ScrollView
         className={"h-full w-full"}
       >
+        {
+          data.entities && data.entities?.media?.length > 0 && (
+            <View
+              className={"w-full relative"}
+              style={{
+                width: screenWidth,
+                height: screenWidth * 0.99,
+              }}
+            >
+              <View className={"absolute w-full h-full justify-center items-center z-50"}>
+                {
+                  data.entities?.media?.length > 1 && (
+                    <View className={"w-full flex flex-row justify-between items-center px-4"}>
+                      <Pressable
+                        className={"w-10 h-10 rounded-full relative overflow-hidden"}
+                        onPress={() => {
+                          setIndex((index - 1 + data.entities?.media?.length) % data.entities?.media?.length);
+                        }}
+                      >
+                        <BlurView
+                          intensity={20}
+                          tint={"dark"}
+                          style={{
+                            position: "absolute",
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            top: 0,
+                          }}
+                          className={"items-center justify-center"}
+                        >
+                          <Ionicons name="chevron-back" size={24} color="white"/>
+                        </BlurView>
+                      </Pressable>
+                      <Pressable
+                        className={"w-10 h-10 rounded-full relative overflow-hidden"}
+                        onPress={() => {
+                          setIndex((index + 1 + data.entities?.media?.length) % data.entities?.media?.length);
+                        }}
+                      >
+                        <BlurView
+                          intensity={20}
+                          tint={"dark"}
+                          style={{
+                            position: "absolute",
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            top: 0,
+                          }}
+                          className={"items-center justify-center"}
+                        >
+                          <Ionicons name="chevron-forward" size={24} color="white"/>
+                        </BlurView>
+                      </Pressable>
+                    </View>
+                  )
+                }
+              </View>
+              <Image
+                className={"w-full h-full"}
+                resizeMode={"cover"}
+                source={{
+                  uri: data.entities?.media?.[index]?.media_url_https,
+                }}
+              />
+            </View>
+          )
+        }
         <View className={"p-4"}>
           <Text
             className={"text-white font-medium text-[16px] leading-5"}
