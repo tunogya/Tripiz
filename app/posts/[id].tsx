@@ -133,19 +133,20 @@ const Page = () => {
       >
         <View className={"p-4"}>
           <Text
-            className={"text-white font-medium leading-5"}
+            className={"text-white font-medium text-[16px] leading-5"}
           >
             {data.text}
           </Text>
-          <Text className={"text-[#B3B3B3] text-xs font-medium mt-3"}>
+          <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
             {new Date(data.updatedAt).toLocaleDateString().replaceAll('/', '-')}
           </Text>
         </View>
         <View className={"px-4"}>
-          <View className={"w-full border-b mt-6 p-1.5 h-[1px] border-[#2F2F2F]"}></View>
+          <View className={"w-full border-b h-[1px] border-[#FFFFFF12]"}>
+          </View>
         </View>
         <View className={"py-3 space-y-3"}>
-          <Text className={"text-white font-bold text-2xl px-4"}>
+          <Text className={"text-white font-medium text-[16px] px-4"}>
             {t("Comments")}
           </Text>
           <FlatList
