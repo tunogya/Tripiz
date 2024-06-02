@@ -5,7 +5,6 @@ import {Ionicons} from "@expo/vector-icons";
 import AddDreamButton from "../../components/AddButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import fetch from "node-fetch";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import useSWR from "swr";
 import Avatar from "../../components/Avatar";
@@ -74,7 +73,7 @@ const Page = () => {
               }}
               placeholderTextColor={"#B3B3B3"}
               placeholder={t("Search dot dot dot")}
-              className={"flex-1 h-full"}
+              className={"flex-1 h-full text-[16px]"}
             />
             {
               query && (

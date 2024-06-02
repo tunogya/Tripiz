@@ -267,7 +267,7 @@ const Page = () => {
               placeholder={t("Talk something")}
               placeholderTextColor={"#B3B3B3"}
               autoFocus={false}
-              className={"bg-[#2F2F2F] h-10 rounded-full px-4 text-white flex-1"}
+              className={"bg-[#2F2F2F] h-10 rounded-full px-4 text-white flex-1 text-[16px]"}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               onChangeText={(text) => {
