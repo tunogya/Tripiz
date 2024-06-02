@@ -8,7 +8,7 @@ import { Image } from 'expo-image';
 const LibraryShowItem: FC<{
   item: {
     _id: string,
-    flagged?: boolean,
+    possibly_sensitive?: boolean,
     text: string,
     category: string,
   },
@@ -53,7 +53,7 @@ const LibraryShowItem: FC<{
         </Text>
         <View className={"flex flex-row space-x-1 items-center"}>
           {
-            item.flagged && (
+            item.possibly_sensitive && (
               <Text className={"w-3.5 h-3.5 bg-[#B3B3B3] text-[#121212] text-[12px] text-center"}>E</Text>
             )
           }
