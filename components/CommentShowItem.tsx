@@ -18,7 +18,7 @@ const CommentShowItem: FC<{
   item: {
     user: string,
     text: string,
-    updatedAt: string,
+    updated_at: string,
   }
 }> = ({item}) => {
   const [number, setNumber] = useState<string | undefined>(undefined);
@@ -53,7 +53,7 @@ const CommentShowItem: FC<{
       <View className={"space-y-1.5 pb-4 flex-1 border-b border-[#FFFFFF12]"}>
         <View className={"flex flex-row justify-between items-end"}>
           <Text className={"text-[#B3B3B3] text-[16px]"}>{ item.user === address ? "Me" : item.user}</Text>
-          <Text className={"text-[#B3B3B3] text-xs"}>{new Date(item.updatedAt).toLocaleDateString().replaceAll('/', '-')}</Text>
+          <Text className={"text-[#B3B3B3] text-xs"}>{new Date(item.updated_at).toLocaleDateString().replaceAll('/', '-')}</Text>
         </View>
         <View className={"flex flex-row items-end flex-wrap"}>
           <Text className={"text-white text-[16px] leading-5"}>{item.text}</Text>

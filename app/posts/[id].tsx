@@ -205,7 +205,7 @@ const Page = () => {
             {data.text}
           </Text>
           <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
-            {new Date(data.updatedAt).toLocaleDateString().replaceAll('/', '-')}
+            {new Date(data.updated_at).toLocaleDateString().replaceAll('/', '-')}
           </Text>
         </View>
         <View className={"px-4"}>
