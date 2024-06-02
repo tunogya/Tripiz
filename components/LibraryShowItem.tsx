@@ -36,7 +36,7 @@ const LibraryShowItem: FC<{
       }}
     >
       <View
-        className={`h-20 w-20 bg-[#FFFFFF12]`}>
+        className={`h-20 w-20 bg-[#FFFFFF12] ${item.category === "reflections" ? "" : (item.category === "dreams" ? "rounded-full" : "rounded-xl")} overflow-hidden`}>
         {
           hash && (
             <Image
