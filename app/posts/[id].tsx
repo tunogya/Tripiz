@@ -138,7 +138,7 @@ const Page = () => {
       <View
         className={"flex flex-1 h-full bg-[#121212] relative"}
         style={{
-          paddingTop: insets.top + 20,
+          paddingTop: insets.top,
         }}
       >
         <View className={"flex flex-row h-12 items-center justify-between px-4"}>
@@ -161,7 +161,7 @@ const Page = () => {
     <View
       className={"flex flex-1 h-full bg-[#121212] relative"}
       style={{
-        paddingTop: insets.top + 20,
+        paddingTop: insets.top,
       }}
     >
       <View className={"flex flex-row h-12 items-center justify-between px-4"}>
