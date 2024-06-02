@@ -251,7 +251,10 @@ const Page = () => {
         <View style={{paddingBottom: 200 + insets.bottom}}></View>
       </ScrollView>
       <KeyboardAvoidingView
-        className={"absolute left-0 bottom-0 w-full z-50"}
+        className={"absolute left-0 w-full z-50"}
+        style={{
+          bottom: insets.bottom,
+        }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <BlurView
@@ -294,9 +297,6 @@ const Page = () => {
               )
             }
           </View>
-          <View style={{
-            height: insets.bottom,
-          }}></View>
         </BlurView>
       </KeyboardAvoidingView>
       <PostMoreModal/>
