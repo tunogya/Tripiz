@@ -41,7 +41,7 @@ const CommentShowItem: FC<{
         number ? (
           <Image
             contentFit={"cover"}
-            cachePolicy={"memory-disk"}
+            cachePolicy={"memory"}
             source={{
               uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(number || 0)?.toString().padStart(4, '0')}.png`
             }}
