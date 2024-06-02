@@ -250,7 +250,6 @@ const Page = () => {
         <View style={{paddingBottom: 200 + insets.bottom}}></View>
       </ScrollView>
       <KeyboardAvoidingView
-        keyboardVerticalOffset={64}
         className={"absolute left-0 bottom-0 w-full z-50"}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
