@@ -60,6 +60,7 @@ const Page = () => {
             text: post.text,
             category: post.category,
             user: address,
+            address: address,
             signature: sig,
           })
         })
