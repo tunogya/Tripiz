@@ -177,6 +177,7 @@ const Page = () => {
       </View>
       <ScrollView
         ref={scrollViewRef}
+        showsVerticalScrollIndicator={false}
         className={"h-full w-full"}
       >
         {
