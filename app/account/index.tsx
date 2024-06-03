@@ -23,7 +23,13 @@ const Page = () => {
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
       <View className={"items-center my-20 space-y-8 mx-4"}>
-        <Text className={"text-white text-xl font-bold"}>{nostrPublicKey.slice(0, 7)}...{nostrPublicKey.slice(-5)}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Clipboard.setString(nostrPublicKey);
+          }}
+        >
+          <Text className={"text-white text-xl font-bold"}>{nostrPublicKey.slice(0, 7)}...{nostrPublicKey.slice(-5)}</Text>
+        </TouchableOpacity>
         <View className={"bg-white p-3 rounded-lg relative"}>
           {
             !show && (
