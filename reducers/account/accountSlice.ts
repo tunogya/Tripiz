@@ -35,7 +35,7 @@ export const selectPublicKey = (state: RootState) => {
     return "";
   }
   const keyPair = new elliptic.ec('secp256k1').keyFromPrivate(Buffer.from(privateKey, 'hex'));
-  return keyPair.getPublic('hex');
+  return keyPair.getPublic(true, 'hex');
 };
 
 export const selectNostrPublicKey = (state: RootState) => {
@@ -43,8 +43,8 @@ export const selectNostrPublicKey = (state: RootState) => {
     return "";
   }
   const keyPair = new elliptic.ec('secp256k1').keyFromPrivate(Buffer.from(state.account.privateKey, 'hex'));
-  const publicKey = encodeKey("npub", keyPair.getPublic('hex'));
-  encodeKey("npub", publicKey)
+  const publicKey = keyPair.getPublic(true, 'hex');
+  return encodeKey("npub", publicKey)
 };
 
 export const selectNostrPrivateKey = (state: RootState) => encodeKey("nsec", state.account.privateKey);
