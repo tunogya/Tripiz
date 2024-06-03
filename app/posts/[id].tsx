@@ -231,10 +231,10 @@ const Page = () => {
           <Text
             className={"text-white font-medium text-[16px] leading-5"}
           >
-            {data.content}
+            {data?.content}
           </Text>
           <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
-            {new Date(data.created_at * 1000).toLocaleDateString().replaceAll('/', '-')}
+            {new Date((data?.created_at || 0) * 1000).toLocaleDateString().replaceAll('/', '-')}
           </Text>
         </View>
         <View className={"px-4"}>
