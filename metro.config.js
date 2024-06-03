@@ -1,5 +1,18 @@
-import { getDefaultConfig } from "expo/metro-config";
+const { getDefaultConfig } = require("metro-config");
 
-const config = getDefaultConfig(__dirname);
-
-module.exports = config;
+module.exports = (async () => {
+  const {
+    resolver: { sourceExts, extraNodeModules },
+  } = await getDefaultConfig();
+  
+  return {
+    resolver: {
+      extraNodeModules: {
+        crypto: require.resolve("react-native-crypto"),
+        stream: require.resolve("stream-browserify"),
+        buffer: require.resolve("buffer"),
+      },
+      sourceExts: [...sourceExts, "jsx", "js", "ts", "tsx"],
+    },
+  };
+})();
