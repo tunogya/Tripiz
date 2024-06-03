@@ -21,7 +21,6 @@ import PostMoreModal from "../../components/PostMoreModal";
 import PostMoreButton from "../../components/PostMoreButton";
 import {SwipeListView} from "react-native-swipe-list-view";
 import CommentHiddenItem from "../../components/CommentHiddenItem";
-import * as Crypto from "expo-crypto";
 import { Image } from 'expo-image';
 import {API_HOST_NAME} from "../../utils/const";
 import {finalizeEvent} from "../../utils/finalizeEvent";
@@ -42,22 +41,6 @@ const Page = () => {
       .then((res) => res.json())
       .then((res) => res.data)
   );
-
-  const [hash, setHash] = useState<string | undefined>(undefined);
-
-  const getHash = async (data: string) => {
-    const _hash = await Crypto.digestStringAsync(
-      Crypto.CryptoDigestAlgorithm.SHA256,
-      data,
-    )
-    setHash(`0x${_hash}`);
-  }
-
-  useEffect(() => {
-    if (data && data?.text) {
-      getHash(data?.text);
-    }
-  }, [data]);
 
   const {
     data: comments,
@@ -168,7 +151,7 @@ const Page = () => {
         className={"h-full w-full"}
       >
         {
-          screenWidth && hash && (
+          screenWidth && data?.id && (
             <View className={"bg-[#FFFFFF12]"}
               style={{
               width: screenWidth,
@@ -179,7 +162,7 @@ const Page = () => {
                   width: screenWidth,
                   height: screenWidth,
                 }}
-                source={`${API_HOST_NAME}/autoglyphs?hash=${hash}`}
+                source={`${API_HOST_NAME}/autoglyphs?hash=0x${data.id}`}
                 contentFit="cover"
                 cachePolicy={"memory-disk"}
                 transition={750}
@@ -191,10 +174,10 @@ const Page = () => {
           <Text
             className={"text-white font-medium text-[16px] leading-5"}
           >
-            {data.text}
+            {data.content}
           </Text>
           <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
-            {new Date(data.updated_at).toLocaleDateString().replaceAll('/', '-')}
+            {new Date(data.created_at * 1000).toLocaleDateString().replaceAll('/', '-')}
           </Text>
         </View>
         <View className={"px-4"}>

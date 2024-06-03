@@ -15,21 +15,7 @@ const LibraryShowItem: FC<{
   },
   showType: boolean
 }> = ({item, showType}) => {
-  const [hash, setHash] = useState("");
-
   const category = item?.tags_map?.category?.[0] || "reflections";
-
-  const getHash = async (data: string) => {
-    const _hash = await Crypto.digestStringAsync(
-      Crypto.CryptoDigestAlgorithm.SHA256,
-      data,
-    )
-    setHash(`0x${_hash}`);
-  }
-
-  useEffect(() => {
-    getHash(item.id);
-  }, []);
 
   return (
     <Pressable
@@ -40,16 +26,12 @@ const LibraryShowItem: FC<{
     >
       <View
         className={`h-20 w-20 bg-[#FFFFFF12] ${category === "reflections" ? "" : (category === "dreams" ? "rounded-full" : "rounded-xl")} overflow-hidden`}>
-        {
-          hash && (
-            <Image
-              className={"w-20 h-20"}
-              source={`${API_HOST_NAME}/autoglyphs?hash=${hash}`}
-              contentFit="cover"
-              cachePolicy={"memory-disk"}
-            />
-          )
-        }
+        <Image
+          className={"w-20 h-20"}
+          source={`${API_HOST_NAME}/autoglyphs?hash=0x${item.id}`}
+          contentFit="cover"
+          cachePolicy={"memory-disk"}
+        />
       </View>
       <View className={"flex justify-center flex-1 space-y-0.5"}>
         <Text className={"text-white font-medium text-lg"} numberOfLines={1}>
