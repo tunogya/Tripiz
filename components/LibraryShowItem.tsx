@@ -11,12 +11,13 @@ const LibraryShowItem: FC<{
     id: string,
     possibly_sensitive?: boolean,
     content: string,
-    tags: [][],
+    tags_map: any,
   },
   showType: boolean
 }> = ({item, showType}) => {
   const [hash, setHash] = useState("");
-  const [category, setCategory] = useState("");
+
+  const category = item?.tags_map?.category?.[0] || "reflections";
 
   const getHash = async (data: string) => {
     const _hash = await Crypto.digestStringAsync(
@@ -25,21 +26,6 @@ const LibraryShowItem: FC<{
     )
     setHash(`0x${_hash}`);
   }
-
-  useEffect(() => {
-    if (item.tags.length === 0) {
-      return
-    }
-    for (let i = 0; i < item.tags.length; i++) {
-      // @ts-ignore
-      if (item.tags[i]?.[0] === 'category') {
-        // @ts-ignore
-        const category = item.tags[i]?.[1];
-        setCategory(category);
-        break;
-      }
-    }
-  }, [item.tags]);
 
   useEffect(() => {
     getHash(item.id);
