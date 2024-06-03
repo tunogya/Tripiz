@@ -1,7 +1,6 @@
 import {Pressable, Text, View} from "react-native";
 import React, {FC, memo, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../store/store";
+import {useDispatch} from "react-redux";
 import {increaseVersion} from "../reducers/ui/uiSlice";
 import {API_HOST_NAME} from "../utils/const";
 
@@ -9,7 +8,6 @@ const CommentHiddenItem: FC<{
   rowData: any,
 }> = ({rowData}) => {
   const [status, setStatue] = useState("idle");
-  const {address, privateKey} = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   const deleteComment = async () => {
@@ -17,10 +15,6 @@ const CommentHiddenItem: FC<{
       setStatue("loading");
       await fetch(`${API_HOST_NAME}/posts/${rowData.item._id}`, {
         method: "DELETE",
-        headers: {
-          "Tripiz-User": address,
-          "Tripiz-Signature": "Signature",
-        }
       })
       dispatch(increaseVersion());
       setStatue("success");

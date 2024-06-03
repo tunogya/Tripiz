@@ -13,7 +13,6 @@ const PostMoreModal = () => {
   const insets = useSafeAreaInsets();
   const {currentPost} = useSelector((state: RootState) => state.ui);
   const dispatch = useDispatch();
-  const {address} = useSelector((state: RootState) => state.user);
   const [state, setState] = useState("idle");
 
   const deletePost = async () => {
@@ -21,10 +20,6 @@ const PostMoreModal = () => {
     try {
       await fetch(`${API_HOST_NAME}/posts/${currentPost}`, {
         method: "DELETE",
-        headers: {
-          "Tripiz-User": address,
-          "Tripiz-Signature": "Signature",
-        }
       })
       setState("success")
       setTimeout(() => {

@@ -4,11 +4,11 @@ import {memo, useEffect} from "react";
 import {initialize} from "../reducers/account/accountSlice";
 
 const CheckUser = () => {
-  const { publicKey, privateKey } = useSelector((state: RootState) => state.account)
+  const { privateKey } = useSelector((state: RootState) => state.account)
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!publicKey || !privateKey) {
+    if (!privateKey) {
       dispatch(initialize())
     }
   }, []);

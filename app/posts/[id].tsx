@@ -24,20 +24,17 @@ import CommentHiddenItem from "../../components/CommentHiddenItem";
 import * as Crypto from "expo-crypto";
 import { Image } from 'expo-image';
 import {API_HOST_NAME} from "../../utils/const";
+import {finalizeEvent} from "../../utils/finalizeEvent";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
-  const {publicKey} = useSelector((state: RootState) => state.account);
   const [isFocused, setIsFocused] = useState(false);
-  const [comment, setComment] = useState({
-    text: "",
-    category: "reflections",
-    user: publicKey,
-  })
+  const [text, setText] = useState("");
   const [status, setStatus] = useState("idle");
   const {version} = useSelector((state: RootState) => state.ui);
+  const {privateKey} = useSelector((state: RootState) => state.account);
 
   const {data, isLoading, mutate} = useSWR(`${API_HOST_NAME}/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
@@ -76,19 +73,21 @@ const Page = () => {
   const newComment = async () => {
     try {
       setStatus("loading");
+      const event = await finalizeEvent({
+        kind: 1,
+        created_at: Math.floor(Date.now() / 1000),
+        tags: [
+          ["category", "reflections"],
+        ],
+        content: text,
+      }, privateKey);
+
       await fetch(`${API_HOST_NAME}/posts`, {
         method: 'POST',
-        body: JSON.stringify({
-          parent_post_id: id,
-          text: comment.text,
-          category: comment.category,
-          user: comment.user,
-        })
+        body: JSON.stringify(event),
       }).then((res) => res.json());
-      setComment({
-        ...comment,
-        text: "",
-      });
+
+      setText("");
       setStatus("success");
       setTimeout(() => {
         setStatus("idle");
@@ -255,7 +254,7 @@ const Page = () => {
         >
           <View className={"px-4 h-16 flex justify-center items-center flex-row space-x-3"}>
             <TextInput
-              value={comment.text}
+              value={text}
               placeholder={t("Talk something")}
               placeholderTextColor={"#B3B3B3"}
               autoFocus={false}
@@ -263,10 +262,7 @@ const Page = () => {
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               onChangeText={(text) => {
-                setComment({
-                  ...comment,
-                  text: text,
-                })
+                setText(text)
               }}
             />
             {

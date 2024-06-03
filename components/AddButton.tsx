@@ -28,7 +28,7 @@ const AddButton = () => {
     >
       <Pressable
         onPress={() => {
-          router.navigate(`edit/posts/new?category=dreams`);
+          router.navigate(`edit/posts?category=dreams`);
         }}
         className={
           "items-center justify-center flex flex-row h-12 pl-4 pr-3 space-x-3"
@@ -71,7 +71,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
                 setOpenMore(false);
-                router.push(`edit/posts/new?category=reflections`);
+                router.push(`edit/posts?category=reflections`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -85,7 +85,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
                 setOpenMore(false);
-                router.push(`edit/posts/new?category=memories`);
+                router.push(`edit/posts?category=memories`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -99,7 +99,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center h-12"}
               onPress={() => {
                 setOpenMore(false);
-                router.push(`edit/posts/new?category=dreams`);
+                router.push(`edit/posts?category=dreams`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>

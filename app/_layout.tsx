@@ -82,7 +82,7 @@ export default function RootLayout() {
                 }}
               />
               <Stack.Screen
-                name="edit/posts/[id]"
+                name="edit/posts/index"
                 options={{
                   presentation: "modal",
                   title: "",

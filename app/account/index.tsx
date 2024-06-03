@@ -17,8 +17,6 @@ const Page = () => {
   const { avatar } = useSelector((state: RootState) => state.ui);
   const dispatch = useDispatch();
 
-  console.log(nostrPublicKey, nostrPrivateKey);
-
   return (
     <View className={"bg-[#121212] flex flex-1"}>
       <View className={"flex justify-center items-center pt-2"}>
