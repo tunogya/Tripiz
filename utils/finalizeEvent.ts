@@ -9,7 +9,7 @@ export const finalizeEvent = async ({kind, created_at, tags, content}: {
   content: string
 }, privateKey: string) => {
   const keyPair = new elliptic.ec('secp256k1').keyFromPrivate(Buffer.from(privateKey, 'hex'));
-  const publicKey = keyPair.getPublic('hex');
+  const publicKey = keyPair.getPublic(true,'hex');
   const serializedEvent = JSON.stringify([
     0,
     publicKey,
