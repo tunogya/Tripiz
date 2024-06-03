@@ -13,7 +13,7 @@ const CommentHiddenItem: FC<{
   const deleteComment = async () => {
     try {
       setStatue("loading");
-      await fetch(`${API_HOST_NAME}/posts/${rowData.item._id}`, {
+      await fetch(`${API_HOST_NAME}/posts/${rowData.item.id}`, {
         method: "DELETE",
       })
       dispatch(increaseVersion());
