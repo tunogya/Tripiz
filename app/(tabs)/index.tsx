@@ -10,7 +10,6 @@ import useSWR from "swr";
 import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import {t} from "../../i18n";
-import {ethers} from "ethers";
 import {API_HOST_NAME} from "../../utils/const";
 
 const Page = () => {
@@ -18,7 +17,7 @@ const Page = () => {
   const {address, privateKey} = useSelector((state: RootState) => state.user);
   const [query, setQuery] = useState("");
   const [typingTimeout, setTypingTimeout] = useState(null);
-  const wallet = new ethers.Wallet(privateKey);
+
   const {
     data,
     isLoading,
@@ -27,7 +26,7 @@ const Page = () => {
     method: "GET",
     headers: {
       "Tripiz-User": address,
-      "Tripiz-Signature": wallet.signMessageSync(address),
+      "Tripiz-Signature": "Signature",
     },
   }).then((res) => res.json()).then((res) => res.data));
 

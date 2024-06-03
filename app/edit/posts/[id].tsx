@@ -12,7 +12,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {increaseVersion} from "../../../reducers/ui/uiSlice";
 import {t} from "../../../i18n";
-import {ethers} from "ethers";
 import {API_HOST_NAME} from "../../../utils/const";
 
 const Page = () => {
@@ -26,13 +25,11 @@ const Page = () => {
   const dispatch = useDispatch();
   const [updated, setUpdated] = useState(false);
 
-  const wallet = new ethers.Wallet(privateKey);
-
   const {data} = useSWR(id !== "new" ? `${API_HOST_NAME}/posts/${id}` : undefined, (url: string) => fetch(url, {
     method: "GET",
     headers: {
       "Tripiz-User": address,
-      "Tripiz-Signature": wallet.signMessageSync(address),
+      "Tripiz-Signature": "Signature",
     }
   }).then((res) => res.json()).then((res) => res.data));
 
@@ -48,21 +45,19 @@ const Page = () => {
 
   const save = async () => {
     setStatus("loading");
-    const sig = wallet.signMessageSync(post.text);
     try {
       if (ensureString(id) === "new") {
         await fetch(`${API_HOST_NAME}/posts/`, {
           method: "POST",
           headers: {
             "Tripiz-User": address,
-            "Tripiz-Signature": sig,
+            "Tripiz-Signature": "Signature",
           },
           body: JSON.stringify({
             text: post.text,
             category: post.category,
             user: address,
             address: address,
-            signature: sig,
           })
         })
       } else {
@@ -70,11 +65,10 @@ const Page = () => {
           method: "PUT",
           headers: {
             "Tripiz-User": address,
-            "Tripiz-Signature": sig,
+            "Tripiz-Signature": "Signature",
           },
           body: JSON.stringify({
             text: post.text,
-            signature: sig,
           })
         })
       }

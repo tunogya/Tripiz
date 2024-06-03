@@ -9,7 +9,6 @@ import {RootState} from "../../store/store";
 import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import {t} from "../../i18n";
-import {ethers} from "ethers";
 import {API_HOST_NAME} from "../../utils/const";
 
 const Page = () => {
@@ -25,15 +24,13 @@ const Page = () => {
   const [nextSkip, setNextSkip] = useState<number | null>(0);
   const [hasNext, setHasNext] = useState(true);
 
-  const wallet = new ethers.Wallet(privateKey);
-
   const fetchData = async (category: string, skip: number) => {
     setIsLoading(true);
     const result = await fetch(`${API_HOST_NAME}/users/${address}/posts?category=${category}&skip=${skip}`, {
       method: "GET",
       headers: {
         "Tripiz-User": address,
-        "Tripiz-Signature": wallet.signMessageSync(address),
+        "Tripiz-Signature": "Signature",
       }
     })
       .then((res) => res.json());

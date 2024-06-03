@@ -2,7 +2,6 @@ import {Pressable, Text, View} from "react-native";
 import React, {FC, memo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
-import {ethers} from "ethers";
 import {increaseVersion} from "../reducers/ui/uiSlice";
 import {API_HOST_NAME} from "../utils/const";
 
@@ -11,7 +10,6 @@ const CommentHiddenItem: FC<{
 }> = ({rowData}) => {
   const [status, setStatue] = useState("idle");
   const {address, privateKey} = useSelector((state: RootState) => state.user);
-  const wallet = new ethers.Wallet(privateKey);
   const dispatch = useDispatch();
 
   const deleteComment = async () => {
@@ -21,7 +19,7 @@ const CommentHiddenItem: FC<{
         method: "DELETE",
         headers: {
           "Tripiz-User": address,
-          "Tripiz-Signature": wallet.signMessageSync(address),
+          "Tripiz-Signature": "Signature",
         }
       })
       dispatch(increaseVersion());
