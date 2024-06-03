@@ -26,7 +26,7 @@ import {API_HOST_NAME} from "../../utils/const";
 import {finalizeEvent} from "../../utils/finalizeEvent";
 import {ensureString} from "../../utils/ensureString";
 import {increaseVersion} from "../../reducers/ui/uiSlice";
-import {selectPublicKey} from "../../reducers/account/accountSlice";
+import {LinearGradient} from "expo-linear-gradient";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -44,7 +44,7 @@ const Page = () => {
   const [hasNext, setHasNext] = useState(true);
   const dispatch = useDispatch();
 
-  const {data, isLoading, mutate} = useSWR(`${API_HOST_NAME}/posts/${id}`, (url: string) => fetch(url, {
+  const {data, isLoading, mutate: fetchPost} = useSWR(`${API_HOST_NAME}/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -128,8 +128,8 @@ const Page = () => {
   }
 
   useEffect(() => {
-    mutate();
-    // TODO
+    fetchPost();
+    fetchComments(0);
     if (swipeListViewRef.current) {
       swipeListViewRef.current.closeAllOpenRows();
     }
@@ -138,7 +138,7 @@ const Page = () => {
   const scrollViewRef = useRef(null);
   const swipeListViewRef = useRef(null);
 
-  const handleSwipeValueChange = (swipeData) => {
+  const handleSwipeValueChange = (swipeData: any) => {
     const { value } = swipeData;
     if (scrollViewRef.current) {
       scrollViewRef.current.setNativeProps({ scrollEnabled: Math.abs(value) <= 10 });
@@ -194,7 +194,7 @@ const Page = () => {
       >
         {
           screenWidth && data?.id && (
-            <View className={"bg-[#FFFFFF12]"}
+            <View className={"relative"}
               style={{
               width: screenWidth,
               height: screenWidth,
@@ -209,6 +209,9 @@ const Page = () => {
                 cachePolicy={"memory-disk"}
                 transition={750}
               />
+              <LinearGradient
+                colors={["#12121200", "#121212"]}
+                className={"h-20 absolute bottom-0 z-10 w-full"} />
             </View>
           )
         }
