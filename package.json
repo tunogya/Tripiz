@@ -60,6 +60,7 @@
     "react-native-webview": "13.8.6",
     "react-redux": "^9.1.0",
     "redux-persist": "^6.0.0",
+    "stream-browserify": "^3.0.0",
     "swr": "^2.2.5",
     "typescript": "~5.3.3"
   },

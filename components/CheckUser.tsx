@@ -1,17 +1,19 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {memo, useEffect} from "react";
-import {initialize} from "../reducers/user/userSlice";
+import {initialize} from "../reducers/account/accountSlice";
 
 const CheckUser = () => {
-  const { address, publicKey, privateKey } = useSelector((state: RootState) => state.user)
+  const { publicKey, privateKey } = useSelector((state: RootState) => state.account)
   const dispatch = useDispatch();
 
+  console.log(publicKey, privateKey);
+
   useEffect(() => {
-    if (!address || !publicKey || !privateKey) {
+    if (!publicKey || !privateKey) {
       dispatch(initialize())
     }
-  }, [address])
+  }, []);
 
   return null;
 }
