@@ -12,6 +12,9 @@ import Notification from "../components/Notification";
 import CheckUser from "../components/CheckUser";
 import {SWRConfig} from "swr";
 import {AppState} from "react-native";
+import applyGlobalPolyfills from "../utils/applyGlobalPolyfills";
+
+applyGlobalPolyfills()
 
 SplashScreen.preventAutoHideAsync();
 

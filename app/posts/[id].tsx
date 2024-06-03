@@ -23,10 +23,11 @@ import {SwipeListView} from "react-native-swipe-list-view";
 import CommentHiddenItem from "../../components/CommentHiddenItem";
 import { Image } from 'expo-image';
 import {API_HOST_NAME} from "../../utils/const";
-import {finalizeEvent} from "../../utils/finalizeEvent";
 import {ensureString} from "../../utils/ensureString";
 import {increaseVersion} from "../../reducers/ui/uiSlice";
 import {LinearGradient} from "expo-linear-gradient";
+import {finalizeEvent} from "nostr-tools";
+import {Buffer} from "buffer";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -98,14 +99,14 @@ const Page = () => {
   const newComment = async () => {
     try {
       setStatus("loading");
-      const event = await finalizeEvent({
+      const event = finalizeEvent({
         kind: 1,
         created_at: Math.floor(Date.now() / 1000),
         tags: [
           ["e", ensureString(id)],
         ],
         content: text,
-      }, privateKey);
+      }, Buffer.from(privateKey, "hex"));
 
       await fetch(`${API_HOST_NAME}/posts`, {
         method: 'POST',

@@ -12,7 +12,8 @@ import {RootState} from "../../../store/store";
 import {increaseVersion} from "../../../reducers/ui/uiSlice";
 import {t} from "../../../i18n";
 import {API_HOST_NAME} from "../../../utils/const";
-import {finalizeEvent} from "../../../utils/finalizeEvent";
+import {finalizeEvent} from "nostr-tools";
+import {Buffer} from "buffer";
 
 const Page = () => {
   const { category} = useLocalSearchParams();
@@ -24,19 +25,19 @@ const Page = () => {
   const save = async () => {
     setStatus("loading");
     try {
-      const event = await finalizeEvent({
+      const event = finalizeEvent({
         kind: 1,
         created_at: Math.floor(Date.now() / 1000),
         tags: [
           ["category", ensureString(category) || "reflections"],
         ],
         content: text,
-      }, privateKey);
-
-      await fetch(`${API_HOST_NAME}/posts/`, {
-        method: "POST",
-        body: JSON.stringify(event)
-      })
+      }, Buffer.from(privateKey, "hex"));
+      console.log(event);
+      // await fetch(`${API_HOST_NAME}/posts/`, {
+      //   method: "POST",
+      //   body: JSON.stringify(event)
+      // })
       dispatch(increaseVersion());
       setStatus("success")
       setTimeout(() => {
