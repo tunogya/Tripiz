@@ -17,7 +17,7 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const {address, privateKey} = useSelector((state: RootState) => state.user);
+  const {publicKey, privateKey} = useSelector((state: RootState) => state.account);
   const { version} = useSelector((state: RootState) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -26,12 +26,8 @@ const Page = () => {
 
   const fetchData = async (category: string, skip: number) => {
     setIsLoading(true);
-    const result = await fetch(`${API_HOST_NAME}/users/${address}/posts?category=${category}&skip=${skip}`, {
+    const result = await fetch(`${API_HOST_NAME}/users/${publicKey}/posts?category=${category}&skip=${skip}`, {
       method: "GET",
-      headers: {
-        "Tripiz-User": address,
-        "Tripiz-Signature": "Signature",
-      }
     })
       .then((res) => res.json());
     setIsLoading(false);

@@ -29,22 +29,18 @@ const Page = () => {
   const {id} = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
-  const {address} = useSelector((state: RootState) => state.user);
+  const {publicKey} = useSelector((state: RootState) => state.account);
   const [isFocused, setIsFocused] = useState(false);
   const [comment, setComment] = useState({
     text: "",
     category: "reflections",
-    user: address,
+    user: publicKey,
   })
   const [status, setStatus] = useState("idle");
   const {version} = useSelector((state: RootState) => state.ui);
 
   const {data, isLoading, mutate} = useSWR(`${API_HOST_NAME}/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
-      headers: {
-        "Tripiz-User": address,
-        "Tripiz-Signature": "Signature",
-      }
     })
       .then((res) => res.json())
       .then((res) => res.data)
@@ -72,10 +68,6 @@ const Page = () => {
     mutate: mutateComment
   } = useSWR(id ? `${API_HOST_NAME}/posts/${id}/replies` : undefined, (url: string) => fetch(url, {
       method: "GET",
-      headers: {
-        "Tripiz-User": address,
-        "Tripiz-Signature": "Signature",
-      }
     })
       .then((res) => res.json())
       .then((res) => res.data)
@@ -86,11 +78,6 @@ const Page = () => {
       setStatus("loading");
       await fetch(`${API_HOST_NAME}/posts`, {
         method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          "Tripiz-User": address,
-          "Tripiz-Signature": "Signature",
-        },
         body: JSON.stringify({
           parent_post_id: id,
           text: comment.text,

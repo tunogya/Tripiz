@@ -10,7 +10,7 @@ import {randomAvatar} from "../../reducers/ui/uiSlice";
 import {t} from "../../i18n";
 
 const Page = () => {
-  const { address, privateKey } = useSelector((state: RootState) => state.user);
+  const { publicKey, privateKey } = useSelector((state: RootState) => state.account);
   const [show, setShow] = useState(false);
   const { avatar } = useSelector((state: RootState) => state.ui);
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Page = () => {
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
       <View className={"items-center my-20 space-y-8 mx-4"}>
-        <Text className={"text-white text-xl font-bold"}>{address.slice(0, 7)}...{address.slice(-5)}</Text>
+        <Text className={"text-white text-xl font-bold"}>{publicKey.slice(0, 7)}...{publicKey.slice(-5)}</Text>
         <View className={"bg-white p-3 rounded-lg relative"}>
           {
             !show && (

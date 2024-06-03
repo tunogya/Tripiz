@@ -3,7 +3,7 @@ import "react-native-get-random-values";
 import elliptic from 'elliptic';
 
 export const slice = createSlice({
-  name: "user",
+  name: "account",
   initialState: {
     publicKey: "",
     privateKey: "",

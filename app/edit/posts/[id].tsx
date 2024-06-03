@@ -16,7 +16,7 @@ import {API_HOST_NAME} from "../../../utils/const";
 
 const Page = () => {
   const {id, category} = useLocalSearchParams();
-  const {address, privateKey} = useSelector((state: RootState) => state.user);
+  const {publicKey, privateKey} = useSelector((state: RootState) => state.account);
   const [post, setPost] = useState({
     text: "",
     category: ensureString(category) || "reflections"
@@ -27,10 +27,6 @@ const Page = () => {
 
   const {data} = useSWR(id !== "new" ? `${API_HOST_NAME}/posts/${id}` : undefined, (url: string) => fetch(url, {
     method: "GET",
-    headers: {
-      "Tripiz-User": address,
-      "Tripiz-Signature": "Signature",
-    }
   }).then((res) => res.json()).then((res) => res.data));
 
   useEffect(() => {
@@ -49,24 +45,16 @@ const Page = () => {
       if (ensureString(id) === "new") {
         await fetch(`${API_HOST_NAME}/posts/`, {
           method: "POST",
-          headers: {
-            "Tripiz-User": address,
-            "Tripiz-Signature": "Signature",
-          },
           body: JSON.stringify({
             text: post.text,
             category: post.category,
-            user: address,
-            address: address,
+            user: publicKey,
+            address: publicKey,
           })
         })
       } else {
         await fetch(`${API_HOST_NAME}/posts/${ensureString(id)}`, {
           method: "PUT",
-          headers: {
-            "Tripiz-User": address,
-            "Tripiz-Signature": "Signature",
-          },
           body: JSON.stringify({
             text: post.text,
           })

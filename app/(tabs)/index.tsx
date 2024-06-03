@@ -14,7 +14,7 @@ import {API_HOST_NAME} from "../../utils/const";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
-  const {address, privateKey} = useSelector((state: RootState) => state.user);
+  const {publicKey, privateKey} = useSelector((state: RootState) => state.account);
   const [query, setQuery] = useState("");
   const [typingTimeout, setTypingTimeout] = useState(null);
 
@@ -24,10 +24,6 @@ const Page = () => {
     mutate
   } = useSWR(query ? `${API_HOST_NAME}/posts/search/all?query=${query}` : undefined, (url) => fetch(url, {
     method: "GET",
-    headers: {
-      "Tripiz-User": address,
-      "Tripiz-Signature": "Signature",
-    },
   }).then((res) => res.json()).then((res) => res.data));
 
   useEffect(() => {
