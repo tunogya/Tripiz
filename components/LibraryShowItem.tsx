@@ -4,6 +4,7 @@ import {router} from "expo-router";
 import {t} from "../i18n";
 import * as Crypto from "expo-crypto";
 import { Image } from 'expo-image';
+import {API_HOST_NAME} from "../utils/const";
 
 const LibraryShowItem: FC<{
   item: {
@@ -41,7 +42,7 @@ const LibraryShowItem: FC<{
           hash && (
             <Image
               className={"w-20 h-20"}
-              source={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
+              source={`${API_HOST_NAME}/autoglyphs?hash=${hash}`}
               contentFit="cover"
               cachePolicy={"memory-disk"}
             />

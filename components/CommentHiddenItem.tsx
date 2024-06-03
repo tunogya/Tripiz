@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {ethers} from "ethers";
 import {increaseVersion} from "../reducers/ui/uiSlice";
+import {API_HOST_NAME} from "../utils/const";
 
 const CommentHiddenItem: FC<{
   rowData: any,
@@ -16,7 +17,7 @@ const CommentHiddenItem: FC<{
   const deleteComment = async () => {
     try {
       setStatue("loading");
-      await fetch(`https://tripiz.abandon.ai/api/posts/${rowData.item._id}`, {
+      await fetch(`${API_HOST_NAME}/posts/${rowData.item._id}`, {
         method: "DELETE",
         headers: {
           "Tripiz-User": address,

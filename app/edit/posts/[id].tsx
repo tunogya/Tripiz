@@ -13,6 +13,7 @@ import {RootState} from "../../../store/store";
 import {increaseVersion} from "../../../reducers/ui/uiSlice";
 import {t} from "../../../i18n";
 import {ethers} from "ethers";
+import {API_HOST_NAME} from "../../../utils/const";
 
 const Page = () => {
   const {id, category} = useLocalSearchParams();
@@ -27,7 +28,7 @@ const Page = () => {
 
   const wallet = new ethers.Wallet(privateKey);
 
-  const {data} = useSWR(id !== "new" ? `https://tripiz.abandon.ai/api/posts/${id}` : undefined, (url: string) => fetch(url, {
+  const {data} = useSWR(id !== "new" ? `${API_HOST_NAME}/posts/${id}` : undefined, (url: string) => fetch(url, {
     method: "GET",
     headers: {
       "Tripiz-User": address,
@@ -50,7 +51,7 @@ const Page = () => {
     const sig = wallet.signMessageSync(post.text);
     try {
       if (ensureString(id) === "new") {
-        await fetch(`https://tripiz.abandon.ai/api/posts/`, {
+        await fetch(`${API_HOST_NAME}/posts/`, {
           method: "POST",
           headers: {
             "Tripiz-User": address,
@@ -65,7 +66,7 @@ const Page = () => {
           })
         })
       } else {
-        await fetch(`https://tripiz.abandon.ai/api/posts/${ensureString(id)}`, {
+        await fetch(`${API_HOST_NAME}/posts/${ensureString(id)}`, {
           method: "PUT",
           headers: {
             "Tripiz-User": address,

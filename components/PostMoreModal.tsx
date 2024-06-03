@@ -7,6 +7,7 @@ import {updateCurrentPost} from "../reducers/ui/uiSlice";
 import {t} from "../i18n";
 import {router} from "expo-router";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {API_HOST_NAME} from "../utils/const";
 
 const PostMoreModal = () => {
   const insets = useSafeAreaInsets();
@@ -18,7 +19,7 @@ const PostMoreModal = () => {
   const deletePost = async () => {
     setState("loading");
     try {
-      await fetch(`https://tripiz.abandon.ai/api/posts/${currentPost}`, {
+      await fetch(`${API_HOST_NAME}/posts/${currentPost}`, {
         method: "DELETE",
         headers: {
           "Tripiz-User": address,

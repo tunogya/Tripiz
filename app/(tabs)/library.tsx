@@ -10,6 +10,7 @@ import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import {t} from "../../i18n";
 import {ethers} from "ethers";
+import {API_HOST_NAME} from "../../utils/const";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -28,7 +29,7 @@ const Page = () => {
 
   const fetchData = async (category: string, skip: number) => {
     setIsLoading(true);
-    const result = await fetch(`https://tripiz.abandon.ai/api/users/${address}/posts?category=${category}&skip=${skip}`, {
+    const result = await fetch(`${API_HOST_NAME}/users/${address}/posts?category=${category}&skip=${skip}`, {
       method: "GET",
       headers: {
         "Tripiz-User": address,

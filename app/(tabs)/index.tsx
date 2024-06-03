@@ -11,6 +11,7 @@ import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import {t} from "../../i18n";
 import {ethers} from "ethers";
+import {API_HOST_NAME} from "../../utils/const";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -22,7 +23,7 @@ const Page = () => {
     data,
     isLoading,
     mutate
-  } = useSWR(query ? `https://tripiz.abandon.ai/api/posts/search/all?query=${query}` : undefined, (url) => fetch(url, {
+  } = useSWR(query ? `${API_HOST_NAME}/posts/search/all?query=${query}` : undefined, (url) => fetch(url, {
     method: "GET",
     headers: {
       "Tripiz-User": address,

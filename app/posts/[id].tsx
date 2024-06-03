@@ -23,6 +23,7 @@ import {SwipeListView} from "react-native-swipe-list-view";
 import CommentHiddenItem from "../../components/CommentHiddenItem";
 import * as Crypto from "expo-crypto";
 import { Image } from 'expo-image';
+import {API_HOST_NAME} from "../../utils/const";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -38,7 +39,7 @@ const Page = () => {
   const [status, setStatus] = useState("idle");
   const {version} = useSelector((state: RootState) => state.ui);
 
-  const {data, isLoading, mutate} = useSWR(`https://tripiz.abandon.ai/api/posts/${id}`, (url: string) => fetch(url, {
+  const {data, isLoading, mutate} = useSWR(`${API_HOST_NAME}/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
       headers: {
         "Tripiz-User": address,
@@ -69,7 +70,7 @@ const Page = () => {
     data: comments,
     isLoading: isCommentLoading,
     mutate: mutateComment
-  } = useSWR(id ? `https://tripiz.abandon.ai/api/posts/${id}/replies` : undefined, (url: string) => fetch(url, {
+  } = useSWR(id ? `${API_HOST_NAME}/posts/${id}/replies` : undefined, (url: string) => fetch(url, {
       method: "GET",
       headers: {
         "Tripiz-User": address,
@@ -83,7 +84,7 @@ const Page = () => {
   const newComment = async () => {
     try {
       setStatus("loading");
-      await fetch(`https://tripiz.abandon.ai/api/posts`, {
+      await fetch(`${API_HOST_NAME}/posts`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -192,7 +193,7 @@ const Page = () => {
                   width: screenWidth,
                   height: screenWidth,
                 }}
-                source={`https://tripiz.abandon.ai/api/autoglyphs?hash=${hash}`}
+                source={`${API_HOST_NAME}/autoglyphs?hash=${hash}`}
                 contentFit="cover"
                 cachePolicy={"memory-disk"}
                 transition={750}

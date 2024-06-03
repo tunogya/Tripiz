@@ -6,6 +6,7 @@ import Constants from "expo-constants";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {ethers} from "ethers";
+import {API_HOST_NAME} from "../utils/const";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -65,7 +66,7 @@ const Notification = () => {
   const updateExpoPushToken = async (expoPushToken: string) => {
     try {
       const sig = wallet.signMessageSync(expoPushToken);
-      await fetch(`https://tripiz.abandon.ai/api/users`, {
+      await fetch(`${API_HOST_NAME}/users`, {
         method: "POST",
         headers: {
           "Tripiz-User": address,
