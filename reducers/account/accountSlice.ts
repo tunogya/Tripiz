@@ -35,7 +35,9 @@ export const selectPublicKey = (state: RootState) => {
     return "";
   }
   const keyPair = new elliptic.ec('secp256k1').keyFromPrivate(Buffer.from(privateKey, 'hex'));
-  return keyPair.getPublic(true, 'hex');
+  const publicKey = keyPair.getPublic(true, 'hex');
+  // Remove 02 compress prefix
+  return publicKey.substring(2);
 };
 
 export const selectNostrPublicKey = (state: RootState) => {
@@ -44,7 +46,8 @@ export const selectNostrPublicKey = (state: RootState) => {
   }
   const keyPair = new elliptic.ec('secp256k1').keyFromPrivate(Buffer.from(state.account.privateKey, 'hex'));
   const publicKey = keyPair.getPublic(true, 'hex');
-  return encodeKey("npub", publicKey)
+  // Remove 02 compress prefix
+  return encodeKey("npub", publicKey.substring(2));
 };
 
 export const selectNostrPrivateKey = (state: RootState) => encodeKey("nsec", state.account.privateKey);
