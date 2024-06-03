@@ -170,22 +170,34 @@ const Page = () => {
   }
 
   return (
-    <View
-      className={"flex flex-1 h-full bg-[#121212] relative"}
-      style={{
-        paddingTop: insets.top,
-      }}
-    >
-      <View className={"flex flex-row h-12 items-center justify-between px-4"}>
-        <Pressable
-          hitSlop={4}
-          onPress={() => {
-            router.back();
-          }}
+    <View className={"flex flex-1 h-full bg-[#121212] relative"}>
+      <View className={"flex flex-row h-12 items-center justify-between px-4 absolute w-full z-50"}
+            style={{
+              top: insets.top,
+            }}
+      >
+        <BlurView
+          intensity={10}
+          tint={"dark"}
+          className={"rounded-full overflow-hidden"}
         >
-          <Ionicons name="chevron-back" size={24} color="white"/>
-        </Pressable>
-        <PostMoreButton/>
+          <Pressable
+            hitSlop={4}
+            onPress={() => {
+              router.back();
+            }}
+            className={"w-10 h-10 items-center justify-center"}
+          >
+            <Ionicons name="chevron-back" size={24} color="white"/>
+          </Pressable>
+        </BlurView>
+        <BlurView
+          intensity={10}
+          tint={"dark"}
+          className={"rounded-full overflow-hidden"}
+        >
+          <PostMoreButton/>
+        </BlurView>
       </View>
       <ScrollView
         ref={scrollViewRef}
@@ -211,7 +223,7 @@ const Page = () => {
               />
               <LinearGradient
                 colors={["#12121200", "#121212"]}
-                className={"h-20 absolute bottom-0 z-10 w-full"} />
+                className={"h-24 absolute bottom-0 z-10 w-full"} />
             </View>
           )
         }
