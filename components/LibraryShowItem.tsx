@@ -1,8 +1,7 @@
-import React, {FC, memo, useEffect, useState} from "react";
+import React, {FC, memo} from "react";
 import {Pressable, Text, View} from "react-native";
 import {router} from "expo-router";
 import {t} from "../i18n";
-import * as Crypto from "expo-crypto";
 import { Image } from 'expo-image';
 import {API_HOST_NAME} from "../utils/const";
 
