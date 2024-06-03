@@ -2,8 +2,8 @@ import {Text, View} from "react-native";
 import { Image } from 'expo-image';
 import React, {FC, memo, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {RootState} from "../store/store";
 import * as Crypto from "expo-crypto";
+import {selectPublicKey} from "../reducers/account/accountSlice";
 
 export async function mapAddressToNumber(address: string) {
   const hash = await Crypto.digestStringAsync(
@@ -16,22 +16,24 @@ export async function mapAddressToNumber(address: string) {
 
 const CommentShowItem: FC<{
   item: {
-    user: string,
-    text: string,
-    updated_at: string,
+    id: string,
+    pubkey: string,
+    content: string,
+    tags: [][],
+    created_at: number,
   }
 }> = ({item}) => {
   const [number, setNumber] = useState<string | undefined>(undefined);
-  const { address } = useSelector((state: RootState) => state.user);
+  const publicKey = useSelector(selectPublicKey);
 
-  const fetchNumber = async (address: string) => {
-    const data = await mapAddressToNumber(item.user);
+  const fetchNumber = async (id: string) => {
+    const data = await mapAddressToNumber(id);
     setNumber(data.toString().padStart(4, '0'));
   };
 
   useEffect(() => {
-    fetchNumber(address);
-  }, [address]);
+    fetchNumber(item.pubkey);
+  }, [item.pubkey]);
 
   return (
     <View
@@ -53,11 +55,11 @@ const CommentShowItem: FC<{
       }
       <View className={"space-y-1.5 pb-4 flex-1 border-b border-[#FFFFFF12]"}>
         <View className={"flex flex-row justify-between items-end"}>
-          <Text className={"text-[#B3B3B3] text-[16px]"}>{ item.user === address ? "Me" : item.user}</Text>
-          <Text className={"text-[#B3B3B3] text-xs"}>{new Date(item.updated_at).toLocaleDateString().replaceAll('/', '-')}</Text>
+          <Text className={"text-[#B3B3B3] text-[16px]"}>{ item.pubkey === publicKey ? "Me" : item.pubkey}</Text>
+          <Text className={"text-[#B3B3B3] text-xs"}>{new Date(item.created_at * 1000).toLocaleDateString().replaceAll('/', '-')}</Text>
         </View>
         <View className={"flex flex-row items-end flex-wrap"}>
-          <Text className={"text-white text-[16px] leading-5"}>{item.text}</Text>
+          <Text className={"text-white text-[16px] leading-5"}>{item.content}</Text>
         </View>
       </View>
     </View>
