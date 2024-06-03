@@ -8,12 +8,16 @@ import {BlurView} from "expo-blur";
 import {Ionicons} from "@expo/vector-icons";
 import {randomAvatar} from "../../reducers/ui/uiSlice";
 import {t} from "../../i18n";
+import {selectNostrPrivateKey, selectNostrPublicKey} from "../../reducers/account/accountSlice";
 
 const Page = () => {
-  const { publicKey, privateKey } = useSelector((state: RootState) => state.account);
+  const nostrPublicKey = useSelector(selectNostrPublicKey);
+  const nostrPrivateKey = useSelector(selectNostrPrivateKey);
   const [show, setShow] = useState(false);
   const { avatar } = useSelector((state: RootState) => state.ui);
   const dispatch = useDispatch();
+
+  console.log(nostrPublicKey, nostrPrivateKey);
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>
@@ -21,7 +25,7 @@ const Page = () => {
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
       <View className={"items-center my-20 space-y-8 mx-4"}>
-        <Text className={"text-white text-xl font-bold"}>{publicKey.slice(0, 7)}...{publicKey.slice(-5)}</Text>
+        <Text className={"text-white text-xl font-bold"}>{nostrPublicKey.slice(0, 7)}...{nostrPublicKey.slice(-5)}</Text>
         <View className={"bg-white p-3 rounded-lg relative"}>
           {
             !show && (
@@ -46,7 +50,7 @@ const Page = () => {
             logo={{
               uri:  `https://www.larvalabs.com/cryptopunks/cryptopunk${(avatar || 0)?.toString().padStart(4, '0')}.png`
             }}
-            value={privateKey}
+            value={nostrPrivateKey}
           />
           <Text className={"text-black text-center pt-2 font-bold"}>
             {t("Tripiz Private Key")}
@@ -66,7 +70,7 @@ const Page = () => {
           <TouchableOpacity
             className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
             onPress={() => {
-              Clipboard.setString(privateKey);
+              Clipboard.setString(nostrPrivateKey);
             }}
           >
             <Text className={"text-white"}>

@@ -7,8 +7,6 @@ const CheckUser = () => {
   const { publicKey, privateKey } = useSelector((state: RootState) => state.account)
   const dispatch = useDispatch();
 
-  console.log(publicKey, privateKey);
-
   useEffect(() => {
     if (!publicKey || !privateKey) {
       dispatch(initialize())
