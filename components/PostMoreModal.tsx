@@ -57,19 +57,6 @@ const PostMoreModal = () => {
             <Pressable
               disabled={state !== "idle"}
               className={"p-2"}
-              onPress={() => {
-                const id = currentPost;
-                dispatch(updateCurrentPost(""));
-                router.push(`edit/posts/${id}`);
-              }}
-            >
-              <Text className={"text-white font-medium"}>
-                {t("Edit")}
-              </Text>
-            </Pressable>
-            <Pressable
-              disabled={state !== "idle"}
-              className={"p-2"}
               onPress={deletePost}
             >
               <Text className={"text-white font-medium"}>
