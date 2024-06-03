@@ -51,7 +51,7 @@ const Page = () => {
             value={nostrPrivateKey}
           />
           <Text className={"text-black text-center pt-2 font-bold"}>
-            {t("Tripiz Private Key")}
+            {t("Nostr Private Key")}
           </Text>
         </View>
         <View className={"flex flex-row space-x-3"}>
@@ -78,7 +78,7 @@ const Page = () => {
         </View>
         <View>
           <Text className={"text-[#B3B3B3]"}>
-            {t("Please don't share Private Key with anyone!")}
+            {t("Be sure you have backup this private key")}
           </Text>
         </View>
       </View>
