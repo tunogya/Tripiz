@@ -33,11 +33,10 @@ const Page = () => {
         ],
         content: text,
       }, Buffer.from(privateKey, "hex"));
-      console.log(event);
-      // await fetch(`${API_HOST_NAME}/posts/`, {
-      //   method: "POST",
-      //   body: JSON.stringify(event)
-      // })
+      await fetch(`${API_HOST_NAME}/posts/`, {
+        method: "POST",
+        body: JSON.stringify(event)
+      })
       dispatch(increaseVersion());
       setStatus("success")
       setTimeout(() => {
