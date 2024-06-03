@@ -1,3 +1,4 @@
+import applyGlobalPolyfills from "../utils/applyGlobalPolyfills";
 import { SplashScreen } from "expo-router";
 import { Provider } from "react-redux";
 import store, { persistor } from "../store/store";
@@ -12,9 +13,8 @@ import Notification from "../components/Notification";
 import CheckUser from "../components/CheckUser";
 import {SWRConfig} from "swr";
 import {AppState} from "react-native";
-import applyGlobalPolyfills from "../utils/applyGlobalPolyfills";
 
-applyGlobalPolyfills()
+applyGlobalPolyfills();
 
 SplashScreen.preventAutoHideAsync();
 
