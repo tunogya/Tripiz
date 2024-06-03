@@ -5,14 +5,14 @@ import {
   ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
-  Platform, Keyboard, Pressable, Dimensions
+  Platform, Keyboard, Pressable, Dimensions, RefreshControl
 } from "react-native";
 import React, {memo, useEffect, useRef, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {BlurView} from "expo-blur";
 import {router, useLocalSearchParams} from "expo-router";
 import useSWR from "swr";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 import {Ionicons} from "@expo/vector-icons";
@@ -24,6 +24,9 @@ import CommentHiddenItem from "../../components/CommentHiddenItem";
 import { Image } from 'expo-image';
 import {API_HOST_NAME} from "../../utils/const";
 import {finalizeEvent} from "../../utils/finalizeEvent";
+import {ensureString} from "../../utils/ensureString";
+import {increaseVersion} from "../../reducers/ui/uiSlice";
+import {selectPublicKey} from "../../reducers/account/accountSlice";
 
 const Page = () => {
   const {id} = useLocalSearchParams();
@@ -34,6 +37,12 @@ const Page = () => {
   const [status, setStatus] = useState("idle");
   const {version} = useSelector((state: RootState) => state.ui);
   const {privateKey} = useSelector((state: RootState) => state.account);
+  const [comments, setComments] = useState([]);
+  const [isLoadingComments, setIsLoadingComments] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [nextSkip, setNextSkip] = useState<number | null>(0);
+  const [hasNext, setHasNext] = useState(true);
+  const dispatch = useDispatch();
 
   const {data, isLoading, mutate} = useSWR(`${API_HOST_NAME}/posts/${id}`, (url: string) => fetch(url, {
       method: "GET",
@@ -42,16 +51,49 @@ const Page = () => {
       .then((res) => res.data)
   );
 
-  const {
-    data: comments,
-    isLoading: isCommentLoading,
-    mutate: mutateComment
-  } = useSWR(id ? `${API_HOST_NAME}/posts/${id}/replies` : undefined, (url: string) => fetch(url, {
+  const fetchComments = async (skip: number) => {
+    setIsLoadingComments(true);
+    const result = await fetch(`${API_HOST_NAME}/posts/${id}/replies?skip=${skip}`, {
       method: "GET",
     })
-      .then((res) => res.json())
-      .then((res) => res.data)
-  );
+      .then((res) => res.json());
+    setIsLoadingComments(false);
+
+    if (skip === 0) {
+      setComments(result.data)
+    } else {
+      setComments([
+        ...data,
+        ...result.data,
+      ])
+    }
+    setHasNext(result.pagination.hasNext);
+    setNextSkip(result.pagination.nextSkip);
+  }
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchComments(0);
+    setRefreshing(false);
+  };
+
+  // fetch data when filter changed, or version changed
+  useEffect(() => {
+    setComments([]);
+    setNextSkip(0);
+    fetchComments(0);
+  }, [version]);
+
+  // const {
+  //   data: comments,
+  //   isLoading: isCommentLoading,
+  //   mutate: mutateComment
+  // } = useSWR(id ? `${API_HOST_NAME}/posts/${id}/replies` : undefined, (url: string) => fetch(url, {
+  //     method: "GET",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => res.data)
+  // );
 
   const newComment = async () => {
     try {
@@ -60,7 +102,7 @@ const Page = () => {
         kind: 1,
         created_at: Math.floor(Date.now() / 1000),
         tags: [
-          ["category", "reflections"],
+          ["e", ensureString(id)],
         ],
         content: text,
       }, privateKey);
@@ -75,7 +117,7 @@ const Page = () => {
       setTimeout(() => {
         setStatus("idle");
         Keyboard.dismiss();
-        mutateComment();
+        dispatch(increaseVersion());
       }, 1_000)
     } catch (e) {
       setStatus("error");
@@ -87,7 +129,7 @@ const Page = () => {
 
   useEffect(() => {
     mutate();
-    mutateComment();
+    // TODO
     if (swipeListViewRef.current) {
       swipeListViewRef.current.closeAllOpenRows();
     }
@@ -201,8 +243,26 @@ const Page = () => {
             renderHiddenItem={(rowData, rowMap) => (
               <CommentHiddenItem rowData={rowData}/>
             )}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={['#B3B3B3']}
+                progressBackgroundColor="#121212"
+                tintColor="#B3B3B3"
+                title="Loading..."
+                titleColor="#B3B3B3"
+              />
+            }
+            scrollEventThrottle={1000}
+            onEndReached={async () => {
+              if (hasNext) {
+                await fetchComments(nextSkip);
+              }
+            }}
+            onEndReachedThreshold={0.3}
             ListEmptyComponent={() => (
-              !isCommentLoading && (
+              !isLoadingComments && (
                 <View className={"w-full px-4"}>
                   <Text className={"text-[#B3B3B3] text-xs"}>
                     {t("No comments")}

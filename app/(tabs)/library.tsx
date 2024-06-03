@@ -18,7 +18,7 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const { version} = useSelector((state: RootState) => state.ui);
+  const {version} = useSelector((state: RootState) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [nextSkip, setNextSkip] = useState<number | null>(0);
@@ -72,7 +72,7 @@ const Page = () => {
               router.navigate(`account`);
             }}
           >
-            <Avatar />
+            <Avatar/>
           </Pressable>
           <Text className={"text-white font-bold text-2xl"}>
             {t("Library")}
@@ -150,8 +150,8 @@ const Page = () => {
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>
-              { isLoading && (
-                <ActivityIndicator size={"small"} color="#B3B3B3" />
+              {isLoading && (
+                <ActivityIndicator size={"small"} color="#B3B3B3"/>
               )}
               <View
                 style={{
