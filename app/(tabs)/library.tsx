@@ -10,6 +10,7 @@ import Avatar from "../../components/Avatar";
 import {router} from "expo-router";
 import {t} from "../../i18n";
 import {API_HOST_NAME} from "../../utils/const";
+import {selectPublicKey} from "../../reducers/account/accountSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -17,16 +18,16 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const {publicKey, privateKey} = useSelector((state: RootState) => state.account);
   const { version} = useSelector((state: RootState) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [nextSkip, setNextSkip] = useState<number | null>(0);
   const [hasNext, setHasNext] = useState(true);
+  const publicKey = useSelector(selectPublicKey);
 
   const fetchData = async (category: string, skip: number) => {
     setIsLoading(true);
-    const result = await fetch(`${API_HOST_NAME}/users/${publicKey}/posts?category=${category}&skip=${skip}`, {
+    const result = await fetch(`${API_HOST_NAME}/accounts/${publicKey}/posts?category=${category}&skip=${skip}`, {
       method: "GET",
     })
       .then((res) => res.json());
