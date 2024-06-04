@@ -1,11 +1,10 @@
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { BlurView } from "expo-blur";
-import { Ionicons } from "@expo/vector-icons";
 import { randomAvatar } from "../../reducers/ui/uiSlice";
 import { t } from "../../i18n";
 import {
