@@ -1,10 +1,10 @@
-import { polyfillGlobal } from "react-native/Libraries/Utilities/PolyfillFunctions"
+import { polyfillGlobal } from "react-native/Libraries/Utilities/PolyfillFunctions";
 
 const applyGlobalPolyfills = () => {
-  const { TextEncoder, TextDecoder } = require("text-encoding")
+  const { TextEncoder, TextDecoder } = require("text-encoding");
 
-  polyfillGlobal("TextEncoder", () => TextEncoder)
-  polyfillGlobal("TextDecoder", () => TextDecoder)
-}
+  polyfillGlobal("TextEncoder", () => TextEncoder);
+  polyfillGlobal("TextDecoder", () => TextDecoder);
+};
 
-export default applyGlobalPolyfills
+export default applyGlobalPolyfills;

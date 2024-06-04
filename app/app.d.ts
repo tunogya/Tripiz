@@ -1,2 +1,2 @@
 /// <reference types="nativewind/types" />
-declare module '@ethersproject/shims';
+declare module "@ethersproject/shims";

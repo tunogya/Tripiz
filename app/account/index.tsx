@@ -1,14 +1,17 @@
-import {View, Text, Pressable, TouchableOpacity} from "react-native";
-import {memo, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../store/store";
+import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { memo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
-import Clipboard from '@react-native-clipboard/clipboard';
-import {BlurView} from "expo-blur";
-import {Ionicons} from "@expo/vector-icons";
-import {randomAvatar} from "../../reducers/ui/uiSlice";
-import {t} from "../../i18n";
-import {selectNostrPrivateKey, selectNostrPublicKey} from "../../reducers/account/accountSlice";
+import Clipboard from "@react-native-clipboard/clipboard";
+import { BlurView } from "expo-blur";
+import { Ionicons } from "@expo/vector-icons";
+import { randomAvatar } from "../../reducers/ui/uiSlice";
+import { t } from "../../i18n";
+import {
+  selectNostrPrivateKey,
+  selectNostrPublicKey,
+} from "../../reducers/account/accountSlice";
 
 const Page = () => {
   const nostrPublicKey = useSelector(selectNostrPublicKey);
@@ -28,31 +31,36 @@ const Page = () => {
             Clipboard.setString(nostrPublicKey);
           }}
         >
-          <Text className={"text-white text-xl font-bold"}>{nostrPublicKey.slice(0, 7)}...{nostrPublicKey.slice(-5)}</Text>
+          <Text className={"text-white text-xl font-bold"}>
+            {nostrPublicKey.slice(0, 7)}...{nostrPublicKey.slice(-5)}
+          </Text>
         </TouchableOpacity>
         <View className={"bg-white p-3 rounded-lg relative"}>
-          {
-            !show && (
-              <BlurView
-                intensity={100} tint="dark"
-                className={"absolute w-64 h-64 m-3 z-50 flex items-center justify-center"}
-              >
-                <Pressable onPress={() => {
+          {!show && (
+            <BlurView
+              intensity={100}
+              tint="dark"
+              className={
+                "absolute w-64 h-64 m-3 z-50 flex items-center justify-center"
+              }
+            >
+              <Pressable
+                onPress={() => {
                   setShow(true);
-                }}>
-                  <Ionicons name="eye-outline" size={30} color="white" />
-                </Pressable>
-              </BlurView>
-            )
-          }
+                }}
+              >
+                <Ionicons name="eye-outline" size={30} color="white" />
+              </Pressable>
+            </BlurView>
+          )}
           <QRCode
-            color={'#121212'}
+            color={"#121212"}
             size={256}
             logoSize={80}
             logoBackgroundColor={"white"}
             logoBorderRadius={50}
             logo={{
-              uri:  `https://www.larvalabs.com/cryptopunks/cryptopunk${(avatar || 0)?.toString().padStart(4, '0')}.png`
+              uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(avatar || 0)?.toString().padStart(4, "0")}.png`,
             }}
             value={nostrPrivateKey}
           />
@@ -67,9 +75,7 @@ const Page = () => {
               dispatch(randomAvatar());
             }}
           >
-            <Text className={"text-white"}>
-              {t("Shuffle Avatar")}
-            </Text>
+            <Text className={"text-white"}>{t("Shuffle Avatar")}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
@@ -77,9 +83,7 @@ const Page = () => {
               Clipboard.setString(nostrPrivateKey);
             }}
           >
-            <Text className={"text-white"}>
-              {t("Copy Private Key")}
-            </Text>
+            <Text className={"text-white"}>{t("Copy Private Key")}</Text>
           </TouchableOpacity>
         </View>
         <View>
@@ -89,7 +93,7 @@ const Page = () => {
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default memo(Page)
+export default memo(Page);

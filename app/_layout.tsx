@@ -11,8 +11,8 @@ import { StatusBar } from "expo-status-bar";
 import "i18n";
 import Notification from "../components/Notification";
 import CheckUser from "../components/CheckUser";
-import {SWRConfig} from "swr";
-import {AppState} from "react-native";
+import { SWRConfig } from "swr";
+import { AppState } from "react-native";
 
 applyGlobalPolyfills();
 
@@ -42,33 +42,39 @@ export default function RootLayout() {
           provider: () => new Map(),
           isOnline() {
             /* Customize the network state detector */
-            return true
+            return true;
           },
           isVisible() {
             /* Customize the visibility state detector */
-            return true
+            return true;
           },
           initFocus(callback) {
-            let appState = AppState.currentState
+            let appState = AppState.currentState;
 
             const onAppStateChange = (nextAppState: any) => {
               /* If it's resuming from background or inactive mode to active one */
-              if (appState.match(/inactive|background/) && nextAppState === 'active') {
-                callback()
+              if (
+                appState.match(/inactive|background/) &&
+                nextAppState === "active"
+              ) {
+                callback();
               }
-              appState = nextAppState
-            }
+              appState = nextAppState;
+            };
 
             // Subscribe to the app state change events
-            const subscription = AppState.addEventListener('change', onAppStateChange)
+            const subscription = AppState.addEventListener(
+              "change",
+              onAppStateChange,
+            );
 
             return () => {
-              subscription.remove()
-            }
+              subscription.remove();
+            };
           },
           initReconnect(callback) {
             /* Register the listener with your state provider */
-          }
+          },
         }}
       >
         <PersistGate loading={null} persistor={persistor}>

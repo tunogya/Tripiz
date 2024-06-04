@@ -5,7 +5,7 @@ import { memo, useEffect, useState } from "react";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { useNavigationState } from "@react-navigation/core";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const AddButton = () => {
   const insets = useSafeAreaInsets();

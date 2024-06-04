@@ -1,55 +1,51 @@
-import {
-  View,
-  Text,
-  Pressable,
-  TextInput,
-} from "react-native";
-import {memo, useState} from "react";
-import {router, useLocalSearchParams} from "expo-router";
-import {ensureString} from "../../../utils/ensureString";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
-import {increaseVersion} from "../../../reducers/ui/uiSlice";
-import {t} from "../../../i18n";
-import {API_HOST_NAME} from "../../../utils/const";
-import {finalizeEvent} from "nostr-tools";
-import {Buffer} from "buffer";
+import { View, Text, Pressable, TextInput } from "react-native";
+import { memo, useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import { ensureString } from "../../../utils/ensureString";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { increaseVersion } from "../../../reducers/ui/uiSlice";
+import { t } from "../../../i18n";
+import { API_HOST_NAME } from "../../../utils/const";
+import { finalizeEvent } from "nostr-tools";
+import { Buffer } from "buffer";
 
 const Page = () => {
-  const { category} = useLocalSearchParams();
-  const {privateKey} = useSelector((state: RootState) => state.account);
-  const [text, setText] = useState("")
+  const { category } = useLocalSearchParams();
+  const { privateKey } = useSelector((state: RootState) => state.account);
+  const [text, setText] = useState("");
   const [status, setStatus] = useState("idle");
   const dispatch = useDispatch();
 
   const save = async () => {
     setStatus("loading");
     try {
-      const event = finalizeEvent({
-        kind: 1,
-        created_at: Math.floor(Date.now() / 1000),
-        tags: [
-          ["category", ensureString(category) || "reflections"],
-        ],
-        content: text,
-      }, Buffer.from(privateKey, "hex"));
+      const event = finalizeEvent(
+        {
+          kind: 1,
+          created_at: Math.floor(Date.now() / 1000),
+          tags: [["category", ensureString(category) || "reflections"]],
+          content: text,
+        },
+        Buffer.from(privateKey, "hex"),
+      );
       await fetch(`${API_HOST_NAME}/posts/`, {
         method: "POST",
-        body: JSON.stringify(event)
-      })
+        body: JSON.stringify(event),
+      });
       dispatch(increaseVersion());
-      setStatus("success")
+      setStatus("success");
       setTimeout(() => {
         router.back();
-        setStatus("idle")
-      }, 500)
+        setStatus("idle");
+      }, 500);
     } catch (e) {
-      setStatus("error")
+      setStatus("error");
       setTimeout(() => {
-        setStatus("idle")
-      }, 3000)
+        setStatus("idle");
+      }, 3000);
     }
-  }
+  };
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>

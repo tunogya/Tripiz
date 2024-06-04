@@ -1,16 +1,24 @@
-import {View, Text, ScrollView, Pressable, RefreshControl, ActivityIndicator, FlatList} from "react-native";
-import {memo, useEffect, useState} from "react";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  RefreshControl,
+  ActivityIndicator,
+  FlatList,
+} from "react-native";
+import { memo, useEffect, useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
-import {Ionicons} from "@expo/vector-icons";
-import {useSelector} from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 import LibraryShowItem from "../../components/LibraryShowItem";
-import {RootState} from "../../store/store";
+import { RootState } from "../../store/store";
 import Avatar from "../../components/Avatar";
-import {router} from "expo-router";
-import {t} from "../../i18n";
-import {API_HOST_NAME} from "../../utils/const";
-import {selectPublicKey} from "../../reducers/account/accountSlice";
+import { router } from "expo-router";
+import { t } from "../../i18n";
+import { API_HOST_NAME } from "../../utils/const";
+import { selectPublicKey } from "../../reducers/account/accountSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -18,7 +26,7 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const {version} = useSelector((state: RootState) => state.ui);
+  const { version } = useSelector((state: RootState) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [nextSkip, setNextSkip] = useState<number | null>(0);
@@ -27,23 +35,22 @@ const Page = () => {
 
   const fetchData = async (category: string, skip: number) => {
     setIsLoading(true);
-    const result = await fetch(`${API_HOST_NAME}/accounts/${publicKey}/posts?category=${category}&skip=${skip}`, {
-      method: "GET",
-    })
-      .then((res) => res.json());
+    const result = await fetch(
+      `${API_HOST_NAME}/accounts/${publicKey}/posts?category=${category}&skip=${skip}`,
+      {
+        method: "GET",
+      },
+    ).then((res) => res.json());
     setIsLoading(false);
 
     if (skip === 0) {
-      setData(result.data)
+      setData(result.data);
     } else {
-      setData([
-        ...data,
-        ...result.data,
-      ])
+      setData([...data, ...result.data]);
     }
     setHasNext(result.pagination.hasNext);
     setNextSkip(result.pagination.nextSkip);
-  }
+  };
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -72,7 +79,7 @@ const Page = () => {
               router.navigate(`account`);
             }}
           >
-            <Avatar/>
+            <Avatar />
           </Pressable>
           <Text className={"text-white font-bold text-2xl"}>
             {t("Library")}
@@ -94,7 +101,7 @@ const Page = () => {
                 setFilter("");
               }}
             >
-              <Ionicons name="close" size={16} color="white"/>
+              <Ionicons name="close" size={16} color="white" />
             </Pressable>
           )}
           {FILTERS.map((item, index) =>
@@ -125,7 +132,7 @@ const Page = () => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              colors={['#B3B3B3']}
+              colors={["#B3B3B3"]}
               progressBackgroundColor="#121212"
               tintColor="#B3B3B3"
               title="Loading..."
@@ -140,18 +147,20 @@ const Page = () => {
             }
           }}
           onEndReachedThreshold={0.3}
-          ListEmptyComponent={() => (
+          ListEmptyComponent={() =>
             !isLoading && (
               <View className={"px-4"}>
-                <Text className={"text-[#B3B3B3] text-xs"}>{t(`No content`)}</Text>
+                <Text className={"text-[#B3B3B3] text-xs"}>
+                  {t(`No content`)}
+                </Text>
               </View>
             )
-          )}
+          }
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>
               {isLoading && (
-                <ActivityIndicator size={"small"} color="#B3B3B3"/>
+                <ActivityIndicator size={"small"} color="#B3B3B3" />
               )}
               <View
                 style={{
@@ -160,12 +169,12 @@ const Page = () => {
               ></View>
             </View>
           )}
-          renderItem={({item}) => (
-            <LibraryShowItem item={item} showType={!filter}/>
+          renderItem={({ item }) => (
+            <LibraryShowItem item={item} showType={!filter} />
           )}
         />
       </View>
-      <AddDreamButton/>
+      <AddDreamButton />
     </View>
   );
 };

@@ -20,6 +20,7 @@ export const slice = createSlice({
   },
 });
 
-export const { increaseVersion, randomAvatar, updateCurrentPost } = slice.actions;
+export const { increaseVersion, randomAvatar, updateCurrentPost } =
+  slice.actions;
 
 export default slice.reducer;
