@@ -1,14 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { bech32 } from "bech32";
 import "react-native-get-random-values";
 import elliptic from "elliptic";
 import { RootState } from "../../store/store";
 import { Buffer } from "buffer";
-
-function encodeKey(prefix: string, key: string) {
-  const words = bech32.toWords(Buffer.from(key, "hex"));
-  return bech32.encode(prefix, words);
-}
+import { encodeKey } from "../../utils/nostrUtil";
 
 export const slice = createSlice({
   name: "account",
