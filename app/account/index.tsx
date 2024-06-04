@@ -12,6 +12,7 @@ import {
   selectNostrPrivateKey,
   selectNostrPublicKey,
 } from "../../reducers/account/accountSlice";
+import Avatar from "../../components/Avatar";
 
 const Page = () => {
   const nostrPublicKey = useSelector(selectNostrPublicKey);
@@ -38,19 +39,15 @@ const Page = () => {
         <View className={"bg-white p-3 rounded-lg relative"}>
           {!show && (
             <BlurView
-              intensity={100}
-              tint="dark"
+              intensity={60}
+              tint="systemThickMaterialLight"
               className={
                 "absolute w-64 h-64 m-3 z-50 flex items-center justify-center"
               }
             >
-              <Pressable
-                onPress={() => {
-                  setShow(true);
-                }}
-              >
-                <Ionicons name="eye-outline" size={30} color="white" />
-              </Pressable>
+              <View className={"p-0.5 bg-white rounded-full overflow-hidden"}>
+                <Avatar classname={"w-20 h-20 rounded-full"} />
+              </View>
             </BlurView>
           )}
           <QRCode
@@ -80,10 +77,12 @@ const Page = () => {
           <TouchableOpacity
             className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
             onPress={() => {
-              Clipboard.setString(nostrPrivateKey);
+              setShow(!show);
             }}
           >
-            <Text className={"text-white"}>{t("Copy Private Key")}</Text>
+            <Text className={"text-white"}>
+              {show ? t("Hide Private Key") : t("Show Private Key")}
+            </Text>
           </TouchableOpacity>
         </View>
         <View>

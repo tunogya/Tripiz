@@ -3,7 +3,7 @@ import "react-native-get-random-values";
 import elliptic from "elliptic";
 import { RootState } from "../../store/store";
 import { Buffer } from "buffer";
-import { encodeKey } from "../../utils/nostrUtil";
+import {decodeKey, encodeKey} from "../../utils/nostrUtil";
 
 export const slice = createSlice({
   name: "account",
@@ -16,13 +16,17 @@ export const slice = createSlice({
       const keyPair = EC.genKeyPair();
       state.privateKey = keyPair.getPrivate("hex");
     },
-    destroy: (state) => {
-      state.privateKey = "";
+    recovery: (state, action) => {
+      const privateKey = decodeKey(action.payload);
+      if (!privateKey) {
+        return;
+      }
+      state.privateKey = privateKey;
     },
   },
 });
 
-export const { initialize, destroy } = slice.actions;
+export const { initialize, recovery } = slice.actions;
 
 export const selectPublicKey = (state: RootState) => {
   const privateKey = state.account.privateKey;

@@ -5,7 +5,8 @@ export const en = {
   "Search dot dot dot": "Search...",
   Library: "Library",
   "Shuffle Avatar": "Shuffle Avatar",
-  "Copy Private Key": "Copy Private Key",
+  "Show Private Key": "Show Private Key",
+  "Hide Private Key": "Hide Private Key",
   "Be sure you have backup this private key":
     "Be sure you have backup this private key",
   "Nostr Private Key": "Nostr Private Key",
