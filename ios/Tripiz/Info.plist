@@ -92,12 +92,8 @@
     </array>
     <key>NSCameraUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to use your camera</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to use your location</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to use your location</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to use your location</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your photos</string>
     <key>NSPrivacyAccessedAPITypes</key>
     <array>
         <dict>

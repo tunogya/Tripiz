@@ -30,4 +30,5 @@ export const zh = {
   Deleting: "删除中",
   "No content": "没有内容",
   Edit: "编辑",
+  "Import My Nostr Key": "导入我的Nostr私钥",
 };

@@ -31,4 +31,5 @@ export const en = {
   Deleting: "Deleting",
   "No content": "No content",
   Edit: "Edit",
+  "Import My Nostr Key": "Import My Nostr Key",
 };

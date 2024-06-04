@@ -17,11 +17,7 @@ export const slice = createSlice({
       state.privateKey = keyPair.getPrivate("hex");
     },
     recovery: (state, action) => {
-      const privateKey = decodeKey(action.payload);
-      if (!privateKey) {
-        return;
-      }
-      state.privateKey = privateKey;
+      state.privateKey = action.payload;
     },
   },
 });
