@@ -32,4 +32,6 @@ export const en = {
   "No content": "No content",
   Edit: "Edit",
   "Import My Nostr Key": "Import My Nostr Key",
+  "No Qr code found": "No Qr code found",
+  "Import Nostr Key failed": "Import Nostr Key failed",
 };

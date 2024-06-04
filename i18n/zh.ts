@@ -31,4 +31,6 @@ export const zh = {
   "No content": "没有内容",
   Edit: "编辑",
   "Import My Nostr Key": "导入我的Nostr私钥",
+  "No Qr code found": "没有找到二维码",
+  "Import Nostr Key failed": "导入Nostr私钥失败",
 };

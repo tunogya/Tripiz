@@ -43,8 +43,10 @@ const Page = () => {
           }
           dispatch(recovery(nostrPrivateKey));
         } catch (e) {
-          alert("Import Nostr Key failed");
+          alert(t("Import Nostr Key failed"));
         }
+      } else {
+        alert(t("No Qr code found"));
       }
     }
   };
