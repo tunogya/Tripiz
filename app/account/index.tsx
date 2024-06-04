@@ -5,7 +5,7 @@ import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { BlurView } from "expo-blur";
-import { randomAvatar } from "../../reducers/ui/uiSlice";
+import {increaseVersion, randomAvatar} from "../../reducers/ui/uiSlice";
 import { t } from "../../i18n";
 import {
   recovery,
@@ -42,6 +42,7 @@ const Page = () => {
             return;
           }
           dispatch(recovery(nostrPrivateKey));
+          dispatch(increaseVersion());
         } catch (e) {
           alert(t("Import Nostr Key failed"));
         }
