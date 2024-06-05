@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, Pressable} from "react-native";
+import {View, Text, TouchableOpacity, Pressable, ScrollView} from "react-native";
 import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
@@ -54,81 +54,85 @@ const Page = () => {
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>
-      <View className={"flex justify-center items-center pt-2"}>
+      <View className={"flex justify-center items-center py-2"}>
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
-      <View className={"items-center my-20 space-y-8 mx-4"}>
-        <TouchableOpacity
-          onPress={() => {
-            Clipboard.setString(nostrPublicKey);
-          }}
-        >
-          <Text className={"text-white text-xl font-bold"}>
-            {nostrPublicKey.slice(0, 7)}...{nostrPublicKey.slice(-5)}
-          </Text>
-        </TouchableOpacity>
-        <View className={"bg-white p-3 rounded-lg relative"}>
-          {!show && (
-            <BlurView
-              intensity={60}
-              tint="systemThickMaterialLight"
-              className={
-                "absolute w-64 h-64 m-3 z-50 flex items-center justify-center"
-              }
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+      >
+        <View className={"items-center py-20 space-y-8 px-4"}>
+          <TouchableOpacity
+            onPress={() => {
+              Clipboard.setString(nostrPublicKey);
+            }}
+          >
+            <Text className={"text-white text-xl font-bold"}>
+              {nostrPublicKey.slice(0, 7)}...{nostrPublicKey.slice(-5)}
+            </Text>
+          </TouchableOpacity>
+          <View className={"bg-white p-3 rounded-lg relative"}>
+            {!show && (
+              <BlurView
+                intensity={60}
+                tint="systemThickMaterialLight"
+                className={
+                  "absolute w-64 h-64 m-3 z-50 flex items-center justify-center"
+                }
+              >
+                <View className={"p-0.5 bg-white rounded-full overflow-hidden"}>
+                  <Avatar classname={"w-20 h-20 rounded-full"} />
+                </View>
+              </BlurView>
+            )}
+            <QRCode
+              color={"#121212"}
+              size={256}
+              logoSize={80}
+              logoBackgroundColor={"white"}
+              logoBorderRadius={50}
+              logo={{
+                uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(avatar || 0)?.toString().padStart(4, "0")}.png`,
+              }}
+              value={nostrPrivateKey}
+            />
+            <Text className={"text-black text-center pt-2 font-bold"}>
+              {t("Nostr Private Key")}
+            </Text>
+          </View>
+          <View className={"flex flex-row space-x-3"}>
+            <TouchableOpacity
+              className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
+              onPress={() => {
+                dispatch(randomAvatar());
+              }}
             >
-              <View className={"p-0.5 bg-white rounded-full overflow-hidden"}>
-                <Avatar classname={"w-20 h-20 rounded-full"} />
-              </View>
-            </BlurView>
-          )}
-          <QRCode
-            color={"#121212"}
-            size={256}
-            logoSize={80}
-            logoBackgroundColor={"white"}
-            logoBorderRadius={50}
-            logo={{
-              uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(avatar || 0)?.toString().padStart(4, "0")}.png`,
-            }}
-            value={nostrPrivateKey}
-          />
-          <Text className={"text-black text-center pt-2 font-bold"}>
-            {t("Nostr Private Key")}
-          </Text>
-        </View>
-        <View className={"flex flex-row space-x-3"}>
-          <TouchableOpacity
-            className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
-            onPress={() => {
-              dispatch(randomAvatar());
-            }}
-          >
-            <Text className={"text-white"}>{t("Shuffle Avatar")}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
-            onPress={() => {
-              setShow(!show);
-            }}
-          >
-            <Text className={"text-white"}>
-              {show ? t("Hide Private Key") : t("Show Private Key")}
+              <Text className={"text-white"}>{t("Shuffle Avatar")}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
+              onPress={() => {
+                setShow(!show);
+              }}
+            >
+              <Text className={"text-white"}>
+                {show ? t("Hide Private Key") : t("Show Private Key")}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text className={"text-[#B3B3B3]"}>
+              {t("Be sure you have backup this private key")}
             </Text>
-          </TouchableOpacity>
+          </View>
+          <View className={"pt-8"}>
+            <Pressable onPress={pickImage}>
+              <Text className={"text-red-500 underline"}>
+                {t(`Import My Nostr Key`)}
+              </Text>
+            </Pressable>
+          </View>
         </View>
-        <View>
-          <Text className={"text-[#B3B3B3]"}>
-            {t("Be sure you have backup this private key")}
-          </Text>
-        </View>
-        <View className={"pt-8"}>
-          <Pressable onPress={pickImage}>
-            <Text className={"text-red-500 underline"}>
-              {t(`Import My Nostr Key`)}
-            </Text>
-          </Pressable>
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
