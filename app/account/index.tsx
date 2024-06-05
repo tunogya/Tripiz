@@ -1,11 +1,17 @@
-import {View, Text, TouchableOpacity, Pressable, ScrollView} from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+  ScrollView,
+} from "react-native";
 import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { BlurView } from "expo-blur";
-import {increaseVersion, randomAvatar} from "../../reducers/ui/uiSlice";
+import { increaseVersion, randomAvatar } from "../../reducers/ui/uiSlice";
 import { t } from "../../i18n";
 import {
   recovery,
@@ -13,9 +19,9 @@ import {
   selectNostrPublicKey,
 } from "../../reducers/account/accountSlice";
 import Avatar from "../../components/Avatar";
-import * as ImagePicker from 'expo-image-picker';
-import {Camera} from "expo-camera";
-import {decodeKey} from "../../utils/nostrUtil";
+import * as ImagePicker from "expo-image-picker";
+import { Camera } from "expo-camera";
+import { decodeKey } from "../../utils/nostrUtil";
 
 const Page = () => {
   const nostrPublicKey = useSelector(selectNostrPublicKey);
@@ -34,7 +40,7 @@ const Page = () => {
     });
 
     if (!result.canceled) {
-      const data = await Camera.scanFromURLAsync(result.assets[0].uri)
+      const data = await Camera.scanFromURLAsync(result.assets[0].uri);
       if (data?.[0] && data[0]?.data) {
         try {
           const nostrPrivateKey = decodeKey(data[0]?.data);
@@ -57,9 +63,7 @@ const Page = () => {
       <View className={"flex justify-center items-center py-2"}>
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View className={"items-center py-20 space-y-8 px-4"}>
           <TouchableOpacity
             onPress={() => {

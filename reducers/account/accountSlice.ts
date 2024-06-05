@@ -3,7 +3,7 @@ import "react-native-get-random-values";
 import elliptic from "elliptic";
 import { RootState } from "../../store/store";
 import { Buffer } from "buffer";
-import {decodeKey, encodeKey} from "../../utils/nostrUtil";
+import { decodeKey, encodeKey } from "../../utils/nostrUtil";
 
 export const slice = createSlice({
   name: "account",
