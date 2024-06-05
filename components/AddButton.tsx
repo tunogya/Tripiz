@@ -35,6 +35,7 @@ const AddButton = () => {
         }
       >
         <Ionicons name="moon-outline" size={24} color="#121212" />
+        <Text className={"text-[#121212] text-lg font-medium"}>{t("New dream")}</Text>
       </Pressable>
       <View className={"bg-[#121212] w-0.5 h-8 opacity-20"}></View>
       <Pressable
