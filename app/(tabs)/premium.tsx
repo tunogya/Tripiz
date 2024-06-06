@@ -124,7 +124,12 @@ const Page = () => {
                 <Text className={"text-white"}>你可以随时取消订阅</Text>
               </View>
             </View>
-            <TouchableOpacity className={"m-4 p-4 rounded-full bg-[#F8D4D7]"}>
+            <TouchableOpacity
+              className={"m-4 p-4 rounded-full bg-[#F8D4D7]"}
+              onPress={async () => {
+                // const { customerInfo } = await Purchases.purchasePackage(products.availablePackages[0]);
+              }}
+            >
               <Text className={"text-center font-bold"}>免费试用一个月</Text>
             </TouchableOpacity>
             <View className={"p-4"}>
@@ -160,7 +165,7 @@ const Page = () => {
             <TouchableOpacity
               className={"m-4 p-4 rounded-full bg-[#A9BACF]"}
               onPress={async () => {
-                const { customerInfo } = await Purchases.purchasePackage(products.availablePackages[0]);
+                // const { customerInfo } = await Purchases.purchasePackage(products.availablePackages[0]);
               }}
             >
               <Text className={"text-center font-bold"}>升级至高级家庭版</Text>
