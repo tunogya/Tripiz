@@ -27,26 +27,14 @@ const AddButton = () => {
       }}
     >
       <Pressable
-        onPress={() => {
-          router.navigate(`edit/posts?category=dreams`);
-        }}
         className={
-          "items-center justify-center flex flex-row h-12 pl-4 pr-3 space-x-3"
-        }
-      >
-        <Ionicons name="moon-outline" size={24} color="#121212" />
-        <Text className={"text-[#121212] text-lg font-medium"}>{t("New dream")}</Text>
-      </Pressable>
-      <View className={"bg-[#121212] w-0.5 h-8 opacity-20"}></View>
-      <Pressable
-        className={
-          "items-center justify-center flex flex-row h-12 pl-3 pr-4 space-x-1"
+          "items-center justify-center flex h-12 w-12"
         }
         onPress={() => {
           setOpenMore(true);
         }}
       >
-        <Ionicons name="chevron-up" size={24} color="#121212" />
+        <Ionicons name="add" size={24} color="#121212" />
       </Pressable>
     </View>
   );
