@@ -32,8 +32,9 @@ function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="search"
         options={{
+          href: "/search",
           title: t("Search"),
           headerShown: false,
           tabBarIcon: ({ color, size, focused }) =>
@@ -61,6 +62,7 @@ function TabLayout() {
       <Tabs.Screen
         name="library"
         options={{
+          href: "",
           title: t("Library"),
           headerShown: false,
           tabBarIcon: ({ color, size, focused }) =>
@@ -84,6 +86,7 @@ function TabLayout() {
       <Tabs.Screen
         name="premium"
         options={{
+          // href: null,
           title: t("Premium"),
           headerShown: false,
           tabBarIcon: ({color, size}) =>
