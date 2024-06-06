@@ -1949,10 +1949,10 @@
   dependencies:
     web-streams-polyfill "^3.1.1"
 
-"@revenuecat/purchases-typescript-internal@10.3.2":
-  version "10.3.2"
-  resolved "https://registry.yarnpkg.com/@revenuecat/purchases-typescript-internal/-/purchases-typescript-internal-10.3.2.tgz#3eeaf2cd616255ff5a23386e2e8b710db6f6cc9e"
-  integrity sha512-0MqcyY1ZNLdbBfz684v7LK0gHZdrPIisIqBrb7QH/t5GAZU3fhP/B5ABrvMRTj7bdYEMEwiPAm431RaDwMWX+A==
+"@revenuecat/purchases-typescript-internal@10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@revenuecat/purchases-typescript-internal/-/purchases-typescript-internal-10.8.0.tgz#fd8d1c69bfec4b7d9fdba3980d086448992effc2"
+  integrity sha512-ZWW//gE0HSn1JGebgCGTXe1j7v7JKW64MuKqOemBXzivZgJQcqGJa1TsJoQr0npIlBrxmJDw4Dnz1tEyS+SuMw==
 
 "@rnx-kit/chromium-edge-launcher@^1.0.0":
   version "1.0.0"
@@ -8375,12 +8375,12 @@ react-native-helmet-async@2.0.4:
     react-fast-compare "^3.2.2"
     shallowequal "^1.1.0"
 
-react-native-purchases@^7.24.0:
-  version "7.26.0"
-  resolved "https://registry.yarnpkg.com/react-native-purchases/-/react-native-purchases-7.26.0.tgz#48c33713775a8c37162be8549c11a22a32cb95ce"
-  integrity sha512-mwQVlFx8Ryg3YxPKtaMhmTSU1F6YoYlVngKbhnEOgi1Zyk3bV+hP3uJAl7EfGVubvJQn0lUeRUIh4FZdbx0j1Q==
+react-native-purchases@^7.27.3:
+  version "7.27.3"
+  resolved "https://registry.yarnpkg.com/react-native-purchases/-/react-native-purchases-7.27.3.tgz#1f4820af54e1ec3adf8d2df94fb15809605f178b"
+  integrity sha512-Wk/h1Hs2of7IEqPwn/GBRpkvGwcZrD4S4DjVFHGTXhVaYXbshoKHCKfMxJnD4OCpubMu2jGIaR1K+au5lZ5HAQ==
   dependencies:
-    "@revenuecat/purchases-typescript-internal" "10.3.2"
+    "@revenuecat/purchases-typescript-internal" "10.8.0"
 
 react-native-qrcode-svg@^6.3.1:
   version "6.3.1"
