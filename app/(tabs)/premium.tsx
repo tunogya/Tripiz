@@ -21,9 +21,9 @@ const Page = () => {
   const dispatch = useDispatch();
 
   const array = [
-    ["有广告", "无广告"],
-    ["有广告", "无广告"],
-    ["有广告", "无广告"],
+    ["有广告干扰", "无任何广告"],
+    ["有限的访问权限", "所有功能无任何限制"],
+    ["无任何 AI 交互功能", "抢先体验 AI 新功能"],
   ];
 
   const currentIndex = useMemo(() => {
