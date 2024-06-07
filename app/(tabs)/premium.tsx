@@ -15,7 +15,7 @@ const Page = () => {
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
   const [x, setX] = useState(0);
-  const { packages, purchasesEntitlementInfo, status } = useSelector(
+  const { packages, purchasesEntitlementInfo } = useSelector(
     (state: RootState) => state.purchase,
   );
   const dispatch = useDispatch();
@@ -57,6 +57,33 @@ const Page = () => {
 
   const currentPlan = useMemo(() => {
     if (purchasesEntitlementInfo && purchasesEntitlementInfo?.isActive) {
+      if (purchasesEntitlementInfo.productIdentifier === "ai.abandon.tripiz.monthly.premium.family") {
+        return "Premium Family";
+      } else if (purchasesEntitlementInfo.productIdentifier === "ai.abandon.tripiz.monthly.premium.standard") {
+        return "Premium Standard";
+      }
+      // {
+      // "billingIssueDetectedAt": null,
+      // "billingIssueDetectedAtMillis": null,
+      // "expirationDate": "2024-06-07T08:01:44Z",
+      // "expirationDateMillis": 1717747304000,
+      // "identifier": "Premium",
+      // "isActive": true,
+      // "isSandbox": true,
+      // "latestPurchaseDate": "2024-06-07T07:56:44Z",
+      // "latestPurchaseDateMillis": 1717747004000,
+      // "originalPurchaseDate": "2024-06-07T07:38:49Z",
+      // "originalPurchaseDateMillis": 1717745929000,
+      // "ownershipType": "PURCHASED",
+      // "periodType": "NORMAL",
+      // "productIdentifier": "ai.abandon.tripiz.monthly.premium.family",
+      // "productPlanIdentifier": null,
+      // "store": "APP_STORE",
+      // "unsubscribeDetectedAt": null,
+      // "unsubscribeDetectedAtMillis": null,
+      // "verification": "NOT_REQUESTED",
+      // "willRenew": true
+      // }
       return "Premium";
     } else {
       return "Tripiz Free";
@@ -120,7 +147,7 @@ const Page = () => {
             <Text className={"text-white font-bold text-xl"}>
               {currentPlan}
             </Text>
-            <Text className={"text-white text-xs"}>当前使用计划</Text>
+            <Text className={"text-white text-xs"}>当前计划</Text>
           </View>
         </View>
         {packages &&
