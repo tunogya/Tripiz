@@ -1,13 +1,13 @@
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../store/store";
-import {memo, useEffect} from "react";
-import {initialize, selectPublicKey} from "../reducers/account/accountSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { memo, useEffect } from "react";
+import { initialize, selectPublicKey } from "../reducers/account/accountSlice";
 import Purchases from "react-native-purchases";
-import {Alert} from "react-native";
-import {updatePurchasesEntitlementInfo} from "../reducers/purchase/purchaseSlice";
+import { Alert } from "react-native";
+import { updatePurchasesEntitlementInfo } from "../reducers/purchase/purchaseSlice";
 
 const LoginForm = () => {
-  const {privateKey} = useSelector((state: RootState) => state.account);
+  const { privateKey } = useSelector((state: RootState) => state.account);
   const publicKey = useSelector(selectPublicKey);
   const dispatch = useDispatch();
 
@@ -21,27 +21,30 @@ const LoginForm = () => {
   useEffect(() => {
     const login = async () => {
       if (!publicKey) {
-        return
+        return;
       }
       try {
         await Purchases.logIn(publicKey);
       } catch (e) {
-        Alert.alert('Error identifying user', e.message);
+        Alert.alert("Error identifying user", e.message);
       }
-    }
+    };
     login();
   }, [publicKey]);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       const customerInfo = await Purchases.getCustomerInfo();
-      if (typeof customerInfo.entitlements.active?.["Premium"] !== 'undefined') {
-        const purchasesEntitlementInfo = customerInfo.entitlements.active["Premium"];
-        dispatch(updatePurchasesEntitlementInfo(purchasesEntitlementInfo))
+      if (
+        typeof customerInfo.entitlements.active?.["Premium"] !== "undefined"
+      ) {
+        const purchasesEntitlementInfo =
+          customerInfo.entitlements.active["Premium"];
+        dispatch(updatePurchasesEntitlementInfo(purchasesEntitlementInfo));
       } else {
-        dispatch(updatePurchasesEntitlementInfo(undefined))
+        dispatch(updatePurchasesEntitlementInfo(undefined));
       }
-    }
+    };
     fetchUserInfo();
   }, []);
 

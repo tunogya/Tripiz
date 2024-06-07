@@ -12,11 +12,10 @@ export const slice = createSlice({
     },
     updatePackage: (state, action) => {
       state.packages = action.payload;
-    }
+    },
   },
 });
 
-export const { updatePurchasesEntitlementInfo, updatePackage } =
-  slice.actions;
+export const { updatePurchasesEntitlementInfo, updatePackage } = slice.actions;
 
 export default slice.reducer;

@@ -1,19 +1,19 @@
 import applyGlobalPolyfills from "../utils/applyGlobalPolyfills";
-import {SplashScreen} from "expo-router";
-import {Provider} from "react-redux";
-import store, {persistor} from "../store/store";
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import {PersistGate} from "redux-persist/integration/react";
-import {useFonts, Inter_500Medium} from "@expo-google-fonts/inter";
-import {useEffect} from "react";
-import {Stack} from "expo-router/stack";
-import {StatusBar} from "expo-status-bar";
+import { SplashScreen } from "expo-router";
+import { Provider } from "react-redux";
+import store, { persistor } from "../store/store";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { PersistGate } from "redux-persist/integration/react";
+import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
+import { useEffect } from "react";
+import { Stack } from "expo-router/stack";
+import { StatusBar } from "expo-status-bar";
 import "i18n";
 import Notification from "../components/Notification";
 import CheckUser from "../components/LoginForm";
-import {SWRConfig} from "swr";
-import {AppState, Platform} from "react-native";
-import Purchases, {LOG_LEVEL} from 'react-native-purchases';
+import { SWRConfig } from "swr";
+import { AppState, Platform } from "react-native";
+import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
 applyGlobalPolyfills();
 
@@ -26,11 +26,11 @@ export default function RootLayout() {
 
   useEffect(() => {
     Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       Purchases.configure({
         apiKey: "appl_twUGekeTPSpiBJJreAWYAXaXqCW",
       });
-    } else if (Platform.OS === 'android') {
+    } else if (Platform.OS === "android") {
       // Purchases.configure({
       //   apiKey: "",
       //   appUserID: "",
@@ -93,10 +93,10 @@ export default function RootLayout() {
         }}
       >
         <PersistGate loading={null} persistor={persistor}>
-          <Notification/>
-          <CheckUser/>
+          <Notification />
+          <CheckUser />
           <SafeAreaProvider>
-            <StatusBar style="light"/>
+            <StatusBar style="light" />
             <Stack>
               <Stack.Screen
                 name="(tabs)"

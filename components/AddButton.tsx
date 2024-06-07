@@ -27,9 +27,7 @@ const AddButton = () => {
       }}
     >
       <Pressable
-        className={
-          "items-center justify-center flex h-12 w-12"
-        }
+        className={"items-center justify-center flex h-12 w-12"}
         onPress={() => {
           setOpenMore(true);
         }}
