@@ -1,9 +1,11 @@
-import { Text, View } from "react-native";
-import React, { FC, memo } from "react";
-import { useSelector } from "react-redux";
+import {Text, View} from "react-native";
+import React, {FC, memo} from "react";
+import {useSelector} from "react-redux";
 import * as Crypto from "expo-crypto";
-import { selectPublicKey } from "../reducers/account/accountSlice";
+import {selectPublicKey} from "../reducers/account/accountSlice";
 import Avatar from "./Avatar";
+import {API_HOST_NAME} from "../utils/const";
+import useSWR from "swr";
 
 export async function mapAddressToNumber(address: string) {
   const hash = await Crypto.digestStringAsync(
@@ -19,15 +21,13 @@ const CommentShowItem: FC<{
     id: string;
     pubkey: string;
     content: string;
-    tags: [][];
-    tags_map: any;
     created_at: number;
   };
-}> = ({ item }) => {
+}> = ({item}) => {
   const publicKey = useSelector(selectPublicKey);
+  const {data} = useSWR(`${API_HOST_NAME}/accounts/${item.pubkey}`, (url) => fetch(url).then((res) => res.json()));
 
-  const name =
-    item.pubkey === publicKey ? "Me" : item?.tags_map?.name?.[0] || "Anonymous";
+  const name = item.pubkey === publicKey ? "Me" : (data?.name || "Anonymous");
 
   return (
     <View className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}>
