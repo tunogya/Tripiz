@@ -63,7 +63,9 @@ const CommentShowItem: FC<{
           <Text className={"text-[#B3B3B3] text-xs"}>
             {new Date(item.created_at * 1000)
               .toLocaleDateString()
-              .replaceAll("/", "-")}
+              .replaceAll("/", "-")
+              .replace(`${new Date().getFullYear()}-`, "")
+            }
           </Text>
         </View>
         <View className={"flex flex-row items-end flex-wrap"}>
