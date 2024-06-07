@@ -35,4 +35,13 @@ export const en = {
   "No Qr code found": "No Qr code found",
   "Import Nostr Key failed": "Import Nostr Key failed",
   Premium: "Premium",
+  "Premium first month free trial": "Premium first month free trial",
+  "Current plan": "Current plan",
+  "Restore": "Restore",
+  "Free trial for the first month": "Free trial for the first month",
+  "You can unsubscribe at any time": "You can unsubscribe at any time",
+  Subscribed: "Subscribed",
+  "per month": "per month",
+  "Free trial for 1 month then": "Free trial for 1 month then",
+  "Plan will automatically renew every month until you cancel": ". Plan will automatically renew every month until you cancel.",
 };

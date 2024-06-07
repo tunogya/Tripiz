@@ -10,6 +10,7 @@ import RestorePurchasesButton from "../../components/RestorePurchasesButton";
 import PackageItem from "../../components/PackageItem";
 import { RootState } from "../../store/store";
 import { updatePackage } from "../../reducers/purchase/purchaseSlice";
+import {t} from "../../i18n";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -101,7 +102,7 @@ const Page = () => {
       >
         <View className={"pt-8"}>
           <Text className={"text-white text-3xl font-bold text-center"}>
-            Premium 首月免费试用
+            {t("Premium first month free trial")}
           </Text>
         </View>
         <ScrollView
@@ -147,7 +148,9 @@ const Page = () => {
             <Text className={"text-white font-bold text-xl"}>
               {currentPlan}
             </Text>
-            <Text className={"text-white text-xs"}>当前计划</Text>
+            <Text className={"text-white text-xs"}>
+              {t("Current plan")}
+            </Text>
           </View>
         </View>
         {packages &&

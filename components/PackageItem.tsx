@@ -5,6 +5,7 @@ import Svg, { Path } from "react-native-svg";
 import {useDispatch, useSelector} from "react-redux";
 import { updatePurchasesEntitlementInfo } from "../reducers/purchase/purchaseSlice";
 import {RootState} from "../store/store";
+import {t} from "../i18n";
 
 const PackageItem = ({ purchasePackage }) => {
   const dispatch = useDispatch();
@@ -57,7 +58,9 @@ const PackageItem = ({ purchasePackage }) => {
         {isStandard && (
           <View className={"flex flex-row"}>
             <View className={"p-2 bg-[#F8D4D7] rounded-br-lg"}>
-              <Text className={"text-xs font-bold"}>首月免费试用</Text>
+              <Text className={"text-xs font-bold"}>
+                {t("Free trial for the first month")}
+              </Text>
             </View>
             <View className={"flex-1"} />
           </View>
@@ -87,7 +90,9 @@ const PackageItem = ({ purchasePackage }) => {
           </View>
           <View className={"flex flex-row items-center space-x-2"}>
             <View className={"w-1.5 h-1.5 bg-white rounded-full mx-1"}></View>
-            <Text className={"text-white"}>你可以随时取消订阅</Text>
+            <Text className={"text-white"}>
+              {t("You can unsubscribe at any time")}
+            </Text>
           </View>
         </View>
         {
@@ -97,7 +102,7 @@ const PackageItem = ({ purchasePackage }) => {
               onPress={onSelection}
             >
               <Text className={"text-center font-bold"}>
-                您已订阅此项目
+                {t("Subscribed")}
               </Text>
             </TouchableOpacity>
             ) : (
@@ -117,8 +122,8 @@ const PackageItem = ({ purchasePackage }) => {
         }
         <View className={"p-4"}>
           <Text className={"text-xs text-[#A7A7A7] text-center"}>
-            {isStandard ? "免费试用 1 个月，之后" : ""}每月{" "}
-            {product.priceString}。方案将每月自动续期，直到你取消为止。
+            {isStandard ? t("Free trial for 1 month then") : ""}{t(`per month`)}{" "}
+            {product.priceString}{t("Plan will automatically renew every month until you cancel")}
           </Text>
         </View>
       </View>
