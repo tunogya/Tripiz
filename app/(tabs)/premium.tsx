@@ -22,9 +22,9 @@ const Page = () => {
   const dispatch = useDispatch();
 
   const array = [
-    ["有广告干扰", "无任何广告"],
-    ["有限的访问权限", "所有功能无任何限制"],
-    ["无任何 AI 交互功能", "抢先体验 AI 新功能"],
+    [t("Have ads"), t("No ads")],
+    [t("Limited access"), t("No limited")],
+    [t("No AI"), t("New AI features")],
   ];
 
   const currentIndex = useMemo(() => {
@@ -106,7 +106,7 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"pt-8"}>
+        <View className={"pt-8 px-4"}>
           <Text className={"text-white text-3xl font-bold text-center"}>
             {t("Premium first month free trial")}
           </Text>
