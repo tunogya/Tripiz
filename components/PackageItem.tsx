@@ -3,7 +3,7 @@ import {memo} from "react";
 import Purchases from "react-native-purchases";
 import Svg, {Path} from "react-native-svg";
 import {useDispatch} from "react-redux";
-import {updatePurchasesEntitlementInfo} from "../reducers/account/premiumSlice";
+import {updatePurchasesEntitlementInfo} from "../reducers/purchase/purchaseSlice";
 
 const PackageItem = ({ purchasePackage }) => {
   const dispatch = useDispatch();

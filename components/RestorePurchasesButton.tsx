@@ -2,7 +2,7 @@ import {memo} from "react";
 import {Alert, Text, TouchableOpacity} from "react-native";
 import Purchases from "react-native-purchases";
 import {useDispatch} from "react-redux";
-import {updatePurchasesEntitlementInfo} from "../reducers/account/premiumSlice";
+import {updatePurchasesEntitlementInfo} from "../reducers/purchase/purchaseSlice";
 
 const RestorePurchasesButton = () => {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import {memo, useEffect} from "react";
 import {initialize, selectPublicKey} from "../reducers/account/accountSlice";
 import Purchases from "react-native-purchases";
 import {Alert} from "react-native";
-import {updatePurchasesEntitlementInfo} from "../reducers/account/premiumSlice";
+import {updatePurchasesEntitlementInfo} from "../reducers/purchase/purchaseSlice";
 
 const LoginForm = () => {
   const {privateKey} = useSelector((state: RootState) => state.account);

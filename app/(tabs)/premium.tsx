@@ -4,20 +4,21 @@ import {
 import {memo, useEffect, useMemo, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import AddDreamButton from "../../components/AddButton";
-import {useSelector} from "react-redux";
-import {selectPublicKey} from "../../reducers/account/accountSlice";
+import {useDispatch, useSelector} from "react-redux";
 import FreeBlock from "../../components/FreeBlock";
 import PremiumBlock from "../../components/PremiumBlock";
 import Purchases from "react-native-purchases";
 import RestorePurchasesButton from "../../components/RestorePurchasesButton";
 import PackageItem from "../../components/PackageItem";
+import {RootState} from "../../store/store";
+import {updatePackage} from "../../reducers/purchase/purchaseSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
-  const publicKey = useSelector(selectPublicKey);
   const screenWidth = Dimensions.get("window").width;
   const [x, setX] = useState(0);
-  const [packages, setPackages] = useState([]);
+  const { packages, purchasesEntitlementInfo } = useSelector((state: RootState) => state.purchase);
+  const dispatch = useDispatch();
 
   const array = [
     ["有广告", "无广告"],
@@ -41,7 +42,7 @@ const Page = () => {
       try {
         const offerings = await Purchases.getOfferings();
         if (offerings.current !== null && offerings.current.availablePackages.length !== 0) {
-          setPackages(offerings.current.availablePackages);
+          dispatch(updatePackage(offerings.current.availablePackages));
         }
       } catch (e) {
         Alert.alert('Error getting offers', e.message);
@@ -50,6 +51,14 @@ const Page = () => {
 
     getPackages();
   }, []);
+
+  const currentPlan = useMemo(() => {
+    if (purchasesEntitlementInfo && purchasesEntitlementInfo?.isActive) {
+      return "Premium"
+    } else {
+      return "Tripiz Free"
+    }
+  }, [purchasesEntitlementInfo])
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212]"}>
@@ -92,12 +101,12 @@ const Page = () => {
         </View>
         <View className={"px-4 space-y-4"}>
           <View className={"bg-[#333333] rounded-lg flex flex-row items-center px-8 py-5 justify-between"}>
-            <Text className={"text-white font-bold text-xl"}>Tripiz Free</Text>
+            <Text className={"text-white font-bold text-xl"}>{currentPlan}</Text>
             <Text className={"text-white text-xs"}>当前使用计划</Text>
           </View>
         </View>
         {
-          packages.map((item, index) => (
+          packages && packages.map((item, index) => (
             <View key={index}>
               <PackageItem key={index} purchasePackage={item}/>
             </View>
