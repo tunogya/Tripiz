@@ -10,7 +10,7 @@ import {Stack} from "expo-router/stack";
 import {StatusBar} from "expo-status-bar";
 import "i18n";
 import Notification from "../components/Notification";
-import CheckUser from "../components/CheckUser";
+import CheckUser from "../components/LoginForm";
 import {SWRConfig} from "swr";
 import {AppState, Platform} from "react-native";
 import Purchases, {LOG_LEVEL} from 'react-native-purchases';
