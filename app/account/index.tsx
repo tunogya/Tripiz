@@ -5,29 +5,35 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import { memo, useState } from "react";
+import {memo, useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { BlurView } from "expo-blur";
-import { increaseVersion, randomAvatar } from "../../reducers/ui/uiSlice";
+import { increaseVersion } from "../../reducers/ui/uiSlice";
 import { t } from "../../i18n";
 import {
   recovery,
   selectNostrPrivateKey,
-  selectNostrPublicKey,
+  selectNostrPublicKey, selectPublicKey,
 } from "../../reducers/account/accountSlice";
 import Avatar from "../../components/Avatar";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
 import { decodeKey } from "../../utils/nostrUtil";
+import {API_HOST_NAME} from "../../utils/const";
+import {finalizeEvent} from "nostr-tools";
+import useSWR from "swr";
+import { Buffer } from "buffer";
 
 const Page = () => {
   const nostrPublicKey = useSelector(selectNostrPublicKey);
   const nostrPrivateKey = useSelector(selectNostrPrivateKey);
   const [show, setShow] = useState(false);
-  const { avatar } = useSelector((state: RootState) => state.ui);
+  const { privateKey } = useSelector((state: RootState) => state.account);
+  const { version } = useSelector((state: RootState) => state.ui);
+  const publicKey = useSelector(selectPublicKey);
   const dispatch = useDispatch();
 
   const pickImage = async () => {
@@ -58,6 +64,37 @@ const Page = () => {
     }
   };
 
+  const randomPicture = async () => {
+    const randomNumber = Math.floor(Math.random() * 10000);
+    const newPicture = `https://www.larvalabs.com/cryptopunks/cryptopunk${randomNumber.toString().padStart(4, "0")}.png`
+    try {
+      const event = finalizeEvent(
+        {
+          kind: 0,
+          created_at: Math.floor(Date.now() / 1000),
+          tags: [],
+          content: JSON.stringify({
+            picture: newPicture
+          }),
+        },
+        Buffer.from(privateKey, "hex"),
+      );
+      await fetch(`${API_HOST_NAME}/accounts`, {
+        method: "POST",
+        body: JSON.stringify(event),
+      }).then((res) => res.json());
+      dispatch(increaseVersion());
+    } catch (e) {
+      console.log(e)
+    }
+  };
+
+  const {data, mutate} = useSWR(publicKey ? `${API_HOST_NAME}/accounts/${publicKey}` : undefined, (url) => fetch(url).then((res) => res.json()));
+
+  useEffect(() => {
+    mutate()
+  }, [version]);
+
   return (
     <View className={"bg-[#121212] flex flex-1"}>
       <View className={"flex justify-center items-center py-2"}>
@@ -84,7 +121,7 @@ const Page = () => {
                 }
               >
                 <View className={"p-0.5 bg-white rounded-full overflow-hidden"}>
-                  <Avatar classname={"w-20 h-20 rounded-full"} />
+                  <Avatar classname={"w-20 h-20 rounded-full items-center justify-center"} publicKey={publicKey} />
                 </View>
               </BlurView>
             )}
@@ -95,7 +132,7 @@ const Page = () => {
               logoBackgroundColor={"white"}
               logoBorderRadius={50}
               logo={{
-                uri: `https://www.larvalabs.com/cryptopunks/cryptopunk${(avatar || 0)?.toString().padStart(4, "0")}.png`,
+                uri: data?.picture || undefined,
               }}
               value={nostrPrivateKey}
             />
@@ -106,9 +143,7 @@ const Page = () => {
           <View className={"flex flex-row space-x-3"}>
             <TouchableOpacity
               className={"bg-[#FFFFFF12] px-4 py-2 rounded-full"}
-              onPress={() => {
-                dispatch(randomAvatar());
-              }}
+              onPress={randomPicture}
             >
               <Text className={"text-white"}>{t("Shuffle Avatar")}</Text>
             </TouchableOpacity>

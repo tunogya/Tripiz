@@ -22,7 +22,7 @@ export const slice = createSlice({
   },
 });
 
-export const { initialize, recovery } = slice.actions;
+export const { initialize, recovery} = slice.actions;
 
 export const selectPublicKey = (state: RootState) => {
   const privateKey = state.account.privateKey;

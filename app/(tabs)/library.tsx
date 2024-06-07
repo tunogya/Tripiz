@@ -79,7 +79,7 @@ const Page = () => {
               router.navigate(`account`);
             }}
           >
-            <Avatar />
+            <Avatar publicKey={publicKey}/>
           </Pressable>
           <Text className={"text-white font-bold text-2xl"}>
             {t("Library")}
