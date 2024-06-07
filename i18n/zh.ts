@@ -45,7 +45,7 @@ export const zh = {
   "per month": "每月",
   "Plan will automatically renew every month until you cancel":
     "，计划会自动续订，直到您取消为止。",
-  "Waiting": "等待...",
+  Waiting: "等待...",
   "Upgrade to Premium Home Edition": "升级至高级家庭版",
   "Have ads": "有广告干扰",
   "No ads": "无广告",

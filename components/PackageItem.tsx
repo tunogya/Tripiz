@@ -64,9 +64,7 @@ const PackageItem = ({ purchasePackage }) => {
         {isStandard && (
           <View className={"flex flex-row"}>
             <View className={"p-2 bg-[#F8D4D7] rounded-br-lg"}>
-              <Text className={"text-xs font-bold"}>
-                {t("Free trial")}
-              </Text>
+              <Text className={"text-xs font-bold"}>{t("Free trial")}</Text>
             </View>
             <View className={"flex-1"} />
           </View>
@@ -115,7 +113,9 @@ const PackageItem = ({ purchasePackage }) => {
           >
             <Text className={"text-center font-bold"}>
               {status === "idle" &&
-                (isStandard ? t("Free trial for one month") : t("Upgrade to Premium Home Edition"))}
+                (isStandard
+                  ? t("Free trial for one month")
+                  : t("Upgrade to Premium Home Edition"))}
               {status === "loading" && t("Waiting")}
               {status === "success" && t("Success")}
               {status === "error" && t("Error")}
