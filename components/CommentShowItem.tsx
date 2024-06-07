@@ -38,10 +38,10 @@ const CommentShowItem: FC<{
     fetchNumber(item.pubkey);
   }, [item.pubkey]);
 
-  const username =
+  const name =
     item.pubkey === publicKey
       ? "Me"
-      : item?.tags_map?.username?.[0] || "Anonymous";
+      : item?.tags_map?.name?.[0] || "Anonymous";
 
   return (
     <View className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}>
@@ -59,7 +59,7 @@ const CommentShowItem: FC<{
       )}
       <View className={"space-y-1.5 pb-4 flex-1 border-b border-[#FFFFFF12]"}>
         <View className={"flex flex-row justify-between items-end"}>
-          <Text className={"text-[#B3B3B3] text-[16px] w-[200px]"} numberOfLines={1}>{username}</Text>
+          <Text className={"text-[#B3B3B3] text-[16px] w-[200px]"} numberOfLines={1}>{name}</Text>
           <Text className={"text-[#B3B3B3] text-xs"}>
             {new Date(item.created_at * 1000)
               .toLocaleDateString()
