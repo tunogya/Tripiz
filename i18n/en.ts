@@ -54,4 +54,7 @@ export const en = {
   "No limited": "No limited",
   "No AI": "No AI",
   "New AI features": "New AI features",
+  "Premium Standard": "Premium Standard",
+  "Premium Family": "Premium Family",
+  "Tripiz Free": "Tripiz Free",
 };

@@ -53,4 +53,7 @@ export const zh = {
   "No limited": "所有功能无任何限制",
   "No AI": "无 AI 交互功能",
   "New AI features": "抢先体验 AI 新功能",
+  "Premium Standard": "Premium 个人版",
+  "Premium Family": "Premium 家庭版",
+  "Tripiz Free": "Tripiz 免费版",
 };

@@ -62,12 +62,12 @@ const Page = () => {
         purchasesEntitlementInfo.productIdentifier ===
         "ai.abandon.tripiz.monthly.premium.family"
       ) {
-        return "Premium Family";
+        return t("Premium Family");
       } else if (
         purchasesEntitlementInfo.productIdentifier ===
         "ai.abandon.tripiz.monthly.premium.standard"
       ) {
-        return "Premium Standard";
+        return t("Premium Standard");
       }
       // {
       // "billingIssueDetectedAt": null,
@@ -91,9 +91,9 @@ const Page = () => {
       // "verification": "NOT_REQUESTED",
       // "willRenew": true
       // }
-      return "Premium";
+      return t("Premium");
     } else {
-      return "Tripiz Free";
+      return t("Tripiz Free");
     }
   }, [purchasesEntitlementInfo]);
 
