@@ -1,5 +1,5 @@
 import { Alert, Text, TouchableOpacity, View } from "react-native";
-import { memo } from "react";
+import { memo, useState } from "react";
 import Purchases from "react-native-purchases";
 import Svg, { Path } from "react-native-svg";
 import { useDispatch } from "react-redux";
@@ -7,11 +7,13 @@ import { updatePurchasesEntitlementInfo } from "../reducers/purchase/purchaseSli
 
 const PackageItem = ({ purchasePackage }) => {
   const dispatch = useDispatch();
+  const [status, setStatus] = useState("idle");
 
   const { product } = purchasePackage;
 
   const onSelection = async () => {
     try {
+      setStatus("loading");
       const { customerInfo } = await Purchases.purchasePackage(purchasePackage);
       if (
         typeof customerInfo.entitlements.active?.["Premium"] !== "undefined"
@@ -21,11 +23,21 @@ const PackageItem = ({ purchasePackage }) => {
         dispatch(updatePurchasesEntitlementInfo(purchasesEntitlementInfo));
         if (purchasesEntitlementInfo.isActive) {
           Alert.alert("Success", "Purchased " + product.title);
+          setStatus("success");
+          setTimeout(() => {
+            setStatus("idle");
+          }, 3_000);
         }
       }
     } catch (e) {
       if (!e.userCancelled) {
+        setStatus("idle");
         Alert.alert("Error purchasing package", e.message);
+      } else {
+        setStatus("error");
+        setTimeout(() => {
+          setStatus("idle");
+        }, 3_000);
       }
     }
   };
@@ -77,7 +89,11 @@ const PackageItem = ({ purchasePackage }) => {
           onPress={onSelection}
         >
           <Text className={"text-center font-bold"}>
-            {isStandard ? "免费试用一个月" : "升级至高级家庭版"}
+            {status === "idle" &&
+              (isStandard ? "免费试用一个月" : "升级至高级家庭版")}
+            {status === "loading" && "正在购买..."}
+            {status === "success" && "购买成功"}
+            {status === "error" && "购买失败"}
           </Text>
         </TouchableOpacity>
         <View className={"p-4"}>

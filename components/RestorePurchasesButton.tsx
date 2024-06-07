@@ -29,9 +29,7 @@ const RestorePurchasesButton = () => {
         }
       }}
     >
-      <Text className={"text-white text-center underline"}>
-        恢复已购买的项目
-      </Text>
+      <Text className={"text-white text-center"}>Restore</Text>
     </TouchableOpacity>
   );
 };

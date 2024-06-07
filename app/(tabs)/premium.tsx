@@ -15,7 +15,7 @@ const Page = () => {
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
   const [x, setX] = useState(0);
-  const { packages, purchasesEntitlementInfo } = useSelector(
+  const { packages, purchasesEntitlementInfo, status } = useSelector(
     (state: RootState) => state.purchase,
   );
   const dispatch = useDispatch();
