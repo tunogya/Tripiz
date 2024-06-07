@@ -4,6 +4,7 @@ import {memo, useEffect} from "react";
 import {initialize, selectPublicKey} from "../reducers/account/accountSlice";
 import Purchases from "react-native-purchases";
 import {Alert} from "react-native";
+import {updatePurchasesEntitlementInfo} from "../reducers/account/premiumSlice";
 
 const LoginForm = () => {
   const {privateKey} = useSelector((state: RootState) => state.account);
@@ -34,10 +35,12 @@ const LoginForm = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       const customerInfo = await Purchases.getCustomerInfo();
-      console.log(customerInfo.entitlements.active);
-      /*
-      {"activeSubscriptions": [], "allExpirationDates": {}, "allExpirationDatesMillis": {}, "allPurchaseDates": {}, "allPurchaseDatesMillis": {}, "allPurchasedProductIdentifiers": [], "entitlements": {"active": {}, "all": {}, "verification": "NOT_REQUESTED"}, "firstSeen": "2024-06-06T15:14:21Z", "firstSeenMillis": 1717686861000, "latestExpirationDate": null, "latestExpirationDateMillis": null, "managementURL": null, "nonSubscriptionTransactions": [], "originalAppUserId": "$RCAnonymousID:8544c255cac8444e9961d6613d05deab", "originalApplicationVersion": null, "originalPurchaseDate": null, "originalPurchaseDateMillis": null, "requestDate": "2024-06-06T15:24:20Z", "requestDateMillis": 1717687460000}
-       */
+      if (typeof customerInfo.entitlements.active?.["Premium"] !== 'undefined') {
+        const purchasesEntitlementInfo = customerInfo.entitlements.active["Premium"];
+        dispatch(updatePurchasesEntitlementInfo(purchasesEntitlementInfo))
+      } else {
+        dispatch(updatePurchasesEntitlementInfo(undefined))
+      }
     }
     fetchUserInfo();
   }, []);
