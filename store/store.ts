@@ -3,6 +3,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uiReducer from "../reducers/ui/uiSlice";
 import accountReducer from "../reducers/account/accountSlice";
+import premiumReducer from "../reducers/account/premiumSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -12,6 +13,7 @@ const rootPersistConfig = {
 
 const rootReducer = combineReducers({
   account: accountReducer,
+  premium: premiumReducer,
   ui: uiReducer,
 });
 

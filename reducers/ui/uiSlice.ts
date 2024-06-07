@@ -9,7 +9,8 @@ export const slice = createSlice({
   },
   reducers: {
     increaseVersion: (state) => {
-      state.version += 1;
+      const newVersion = state.version + 1;
+      state.version = newVersion % 10;
     },
     randomAvatar: (state) => {
       state.avatar = Math.floor(Math.random() * 10000);
