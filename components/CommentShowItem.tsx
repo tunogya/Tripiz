@@ -7,15 +7,6 @@ import Avatar from "./Avatar";
 import {API_HOST_NAME} from "../utils/const";
 import useSWR from "swr";
 
-export async function mapAddressToNumber(address: string) {
-  const hash = await Crypto.digestStringAsync(
-    Crypto.CryptoDigestAlgorithm.SHA256,
-    address,
-  );
-  const bigInt = BigInt("0x" + hash);
-  return Number(bigInt % 10000n);
-}
-
 const CommentShowItem: FC<{
   item: {
     id: string;
@@ -24,14 +15,14 @@ const CommentShowItem: FC<{
     created_at: number;
   };
 }> = ({item}) => {
-  const publicKey = useSelector(selectPublicKey);
+  const myPublicKey = useSelector(selectPublicKey);
   const {data} = useSWR(`${API_HOST_NAME}/accounts/${item.pubkey}`, (url) => fetch(url).then((res) => res.json()));
 
-  const name = item.pubkey === publicKey ? "Me" : (data?.name || "Anonymous");
+  const name = item.pubkey === myPublicKey ? "Me" : (data?.name || "Anonymous");
 
   return (
     <View className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}>
-      <Avatar publicKey={publicKey}/>
+      <Avatar publicKey={item.pubkey}/>
       <View className={"space-y-1.5 pb-4 flex-1 border-b border-[#FFFFFF12]"}>
         <View className={"flex flex-row justify-between items-end"}>
           <Text
