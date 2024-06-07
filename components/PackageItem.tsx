@@ -1,21 +1,27 @@
 import { Alert, Text, TouchableOpacity, View } from "react-native";
-import {memo, useMemo, useState} from "react";
+import { memo, useMemo, useState } from "react";
 import Purchases from "react-native-purchases";
 import Svg, { Path } from "react-native-svg";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePurchasesEntitlementInfo } from "../reducers/purchase/purchaseSlice";
-import {RootState} from "../store/store";
-import {t} from "../i18n";
+import { RootState } from "../store/store";
+import { t } from "../i18n";
 
 const PackageItem = ({ purchasePackage }) => {
   const dispatch = useDispatch();
   const [status, setStatus] = useState("idle");
-  const { purchasesEntitlementInfo } = useSelector((state: RootState) => state.purchase);
+  const { purchasesEntitlementInfo } = useSelector(
+    (state: RootState) => state.purchase,
+  );
 
   const { product } = purchasePackage;
 
   const hasPurchasedThisProduct = useMemo(() => {
-    return purchasesEntitlementInfo && purchasesEntitlementInfo?.isActive && purchasesEntitlementInfo.productIdentifier === product.identifier;
+    return (
+      purchasesEntitlementInfo &&
+      purchasesEntitlementInfo?.isActive &&
+      purchasesEntitlementInfo.productIdentifier === product.identifier
+    );
   }, [purchasesEntitlementInfo, product]);
 
   const onSelection = async () => {
@@ -95,35 +101,32 @@ const PackageItem = ({ purchasePackage }) => {
             </Text>
           </View>
         </View>
-        {
-          hasPurchasedThisProduct ? (
-            <TouchableOpacity
-              className={`m-4 p-4 rounded-full ${isStandard ? "bg-[#F8D4D7]" : "bg-[#A9BACF]"}`}
-              onPress={onSelection}
-            >
-              <Text className={"text-center font-bold"}>
-                {t("Subscribed")}
-              </Text>
-            </TouchableOpacity>
-            ) : (
-            <TouchableOpacity
-              className={`m-4 p-4 rounded-full ${isStandard ? "bg-[#F8D4D7]" : "bg-[#A9BACF]"}`}
-              onPress={onSelection}
-            >
-              <Text className={"text-center font-bold"}>
-                {status === "idle" &&
-                  (isStandard ? "免费试用一个月" : "升级至高级家庭版")}
-                {status === "loading" && "正在购买..."}
-                {status === "success" && "购买成功"}
-                {status === "error" && "购买失败"}
-              </Text>
-            </TouchableOpacity>
-          )
-        }
+        {hasPurchasedThisProduct ? (
+          <TouchableOpacity
+            className={`m-4 p-4 rounded-full ${isStandard ? "bg-[#F8D4D7]" : "bg-[#A9BACF]"}`}
+            onPress={onSelection}
+          >
+            <Text className={"text-center font-bold"}>{t("Subscribed")}</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            className={`m-4 p-4 rounded-full ${isStandard ? "bg-[#F8D4D7]" : "bg-[#A9BACF]"}`}
+            onPress={onSelection}
+          >
+            <Text className={"text-center font-bold"}>
+              {status === "idle" &&
+                (isStandard ? "免费试用一个月" : "升级至高级家庭版")}
+              {status === "loading" && "正在购买..."}
+              {status === "success" && "购买成功"}
+              {status === "error" && "购买失败"}
+            </Text>
+          </TouchableOpacity>
+        )}
         <View className={"p-4"}>
           <Text className={"text-xs text-[#A7A7A7] text-center"}>
-            {isStandard ? t("Free trial for 1 month then") : ""}{t(`per month`)}{" "}
-            {product.priceString}{t("Plan will automatically renew every month until you cancel")}
+            {isStandard ? t("Free trial for 1 month then") : ""}
+            {t(`per month`)} {product.priceString}
+            {t("Plan will automatically renew every month until you cancel")}
           </Text>
         </View>
       </View>

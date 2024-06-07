@@ -10,7 +10,7 @@ import RestorePurchasesButton from "../../components/RestorePurchasesButton";
 import PackageItem from "../../components/PackageItem";
 import { RootState } from "../../store/store";
 import { updatePackage } from "../../reducers/purchase/purchaseSlice";
-import {t} from "../../i18n";
+import { t } from "../../i18n";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -58,9 +58,15 @@ const Page = () => {
 
   const currentPlan = useMemo(() => {
     if (purchasesEntitlementInfo && purchasesEntitlementInfo?.isActive) {
-      if (purchasesEntitlementInfo.productIdentifier === "ai.abandon.tripiz.monthly.premium.family") {
+      if (
+        purchasesEntitlementInfo.productIdentifier ===
+        "ai.abandon.tripiz.monthly.premium.family"
+      ) {
         return "Premium Family";
-      } else if (purchasesEntitlementInfo.productIdentifier === "ai.abandon.tripiz.monthly.premium.standard") {
+      } else if (
+        purchasesEntitlementInfo.productIdentifier ===
+        "ai.abandon.tripiz.monthly.premium.standard"
+      ) {
         return "Premium Standard";
       }
       // {
@@ -148,9 +154,7 @@ const Page = () => {
             <Text className={"text-white font-bold text-xl"}>
               {currentPlan}
             </Text>
-            <Text className={"text-white text-xs"}>
-              {t("Current plan")}
-            </Text>
+            <Text className={"text-white text-xs"}>{t("Current plan")}</Text>
           </View>
         </View>
         {packages &&

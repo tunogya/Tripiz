@@ -3,7 +3,7 @@ import { Alert, Text, TouchableOpacity } from "react-native";
 import Purchases from "react-native-purchases";
 import { useDispatch } from "react-redux";
 import { updatePurchasesEntitlementInfo } from "../reducers/purchase/purchaseSlice";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const RestorePurchasesButton = () => {
   const dispatch = useDispatch();
@@ -30,9 +30,7 @@ const RestorePurchasesButton = () => {
         }
       }}
     >
-      <Text className={"text-white text-center"}>
-        {t("Restore")}
-      </Text>
+      <Text className={"text-white text-center"}>{t("Restore")}</Text>
     </TouchableOpacity>
   );
 };

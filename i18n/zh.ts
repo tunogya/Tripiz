@@ -36,11 +36,12 @@ export const zh = {
   Premium: "Premium",
   "Premium first month free trial": "Premium 首月免费试用",
   "Current plan": "当前计划",
-  "Restore": "恢复购买",
+  Restore: "恢复购买",
   "Free trial for the first month": "首月免费试用",
   "Free trial for 1 month then": "1 个月免费试用后，",
   "You can unsubscribe at any time": "您可以随时取消订阅",
   Subscribed: "您已订阅此项目",
   "per month": "每月",
-  "Plan will automatically renew every month until you cancel": "，计划会自动续订，直到您取消为止。",
+  "Plan will automatically renew every month until you cancel":
+    "，计划会自动续订，直到您取消为止。",
 };
