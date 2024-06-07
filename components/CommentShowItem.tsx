@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { Image } from "expo-image";
-import React, { FC, memo, useEffect, useMemo, useState } from "react";
+import React, { FC, memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import * as Crypto from "expo-crypto";
 import { selectPublicKey } from "../reducers/account/accountSlice";
@@ -59,7 +59,7 @@ const CommentShowItem: FC<{
       )}
       <View className={"space-y-1.5 pb-4 flex-1 border-b border-[#FFFFFF12]"}>
         <View className={"flex flex-row justify-between items-end"}>
-          <Text className={"text-[#B3B3B3] text-[16px]"}>{username}</Text>
+          <Text className={"text-[#B3B3B3] text-[16px] w-[200px]"} numberOfLines={1}>{username}</Text>
           <Text className={"text-[#B3B3B3] text-xs"}>
             {new Date(item.created_at * 1000)
               .toLocaleDateString()
