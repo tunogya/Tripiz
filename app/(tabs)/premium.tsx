@@ -99,7 +99,7 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"pt-10"}>
+        <View className={"pt-8"}>
           <Text className={"text-white text-3xl font-bold text-center"}>
             Premium 首月免费试用
           </Text>
