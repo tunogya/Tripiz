@@ -1,7 +1,6 @@
 import {Text, View} from "react-native";
 import React, {FC, memo} from "react";
 import {useSelector} from "react-redux";
-import * as Crypto from "expo-crypto";
 import {selectPublicKey} from "../reducers/account/accountSlice";
 import Avatar from "./Avatar";
 import {API_HOST_NAME} from "../utils/const";
