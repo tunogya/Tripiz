@@ -5,7 +5,7 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import {memo, useEffect, useState} from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
@@ -16,14 +16,15 @@ import { t } from "../../i18n";
 import {
   recovery,
   selectNostrPrivateKey,
-  selectNostrPublicKey, selectPublicKey,
+  selectNostrPublicKey,
+  selectPublicKey,
 } from "../../reducers/account/accountSlice";
 import Avatar from "../../components/Avatar";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
 import { decodeKey } from "../../utils/nostrUtil";
-import {API_HOST_NAME} from "../../utils/const";
-import {finalizeEvent} from "nostr-tools";
+import { API_HOST_NAME } from "../../utils/const";
+import { finalizeEvent } from "nostr-tools";
 import useSWR from "swr";
 import { Buffer } from "buffer";
 
@@ -66,7 +67,7 @@ const Page = () => {
 
   const randomPicture = async () => {
     const randomNumber = Math.floor(Math.random() * 10000);
-    const newPicture = `https://www.larvalabs.com/cryptopunks/cryptopunk${randomNumber.toString().padStart(4, "0")}.png`
+    const newPicture = `https://www.larvalabs.com/cryptopunks/cryptopunk${randomNumber.toString().padStart(4, "0")}.png`;
     try {
       const event = finalizeEvent(
         {
@@ -74,7 +75,7 @@ const Page = () => {
           created_at: Math.floor(Date.now() / 1000),
           tags: [],
           content: JSON.stringify({
-            picture: newPicture
+            picture: newPicture,
           }),
         },
         Buffer.from(privateKey, "hex"),
@@ -85,14 +86,17 @@ const Page = () => {
       }).then((res) => res.json());
       dispatch(increaseVersion());
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
 
-  const {data, mutate} = useSWR(publicKey ? `${API_HOST_NAME}/accounts/${publicKey}` : undefined, (url) => fetch(url).then((res) => res.json()));
+  const { data, mutate } = useSWR(
+    publicKey ? `${API_HOST_NAME}/accounts/${publicKey}` : undefined,
+    (url) => fetch(url).then((res) => res.json()),
+  );
 
   useEffect(() => {
-    mutate()
+    mutate();
   }, [version]);
 
   return (
@@ -121,7 +125,12 @@ const Page = () => {
                 }
               >
                 <View className={"p-0.5 bg-white rounded-full overflow-hidden"}>
-                  <Avatar classname={"w-20 h-20 rounded-full items-center justify-center"} publicKey={publicKey} />
+                  <Avatar
+                    classname={
+                      "w-20 h-20 rounded-full items-center justify-center"
+                    }
+                    publicKey={publicKey}
+                  />
                 </View>
               </BlurView>
             )}

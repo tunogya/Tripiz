@@ -1,9 +1,9 @@
-import {Text, View} from "react-native";
-import React, {FC, memo} from "react";
-import {useSelector} from "react-redux";
-import {selectPublicKey} from "../reducers/account/accountSlice";
+import { Text, View } from "react-native";
+import React, { FC, memo } from "react";
+import { useSelector } from "react-redux";
+import { selectPublicKey } from "../reducers/account/accountSlice";
 import Avatar from "./Avatar";
-import {API_HOST_NAME} from "../utils/const";
+import { API_HOST_NAME } from "../utils/const";
 import useSWR from "swr";
 
 const CommentShowItem: FC<{
@@ -13,15 +13,17 @@ const CommentShowItem: FC<{
     content: string;
     created_at: number;
   };
-}> = ({item}) => {
+}> = ({ item }) => {
   const myPublicKey = useSelector(selectPublicKey);
-  const {data} = useSWR(`${API_HOST_NAME}/accounts/${item.pubkey}`, (url) => fetch(url).then((res) => res.json()));
+  const { data } = useSWR(`${API_HOST_NAME}/accounts/${item.pubkey}`, (url) =>
+    fetch(url).then((res) => res.json()),
+  );
 
-  const name = item.pubkey === myPublicKey ? "Me" : (data?.name || "Anonymous");
+  const name = item.pubkey === myPublicKey ? "Me" : data?.name || "Anonymous";
 
   return (
     <View className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}>
-      <Avatar publicKey={item.pubkey}/>
+      <Avatar publicKey={item.pubkey} />
       <View className={"space-y-1.5 pb-4 flex-1 border-b border-[#FFFFFF12]"}>
         <View className={"flex flex-row justify-between items-end"}>
           <Text

@@ -88,7 +88,9 @@ const PackageItem = ({ purchasePackage }) => {
           </Text>
         </View>
         <View className={"px-4 pb-4"}>
-          <Text className={"text-white text-lg font-medium"}>{product.priceString} {t("per month")}</Text>
+          <Text className={"text-white text-lg font-medium"}>
+            {product.priceString} {t("per month")}
+          </Text>
           <View className={"border-b pt-4 border-[#FFFFFF12]"}></View>
         </View>
         <View className={"px-4 py-2 space-y-1"}>
@@ -117,9 +119,7 @@ const PackageItem = ({ purchasePackage }) => {
           >
             <Text className={"text-center font-bold"}>
               {status === "idle" &&
-                (isStandard
-                  ? t("Subscribe")
-                  : t("Upgrade to Premium Family"))}
+                (isStandard ? t("Subscribe") : t("Upgrade to Premium Family"))}
               {status === "loading" && t("Waiting")}
               {status === "success" && t("Success")}
               {status === "error" && t("Error")}

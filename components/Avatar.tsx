@@ -1,15 +1,18 @@
 import { Image } from "expo-image";
-import {FC, memo, useEffect, useState} from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import useSWR from "swr";
-import {API_HOST_NAME} from "../utils/const";
+import { API_HOST_NAME } from "../utils/const";
 
 const Avatar: FC<{
-  publicKey: string,
+  publicKey: string;
   classname?: string;
 }> = ({ classname, publicKey }) => {
   const [picture, setPicture] = useState("");
-  const {data} = useSWR(publicKey ? `${API_HOST_NAME}/accounts/${publicKey}` : undefined, (url) => fetch(url).then((res) => res.json()));
+  const { data } = useSWR(
+    publicKey ? `${API_HOST_NAME}/accounts/${publicKey}` : undefined,
+    (url) => fetch(url).then((res) => res.json()),
+  );
 
   useEffect(() => {
     if (data && data?.picture) {
@@ -31,8 +34,16 @@ const Avatar: FC<{
   }
 
   return (
-    <View className={classname ? classname : "w-10 h-10 rounded-full bg-gray-400 items-center justify-center"}>
-      <Text className={"font-bold text-center"}>{publicKey?.slice(0, 2).toUpperCase()}</Text>
+    <View
+      className={
+        classname
+          ? classname
+          : "w-10 h-10 rounded-full bg-gray-400 items-center justify-center"
+      }
+    >
+      <Text className={"font-bold text-center"}>
+        {publicKey?.slice(0, 2).toUpperCase()}
+      </Text>
     </View>
   );
 };

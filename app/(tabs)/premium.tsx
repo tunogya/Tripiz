@@ -11,7 +11,7 @@ import PackageItem from "../../components/PackageItem";
 import { RootState } from "../../store/store";
 import { updatePackage } from "../../reducers/purchase/purchaseSlice";
 import { t } from "../../i18n";
-import {Link} from "expo-router";
+import { Link } from "expo-router";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -167,18 +167,21 @@ const Page = () => {
         <View className={"space-y-4"}>
           <RestorePurchasesButton />
           <View className={"flex flex-row space-x-3 justify-center"}>
-            <Link href={"https://www.abandon.ai/docs/policies/Legal/privacy-policy"}>
+            <Link
+              href={"https://www.abandon.ai/docs/policies/Legal/privacy-policy"}
+            >
               <Text className={"text-center text-[#B3B3B3] text-xs underline"}>
                 {t("Privacy policy")}
               </Text>
             </Link>
-            <Link href={"https://www.abandon.ai/docs/policies/Legal/terms-of-use"}>
+            <Link
+              href={"https://www.abandon.ai/docs/policies/Legal/terms-of-use"}
+            >
               <Text className={"text-center text-[#B3B3B3] text-xs underline"}>
                 {t("Terms of use")}
               </Text>
             </Link>
           </View>
-
         </View>
         <View
           style={{

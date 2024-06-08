@@ -39,7 +39,7 @@ export const en = {
   "Current plan": "Current plan",
   Restore: "Restore",
   "Free trial": "Free Trial",
-  "Subscribe": "Subscribe",
+  Subscribe: "Subscribe",
   "You can unsubscribe at any time": "You can unsubscribe at any time",
   Subscribed: "Subscribed",
   "per month": "per month",
