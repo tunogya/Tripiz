@@ -16,6 +16,9 @@ const Page = () => {
   const [text, setText] = useState("");
   const [status, setStatus] = useState("idle");
   const dispatch = useDispatch();
+  const { purchasesEntitlementInfo } = useSelector(
+    (state: RootState) => state.purchase,
+  );
 
   const save = async () => {
     setStatus("loading");
@@ -77,14 +80,14 @@ const Page = () => {
           placeholderTextColor={"#B3B3B3"}
           className={"text-white text-[16px] px-4 py-3 h-60 border border-[#FFFFFF12] rounded-lg"}
           value={text}
-          maxLength={4000}
+          maxLength={purchasesEntitlementInfo?.isActive ? 2000 : 1000}
           onChangeText={(text) => {
             setText(text);
           }}
         />
         <View className={"flex flex-row justify-end"}>
           <Text className={"text-[#B3B3B3] text-xs p-2"}>
-            {text.length} / 4000
+            {text.length} / {purchasesEntitlementInfo?.isActive ? 2000 : 1000}
           </Text>
         </View>
       </ScrollView>
