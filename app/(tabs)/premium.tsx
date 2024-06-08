@@ -167,12 +167,12 @@ const Page = () => {
         <View className={"space-y-4"}>
           <RestorePurchasesButton />
           <View className={"flex flex-row space-x-3 justify-center"}>
-            <Link href={""} className={""}>
+            <Link href={"https://www.abandon.ai/docs/policies/Legal/privacy-policy"}>
               <Text className={"text-center text-[#B3B3B3] text-xs underline"}>
                 {t("Privacy policy")}
               </Text>
             </Link>
-            <Link href={""} className={""}>
+            <Link href={"https://www.abandon.ai/docs/policies/Legal/terms-of-use"}>
               <Text className={"text-center text-[#B3B3B3] text-xs underline"}>
                 {t("Terms of use")}
               </Text>
