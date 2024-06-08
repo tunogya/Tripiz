@@ -58,4 +58,5 @@ export const zh = {
   "Tripiz Free": "Tripiz 免费版",
   "Terms of use": "使用条款",
   "Privacy policy": "隐私政策",
+  "Post": "发送",
 };

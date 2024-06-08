@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TextInput } from "react-native";
+import {View, Text, Pressable, TextInput, Platform, KeyboardAvoidingView, ScrollView} from "react-native";
 import { memo, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { ensureString } from "../../../utils/ensureString";
@@ -60,26 +60,34 @@ const Page = () => {
           onPress={save}
         >
           <Text className={"font-bold text-white"}>
-            {status === "idle" && "Post"}
-            {status === "error" && "Error"}
-            {status === "success" && "Success"}
-            {status === "loading" && "Waiting"}
+            {status === "idle" && t("Post")}
+            {status === "error" && t("Error")}
+            {status === "success" && t("Success")}
+            {status === "loading" && t("Waiting")}
           </Text>
         </Pressable>
       </View>
-      <View className={"px-4 flex-1"}>
+      <ScrollView
+        className={"px-4"}
+        showsVerticalScrollIndicator={false}
+      >
         <TextInput
           multiline
-          numberOfLines={5}
           placeholder={t("Content")}
           placeholderTextColor={"#B3B3B3"}
-          className={"text-white text-[16px] py-3 flex-1"}
+          className={"text-white text-[16px] px-4 py-3 h-60 border border-[#FFFFFF12] rounded-lg"}
           value={text}
+          maxLength={4000}
           onChangeText={(text) => {
             setText(text);
           }}
         />
-      </View>
+        <View className={"flex flex-row justify-end"}>
+          <Text className={"text-[#B3B3B3] text-xs p-2"}>
+            {text.length} / 4000
+          </Text>
+        </View>
+      </ScrollView>
     </View>
   );
 };

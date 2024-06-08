@@ -322,7 +322,7 @@ const Page = () => {
               ListFooterComponent={() => (
                 <View className={"p-4 my-4"}>
                   <TouchableOpacity className={"border border-[#FFFFFF12] rounded-full h-12 flex flex-row items-center space-x-3 justify-center"}>
-                    <Ionicons name="sparkles-sharp" size={20} color="white" />
+                    <Ionicons name="sparkles-sharp" size={20} color="#65D46E" />
                     <Text className={"text-white font-medium"}>Generate comments</Text>
                   </TouchableOpacity>
                 </View>
