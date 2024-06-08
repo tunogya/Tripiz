@@ -38,7 +38,7 @@ export const zh = {
   "Current plan": "当前计划",
   Restore: "恢复购买",
   "Free trial": "首月免费试用",
-  "Free trial for one month": "免费试用一个月",
+  "Subscribe": "订阅",
   "Free trial for 1 month then": "1 个月免费试用后，",
   "You can unsubscribe at any time": "您可以随时取消订阅",
   Subscribed: "您已订阅此项目",
@@ -46,7 +46,7 @@ export const zh = {
   "Plan will automatically renew every month until you cancel":
     "，计划会自动续订，直到您取消为止。",
   Waiting: "等待...",
-  "Upgrade to Premium Home Edition": "升级至高级家庭版",
+  "Upgrade to Premium Family": "升级至高级家庭版",
   "Have ads": "有广告干扰",
   "No ads": "无广告",
   "Limited access": "有限的访问权限",

@@ -87,6 +87,10 @@ const PackageItem = ({ purchasePackage }) => {
             {product.title}
           </Text>
         </View>
+        <View className={"px-4 pb-4"}>
+          <Text className={"text-white text-lg font-medium"}>{product.priceString} {t("per month")}</Text>
+          <View className={"border-b pt-4 border-[#FFFFFF12]"}></View>
+        </View>
         <View className={"px-4 py-2 space-y-1"}>
           <View className={"flex flex-row items-center space-x-2"}>
             <View className={"w-1.5 h-1.5 bg-white rounded-full mx-1"}></View>
@@ -114,18 +118,18 @@ const PackageItem = ({ purchasePackage }) => {
             <Text className={"text-center font-bold"}>
               {status === "idle" &&
                 (isStandard
-                  ? t("Free trial for one month")
-                  : t("Upgrade to Premium Home Edition"))}
+                  ? t("Subscribe")
+                  : t("Upgrade to Premium Family"))}
               {status === "loading" && t("Waiting")}
               {status === "success" && t("Success")}
               {status === "error" && t("Error")}
             </Text>
           </TouchableOpacity>
         )}
-        <View className={"p-4"}>
+        <View className={"pb-4 px-4"}>
           <Text className={"text-xs text-[#A7A7A7] text-center"}>
             {isStandard ? t("Free trial for 1 month then") : ""}
-            {t(`per month`)} {product.priceString}
+            {product.priceString} {t(`per month`)}
             {t("Plan will automatically renew every month until you cancel")}
           </Text>
         </View>
