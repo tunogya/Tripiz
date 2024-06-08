@@ -9,7 +9,7 @@ import {
   Keyboard,
   Pressable,
   Dimensions,
-  RefreshControl,
+  RefreshControl, TouchableOpacity,
 } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -37,6 +37,7 @@ const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const screenWidth = Dimensions.get("window").width;
+  const screenHeight = Dimensions.get("window").height;
   const [isFocused, setIsFocused] = useState(false);
   const [text, setText] = useState("");
   const [status, setStatus] = useState("idle");
@@ -48,6 +49,7 @@ const Page = () => {
   const [nextSkip, setNextSkip] = useState<number | null>(0);
   const [hasNext, setHasNext] = useState(true);
   const dispatch = useDispatch();
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   const {
     data,
@@ -146,6 +148,27 @@ const Page = () => {
     }
   };
 
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      (event) => {
+        setKeyboardHeight(event.endCoordinates.height);
+      }
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardHeight(0);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   if (isLoading) {
     return (
       <View
@@ -205,151 +228,160 @@ const Page = () => {
           <PostMoreButton />
         </BlurView>
       </View>
-      <ScrollView
-        ref={scrollViewRef}
-        showsVerticalScrollIndicator={false}
-        className={"h-full w-full"}
-      >
-        {screenWidth && data?.id && (
-          <View
-            className={"relative"}
-            style={{
-              width: screenWidth,
-              height: screenWidth,
-            }}
-          >
-            <Image
+      <View style={{
+        height: screenHeight - insets.bottom,
+      }}>
+        <ScrollView
+          ref={scrollViewRef}
+          showsVerticalScrollIndicator={false}
+          className={"w-full"}
+          style={{
+            height: 400,
+          }}
+        >
+          {screenWidth && data?.id && (
+            <View
+              className={"relative"}
               style={{
                 width: screenWidth,
                 height: screenWidth,
               }}
-              source={`${API_HOST_NAME}/autoglyphs?hash=0x${data.id}`}
-              contentFit="cover"
-              cachePolicy={"memory-disk"}
-              transition={750}
-            />
-            <LinearGradient
-              colors={["#12121200", "#121212"]}
-              className={"h-24 absolute bottom-0 z-10 w-full"}
+            >
+              <Image
+                style={{
+                  width: screenWidth,
+                  height: screenWidth,
+                }}
+                source={`${API_HOST_NAME}/autoglyphs?hash=0x${data.id}`}
+                contentFit="cover"
+                cachePolicy={"memory-disk"}
+                transition={750}
+              />
+              <LinearGradient
+                colors={["#12121200", "#121212"]}
+                className={"h-24 absolute bottom-0 z-10 w-full"}
+              />
+            </View>
+          )}
+          <View className={"p-4"}>
+            <Text className={"text-white font-medium text-[16px] leading-5"}>
+              {data?.content}
+            </Text>
+            <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
+              {new Date((data?.created_at || 0) * 1000)
+                .toLocaleDateString()
+                .replaceAll("/", "-")
+                .replace(`${new Date().getFullYear()}-`, "")}
+            </Text>
+          </View>
+          <View className={"px-4"}>
+            <View className={"w-full border-b h-[1px] border-[#FFFFFF12]"}></View>
+          </View>
+          <View className={"py-3 space-y-3"}>
+            <Text className={"text-white font-bold text-[16px] px-4"}>
+              {t("Comments")}
+            </Text>
+            <SwipeListView
+              ref={swipeListViewRef}
+              data={comments}
+              scrollEnabled={false}
+              showsVerticalScrollIndicator={false}
+              disableRightSwipe
+              useAnimatedList={true}
+              renderItem={({ item }: any) => <CommentShowItem item={item} />}
+              renderHiddenItem={(rowData, rowMap) => (
+                <CommentHiddenItem rowData={rowData} />
+              )}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                  colors={["#B3B3B3"]}
+                  progressBackgroundColor="#121212"
+                  tintColor="#B3B3B3"
+                  title="Loading..."
+                  titleColor="#B3B3B3"
+                />
+              }
+              scrollEventThrottle={1000}
+              onEndReached={async () => {
+                if (hasNext) {
+                  await fetchComments(nextSkip);
+                }
+              }}
+              onEndReachedThreshold={0.3}
+              ListEmptyComponent={() =>
+                !isLoadingComments && (
+                  <View className={"w-full px-4"}>
+                    <Text className={"text-[#B3B3B3] text-xs"}>
+                      {t("No comments")}
+                    </Text>
+                  </View>
+                )
+              }
+              ListFooterComponent={() => (
+                <View className={"p-4 my-4"}>
+                  <TouchableOpacity className={"border border-[#FFFFFF12] rounded-full h-12 flex flex-row items-center space-x-3 justify-center"}>
+                    <Ionicons name="sparkles-sharp" size={20} color="white" />
+                    <Text className={"text-white font-medium"}>Generate comments</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+              stopLeftSwipe={0}
+              stopRightSwipe={-100}
+              leftOpenValue={0}
+              rightOpenValue={-100}
+              // @ts-ignore
+              keyExtractor={(item, index) => index}
+              onSwipeValueChange={handleSwipeValueChange}
             />
           </View>
-        )}
-        <View className={"p-4"}>
-          <Text className={"text-white font-medium text-[16px] leading-5"}>
-            {data?.content}
-          </Text>
-          <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
-            {new Date((data?.created_at || 0) * 1000)
-              .toLocaleDateString()
-              .replaceAll("/", "-")
-              .replace(`${new Date().getFullYear()}-`, "")}
-          </Text>
-        </View>
-        <View className={"px-4"}>
-          <View className={"w-full border-b h-[1px] border-[#FFFFFF12]"}></View>
-        </View>
-        <View className={"py-3 space-y-3"}>
-          <Text className={"text-white font-medium text-[16px] px-4"}>
-            {t("Comments")}
-          </Text>
-          <SwipeListView
-            ref={swipeListViewRef}
-            data={comments}
-            scrollEnabled={false}
-            showsVerticalScrollIndicator={false}
-            disableRightSwipe
-            useAnimatedList={true}
-            renderItem={({ item }: any) => <CommentShowItem item={item} />}
-            renderHiddenItem={(rowData, rowMap) => (
-              <CommentHiddenItem rowData={rowData} />
-            )}
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                colors={["#B3B3B3"]}
-                progressBackgroundColor="#121212"
-                tintColor="#B3B3B3"
-                title="Loading..."
-                titleColor="#B3B3B3"
-              />
-            }
-            scrollEventThrottle={1000}
-            onEndReached={async () => {
-              if (hasNext) {
-                await fetchComments(nextSkip);
-              }
-            }}
-            onEndReachedThreshold={0.3}
-            ListEmptyComponent={() =>
-              !isLoadingComments && (
-                <View className={"w-full px-4"}>
-                  <Text className={"text-[#B3B3B3] text-xs"}>
-                    {t("No comments")}
-                  </Text>
-                </View>
-              )
-            }
-            stopLeftSwipe={0}
-            stopRightSwipe={-100}
-            leftOpenValue={0}
-            rightOpenValue={-100}
-            // @ts-ignore
-            keyExtractor={(item, index) => index}
-            onSwipeValueChange={handleSwipeValueChange}
-          />
-        </View>
-        <View style={{ paddingBottom: 200 + insets.bottom }}></View>
-      </ScrollView>
+          <View style={{ height: 400 }}></View>
+        </ScrollView>
+      </View>
       <KeyboardAvoidingView
-        className={"absolute left-0 w-full z-50"}
+        className={"absolute left-0 w-full z-50 bg-[#121212] border-t border-[#FFFFFF12]"}
         style={{
           bottom: insets.bottom,
         }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <BlurView
-          intensity={10}
-          tint={"dark"}
-          className={"flex w-full bg-[#121212]"}
+        <View
+          className={
+            "px-4 h-16 flex justify-center items-center flex-row space-x-3"
+          }
         >
-          <View
+          <TextInput
+            value={text}
+            placeholder={t("Talk something")}
+            placeholderTextColor={"#B3B3B3"}
+            autoFocus={false}
             className={
-              "px-4 h-16 flex justify-center items-center flex-row space-x-3"
+              "bg-[#2F2F2F] h-10 rounded-full px-4 text-white flex-1 text-[16px]"
             }
-          >
-            <TextInput
-              value={text}
-              placeholder={t("Talk something")}
-              placeholderTextColor={"#B3B3B3"}
-              autoFocus={false}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            onChangeText={(text) => {
+              setText(text);
+            }}
+          />
+          {isFocused && (
+            <Pressable
+              disabled={status !== "idle"}
               className={
-                "bg-[#2F2F2F] h-10 rounded-full px-4 text-white flex-1 text-[16px]"
+                "bg-green-500 h-10 px-4 rounded-full items-center justify-center"
               }
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              onChangeText={(text) => {
-                setText(text);
-              }}
-            />
-            {isFocused && (
-              <Pressable
-                disabled={status !== "idle"}
-                className={
-                  "bg-green-500 h-10 px-4 rounded-full items-center justify-center"
-                }
-                onPress={newComment}
-              >
-                <Text className={"font-bold"}>
-                  {status === "idle" && t("Send")}
-                  {status === "success" && t("Success")}
-                  {status === "error" && t("Error")}
-                  {status === "loading" && t("Sending")}
-                </Text>
-              </Pressable>
-            )}
-          </View>
-        </BlurView>
+              onPress={newComment}
+            >
+              <Text className={"font-bold"}>
+                {status === "idle" && t("Send")}
+                {status === "success" && t("Success")}
+                {status === "error" && t("Error")}
+                {status === "loading" && t("Sending")}
+              </Text>
+            </Pressable>
+          )}
+        </View>
       </KeyboardAvoidingView>
       <PostMoreModal />
     </View>
