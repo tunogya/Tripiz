@@ -56,4 +56,6 @@ export const zh = {
   "Premium Standard": "Premium 个人版",
   "Premium Family": "Premium 家庭版",
   "Tripiz Free": "Tripiz 免费版",
+  "Terms of use": "使用条款",
+  "Privacy policy": "隐私政策",
 };

@@ -30,7 +30,7 @@ const RestorePurchasesButton = () => {
         }
       }}
     >
-      <Text className={"text-white text-center"}>{t("Restore")}</Text>
+      <Text className={"text-white text-center font-medium"}>{t("Restore")}</Text>
     </TouchableOpacity>
   );
 };

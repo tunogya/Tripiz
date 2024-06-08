@@ -57,4 +57,6 @@ export const en = {
   "Premium Standard": "Premium Standard",
   "Premium Family": "Premium Family",
   "Tripiz Free": "Tripiz Free",
+  "Terms of use": "Terms of use",
+  "Privacy policy": "Privacy policy",
 };
