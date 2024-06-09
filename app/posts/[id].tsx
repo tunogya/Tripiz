@@ -313,30 +313,6 @@ const Page = () => {
                   </View>
                 )
               }
-              ListFooterComponent={() => (
-                <View className={"p-4 my-4"}>
-                  <TouchableOpacity
-                    className={
-                      "border border-[#FFFFFF12] rounded-full h-12 flex flex-row items-center space-x-3 justify-center"
-                    }
-                    onPress={async () => {
-                      // if (purchasesEntitlementInfo?.isActive) {
-                        await fetch(`${API_HOST_NAME}/posts/${id}/replies`, {
-                          method: "POST",
-                        }).then((res) => res.json());
-                        dispatch(increaseVersion());
-                      // } else {
-                      //   router.push("/premium");
-                      // }
-                    }}
-                  >
-                    <Ionicons name="sparkles-sharp" size={20} color="#65D46E" />
-                    <Text className={"text-white font-medium"}>
-                      Generate comments
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              )}
               stopLeftSwipe={0}
               stopRightSwipe={-100}
               leftOpenValue={0}
