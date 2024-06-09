@@ -69,7 +69,7 @@ const Page = () => {
       <View className={"flex-row justify-between p-3 items-center"}>
         <View></View>
         <Pressable
-          disabled={status !== "idle"}
+          disabled={status !== "idle" || text === ""}
           className={`rounded-full items-center justify-center flex flex-row space-x-1`}
           onPress={save}
         >
