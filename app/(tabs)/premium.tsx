@@ -23,9 +23,7 @@ const Page = () => {
   const dispatch = useDispatch();
 
   const array = [
-    [t("Have ads"), t("No ads")],
-    [t("Limited access"), t("No limited")],
-    [t("No AI"), t("New AI features")],
+    [t("No AI comments"), t("Get 2k+ AI comments")],
   ];
 
   const currentIndex = useMemo(() => {
