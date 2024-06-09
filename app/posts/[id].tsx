@@ -82,6 +82,16 @@ const Page = () => {
     setNextSkip(result.pagination.nextSkip);
   };
 
+  const deleteOneComment = async (id: string) => {
+    try {
+      await fetch(`${API_HOST_NAME}/posts/${id}`, {
+        method: "DELETE",
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const onRefresh = async () => {
     setRefreshing(true);
     await fetchPost();
@@ -291,7 +301,14 @@ const Page = () => {
               useAnimatedList={true}
               renderItem={({ item }: any) => <CommentShowItem item={item} />}
               renderHiddenItem={(rowData, rowMap) => (
-                <CommentHiddenItem rowData={rowData} />
+                <CommentHiddenItem rowData={rowData} onDelete={async () => {
+                  const newComments = comments.filter((item) => item.id !== rowData.item.id);
+                  setComments(newComments);
+                  if (rowMap[rowData.index]) {
+                    rowMap[rowData.index].closeRow();
+                  }
+                  await deleteOneComment(rowData.item.id);
+                }} />
               )}
               scrollEventThrottle={1000}
               onEndReached={async () => {
