@@ -319,11 +319,15 @@ const Page = () => {
                     className={
                       "border border-[#FFFFFF12] rounded-full h-12 flex flex-row items-center space-x-3 justify-center"
                     }
-                    onPress={() => {
-                      if (purchasesEntitlementInfo?.isActive) {
-                      } else {
-                        router.push("/premium");
-                      }
+                    onPress={async () => {
+                      // if (purchasesEntitlementInfo?.isActive) {
+                        await fetch(`${API_HOST_NAME}/posts/${id}/replies`, {
+                          method: "POST",
+                        }).then((res) => res.json());
+                        dispatch(increaseVersion());
+                      // } else {
+                      //   router.push("/premium");
+                      // }
                     }}
                   >
                     <Ionicons name="sparkles-sharp" size={20} color="#65D46E" />
