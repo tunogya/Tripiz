@@ -1,5 +1,5 @@
 import {View, Text, Pressable, TextInput, Platform, KeyboardAvoidingView, ScrollView} from "react-native";
-import { memo, useState } from "react";
+import {memo, useMemo, useState} from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { ensureString } from "../../../utils/ensureString";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,6 +50,11 @@ const Page = () => {
     }
   };
 
+  const countWords = useMemo(() => {
+    const words = text.trim().split(/\s+/);
+    return words.filter(word => word.length > 0).length;
+  }, [text]);
+
   return (
     <View className={"bg-[#121212] flex flex-1"}>
       <View className={"flex justify-center items-center pt-2"}>
@@ -80,14 +85,15 @@ const Page = () => {
           placeholderTextColor={"#B3B3B3"}
           className={"text-white text-[16px] px-4 py-3 h-60 border border-[#FFFFFF12] rounded-lg"}
           value={text}
-          maxLength={purchasesEntitlementInfo?.isActive ? 2000 : 1000}
           onChangeText={(text) => {
+            const limit = purchasesEntitlementInfo?.isActive ? 2000 : 1000;
+            if (text.length > limit) return;
             setText(text);
           }}
         />
         <View className={"flex flex-row justify-end"}>
           <Text className={"text-[#B3B3B3] text-xs p-2"}>
-            {text.length} / {purchasesEntitlementInfo?.isActive ? 2000 : 1000}
+            {countWords} / {purchasesEntitlementInfo?.isActive ? 2000 : 1000}
           </Text>
         </View>
       </ScrollView>
