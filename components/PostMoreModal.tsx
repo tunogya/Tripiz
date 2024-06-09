@@ -1,7 +1,6 @@
 import { Pressable, View, Text } from "react-native";
 import React, { memo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { useDispatch } from "react-redux";
 import { BlurView } from "expo-blur";
 import { updateCurrentPost } from "../reducers/ui/uiSlice";
 import { t } from "../i18n";
@@ -9,16 +8,14 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { API_HOST_NAME } from "../utils/const";
 
-const PostMoreModal = () => {
+const PostMoreModal = ({ postId, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
-  const { currentPost } = useSelector((state: RootState) => state.ui);
   const dispatch = useDispatch();
   const [state, setState] = useState("idle");
-
   const deletePost = async () => {
     setState("loading");
     try {
-      await fetch(`${API_HOST_NAME}/posts/${currentPost}`, {
+      await fetch(`${API_HOST_NAME}/posts/${postId}`, {
         method: "DELETE",
       });
       setState("success");
@@ -34,10 +31,6 @@ const PostMoreModal = () => {
       }, 3_000);
     }
   };
-
-  if (!currentPost) {
-    return null;
-  }
 
   return (
     <BlurView
@@ -55,6 +48,15 @@ const PostMoreModal = () => {
             <Pressable
               disabled={state !== "idle"}
               className={"p-2"}
+              onPress={() => {
+                onCopy();
+              }}
+            >
+              <Text className={"text-white font-medium"}>{t("Copy")}</Text>
+            </Pressable>
+            <Pressable
+              disabled={state !== "idle"}
+              className={"p-2"}
               onPress={deletePost}
             >
               <Text className={"text-white font-medium"}>
@@ -65,12 +67,7 @@ const PostMoreModal = () => {
               </Text>
             </Pressable>
           </View>
-          <Pressable
-            className={"w-full items-center"}
-            onPress={() => {
-              dispatch(updateCurrentPost(""));
-            }}
-          >
+          <Pressable className={"w-full items-center"} onPress={onClose}>
             <Text className={"text-white"}>Close</Text>
           </Pressable>
         </View>

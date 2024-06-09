@@ -1,5 +1,13 @@
-import {View, Text, Pressable, TextInput, Platform, KeyboardAvoidingView, ScrollView} from "react-native";
-import {memo, useMemo, useState} from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  Platform,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
+import { memo, useMemo, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { ensureString } from "../../../utils/ensureString";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,7 +60,7 @@ const Page = () => {
 
   const countWords = useMemo(() => {
     const words = text.trim().split(/\s+/);
-    return words.filter(word => word.length > 0).length;
+    return words.filter((word) => word.length > 0).length;
   }, [text]);
 
   return (
@@ -75,15 +83,14 @@ const Page = () => {
           </Text>
         </Pressable>
       </View>
-      <ScrollView
-        className={"px-4"}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView className={"px-4"} showsVerticalScrollIndicator={false}>
         <TextInput
           multiline
           placeholder={t("Content")}
           placeholderTextColor={"#B3B3B3"}
-          className={"text-white text-[16px] px-4 py-3 h-60 border border-[#FFFFFF12] rounded-lg"}
+          className={
+            "text-white text-[16px] px-4 py-3 h-60 border border-[#FFFFFF12] rounded-lg"
+          }
           value={text}
           onChangeText={(text) => {
             const limit = purchasesEntitlementInfo?.isActive ? 2000 : 1000;

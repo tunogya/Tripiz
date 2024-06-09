@@ -59,5 +59,9 @@ export const en = {
   "Tripiz Free": "Tripiz Free",
   "Terms of use": "Terms of Use",
   "Privacy policy": "Privacy Policy",
-  "Post": "Post",
+  Post: "Post",
+  "Generate comments": "Generate comments",
+  Generating: "Generating",
+  Copy: "Copy",
+  Copying: "Copying",
 };

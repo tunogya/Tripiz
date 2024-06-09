@@ -9,7 +9,8 @@ import {
   Keyboard,
   Pressable,
   Dimensions,
-  RefreshControl, TouchableOpacity,
+  RefreshControl,
+  TouchableOpacity,
 } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -22,7 +23,6 @@ import CommentShowItem from "../../components/CommentShowItem";
 import { Ionicons } from "@expo/vector-icons";
 import { t } from "../../i18n";
 import PostMoreModal from "../../components/PostMoreModal";
-import PostMoreButton from "../../components/PostMoreButton";
 import { SwipeListView } from "react-native-swipe-list-view";
 import CommentHiddenItem from "../../components/CommentHiddenItem";
 import { Image } from "expo-image";
@@ -31,6 +31,7 @@ import { ensureString } from "../../utils/ensureString";
 import { increaseVersion } from "../../reducers/ui/uiSlice";
 import { LinearGradient } from "expo-linear-gradient";
 import { finalizeEvent } from "nostr-tools";
+import Clipboard from "@react-native-clipboard/clipboard";
 import { Buffer } from "buffer";
 
 const Page = () => {
@@ -49,7 +50,10 @@ const Page = () => {
   const [nextSkip, setNextSkip] = useState<number | null>(0);
   const [hasNext, setHasNext] = useState(true);
   const dispatch = useDispatch();
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const { purchasesEntitlementInfo } = useSelector(
+    (state: RootState) => state.purchase,
+  );
+  const [showModal, setShowModal] = useState(false);
 
   const {
     data,
@@ -148,27 +152,6 @@ const Page = () => {
     }
   };
 
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      (event) => {
-        setKeyboardHeight(event.endCoordinates.height);
-      }
-    );
-
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        setKeyboardHeight(0);
-      }
-    );
-
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
-
   if (isLoading) {
     return (
       <View
@@ -188,7 +171,7 @@ const Page = () => {
           >
             <Ionicons name="chevron-back" size={24} color="white" />
           </Pressable>
-          <PostMoreButton />
+          <View></View>
         </View>
         <ActivityIndicator size={"small"} color="#B3B3B3" />
       </View>
@@ -225,12 +208,21 @@ const Page = () => {
           tint={"dark"}
           className={"rounded-full overflow-hidden"}
         >
-          <PostMoreButton />
+          <Pressable
+            className={"w-10 h-10 items-center justify-center"}
+            onPress={() => {
+              setShowModal(true);
+            }}
+          >
+            <Ionicons name="ellipsis-horizontal" size={24} color="white" />
+          </Pressable>
         </BlurView>
       </View>
-      <View style={{
-        height: screenHeight - insets.bottom,
-      }}>
+      <View
+        style={{
+          height: screenHeight - insets.bottom,
+        }}
+      >
         <ScrollView
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
@@ -275,7 +267,9 @@ const Page = () => {
             </Text>
           </View>
           <View className={"px-4"}>
-            <View className={"w-full border-b h-[1px] border-[#FFFFFF12]"}></View>
+            <View
+              className={"w-full border-b h-[1px] border-[#FFFFFF12]"}
+            ></View>
           </View>
           <View className={"py-3 space-y-3"}>
             <Text className={"text-white font-bold text-[16px] px-4"}>
@@ -321,9 +315,21 @@ const Page = () => {
               }
               ListFooterComponent={() => (
                 <View className={"p-4 my-4"}>
-                  <TouchableOpacity className={"border border-[#FFFFFF12] rounded-full h-12 flex flex-row items-center space-x-3 justify-center"}>
+                  <TouchableOpacity
+                    className={
+                      "border border-[#FFFFFF12] rounded-full h-12 flex flex-row items-center space-x-3 justify-center"
+                    }
+                    onPress={() => {
+                      if (purchasesEntitlementInfo?.isActive) {
+                      } else {
+                        router.push("/premium");
+                      }
+                    }}
+                  >
                     <Ionicons name="sparkles-sharp" size={20} color="#65D46E" />
-                    <Text className={"text-white font-medium"}>Generate comments</Text>
+                    <Text className={"text-white font-medium"}>
+                      Generate comments
+                    </Text>
                   </TouchableOpacity>
                 </View>
               )}
@@ -340,7 +346,9 @@ const Page = () => {
         </ScrollView>
       </View>
       <KeyboardAvoidingView
-        className={"absolute left-0 w-full z-50 bg-[#121212] border-t border-[#FFFFFF12]"}
+        className={
+          "absolute left-0 w-full z-50 bg-[#121212] border-t border-[#FFFFFF12]"
+        }
         style={{
           bottom: insets.bottom,
         }}
@@ -383,7 +391,19 @@ const Page = () => {
           )}
         </View>
       </KeyboardAvoidingView>
-      <PostMoreModal />
+      {showModal && (
+        <PostMoreModal
+          postId={`${id}`}
+          onCopy={() => {
+            if (data?.content) {
+              Clipboard.setString(data?.content);
+            }
+          }}
+          onClose={() => {
+            setShowModal(false);
+          }}
+        />
+      )}
     </View>
   );
 };
