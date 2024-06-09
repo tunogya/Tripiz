@@ -10,7 +10,6 @@ import {
   Pressable,
   Dimensions,
   RefreshControl,
-  TouchableOpacity,
 } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -50,9 +49,6 @@ const Page = () => {
   const [nextSkip, setNextSkip] = useState<number | null>(0);
   const [hasNext, setHasNext] = useState(true);
   const dispatch = useDispatch();
-  const { purchasesEntitlementInfo } = useSelector(
-    (state: RootState) => state.purchase,
-  );
   const [showModal, setShowModal] = useState(false);
 
   const {
