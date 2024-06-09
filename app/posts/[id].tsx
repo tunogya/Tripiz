@@ -88,7 +88,11 @@ const Page = () => {
 
   const onRefresh = async () => {
     setRefreshing(true);
+    await fetchPost();
     await fetchComments(0);
+    if (swipeListViewRef.current) {
+      swipeListViewRef.current.closeAllOpenRows();
+    }
     setRefreshing(false);
   };
 
@@ -133,11 +137,7 @@ const Page = () => {
   };
 
   useEffect(() => {
-    fetchPost();
-    fetchComments(0);
-    if (swipeListViewRef.current) {
-      swipeListViewRef.current.closeAllOpenRows();
-    }
+    onRefresh();
   }, [version]);
 
   const scrollViewRef = useRef(null);
@@ -224,6 +224,17 @@ const Page = () => {
         }}
       >
         <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={["#B3B3B3"]}
+              progressBackgroundColor="#121212"
+              tintColor="#B3B3B3"
+              title="Loading..."
+              titleColor="#B3B3B3"
+            />
+          }
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
           className={"w-full"}
@@ -286,17 +297,6 @@ const Page = () => {
               renderHiddenItem={(rowData, rowMap) => (
                 <CommentHiddenItem rowData={rowData} />
               )}
-              refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={onRefresh}
-                  colors={["#B3B3B3"]}
-                  progressBackgroundColor="#121212"
-                  tintColor="#B3B3B3"
-                  title="Loading..."
-                  titleColor="#B3B3B3"
-                />
-              }
               scrollEventThrottle={1000}
               onEndReached={async () => {
                 if (hasNext) {
@@ -397,6 +397,7 @@ const Page = () => {
           onCopy={() => {
             if (data?.content) {
               Clipboard.setString(data?.content);
+              setShowModal(false);
             }
           }}
           onClose={() => {

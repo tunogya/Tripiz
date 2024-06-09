@@ -3,8 +3,6 @@ import {
   Text,
   Pressable,
   TextInput,
-  Platform,
-  KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
 import { memo, useMemo, useState } from "react";
