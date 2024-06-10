@@ -1,8 +1,6 @@
 import { Pressable, View, Text } from "react-native";
 import React, { memo, useState } from "react";
-import { useDispatch } from "react-redux";
 import { BlurView } from "expo-blur";
-import { updateCurrentPost } from "../reducers/ui/uiSlice";
 import { t } from "../i18n";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -10,7 +8,6 @@ import { API_HOST_NAME } from "../utils/const";
 
 const PostMoreModal = ({ postId, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
-  const dispatch = useDispatch();
   const [state, setState] = useState("idle");
   const deletePost = async () => {
     setState("loading");
@@ -21,7 +18,6 @@ const PostMoreModal = ({ postId, onCopy, onClose }) => {
       setState("success");
       setTimeout(() => {
         setState("idle");
-        dispatch(updateCurrentPost(""));
         router.push("library");
       }, 1_000);
     } catch (e) {

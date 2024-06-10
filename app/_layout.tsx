@@ -12,8 +12,7 @@ import "i18n";
 import Notification from "../components/Notification";
 import CheckUser from "../components/LoginForm";
 import { SWRConfig } from "swr";
-import { AppState, Platform } from "react-native";
-import Purchases, { LOG_LEVEL } from "react-native-purchases";
+import { AppState } from "react-native";
 
 applyGlobalPolyfills();
 
@@ -23,20 +22,6 @@ export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
     Inter_500Medium,
   });
-
-  useEffect(() => {
-    Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
-    if (Platform.OS === "ios") {
-      Purchases.configure({
-        apiKey: "appl_twUGekeTPSpiBJJreAWYAXaXqCW",
-      });
-    } else if (Platform.OS === "android") {
-      // Purchases.configure({
-      //   apiKey: "",
-      //   appUserID: "",
-      // });
-    }
-  }, []);
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
