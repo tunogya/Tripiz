@@ -22,9 +22,6 @@ const Page = () => {
   const [text, setText] = useState("");
   const [status, setStatus] = useState("idle");
   const dispatch = useDispatch();
-  const { purchasesEntitlementInfo } = useSelector(
-    (state: RootState) => state.purchase,
-  );
 
   const save = async () => {
     setStatus("loading");
@@ -86,8 +83,6 @@ const Page = () => {
           }
           value={text}
           onChangeText={(text) => {
-            const limit = purchasesEntitlementInfo?.isActive ? 2000 : 1000;
-            if (text.length > limit) return;
             setText(text);
           }}
         />
