@@ -84,7 +84,7 @@ function TabLayout() {
       <Tabs.Screen
         name="premium"
         options={{
-          // href: null,
+          href: null,
           title: t("Premium"),
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

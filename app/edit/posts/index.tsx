@@ -5,7 +5,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import { memo, useMemo, useState } from "react";
+import { memo, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { ensureString } from "../../../utils/ensureString";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,11 +56,6 @@ const Page = () => {
     }
   };
 
-  const countWords = useMemo(() => {
-    const words = text.trim().split(/\s+/);
-    return words.filter((word) => word.length > 0).length;
-  }, [text]);
-
   return (
     <View className={"bg-[#121212] flex flex-1"}>
       <View className={"flex justify-center items-center pt-2"}>
@@ -96,11 +91,6 @@ const Page = () => {
             setText(text);
           }}
         />
-        <View className={"flex flex-row justify-end"}>
-          <Text className={"text-[#B3B3B3] text-xs p-2"}>
-            {countWords} / {purchasesEntitlementInfo?.isActive ? 2000 : 1000}
-          </Text>
-        </View>
       </ScrollView>
     </View>
   );
