@@ -18,16 +18,16 @@ const LibraryShowItem: FC<{
 
   return (
     <Pressable
-      className={"h-20 flex flex-row my-2 px-4 space-x-3"}
+      className={"h-16 flex flex-row my-2 px-4 space-x-3"}
       onPress={() => {
         router.navigate(`/posts/${item.id}`);
       }}
     >
       <View
-        className={`h-20 w-20 bg-[#FFFFFF12] ${category === "reflections" ? "" : category === "dreams" ? "rounded-full" : "rounded-xl"} overflow-hidden`}
+        className={`h-16 w-16 bg-[#FFFFFF12] ${category === "reflections" ? "" : category === "dreams" ? "rounded-full" : "rounded-xl"} overflow-hidden`}
       >
         <Image
-          className={"w-20 h-20"}
+          className={"w-16 h-16"}
           source={`${API_HOST_NAME}/autoglyphs?hash=0x${item.id}`}
           contentFit="cover"
           cachePolicy={"memory-disk"}
