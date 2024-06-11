@@ -58,7 +58,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
                 setOpenMore(false);
-                router.push(`edit/posts?category=reflections`);
+                router.navigate(`edit/posts?category=reflections`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -72,7 +72,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center"}
               onPress={() => {
                 setOpenMore(false);
-                router.push(`edit/posts?category=memories`);
+                router.navigate(`edit/posts?category=memories`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>
@@ -86,7 +86,7 @@ const AddButton = () => {
               className={"flex flex-row space-x-6 items-center h-12"}
               onPress={() => {
                 setOpenMore(false);
-                router.push(`edit/posts?category=dreams`);
+                router.navigate(`edit/posts?category=dreams`);
               }}
             >
               <Text className={"text-white text-lg font-semibold"}>

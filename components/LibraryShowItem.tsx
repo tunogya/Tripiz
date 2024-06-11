@@ -20,7 +20,7 @@ const LibraryShowItem: FC<{
     <Pressable
       className={"h-20 flex flex-row my-2 px-4 space-x-3"}
       onPress={() => {
-        router.push(`/posts/${item.id}`);
+        router.navigate(`/posts/${item.id}`);
       }}
     >
       <View

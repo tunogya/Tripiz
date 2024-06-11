@@ -18,7 +18,7 @@ const PostMoreModal = ({ postId, onCopy, onClose }) => {
       setState("success");
       setTimeout(() => {
         setState("idle");
-        router.replace("library");
+        router.navigate("library");
       }, 1_000);
     } catch (e) {
       setState("error");
