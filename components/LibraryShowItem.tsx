@@ -33,7 +33,7 @@ const LibraryShowItem: FC<{
           cachePolicy={"memory-disk"}
         />
       </View>
-      <View className={"flex justify-center flex-1 space-y-0.5"}>
+      <View className={"flex justify-center flex-1"}>
         <Text className={"text-white font-medium text-lg"} numberOfLines={1}>
           {item.content}
         </Text>
