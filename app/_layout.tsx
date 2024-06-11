@@ -86,6 +86,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="(tabs)"
                 options={{
+                  gestureEnabled: false,
                   headerShown: false,
                   title: "",
                 }}
@@ -93,6 +94,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="edit/posts/index"
                 options={{
+                  gestureEnabled: false,
                   presentation: "modal",
                   title: "",
                   headerShown: false,
@@ -106,6 +108,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="posts/[id]"
                 options={{
+                  gestureEnabled: false,
                   headerShown: false,
                   title: "",
                   headerBackTitleVisible: false,
@@ -118,6 +121,7 @@ export default function RootLayout() {
               <Stack.Screen
                 name="account/index"
                 options={{
+                  gestureEnabled: false,
                   presentation: "modal",
                   title: "",
                   headerShown: false,
