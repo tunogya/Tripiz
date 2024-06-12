@@ -108,7 +108,6 @@ export default function RootLayout() {
               <Stack.Screen
                 name="posts/[id]"
                 options={{
-                  gestureEnabled: false,
                   headerShown: false,
                   title: "",
                   headerBackTitleVisible: false,
