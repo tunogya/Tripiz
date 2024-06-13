@@ -51,8 +51,6 @@ const Page = () => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
-
-
   const {
     data,
     isLoading,
