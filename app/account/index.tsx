@@ -105,7 +105,7 @@ const Page = () => {
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className={"items-center py-20 space-y-8 px-4"}>
+        <View className={"items-center py-10 space-y-8 px-4"}>
           <TouchableOpacity
             onPress={() => {
               Clipboard.setString(nostrPublicKey);

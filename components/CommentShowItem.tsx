@@ -1,10 +1,11 @@
-import { Text, View } from "react-native";
+import {Pressable, Text, View} from "react-native";
 import React, { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../reducers/account/accountSlice";
 import Avatar from "./Avatar";
 import { API_HOST_NAME } from "../utils/const";
 import useSWR from "swr";
+import Clipboard from "@react-native-clipboard/clipboard";
 
 const CommentShowItem: FC<{
   item: {
@@ -39,11 +40,16 @@ const CommentShowItem: FC<{
               .replace(`${new Date().getFullYear()}-`, "")}
           </Text>
         </View>
-        <View className={"flex flex-row items-end flex-wrap"}>
+        <Pressable
+          className={"flex flex-row items-end flex-wrap"}
+          onLongPress={() => {
+            Clipboard.setString(item.content);
+          }}
+        >
           <Text className={"text-white text-[16px] leading-5"}>
             {item.content}
           </Text>
-        </View>
+        </Pressable>
       </View>
     </View>
   );
