@@ -2,20 +2,22 @@ import {
   View,
   Text,
   Pressable,
-  TextInput, ScrollView, TouchableOpacity,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
-import {memo, useState} from "react";
-import {router} from "expo-router";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
-import {increaseVersion} from "../../../reducers/ui/uiSlice";
-import {t} from "../../../i18n";
-import {API_HOST_NAME} from "../../../utils/const";
-import {finalizeEvent} from "nostr-tools";
-import {Buffer} from "buffer";
+import { memo, useState } from "react";
+import { router } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { increaseVersion } from "../../../reducers/ui/uiSlice";
+import { t } from "../../../i18n";
+import { API_HOST_NAME } from "../../../utils/const";
+import { finalizeEvent } from "nostr-tools";
+import { Buffer } from "buffer";
 
 const Page = () => {
-  const {privateKey} = useSelector((state: RootState) => state.account);
+  const { privateKey } = useSelector((state: RootState) => state.account);
   const [text, setText] = useState("");
   const [status, setStatus] = useState("idle");
   const dispatch = useDispatch();
@@ -53,10 +55,7 @@ const Page = () => {
   };
 
   return (
-    <ScrollView
-      className={`bg-[#121212] flex flex-1`}
-      scrollEnabled={false}
-    >
+    <ScrollView className={`bg-[#121212] flex flex-1`} scrollEnabled={false}>
       <View className={"flex justify-center items-center pt-2"}>
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
@@ -99,9 +98,7 @@ const Page = () => {
           multiline
           placeholder={t("Content")}
           placeholderTextColor={"#B3B3B3"}
-          className={
-            `text-white text-[16px] px-4 py-3 h-60 border border-[#FFFFFF12] rounded-lg`
-          }
+          className={`text-white text-[16px] px-4 py-3 h-60 border border-[#FFFFFF12] rounded-lg`}
           value={text}
           onChangeText={(text) => {
             setText(text);

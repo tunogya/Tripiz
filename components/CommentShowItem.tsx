@@ -1,4 +1,4 @@
-import {Pressable, Text, View} from "react-native";
+import { Pressable, Text, View } from "react-native";
 import React, { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../reducers/account/accountSlice";

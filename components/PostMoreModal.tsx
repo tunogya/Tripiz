@@ -1,11 +1,11 @@
-import {Pressable, View, Text} from "react-native";
+import { Pressable, View, Text } from "react-native";
 import React, { memo, useState } from "react";
 import { BlurView } from "expo-blur";
 import { t } from "../i18n";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { API_HOST_NAME } from "../utils/const";
-import {Ionicons} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const PostMoreModal = ({ postId, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
