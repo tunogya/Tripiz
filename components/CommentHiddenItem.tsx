@@ -1,6 +1,6 @@
 import { Pressable, Text, View } from "react-native";
 import React, { memo } from "react";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const CommentHiddenItem = ({ rowData, onDelete }) => {
   return (

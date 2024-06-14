@@ -72,12 +72,14 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"p-4 flex flex-row space-x-3 items-center justify-between"}>
+        <View
+          className={"p-4 flex flex-row space-x-3 items-center justify-between"}
+        >
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
-                onPress={() => {
-                  router.navigate(`account`);
-                }}
+              onPress={() => {
+                router.navigate(`account`);
+              }}
             >
               <Avatar publicKey={publicKey} />
             </Pressable>
@@ -87,10 +89,10 @@ const Page = () => {
           </View>
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
-                className={"items-center justify-center flex h-10 w-10"}
-                onPress={() => {
-                  router.navigate("edit/posts")
-                }}
+              className={"items-center justify-center flex h-10 w-10"}
+              onPress={() => {
+                router.navigate("edit/posts");
+              }}
             >
               <Ionicons name="add" size={32} color="white" />
             </Pressable>

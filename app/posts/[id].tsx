@@ -88,9 +88,9 @@ const Page = () => {
         method: "DELETE",
       });
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -301,14 +301,19 @@ const Page = () => {
               useAnimatedList={true}
               renderItem={({ item }: any) => <CommentShowItem item={item} />}
               renderHiddenItem={(rowData, rowMap) => (
-                <CommentHiddenItem rowData={rowData} onDelete={async () => {
-                  const newComments = comments.filter((item) => item.id !== rowData.item.id);
-                  setComments(newComments);
-                  if (rowMap[rowData.index]) {
-                    rowMap[rowData.index].closeRow();
-                  }
-                  await deleteOneComment(rowData.item.id);
-                }} />
+                <CommentHiddenItem
+                  rowData={rowData}
+                  onDelete={async () => {
+                    const newComments = comments.filter(
+                      (item) => item.id !== rowData.item.id,
+                    );
+                    setComments(newComments);
+                    if (rowMap[rowData.index]) {
+                      rowMap[rowData.index].closeRow();
+                    }
+                    await deleteOneComment(rowData.item.id);
+                  }}
+                />
               )}
               scrollEventThrottle={1000}
               onEndReached={async () => {
