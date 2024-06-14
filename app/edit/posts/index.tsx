@@ -2,7 +2,7 @@ import {
   View,
   Text,
   Pressable,
-  TextInput, ScrollView,
+  TextInput, ScrollView, TouchableOpacity,
 } from "react-native";
 import {memo, useState} from "react";
 import {router} from "expo-router";
@@ -62,8 +62,8 @@ const Page = () => {
       </View>
       <View className={"flex-row justify-between px-4 py-2 items-center"}>
         <View></View>
-        <Pressable
-          hitSlop={4}
+        <TouchableOpacity
+          hitSlop={12}
           disabled={status !== "idle" || text === ""}
           className={`p-1.5`}
           onPress={save}
@@ -74,7 +74,7 @@ const Page = () => {
             {status === "success" && t("Success")}
             {status === "loading" && t("Waiting")}
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View className={"flex flex-row items-center px-4"}>
         {FILTERS.map((item, index) => (
