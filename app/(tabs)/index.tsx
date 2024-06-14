@@ -9,7 +9,6 @@ import {
 import { memo, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import AddDreamButton from "../../components/AddButton";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import useSWR from "swr";
 import Avatar from "../../components/Avatar";
@@ -117,7 +116,6 @@ const Page = () => {
           )}
         />
       </View>
-      <AddDreamButton />
     </View>
   );
 };

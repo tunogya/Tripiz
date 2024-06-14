@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { memo, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AddDreamButton from "../../components/AddButton";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import LibraryShowItem from "../../components/LibraryShowItem";
@@ -73,17 +72,29 @@ const Page = () => {
           paddingTop: insets.top + 20,
         }}
       >
-        <View className={"p-4 flex flex-row space-x-3 items-center"}>
-          <Pressable
-            onPress={() => {
-              router.navigate(`account`);
-            }}
-          >
-            <Avatar publicKey={publicKey} />
-          </Pressable>
-          <Text className={"text-white font-bold text-2xl"}>
-            {t("Library")}
-          </Text>
+        <View className={"p-4 flex flex-row space-x-3 items-center justify-between"}>
+          <View className={"flex flex-row space-x-3 items-center"}>
+            <Pressable
+                onPress={() => {
+                  router.navigate(`account`);
+                }}
+            >
+              <Avatar publicKey={publicKey} />
+            </Pressable>
+            <Text className={"text-white font-bold text-2xl"}>
+              {t("Library")}
+            </Text>
+          </View>
+          <View className={"flex flex-row space-x-3 items-center"}>
+            <Pressable
+                className={"items-center justify-center flex h-10 w-10"}
+                onPress={() => {
+                  router.navigate("edit/posts")
+                }}
+            >
+              <Ionicons name="add" size={32} color="white" />
+            </Pressable>
+          </View>
         </View>
         <ScrollView
           horizontal
@@ -174,7 +185,6 @@ const Page = () => {
           )}
         />
       </View>
-      <AddDreamButton />
     </View>
   );
 };
