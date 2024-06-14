@@ -94,7 +94,6 @@ export default function RootLayout() {
               <Stack.Screen
                 name="edit/posts/index"
                 options={{
-                  gestureEnabled: false,
                   presentation: "modal",
                   title: "",
                   headerShown: false,
@@ -120,7 +119,6 @@ export default function RootLayout() {
               <Stack.Screen
                 name="account/index"
                 options={{
-                  gestureEnabled: false,
                   presentation: "modal",
                   title: "",
                   headerShown: false,
