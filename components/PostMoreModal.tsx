@@ -67,7 +67,7 @@ const PostMoreModal = ({ postId, onCopy, onClose }) => {
             </Pressable>
           </View>
           <Pressable className={"w-full items-center"} onPress={onClose}>
-            <Text className={"text-white"}>Close</Text>
+            <Text className={"text-white font-medium"}>Close</Text>
           </Pressable>
         </View>
       </View>

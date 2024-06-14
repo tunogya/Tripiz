@@ -59,4 +59,5 @@ export const zh = {
   Generating: "生成中",
   Copy: "拷贝",
   Copying: "拷贝中",
+  Close: "关闭",
 };

@@ -60,4 +60,5 @@ export const en = {
   Generating: "Generating",
   Copy: "Copy",
   Copying: "Copying",
+  Close: "Close",
 };
