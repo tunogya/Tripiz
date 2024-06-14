@@ -1,10 +1,11 @@
-import { Pressable, View, Text } from "react-native";
+import {Pressable, View, Text} from "react-native";
 import React, { memo, useState } from "react";
 import { BlurView } from "expo-blur";
 import { t } from "../i18n";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { API_HOST_NAME } from "../utils/const";
+import {Ionicons} from "@expo/vector-icons";
 
 const PostMoreModal = ({ postId, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
@@ -43,18 +44,20 @@ const PostMoreModal = ({ postId, onCopy, onClose }) => {
           <View className={"space-y-5 p-4"}>
             <Pressable
               disabled={state !== "idle"}
-              className={"p-2"}
+              className={"p-2 flex flex-row space-x-3 items-center"}
               onPress={() => {
                 onCopy();
               }}
             >
+              <Ionicons name="copy-outline" size={24} color="white" />
               <Text className={"text-white font-medium"}>{t("Copy")}</Text>
             </Pressable>
             <Pressable
               disabled={state !== "idle"}
-              className={"p-2"}
+              className={"p-2 flex flex-row space-x-3 items-center"}
               onPress={deletePost}
             >
+              <Ionicons name="trash-outline" size={24} color="white" />
               <Text className={"text-white font-medium"}>
                 {state === "idle" && t("Delete")}
                 {state === "loading" && t("Deleting")}
