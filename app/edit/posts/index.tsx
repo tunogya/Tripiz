@@ -3,9 +3,9 @@ import {
   Text,
   Pressable,
   TextInput,
-  TouchableOpacity,
+  TouchableOpacity, KeyboardAvoidingView, Keyboard,
 } from "react-native";
-import { memo, useState } from "react";
+import {memo, useEffect, useState} from "react";
 import { router } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
@@ -22,6 +22,7 @@ const Page = () => {
   const dispatch = useDispatch();
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("Memories");
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   const save = async () => {
     setStatus("loading");
@@ -53,13 +54,28 @@ const Page = () => {
     }
   };
 
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+      setKeyboardHeight(event.endCoordinates.height);
+    });
+
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardHeight(0);
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   return (
     <View className={`bg-[#121212] flex flex-1`}>
       <View className={"flex justify-center items-center pt-2"}>
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
       <View
-        className={"flex-row justify-between px-4 py-2 items-center"}
+        className={"flex-row justify-between px-3 items-center"}
       >
         <View></View>
         <TouchableOpacity
@@ -77,7 +93,7 @@ const Page = () => {
         </TouchableOpacity>
       </View>
       <View
-        className={"flex flex-row items-center px-4"}
+        className={"flex flex-row items-center border-b border-[#FFFFFF12] px-2 pb-3"}
       >
         {FILTERS.map((item, index) => (
           <Pressable
@@ -96,18 +112,22 @@ const Page = () => {
           </Pressable>
         ))}
       </View>
-      <View className={"p-4 space-y-4"}>
+      <View className={"p-3 space-y-4 flex-1"}>
         <TextInput
           multiline
+          autoFocus={true}
           placeholder={t("Content")}
           placeholderTextColor={"#B3B3B3"}
-          className={`text-white text-[16px] px-4 py-3 h-60 border border-[#FFFFFF12] rounded-lg`}
+          className={`text-white text-[16px]`}
           value={text}
           onChangeText={(text) => {
             setText(text);
           }}
         />
       </View>
+      <View style={{
+        height: keyboardHeight,
+      }}></View>
     </View>
   );
 };

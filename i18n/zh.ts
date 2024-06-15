@@ -60,4 +60,5 @@ export const zh = {
   Copy: "拷贝",
   Copying: "拷贝中",
   Close: "关闭",
+  Cancel: "取消",
 };
