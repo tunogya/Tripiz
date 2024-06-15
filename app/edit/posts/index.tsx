@@ -3,7 +3,7 @@ import {
   Text,
   Pressable,
   TextInput,
-  TouchableOpacity, KeyboardAvoidingView, Keyboard,
+  TouchableOpacity, Keyboard,
 } from "react-native";
 import {memo, useEffect, useState} from "react";
 import { router } from "expo-router";
