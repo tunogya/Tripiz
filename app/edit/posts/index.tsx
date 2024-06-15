@@ -3,7 +3,6 @@ import {
   Text,
   Pressable,
   TextInput,
-  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import { memo, useState } from "react";
@@ -55,11 +54,13 @@ const Page = () => {
   };
 
   return (
-    <ScrollView className={`bg-[#121212] flex flex-1`} scrollEnabled={false}>
+    <View className={`bg-[#121212] flex flex-1`}>
       <View className={"flex justify-center items-center pt-2"}>
         <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
       </View>
-      <View className={"flex-row justify-between px-4 py-2 items-center"}>
+      <View
+        className={"flex-row justify-between px-4 py-2 items-center"}
+      >
         <View></View>
         <TouchableOpacity
           hitSlop={12}
@@ -67,7 +68,7 @@ const Page = () => {
           className={`p-1.5`}
           onPress={save}
         >
-          <Text className={"font-bold text-white"}>
+          <Text className={`font-bold text-white`}>
             {status === "idle" && t("Post")}
             {status === "error" && t("Error")}
             {status === "success" && t("Success")}
@@ -75,7 +76,9 @@ const Page = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View className={"flex flex-row items-center px-4"}>
+      <View
+        className={"flex flex-row items-center px-4"}
+      >
         {FILTERS.map((item, index) => (
           <Pressable
             hitSlop={4}
@@ -105,7 +108,7 @@ const Page = () => {
           }}
         />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
