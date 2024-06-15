@@ -33,7 +33,9 @@ const Page = () => {
   const publicKey = useSelector(selectPublicKey);
 
   const fetchData = async (category: string, skip: number) => {
-    setIsLoading(true);
+    if (skip) {
+      setIsLoading(true);
+    }
     const result = await fetch(
       `${API_HOST_NAME}/accounts/${publicKey}/posts?category=${category}&skip=${skip}`,
       {
@@ -41,7 +43,6 @@ const Page = () => {
       },
     ).then((res) => res.json());
     setIsLoading(false);
-
     if (skip === 0) {
       setData(result.data);
     } else {
