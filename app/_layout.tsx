@@ -94,7 +94,6 @@ export default function RootLayout() {
               <Stack.Screen
                 name="edit/posts/index"
                 options={{
-                  presentation: "modal",
                   title: "",
                   headerShown: false,
                   headerTintColor: "white",

@@ -80,6 +80,7 @@ const Page = () => {
               placeholderTextColor={"#B3B3B3"}
               placeholder={t("Search dot dot dot")}
               className={"flex-1 h-full text-[16px]"}
+              maxLength={1024}
             />
             {query && (
               <Pressable

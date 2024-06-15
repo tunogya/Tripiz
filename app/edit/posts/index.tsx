@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity, Keyboard,
 } from "react-native";
-import {memo, useEffect, useState} from "react";
+import {memo, useEffect, useMemo, useState} from "react";
 import { router } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
@@ -14,8 +14,12 @@ import { t } from "../../../i18n";
 import { API_HOST_NAME } from "../../../utils/const";
 import { finalizeEvent } from "nostr-tools";
 import { Buffer } from "buffer";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+// import {Ionicons} from "@expo/vector-icons";
+import Svg, {Circle} from "react-native-svg";
 
 const Page = () => {
+  const insets = useSafeAreaInsets();
   const { privateKey } = useSelector((state: RootState) => state.account);
   const [text, setText] = useState("");
   const [status, setStatus] = useState("idle");
@@ -54,6 +58,10 @@ const Page = () => {
     }
   };
 
+  const strokeDashoffset = useMemo(() => {
+    return (1 - text.length / 12800) * Math.PI * 2 * 10;
+  }, [text])
+
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
       setKeyboardHeight(event.endCoordinates.height);
@@ -70,21 +78,33 @@ const Page = () => {
   }, []);
 
   return (
-    <View className={`bg-[#121212] flex flex-1`}>
-      <View className={"flex justify-center items-center pt-2"}>
-        <View className={"w-10 h-1 bg-[#B3B3B3] rounded-full"}></View>
-      </View>
+    <View
+      className={`bg-[#121212] flex flex-1`}
+      style={{
+        paddingTop: insets.top,
+      }}
+    >
       <View
-        className={"flex-row justify-between px-3 items-center"}
+        className={"flex-row justify-between px-3 py-1 items-center"}
       >
-        <View></View>
+        <TouchableOpacity
+          hitSlop={12}
+          className={`px-1 h-8 items-center justify-center`}
+          onPress={() => {
+            router.back();
+          }}
+        >
+          <Text className={`text-white font-medium`}>
+            {t("Cancel")}
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity
           hitSlop={12}
           disabled={status !== "idle" || text === ""}
-          className={`p-1.5`}
+          className={`px-4 h-8 items-center justify-center border ${ status !== "idle" || text === "" ? "border-[#FFFFFF12]" : "border-[#1DB954]" }  rounded-full`}
           onPress={save}
         >
-          <Text className={`font-bold text-white`}>
+          <Text className={`font-bold ${status !== "idle" || text === "" ? "text-[#B3B3B3]" : "text-[#1DB954]"}`}>
             {status === "idle" && t("Post")}
             {status === "error" && t("Error")}
             {status === "success" && t("Success")}
@@ -93,7 +113,7 @@ const Page = () => {
         </TouchableOpacity>
       </View>
       <View
-        className={"flex flex-row items-center border-b border-[#FFFFFF12] px-2 pb-3"}
+        className={"flex flex-row items-center border-[#FFFFFF12] px-2 py-1"}
       >
         {FILTERS.map((item, index) => (
           <Pressable
@@ -112,21 +132,61 @@ const Page = () => {
           </Pressable>
         ))}
       </View>
-      <View className={"p-3 space-y-4 flex-1"}>
-        <TextInput
-          multiline
-          autoFocus={true}
-          placeholder={t("Content")}
-          placeholderTextColor={"#B3B3B3"}
-          className={`text-white text-[16px]`}
-          value={text}
-          onChangeText={(text) => {
-            setText(text);
-          }}
-        />
+      <TextInput
+        multiline
+        autoFocus={true}
+        placeholder={t("Content")}
+        placeholderTextColor={"#B3B3B3"}
+        className={`text-white text-[16px] p-3 flex-1`}
+        value={text}
+        onChangeText={(text) => {
+          setText(text);
+        }}
+        maxLength={12800}
+      />
+      <View className={"flex flex-row h-12 border-t border-[#FFFFFF12] items-center justify-between"}>
+        <View className={"flex flex-row"}>
+          {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
+          {/*  <Ionicons name="mic" size={24} color="#7357F6" />*/}
+          {/*</Pressable>*/}
+          {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
+          {/*  <Ionicons name="images-outline" size={20} color="#1DB954" />*/}
+          {/*</Pressable>*/}
+          {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
+          {/*  <Ionicons name="location-outline" size={20} color="#1DB954" />*/}
+          {/*</Pressable>*/}
+        </View>
+        <View className={"flex flex-row"}>
+          <View className={"h-12 w-12 items-center justify-center -rotate-90"}>
+            <Svg
+              height="24"
+              width="24">
+              <Circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="#FFFFFF12"
+                strokeWidth="2"
+                fill="transparent"
+              />
+              <Circle
+                cx="12"
+                cy="12"
+                r="10"
+                origin="12,12"
+                stroke="#1DB954"
+                strokeWidth="2"
+                strokeLinecap="round"
+                fill="transparent"
+                strokeDasharray={[Math.PI * 2 * 10]}
+                strokeDashoffset={strokeDashoffset}
+              />
+            </Svg>
+          </View>
+        </View>
       </View>
       <View style={{
-        height: keyboardHeight,
+        height: keyboardHeight ? keyboardHeight : insets.bottom,
       }}></View>
     </View>
   );

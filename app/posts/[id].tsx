@@ -359,6 +359,7 @@ const Page = () => {
         >
           <TextInput
             value={text}
+            maxLength={12800}
             placeholder={t("Talk something")}
             placeholderTextColor={"#B3B3B3"}
             autoFocus={false}
