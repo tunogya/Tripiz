@@ -81,7 +81,7 @@ const Page = () => {
     <View
       className={`bg-[#121212] flex flex-1`}
       style={{
-        paddingTop: insets.top,
+        paddingTop: insets.top + 12,
       }}
     >
       <View
@@ -94,7 +94,7 @@ const Page = () => {
             router.back();
           }}
         >
-          <Text className={`text-white font-medium`}>
+          <Text className={`text-white font-medium text-[16px]`}>
             {t("Cancel")}
           </Text>
         </TouchableOpacity>
