@@ -9,7 +9,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "submit": "eas submit"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
