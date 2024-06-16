@@ -49,6 +49,7 @@ const Page = () => {
   const [hasNext, setHasNext] = useState(true);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [replyEvent, setReplyEvent] = useState(undefined);
 
   const {
     data,
@@ -79,16 +80,6 @@ const Page = () => {
     }
     setHasNext(result.pagination.hasNext);
     setNextSkip(result.pagination.nextSkip);
-  };
-
-  const deleteOneComment = async (id: string) => {
-    try {
-      await fetch(`${API_HOST_NAME}/posts/${id}`, {
-        method: "DELETE",
-      });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const onRefresh = async () => {

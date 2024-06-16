@@ -28,6 +28,16 @@ const CommentShowItem: FC<{
   const [numberOfLines, setNumberOfLines] = useState(5);
   const bottomSheet = useRef<BottomSheetRef>(null);
 
+  const deleteOneEvent = async (id: string) => {
+    try {
+      await fetch(`${API_HOST_NAME}/posts/${id}`, {
+        method: "DELETE",
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <View>
       <View className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}>
@@ -79,7 +89,7 @@ const CommentShowItem: FC<{
         </View>
       </View>
       <BottomSheet
-        height={232 + insets.bottom}
+        height={14 * 4 * 5 + 2 * 4 + insets.bottom}
         ref={bottomSheet}
         backdropClosesSheet={true}
         draggable={false}
@@ -90,7 +100,7 @@ const CommentShowItem: FC<{
         <View className={"bg-[#121212] flex-1"}>
           <View className={"h-14 items-center justify-center"}>
             <Text
-              className={"text-[#B3B3B3] px-8 text-[12px]"}
+              className={"text-[#B3B3B3] px-8 text-[14px] font-medium"}
               numberOfLines={1}
             >
               {name}: {item.content}
@@ -102,7 +112,7 @@ const CommentShowItem: FC<{
               bottomSheet.current?.hide();
             }}
           >
-            <Text className={"text-white text-[16px] text-center"}>
+            <Text className={"text-white text-[16px] text-center font-medium"}>
               {t("Reply")}
             </Text>
           </TouchableOpacity>
@@ -113,8 +123,20 @@ const CommentShowItem: FC<{
               bottomSheet.current?.hide();
             }}
           >
-            <Text className={"text-white text-[16px] text-center"}>
+            <Text className={"text-white text-[16px] text-center font-medium"}>
               {t("Copy")}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className={"border-t border-[#FFFFFF12] h-14 justify-center"}
+            onPress={async () => {
+              await deleteOneEvent(item.id);
+            }}
+          >
+            <Text
+              className={"text-red-500 text-[16px] text-center font-medium"}
+            >
+              {t("Delete")}
             </Text>
           </TouchableOpacity>
           <View className={"h-2 bg-[#FFFFFF12]"}></View>
@@ -124,7 +146,9 @@ const CommentShowItem: FC<{
               bottomSheet.current?.hide();
             }}
           >
-            <Text className={"text-white text-[16px] text-center"}>
+            <Text
+              className={"text-white text-[16px] text-center font-semibold"}
+            >
               {t("Cancel")}
             </Text>
           </TouchableOpacity>
