@@ -8,6 +8,7 @@ import useSWR from "swr";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { BottomSheet, BottomSheetRef } from "react-native-sheet";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { t } from "../i18n";
 
 const CommentShowItem: FC<{
   item: {
@@ -69,7 +70,7 @@ const CommentShowItem: FC<{
                 }}
               >
                 <Text className={"text-[#1DB954] font-medium"}>
-                  {numberOfLines ? "全文" : "收起"}
+                  {numberOfLines ? t("Expand") : t("Close")}
                 </Text>
               </Pressable>
             </View>
@@ -101,7 +102,9 @@ const CommentShowItem: FC<{
               bottomSheet.current?.hide();
             }}
           >
-            <Text className={"text-white text-[16px] text-center"}>回复</Text>
+            <Text className={"text-white text-[16px] text-center"}>
+              {t("Reply")}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             className={"border-t border-[#FFFFFF12] h-14 justify-center"}
@@ -110,7 +113,9 @@ const CommentShowItem: FC<{
               bottomSheet.current?.hide();
             }}
           >
-            <Text className={"text-white text-[16px] text-center"}>复制</Text>
+            <Text className={"text-white text-[16px] text-center"}>
+              {t("Copy")}
+            </Text>
           </TouchableOpacity>
           <View className={"h-2 bg-[#FFFFFF12]"}></View>
           <TouchableOpacity
@@ -119,7 +124,9 @@ const CommentShowItem: FC<{
               bottomSheet.current?.hide();
             }}
           >
-            <Text className={"text-white text-[16px] text-center"}>取消</Text>
+            <Text className={"text-white text-[16px] text-center"}>
+              {t("Cancel")}
+            </Text>
           </TouchableOpacity>
         </View>
       </BottomSheet>
