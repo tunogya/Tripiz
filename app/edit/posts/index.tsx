@@ -3,9 +3,10 @@ import {
   Text,
   Pressable,
   TextInput,
-  TouchableOpacity, Keyboard,
+  TouchableOpacity,
+  Keyboard,
 } from "react-native";
-import {memo, useEffect, useMemo, useState} from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
@@ -14,9 +15,9 @@ import { t } from "../../../i18n";
 import { API_HOST_NAME } from "../../../utils/const";
 import { finalizeEvent } from "nostr-tools";
 import { Buffer } from "buffer";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 // import {Ionicons} from "@expo/vector-icons";
-import Svg, {Circle} from "react-native-svg";
+import Svg, { Circle } from "react-native-svg";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -60,16 +61,22 @@ const Page = () => {
 
   const strokeDashoffset = useMemo(() => {
     return (1 - text.length / 12800) * Math.PI * 2 * 10;
-  }, [text])
+  }, [text]);
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
-      setKeyboardHeight(event.endCoordinates.height);
-    });
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      (event) => {
+        setKeyboardHeight(event.endCoordinates.height);
+      },
+    );
 
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardHeight(0);
-    });
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardHeight(0);
+      },
+    );
 
     return () => {
       keyboardDidShowListener.remove();
@@ -84,9 +91,7 @@ const Page = () => {
         paddingTop: insets.top + 12,
       }}
     >
-      <View
-        className={"flex-row justify-between px-3 py-1 items-center"}
-      >
+      <View className={"flex-row justify-between px-3 py-1 items-center"}>
         <TouchableOpacity
           hitSlop={12}
           className={`px-1 h-8 items-center justify-center`}
@@ -101,10 +106,12 @@ const Page = () => {
         <TouchableOpacity
           hitSlop={12}
           disabled={status !== "idle" || text === ""}
-          className={`px-4 h-8 items-center justify-center border ${ status !== "idle" || text === "" ? "border-[#FFFFFF12]" : "border-[#1DB954]" }  rounded-full`}
+          className={`px-4 h-8 items-center justify-center border ${status !== "idle" || text === "" ? "border-[#FFFFFF12]" : "border-[#1DB954]"}  rounded-full`}
           onPress={save}
         >
-          <Text className={`font-bold ${status !== "idle" || text === "" ? "text-[#B3B3B3]" : "text-[#1DB954]"}`}>
+          <Text
+            className={`font-bold ${status !== "idle" || text === "" ? "text-[#B3B3B3]" : "text-[#1DB954]"}`}
+          >
             {status === "idle" && t("Post")}
             {status === "error" && t("Error")}
             {status === "success" && t("Success")}
@@ -144,7 +151,11 @@ const Page = () => {
         }}
         maxLength={12800}
       />
-      <View className={"flex flex-row h-12 border-t border-[#FFFFFF12] items-center justify-between"}>
+      <View
+        className={
+          "flex flex-row h-12 border-t border-[#FFFFFF12] items-center justify-between"
+        }
+      >
         <View className={"flex flex-row"}>
           {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
           {/*  <Ionicons name="mic" size={24} color="#7357F6" />*/}
@@ -158,9 +169,7 @@ const Page = () => {
         </View>
         <View className={"flex flex-row"}>
           <View className={"h-12 w-12 items-center justify-center -rotate-90"}>
-            <Svg
-              height="24"
-              width="24">
+            <Svg height="24" width="24">
               <Circle
                 cx="12"
                 cy="12"
@@ -185,9 +194,11 @@ const Page = () => {
           </View>
         </View>
       </View>
-      <View style={{
-        height: keyboardHeight ? keyboardHeight : insets.bottom,
-      }}></View>
+      <View
+        style={{
+          height: keyboardHeight ? keyboardHeight : insets.bottom,
+        }}
+      ></View>
     </View>
   );
 };

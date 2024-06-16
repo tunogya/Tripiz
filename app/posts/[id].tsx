@@ -9,7 +9,8 @@ import {
   Keyboard,
   Pressable,
   Dimensions,
-  RefreshControl, FlatList,
+  RefreshControl,
+  FlatList,
 } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
