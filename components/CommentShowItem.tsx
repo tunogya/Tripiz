@@ -1,5 +1,5 @@
 import { Pressable, Text, View } from "react-native";
-import React, { FC, memo } from "react";
+import React, {FC, memo, useState} from "react";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../reducers/account/accountSlice";
 import Avatar from "./Avatar";
@@ -21,6 +21,7 @@ const CommentShowItem: FC<{
   );
 
   const name = item.pubkey === myPublicKey ? "Me" : data?.name || "Anonymous";
+  const [numberOfLines, setNumberOfLines] = useState(5);
 
   return (
     <View className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}>
@@ -46,10 +47,41 @@ const CommentShowItem: FC<{
             Clipboard.setString(item.content);
           }}
         >
-          <Text className={"text-white text-[16px] leading-5"}>
+          <Text
+            className={"text-white text-[16px] leading-5"}
+            numberOfLines={numberOfLines}
+          >
             {item.content}
           </Text>
         </Pressable>
+        <View className={"flex flex-row items-center justify-between"}>
+          <View className={"flex flex-row items-center"}>
+            <Pressable onPress={() => {
+              if (numberOfLines) {
+                setNumberOfLines(undefined);
+              } else {
+                setNumberOfLines(5);
+              }
+            }}>
+              <Text className={"text-[#1DB954] font-medium"}>
+                { numberOfLines ? "全文" : "收起" }
+              </Text>
+            </Pressable>
+          </View>
+          <View className={"flex flex-row items-center"}>
+            <Pressable onPress={() => {
+              if (numberOfLines) {
+                setNumberOfLines(undefined);
+              } else {
+                setNumberOfLines(5);
+              }
+            }}>
+              <Text className={"text-[#B3B3B3] font-medium text-xs"}>
+                回复
+              </Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
     </View>
   );

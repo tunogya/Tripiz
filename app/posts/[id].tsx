@@ -9,7 +9,7 @@ import {
   Keyboard,
   Pressable,
   Dimensions,
-  RefreshControl,
+  RefreshControl, FlatList,
 } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -22,8 +22,6 @@ import CommentShowItem from "../../components/CommentShowItem";
 import { Ionicons } from "@expo/vector-icons";
 import { t } from "../../i18n";
 import PostMoreModal from "../../components/PostMoreModal";
-import { SwipeListView } from "react-native-swipe-list-view";
-import CommentHiddenItem from "../../components/CommentHiddenItem";
 import { Image } from "expo-image";
 import { API_HOST_NAME } from "../../utils/const";
 import { ensureString } from "../../utils/ensureString";
@@ -283,38 +281,17 @@ const Page = () => {
                 .replace(`${new Date().getFullYear()}-`, "")}
             </Text>
           </View>
-          <View className={"px-4"}>
+          <View className={"px-2"}>
             <View
               className={"w-full border-b h-[1px] border-[#FFFFFF12]"}
             ></View>
           </View>
-          <View className={"py-3 space-y-3"}>
-            <Text className={"text-white font-bold text-[16px] px-4"}>
-              {t("Comments")}
-            </Text>
-            <SwipeListView
-              ref={swipeListViewRef}
+          <View className={"space-y-3"}>
+            <FlatList
               data={comments}
               scrollEnabled={false}
               showsVerticalScrollIndicator={false}
-              disableRightSwipe
-              useAnimatedList={true}
               renderItem={({ item }: any) => <CommentShowItem item={item} />}
-              renderHiddenItem={(rowData, rowMap) => (
-                <CommentHiddenItem
-                  rowData={rowData}
-                  onDelete={async () => {
-                    const newComments = comments.filter(
-                      (item) => item.id !== rowData.item.id,
-                    );
-                    setComments(newComments);
-                    if (rowMap[rowData.index]) {
-                      rowMap[rowData.index].closeRow();
-                    }
-                    await deleteOneComment(rowData.item.id);
-                  }}
-                />
-              )}
               scrollEventThrottle={1000}
               onEndReached={async () => {
                 if (hasNext) {

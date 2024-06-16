@@ -95,6 +95,7 @@ export default function RootLayout() {
                 name="edit/posts/index"
                 options={{
                   title: "",
+                  gestureEnabled: false,
                   headerShown: false,
                   headerTintColor: "white",
                   headerBackTitleVisible: false,
