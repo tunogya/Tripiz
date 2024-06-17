@@ -17,7 +17,8 @@ const CommentShowItem: FC<{
     content: string;
     created_at: number;
   };
-}> = ({ item }) => {
+  onPressCallback: () => void;
+}> = ({ item, onPressCallback }) => {
   const insets = useSafeAreaInsets();
   const myPublicKey = useSelector(selectPublicKey);
   const { data } = useSWR(`${API_HOST_NAME}/accounts/${item.pubkey}`, (url) =>
@@ -59,6 +60,7 @@ const CommentShowItem: FC<{
           </View>
           <Pressable
             className={"flex flex-row items-end flex-wrap"}
+            onPress={onPressCallback}
             onLongPress={() => bottomSheet.current?.show()}
           >
             <Text
@@ -71,6 +73,7 @@ const CommentShowItem: FC<{
           <View className={"flex flex-row items-center justify-between"}>
             <View className={"flex flex-row items-center"}>
               <Pressable
+                hitSlop={8}
                 onPress={() => {
                   if (numberOfLines) {
                     setNumberOfLines(undefined);
@@ -98,17 +101,18 @@ const CommentShowItem: FC<{
         closeTime={200}
       >
         <View className={"bg-[#121212] flex-1"}>
-          <View className={"h-14 items-center justify-center"}>
+          <Pressable className={"h-14 items-center justify-center"}>
             <Text
               className={"text-[#B3B3B3] px-8 text-[14px] font-medium"}
               numberOfLines={1}
             >
               {name}: {item.content}
             </Text>
-          </View>
+          </Pressable>
           <TouchableOpacity
             className={"border-t border-[#FFFFFF12] h-14 justify-center "}
             onPress={() => {
+              onPressCallback();
               bottomSheet.current?.hide();
             }}
           >

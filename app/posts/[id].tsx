@@ -11,6 +11,7 @@ import {
   Dimensions,
   RefreshControl,
   FlatList,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -50,6 +51,7 @@ const Page = () => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [replyEvent, setReplyEvent] = useState(undefined);
+  const inputRef = useRef(undefined);
 
   const {
     data,
@@ -102,11 +104,15 @@ const Page = () => {
   const newComment = async () => {
     try {
       setStatus("loading");
+      let e = ensureString(id);
+      if (replyEvent) {
+        e = replyEvent.id;
+      }
       const event = finalizeEvent(
         {
           kind: 1,
           created_at: Math.floor(Date.now() / 1000),
-          tags: [["e", ensureString(id)]],
+          tags: [["e", e]],
           content: text,
         },
         Buffer.from(privateKey, "hex"),
@@ -214,7 +220,13 @@ const Page = () => {
           </Pressable>
         </BlurView>
       </View>
-      <View
+      <TouchableWithoutFeedback
+        onPress={() => {
+          if (inputRef) {
+            inputRef.current.blur();
+            setReplyEvent(undefined);
+          }
+        }}
         style={{
           height: screenHeight - insets.bottom,
         }}
@@ -283,7 +295,17 @@ const Page = () => {
               data={comments}
               scrollEnabled={false}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }: any) => <CommentShowItem item={item} />}
+              renderItem={({ item }: any) => (
+                <CommentShowItem
+                  item={item}
+                  onPressCallback={() => {
+                    if (inputRef) {
+                      inputRef.current.focus();
+                    }
+                    setReplyEvent(item);
+                  }}
+                />
+              )}
               scrollEventThrottle={1000}
               onEndReached={async () => {
                 if (hasNext) {
@@ -311,7 +333,7 @@ const Page = () => {
           </View>
           <View style={{ height: 400 }}></View>
         </ScrollView>
-      </View>
+      </TouchableWithoutFeedback>
       <KeyboardAvoidingView
         className={
           "absolute left-0 w-full z-50 bg-[#121212] border-t border-[#FFFFFF12]"
@@ -327,9 +349,14 @@ const Page = () => {
           }
         >
           <TextInput
+            ref={inputRef}
             value={text}
             maxLength={12800}
-            placeholder={t("Talk something")}
+            placeholder={
+              replyEvent
+                ? `${t("Reply")}: ${replyEvent?.content}`
+                : t("Talk something")
+            }
             placeholderTextColor={"#B3B3B3"}
             autoFocus={false}
             className={
