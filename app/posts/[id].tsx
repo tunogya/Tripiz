@@ -300,7 +300,7 @@ const Page = () => {
               onEndReachedThreshold={0.3}
               ListEmptyComponent={() =>
                 !isLoadingComments && (
-                  <View className={"w-full px-4"}>
+                  <View className={"w-full p-4"}>
                     <Text className={"text-[#B3B3B3] text-xs"}>
                       {t("No comments")}
                     </Text>
