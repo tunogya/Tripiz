@@ -220,17 +220,7 @@ const Page = () => {
           </Pressable>
         </BlurView>
       </View>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          if (inputRef) {
-            inputRef.current.blur();
-            setReplyEvent(undefined);
-          }
-        }}
-        style={{
-          height: screenHeight - insets.bottom,
-        }}
-      >
+      <View>
         <ScrollView
           refreshControl={
             <RefreshControl
@@ -247,7 +237,7 @@ const Page = () => {
           showsVerticalScrollIndicator={false}
           className={"w-full"}
           style={{
-            height: 400,
+            height: screenHeight - insets.bottom,
           }}
         >
           {screenWidth && data?.id && (
@@ -274,17 +264,25 @@ const Page = () => {
               />
             </View>
           )}
-          <View className={"p-4"}>
-            <Text className={"text-white font-medium text-[16px] leading-5"}>
-              {data?.content}
-            </Text>
-            <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
-              {new Date((data?.created_at || 0) * 1000)
-                .toLocaleDateString()
-                .replaceAll("/", "-")
-                .replace(`${new Date().getFullYear()}-`, "")}
-            </Text>
-          </View>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              if (inputRef) {
+                setReplyEvent(undefined);
+              }
+            }}
+          >
+            <View className={"p-4"}>
+              <Text className={"text-white font-medium text-[16px] leading-5"}>
+                {data?.content}
+              </Text>
+              <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
+                {new Date((data?.created_at || 0) * 1000)
+                  .toLocaleDateString()
+                  .replaceAll("/", "-")
+                  .replace(`${new Date().getFullYear()}-`, "")}
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
           <View className={"px-2"}>
             <View
               className={"w-full border-b h-[1px] border-[#FFFFFF12]"}
@@ -333,7 +331,7 @@ const Page = () => {
           </View>
           <View style={{ height: 400 }}></View>
         </ScrollView>
-      </TouchableWithoutFeedback>
+      </View>
       <KeyboardAvoidingView
         className={
           "absolute left-0 w-full z-50 bg-[#121212] border-t border-[#FFFFFF12]"
