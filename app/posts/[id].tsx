@@ -11,7 +11,6 @@ import {
   Dimensions,
   RefreshControl,
   FlatList,
-  TouchableWithoutFeedback,
 } from "react-native";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -50,7 +49,6 @@ const Page = () => {
   const [hasNext, setHasNext] = useState(true);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const [replyEvent, setReplyEvent] = useState(undefined);
   const inputRef = useRef(undefined);
 
   const {
@@ -105,9 +103,6 @@ const Page = () => {
     try {
       setStatus("loading");
       let e = ensureString(id);
-      if (replyEvent) {
-        e = replyEvent.id;
-      }
       const event = finalizeEvent(
         {
           kind: 1,
@@ -264,25 +259,17 @@ const Page = () => {
               />
             </View>
           )}
-          <TouchableWithoutFeedback
-            onPress={() => {
-              if (inputRef) {
-                setReplyEvent(undefined);
-              }
-            }}
-          >
-            <View className={"p-4"}>
-              <Text className={"text-white font-medium text-[16px] leading-5"}>
-                {data?.content}
-              </Text>
-              <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
-                {new Date((data?.created_at || 0) * 1000)
-                  .toLocaleDateString()
-                  .replaceAll("/", "-")
-                  .replace(`${new Date().getFullYear()}-`, "")}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
+          <View className={"p-4"}>
+            <Text className={"text-white font-medium text-[16px] leading-5"}>
+              {data?.content}
+            </Text>
+            <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
+              {new Date((data?.created_at || 0) * 1000)
+                .toLocaleDateString()
+                .replaceAll("/", "-")
+                .replace(`${new Date().getFullYear()}-`, "")}
+            </Text>
+          </View>
           <View className={"px-2"}>
             <View
               className={"w-full border-b h-[1px] border-[#FFFFFF12]"}
@@ -350,11 +337,7 @@ const Page = () => {
             ref={inputRef}
             value={text}
             maxLength={12800}
-            placeholder={
-              replyEvent
-                ? `${t("Reply")}: ${replyEvent?.content}`
-                : t("Talk something")
-            }
+            placeholder={t("Talk something")}
             placeholderTextColor={"#B3B3B3"}
             autoFocus={false}
             className={
