@@ -1,5 +1,5 @@
 import { Pressable, Text, TouchableOpacity, View } from "react-native";
-import React, { FC, memo, useRef, useState } from "react";
+import React, { FC, memo, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../reducers/account/accountSlice";
 import Avatar from "./Avatar";
@@ -26,7 +26,6 @@ const CommentShowItem: FC<{
   );
 
   const name = item.pubkey === myPublicKey ? "Me" : data?.name || "Anonymous";
-  const [numberOfLines, setNumberOfLines] = useState(5);
   const bottomSheet = useRef<BottomSheetRef>(null);
 
   const deleteOneEvent = async (id: string) => {
@@ -63,32 +62,14 @@ const CommentShowItem: FC<{
             onPress={onPressCallback}
             onLongPress={() => bottomSheet.current?.show()}
           >
-            <Text
-              className={"text-white text-[16px] leading-5"}
-              numberOfLines={numberOfLines}
-            >
+            <Text className={"text-white text-[16px] leading-5"}>
               {item.content}
             </Text>
           </Pressable>
-          <View className={"flex flex-row items-center justify-between"}>
-            <View className={"flex flex-row items-center"}>
-              <Pressable
-                hitSlop={8}
-                onPress={() => {
-                  if (numberOfLines) {
-                    setNumberOfLines(undefined);
-                  } else {
-                    setNumberOfLines(5);
-                  }
-                }}
-              >
-                <Text className={"text-[#1DB954] font-medium"}>
-                  {numberOfLines ? t("Expand") : t("Close")}
-                </Text>
-              </Pressable>
-            </View>
-            <View></View>
-          </View>
+          {/*<View className={"flex flex-row items-center justify-between"}>*/}
+          {/*  <View></View>*/}
+          {/*  <View></View>*/}
+          {/*</View>*/}
         </View>
       </View>
       <BottomSheet
