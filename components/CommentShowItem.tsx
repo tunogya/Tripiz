@@ -118,6 +118,7 @@ const CommentShowItem: FC<{
             className={"border-t border-[#FFFFFF12] h-14 justify-center"}
             onPress={async () => {
               await deleteOneEvent(item.id);
+              bottomSheet.current?.hide();
             }}
           >
             <Text
