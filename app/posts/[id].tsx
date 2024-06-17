@@ -300,7 +300,7 @@ const Page = () => {
                     if (inputRef) {
                       inputRef.current.focus();
                     }
-                    setReplyEvent(item);
+                    // setReplyEvent(item);
                   }}
                 />
               )}
