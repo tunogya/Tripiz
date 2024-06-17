@@ -112,8 +112,10 @@ const CommentShowItem: FC<{
           <TouchableOpacity
             className={"border-t border-[#FFFFFF12] h-14 justify-center "}
             onPress={() => {
-              onPressCallback();
               bottomSheet.current?.hide();
+              setTimeout(() => {
+                onPressCallback();
+              }, 250);
             }}
           >
             <Text className={"text-white text-[16px] text-center font-medium"}>
