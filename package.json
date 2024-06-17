@@ -1,6 +1,6 @@
 {
   "name": "tripiz.abandon.ai",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "expo-router/entry",
   "scripts": {
     "prebuild": "expo prebuild --clean",
@@ -61,7 +61,6 @@
     "react-native-screens": "3.31.1",
     "react-native-sheet": "^0.1.6",
     "react-native-svg": "^15.3.0",
-    "react-native-swipe-list-view": "^3.2.9",
     "react-native-tab-view": "^3.5.2",
     "react-native-webview": "13.8.6",
     "react-redux": "^9.1.2",
