@@ -144,7 +144,7 @@ const Page = () => {
         autoFocus={true}
         placeholder={t("Content")}
         placeholderTextColor={"#B3B3B3"}
-        className={`text-white text-[16px] p-3 flex-1`}
+        className={`text-white text-[18px] px-5 py-3 flex-1`}
         value={text}
         onChangeText={(text) => {
           setText(text);

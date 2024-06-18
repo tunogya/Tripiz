@@ -260,7 +260,7 @@ const Page = () => {
             </View>
           )}
           <View className={"p-4"}>
-            <Text className={"text-white font-medium text-[16px] leading-5"}>
+            <Text className={"text-white font-medium text-[18px] leading-5"}>
               {data?.content}
             </Text>
             <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>

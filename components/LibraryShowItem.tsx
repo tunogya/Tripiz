@@ -34,14 +34,14 @@ const LibraryShowItem: FC<{
         />
       </View>
       <View className={"flex justify-center flex-1"}>
-        <Text className={"text-white font-medium text-lg"} numberOfLines={1}>
+        <Text className={"text-white font-medium text-[18px]"} numberOfLines={1}>
           {item.content}
         </Text>
         <View className={"flex flex-row space-x-1 items-center"}>
           {item.possibly_sensitive && (
             <Text
               className={
-                "w-3.5 h-3.5 bg-[#B3B3B3] text-[#121212] text-[12px] text-center"
+                "p-0.5 bg-[#B3B3B3] text-[#121212] text-[12px] text-center"
               }
             >
               E

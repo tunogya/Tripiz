@@ -73,7 +73,7 @@ const CommentShowItem: FC<{
         </View>
       </View>
       <BottomSheet
-        height={14 * 4 * 5 + 2 * 4 + insets.bottom}
+        height={14 * 3 * 5 + 2 * 4 + insets.bottom}
         ref={bottomSheet}
         backdropClosesSheet={true}
         draggable={false}
@@ -90,19 +90,6 @@ const CommentShowItem: FC<{
               {name}: {item.content}
             </Text>
           </Pressable>
-          <TouchableOpacity
-            className={"border-t border-[#FFFFFF12] h-14 justify-center "}
-            onPress={() => {
-              bottomSheet.current?.hide();
-              setTimeout(() => {
-                onPressCallback();
-              }, 250);
-            }}
-          >
-            <Text className={"text-white text-[16px] text-center font-medium"}>
-              {t("Reply")}
-            </Text>
-          </TouchableOpacity>
           <TouchableOpacity
             className={"border-t border-[#FFFFFF12] h-14 justify-center"}
             onPress={() => {
