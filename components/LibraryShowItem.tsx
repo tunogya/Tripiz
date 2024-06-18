@@ -34,7 +34,10 @@ const LibraryShowItem: FC<{
         />
       </View>
       <View className={"flex justify-center flex-1"}>
-        <Text className={"text-white font-medium text-[18px]"} numberOfLines={1}>
+        <Text
+          className={"text-white font-medium text-[18px]"}
+          numberOfLines={1}
+        >
           {item.content}
         </Text>
         <View className={"flex flex-row space-x-1 items-center"}>
