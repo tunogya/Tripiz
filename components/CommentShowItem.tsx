@@ -59,8 +59,7 @@ const CommentShowItem: FC<{
           </View>
           <Pressable
             className={"flex flex-row items-end flex-wrap"}
-            onPress={onPressCallback}
-            onLongPress={() => bottomSheet.current?.show()}
+            onPress={() => bottomSheet.current?.show()}
           >
             <Text className={"text-white text-[16px] leading-5"}>
               {item.content}
