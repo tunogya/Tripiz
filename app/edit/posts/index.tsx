@@ -23,8 +23,8 @@ const Page = () => {
   const insets = useSafeAreaInsets();
   const { privateKey } = useSelector((state: RootState) => state.account);
   const [text, setText] = useState("");
-  const FILTERS = ["Memories", "Dreams", "Reflections"];
-  const [filter, setFilter] = useState("Memories");
+  const FILTERS = ["memories", "dreams", "reflections"];
+  const [filter, setFilter] = useState("memories");
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const realm = useRealm();
 
