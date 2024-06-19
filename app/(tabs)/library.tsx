@@ -27,9 +27,7 @@ const Page = () => {
   const publicKey = useSelector(selectPublicKey);
 
   const DATA = useQuery(Event, (events) => {
-    return events
-      .filtered('kind == $0', 1)
-      .sorted("created_at", true);
+    return events.filtered("kind == $0", 1).sorted("created_at", true);
   });
 
   const filterData = useMemo(() => {

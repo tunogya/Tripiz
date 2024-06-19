@@ -1,33 +1,15 @@
 import { Pressable, View, Text } from "react-native";
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import { BlurView } from "expo-blur";
 import { t } from "../i18n";
-import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { API_HOST_NAME } from "../utils/const";
 import { Ionicons } from "@expo/vector-icons";
+import { useRealm } from "@realm/react";
+import { router } from "expo-router";
 
-const PostMoreModal = ({ postId, onCopy, onClose }) => {
+const PostMoreModal = ({ post, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
-  const [state, setState] = useState("idle");
-  const deletePost = async () => {
-    setState("loading");
-    try {
-      await fetch(`${API_HOST_NAME}/posts/${postId}`, {
-        method: "DELETE",
-      });
-      setState("success");
-      setTimeout(() => {
-        setState("idle");
-        router.navigate("library");
-      }, 1_000);
-    } catch (e) {
-      setState("error");
-      setTimeout(() => {
-        setState("idle");
-      }, 3_000);
-    }
-  };
+  const realm = useRealm();
 
   return (
     <BlurView
@@ -43,7 +25,6 @@ const PostMoreModal = ({ postId, onCopy, onClose }) => {
         <View className={"space-y-10"}>
           <View className={"space-y-5 p-4"}>
             <Pressable
-              disabled={state !== "idle"}
               className={"p-2 flex flex-row space-x-3 items-center"}
               onPress={() => {
                 onCopy();
@@ -53,17 +34,16 @@ const PostMoreModal = ({ postId, onCopy, onClose }) => {
               <Text className={"text-white font-medium"}>{t("Copy")}</Text>
             </Pressable>
             <Pressable
-              disabled={state !== "idle"}
               className={"p-2 flex flex-row space-x-3 items-center"}
-              onPress={deletePost}
+              onPress={() => {
+                realm.write(() => {
+                  realm.delete(post);
+                  router.navigate("library");
+                });
+              }}
             >
               <Ionicons name="trash-outline" size={24} color="white" />
-              <Text className={"text-white font-medium"}>
-                {state === "idle" && t("Delete")}
-                {state === "loading" && t("Deleting")}
-                {state === "success" && t("Success")}
-                {state === "error" && t("Error")}
-              </Text>
+              <Text className={"text-white font-medium"}>{t("Delete")}</Text>
             </Pressable>
           </View>
           <Pressable className={"w-full items-center"} onPress={onClose}>

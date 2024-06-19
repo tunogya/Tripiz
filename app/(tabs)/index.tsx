@@ -20,8 +20,7 @@ const Page = () => {
 
   const filterData = useMemo(() => {
     if (query) {
-      return DATA
-        .filtered('kind == $0 && content TEXT $1', 1, query);
+      return DATA.filtered("kind == $0 && content TEXT $1", 1, query);
     } else {
       return [];
     }

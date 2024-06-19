@@ -5,7 +5,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  Keyboard,
   Pressable,
   Dimensions,
   FlatList,
@@ -27,7 +26,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { finalizeEvent } from "nostr-tools";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Buffer } from "buffer";
-import {useObject, useQuery, useRealm} from "@realm/react";
+import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
 
 const Page = () => {
@@ -43,7 +42,7 @@ const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(undefined);
   const data = useObject(Event, id);
-  const comments = useQuery(Event, events => {
+  const comments = useQuery(Event, (events) => {
     return events.filtered("ANY tags == $0", ["e", id]);
   });
   const realm = useRealm();
@@ -65,7 +64,7 @@ const Page = () => {
       });
       setText("");
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
 
@@ -130,8 +129,7 @@ const Page = () => {
                   width: screenWidth,
                   height: screenWidth,
                 }}
-                // TODO
-                source={`${API_HOST_NAME}/autoglyphs?hash=0x0000`}
+                source={`${API_HOST_NAME}/autoglyphs?hash=0x${data.id}`}
                 contentFit="cover"
                 cachePolicy={"memory-disk"}
                 transition={750}
@@ -227,16 +225,14 @@ const Page = () => {
               }
               onPress={newComment}
             >
-              <Text className={"font-bold"}>
-                {t("Send")}
-              </Text>
+              <Text className={"font-bold"}>{t("Send")}</Text>
             </Pressable>
           )}
         </View>
       </KeyboardAvoidingView>
       {showModal && (
         <PostMoreModal
-          postId={`${id}`}
+          post={data}
           onCopy={() => {
             if (data?.content) {
               Clipboard.setString(data?.content);
