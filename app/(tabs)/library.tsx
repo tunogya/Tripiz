@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import { memo, useState } from "react";
+import {memo, useMemo, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -21,14 +21,26 @@ import {Event} from "../Event";
 const Page = () => {
   const insets = useSafeAreaInsets();
 
-  const FILTERS = ["Memories", "Dreams", "Reflections"];
+  const FILTERS = ["memories", "dreams", "reflections"];
   const [filter, setFilter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const publicKey = useSelector(selectPublicKey);
 
-  const data = useQuery(Event, events => {
+  const DATA = useQuery(Event, events => {
     return events.sorted('created_at', true);
   });
+
+  const filterData = useMemo(() => {
+    if (filter) {
+      return DATA.filter((item) => {
+        const category =
+          item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1];
+        return category === filter;
+      })
+    } else {
+      return DATA;
+    }
+  }, [DATA, filter])
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
@@ -90,7 +102,7 @@ const Page = () => {
                 key={index}
                 className={`px-4 h-8 items-center justify-center ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
                 onPress={() => {
-                  setFilter(item);
+                  setFilter(item.toLowerCase());
                 }}
               >
                 <Text
@@ -106,7 +118,7 @@ const Page = () => {
       </View>
       <View className={"flex-1"}>
         <FlatList
-          data={data}
+          data={filterData}
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item.id}
           ListEmptyComponent={() =>

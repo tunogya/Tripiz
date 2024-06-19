@@ -14,7 +14,7 @@ const LibraryShowItem: FC<{
   showType: boolean;
 }> = ({item, showType}) => {
   // @ts-ignore
-  const category = item.tags.find((tag: any[]) => tag?.[0] === "category")?.[1];
+  const category = item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1];
 
   return (
     <Pressable
