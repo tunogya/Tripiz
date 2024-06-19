@@ -18,7 +18,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Circle } from "react-native-svg";
 import { useRealm } from "@realm/react";
 import { Event } from "../../Event";
-import { useWebSocket } from "../../../components/WebSocketProvider";
+import { useWebSocket } from "../../../components/NostrSync";
 
 const Page = () => {
   const insets = useSafeAreaInsets();

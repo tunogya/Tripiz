@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useEffect, useRef } from "react";
+import {memo, useEffect, useRef} from "react";
 
-const WebSocketContext = createContext(null);
-
-const WebSocketProvider = ({ children }) => {
+const NostrSync = ({ children }) => {
   const ws = useRef(new WebSocket("wss://relay.abandon.ai")).current;
 
   useEffect(() => {
@@ -18,6 +16,8 @@ const WebSocketProvider = ({ children }) => {
     ws.onmessage = (e) => {
       console.log(e.data);
     };
+
+    return () => ws.close();
   }, []);
 
   const send = (message: string) => {
@@ -25,15 +25,7 @@ const WebSocketProvider = ({ children }) => {
     ws.send(message);
   };
 
-  return (
-    <WebSocketContext.Provider value={{ send }}>
-      {children}
-    </WebSocketContext.Provider>
-  );
+  return null;
 };
 
-const useWebSocket = () => {
-  return useContext(WebSocketContext);
-};
-
-export { WebSocketProvider, useWebSocket };
+export default memo(NostrSync);

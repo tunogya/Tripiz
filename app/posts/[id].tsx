@@ -28,7 +28,7 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import { Buffer } from "buffer";
 import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
-import { useWebSocket } from "../../components/WebSocketProvider";
+import { useWebSocket } from "../../components/NostrSync";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
