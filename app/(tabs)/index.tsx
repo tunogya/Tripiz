@@ -1,52 +1,20 @@
-import {
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  ActivityIndicator,
-  FlatList,
-} from "react-native";
-import { memo, useEffect, useState } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
+import {FlatList, Pressable, Text, TextInput, View,} from "react-native";
+import {memo, useState} from "react";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Ionicons} from "@expo/vector-icons";
 import LibraryShowItem from "../../components/LibraryShowItem";
-import useSWR from "swr";
 import Avatar from "../../components/Avatar";
-import { router } from "expo-router";
-import { t } from "../../i18n";
-import { API_HOST_NAME } from "../../utils/const";
-import { useSelector } from "react-redux";
-import { selectPublicKey } from "../../reducers/account/accountSlice";
+import {router} from "expo-router";
+import {t} from "../../i18n";
+import {useSelector} from "react-redux";
+import {selectPublicKey} from "../../reducers/account/accountSlice";
+import {useRealm} from "@realm/react";
+import {Event} from "../Event";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("");
-  const [typingTimeout, setTypingTimeout] = useState(null);
   const publicKey = useSelector(selectPublicKey);
-
-  const { data, isLoading, mutate } = useSWR(
-    query
-      ? `${API_HOST_NAME}/accounts/${publicKey}/search/all?query=${query}`
-      : undefined,
-    (url) =>
-      fetch(url, {
-        method: "GET",
-      })
-        .then((res) => res.json())
-        .then((res) => res.data),
-  );
-
-  useEffect(() => {
-    if (query.length > 0) {
-      if (typingTimeout) {
-        clearTimeout(typingTimeout);
-      }
-      const timeout = setTimeout(() => {
-        mutate();
-      }, 1000);
-      setTypingTimeout(timeout);
-    }
-  }, [query]);
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212]"}>
@@ -96,21 +64,16 @@ const Page = () => {
       </View>
       <View className={"flex-1"}>
         <FlatList
-          data={data || []}
+          data={[]}
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
-            <View>
-              {isLoading && (
-                <ActivityIndicator size={"small"} color="#B3B3B3" />
-              )}
-              <View
-                style={{
-                  height: insets.bottom + 80,
-                }}
-              ></View>
-            </View>
+            <View
+              style={{
+                height: insets.bottom + 80,
+              }}
+            ></View>
           )}
           renderItem={({ item }) => (
             <LibraryShowItem item={item} showType={true} />

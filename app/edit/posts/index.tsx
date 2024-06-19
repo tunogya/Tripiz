@@ -8,28 +8,27 @@ import {
 } from "react-native";
 import { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { t } from "../../../i18n";
-import { API_HOST_NAME } from "../../../utils/const";
 import { finalizeEvent } from "nostr-tools";
 import { Buffer } from "buffer";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 // import {Ionicons} from "@expo/vector-icons";
 import Svg, { Circle } from "react-native-svg";
+import {useRealm} from "@realm/react";
+import {Event} from "../../Event";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
   const { privateKey } = useSelector((state: RootState) => state.account);
   const [text, setText] = useState("");
-  const [status, setStatus] = useState("idle");
-  const dispatch = useDispatch();
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("Memories");
   const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const realm = useRealm();
 
   const save = async () => {
-    setStatus("loading");
     try {
       const event = finalizeEvent(
         {
@@ -40,20 +39,14 @@ const Page = () => {
         },
         Buffer.from(privateKey, "hex"),
       );
-      await fetch(`${API_HOST_NAME}/posts/`, {
-        method: "POST",
-        body: JSON.stringify(event),
+
+      realm.write(() => {
+        return new Event(realm, event);
       });
-      setStatus("success");
-      setTimeout(() => {
-        router.back();
-        setStatus("idle");
-      }, 500);
     } catch (e) {
-      setStatus("error");
-      setTimeout(() => {
-        setStatus("idle");
-      }, 3000);
+
+    } finally {
+      router.back();
     }
   };
 
@@ -103,17 +96,14 @@ const Page = () => {
         </TouchableOpacity>
         <TouchableOpacity
           hitSlop={12}
-          disabled={status !== "idle" || text === ""}
-          className={`px-4 h-8 items-center justify-center border ${status !== "idle" || text === "" ? "border-[#FFFFFF12]" : "border-[#1DB954]"}  rounded-full`}
+          disabled={text === ""}
+          className={`px-4 h-8 items-center justify-center border ${text === "" ? "border-[#FFFFFF12]" : "border-[#1DB954]"}  rounded-full`}
           onPress={save}
         >
           <Text
-            className={`font-bold ${status !== "idle" || text === "" ? "text-[#B3B3B3]" : "text-[#1DB954]"}`}
+            className={`font-bold ${text === "" ? "text-[#B3B3B3]" : "text-[#1DB954]"}`}
           >
-            {status === "idle" && t("Post")}
-            {status === "error" && t("Error")}
-            {status === "success" && t("Success")}
-            {status === "loading" && t("Waiting")}
+            {t("Post")}
           </Text>
         </TouchableOpacity>
       </View>

@@ -2,7 +2,6 @@ import {
   View,
   Text,
   ScrollView,
-  ActivityIndicator,
   TextInput,
   KeyboardAvoidingView,
   Platform,
@@ -12,12 +11,11 @@ import {
   RefreshControl,
   FlatList,
 } from "react-native";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
-import useSWR from "swr";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 import { Ionicons } from "@expo/vector-icons";
@@ -45,21 +43,9 @@ const Page = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [nextSkip, setNextSkip] = useState<number | null>(0);
   const [hasNext, setHasNext] = useState(true);
-  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(undefined);
-
-  const {
-    data,
-    isLoading,
-    mutate: fetchPost,
-  } = useSWR(`${API_HOST_NAME}/posts/${id}`, (url: string) =>
-    fetch(url, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((res) => res.data),
-  );
+  const [data, setData] = useState(undefined);
 
   const fetchComments = async (skip: number) => {
     setIsLoadingComments(true);
@@ -74,7 +60,6 @@ const Page = () => {
     if (skip === 0) {
       setComments(result.data);
     } else {
-      setComments([...data, ...result.data]);
     }
     setHasNext(result.pagination.hasNext);
     setNextSkip(result.pagination.nextSkip);
@@ -82,7 +67,6 @@ const Page = () => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await fetchPost();
     await fetchComments(0);
     if (swipeListViewRef.current) {
       swipeListViewRef.current.closeAllOpenRows();
@@ -134,32 +118,6 @@ const Page = () => {
       });
     }
   };
-
-  if (isLoading) {
-    return (
-      <View
-        className={"flex flex-1 h-full bg-[#121212] relative"}
-        style={{
-          paddingTop: insets.top,
-        }}
-      >
-        <View
-          className={"flex flex-row h-12 items-center justify-between px-4"}
-        >
-          <Pressable
-            hitSlop={4}
-            onPress={() => {
-              router.back();
-            }}
-          >
-            <Ionicons name="chevron-back" size={24} color="white" />
-          </Pressable>
-          <View></View>
-        </View>
-        <ActivityIndicator size={"small"} color="#B3B3B3" />
-      </View>
-    );
-  }
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212] relative"}>
@@ -221,7 +179,7 @@ const Page = () => {
             height: screenHeight - insets.bottom,
           }}
         >
-          {screenWidth && data?.id && (
+          {screenWidth && (
             <View
               className={"relative"}
               style={{
@@ -234,7 +192,8 @@ const Page = () => {
                   width: screenWidth,
                   height: screenWidth,
                 }}
-                source={`${API_HOST_NAME}/autoglyphs?hash=0x${data.id}`}
+                // TODO
+                source={`${API_HOST_NAME}/autoglyphs?hash=0x0000`}
                 contentFit="cover"
                 cachePolicy={"memory-disk"}
                 transition={750}

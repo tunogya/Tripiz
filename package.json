@@ -21,6 +21,7 @@
     "@react-navigation/devtools": "^6.0.20",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
+    "@realm/react": "^0.8.0",
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react": "~18.2.79",
     "bech32": "^2.0.0",

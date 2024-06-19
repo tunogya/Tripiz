@@ -3,11 +3,10 @@ import {
   Text,
   ScrollView,
   Pressable,
-  RefreshControl,
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -15,53 +14,22 @@ import LibraryShowItem from "../../components/LibraryShowItem";
 import Avatar from "../../components/Avatar";
 import { router } from "expo-router";
 import { t } from "../../i18n";
-import { API_HOST_NAME } from "../../utils/const";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
+import {useQuery} from "@realm/react";
+import {Event} from "../Event";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
 
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
-  const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [nextSkip, setNextSkip] = useState<number | null>(0);
-  const [hasNext, setHasNext] = useState(true);
   const publicKey = useSelector(selectPublicKey);
 
-  const fetchData = async (category: string, skip: number) => {
-    if (skip) {
-      setIsLoading(true);
-    }
-    const result = await fetch(
-      `${API_HOST_NAME}/accounts/${publicKey}/posts?category=${category}&skip=${skip}`,
-      {
-        method: "GET",
-      },
-    ).then((res) => res.json());
-    setIsLoading(false);
-    if (skip === 0) {
-      setData(result.data);
-    } else {
-      setData([...data, ...result.data]);
-    }
-    setHasNext(result.pagination.hasNext);
-    setNextSkip(result.pagination.nextSkip);
-  };
+  const events = useQuery(Event);
 
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await fetchData(filter.toLowerCase(), 0);
-    setRefreshing(false);
-  };
-
-  // fetch data when filter changed, or version changed
-  useEffect(() => {
-    setData([]);
-    setNextSkip(0);
-    fetchData(filter.toLowerCase(), 0);
-  }, [filter]);
+  console.log(events);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
@@ -140,24 +108,8 @@ const Page = () => {
       <View className={"flex-1"}>
         <FlatList
           data={data}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              colors={["#B3B3B3"]}
-              progressBackgroundColor="#121212"
-              tintColor="#B3B3B3"
-              title="Loading..."
-              titleColor="#B3B3B3"
-            />
-          }
           scrollEventThrottle={1000}
           keyExtractor={(item: any) => item._id}
-          onEndReached={async () => {
-            if (hasNext) {
-              await fetchData(filter.toLowerCase(), nextSkip);
-            }
-          }}
           onEndReachedThreshold={0.3}
           ListEmptyComponent={() =>
             !isLoading && (
