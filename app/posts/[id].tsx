@@ -37,22 +37,21 @@ const Page = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [text, setText] = useState("");
   const { privateKey } = useSelector((state: RootState) => state.account);
-  // const [comments, setComments] = useState([]);
   const [isLoadingComments, setIsLoadingComments] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(undefined);
   const data = useObject(Event, id);
-  const comments = useQuery(Event, (events) => {
+  const events = useQuery(Event, (events) => {
     return events.filtered("kind == $0", 1).sorted("created_at", true);
   });
   const realm = useRealm();
 
-  const filterComments = useMemo(() => {
-    return comments.filter((item) => {
+  const comments = useMemo(() => {
+    return events.filter((item) => {
       const e = item.tags.find((tag: any[]) => tag?.[0] === "e")?.[1];
       return e === id;
     });
-  }, [comments, id]);
+  }, [events, id]);
 
   const newComment = async () => {
     try {
@@ -168,7 +167,7 @@ const Page = () => {
           </View>
           <View className={"space-y-3"}>
             <FlatList
-              data={filterComments}
+              data={comments}
               scrollEnabled={false}
               showsVerticalScrollIndicator={false}
               renderItem={({ item }: any) => (
