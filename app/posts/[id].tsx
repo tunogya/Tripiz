@@ -26,7 +26,6 @@ import PostMoreModal from "../../components/PostMoreModal";
 import { Image } from "expo-image";
 import { API_HOST_NAME } from "../../utils/const";
 import { ensureString } from "../../utils/ensureString";
-import { increaseVersion } from "../../reducers/ui/uiSlice";
 import { LinearGradient } from "expo-linear-gradient";
 import { finalizeEvent } from "nostr-tools";
 import Clipboard from "@react-native-clipboard/clipboard";
@@ -40,7 +39,6 @@ const Page = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [text, setText] = useState("");
   const [status, setStatus] = useState("idle");
-  const { version } = useSelector((state: RootState) => state.ui);
   const { privateKey } = useSelector((state: RootState) => state.account);
   const [comments, setComments] = useState([]);
   const [isLoadingComments, setIsLoadingComments] = useState(false);
@@ -92,13 +90,6 @@ const Page = () => {
     setRefreshing(false);
   };
 
-  // fetch data when filter changed, or version changed
-  useEffect(() => {
-    setComments([]);
-    setNextSkip(0);
-    fetchComments(0);
-  }, [version]);
-
   const newComment = async () => {
     try {
       setStatus("loading");
@@ -123,7 +114,6 @@ const Page = () => {
       setTimeout(() => {
         setStatus("idle");
         Keyboard.dismiss();
-        dispatch(increaseVersion());
       }, 1_000);
     } catch (e) {
       setStatus("error");
@@ -132,10 +122,6 @@ const Page = () => {
       }, 3_000);
     }
   };
-
-  useEffect(() => {
-    onRefresh();
-  }, [version]);
 
   const scrollViewRef = useRef(null);
   const swipeListViewRef = useRef(null);

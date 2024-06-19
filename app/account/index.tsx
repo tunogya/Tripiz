@@ -11,7 +11,6 @@ import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { BlurView } from "expo-blur";
-import { increaseVersion } from "../../reducers/ui/uiSlice";
 import { t } from "../../i18n";
 import {
   recovery,
@@ -33,7 +32,6 @@ const Page = () => {
   const nostrPrivateKey = useSelector(selectNostrPrivateKey);
   const [show, setShow] = useState(false);
   const { privateKey } = useSelector((state: RootState) => state.account);
-  const { version } = useSelector((state: RootState) => state.ui);
   const publicKey = useSelector(selectPublicKey);
   const dispatch = useDispatch();
 
@@ -55,7 +53,6 @@ const Page = () => {
             return;
           }
           dispatch(recovery(nostrPrivateKey));
-          dispatch(increaseVersion());
         } catch (e) {
           alert(t("Import Nostr Key failed"));
         }
@@ -84,7 +81,6 @@ const Page = () => {
         method: "POST",
         body: JSON.stringify(event),
       }).then((res) => res.json());
-      dispatch(increaseVersion());
     } catch (e) {
       console.log(e);
     }
@@ -94,10 +90,6 @@ const Page = () => {
     publicKey ? `${API_HOST_NAME}/accounts/${publicKey}` : undefined,
     (url) => fetch(url).then((res) => res.json()),
   );
-
-  useEffect(() => {
-    mutate();
-  }, [version]);
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>

@@ -12,7 +12,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import LibraryShowItem from "../../components/LibraryShowItem";
-import { RootState } from "../../store/store";
 import Avatar from "../../components/Avatar";
 import { router } from "expo-router";
 import { t } from "../../i18n";
@@ -25,7 +24,6 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const { version } = useSelector((state: RootState) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [nextSkip, setNextSkip] = useState<number | null>(0);
@@ -63,7 +61,7 @@ const Page = () => {
     setData([]);
     setNextSkip(0);
     fetchData(filter.toLowerCase(), 0);
-  }, [filter, version]);
+  }, [filter]);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>

@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import uiReducer from "../reducers/ui/uiSlice";
 import accountReducer from "../reducers/account/accountSlice";
 
 const rootPersistConfig = {
@@ -12,7 +11,6 @@ const rootPersistConfig = {
 
 const rootReducer = combineReducers({
   account: accountReducer,
-  ui: uiReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

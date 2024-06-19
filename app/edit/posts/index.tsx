@@ -10,7 +10,6 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { increaseVersion } from "../../../reducers/ui/uiSlice";
 import { t } from "../../../i18n";
 import { API_HOST_NAME } from "../../../utils/const";
 import { finalizeEvent } from "nostr-tools";
@@ -45,7 +44,6 @@ const Page = () => {
         method: "POST",
         body: JSON.stringify(event),
       });
-      dispatch(increaseVersion());
       setStatus("success");
       setTimeout(() => {
         router.back();
