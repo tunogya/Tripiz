@@ -77,8 +77,8 @@ const CommentShowItem: FC<{
         backdropClosesSheet={true}
         draggable={false}
         borderRadius={12}
-        openTime={200}
-        closeTime={200}
+        openTime={300}
+        closeTime={300}
       >
         <View className={"bg-[#121212] flex-1"}>
           <Pressable className={"h-14 items-center justify-center"}>
