@@ -1,9 +1,9 @@
-import React, {FC, memo} from "react";
-import {Pressable, Text, View} from "react-native";
-import {router} from "expo-router";
-import {t} from "../i18n";
-import {Image} from "expo-image";
-import {API_HOST_NAME} from "../utils/const";
+import React, { FC, memo } from "react";
+import { Pressable, Text, View } from "react-native";
+import { router } from "expo-router";
+import { t } from "../i18n";
+import { Image } from "expo-image";
+import { API_HOST_NAME } from "../utils/const";
 
 const LibraryShowItem: FC<{
   item: {
@@ -12,9 +12,11 @@ const LibraryShowItem: FC<{
     tags: [][];
   };
   showType: boolean;
-}> = ({item, showType}) => {
+}> = ({ item, showType }) => {
   // @ts-ignore
-  const category = item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1];
+  const category = item?.tags?.find(
+    (tag: any[]) => tag?.[0] === "category",
+  )?.[1];
 
   return (
     <Pressable

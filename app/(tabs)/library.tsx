@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import {memo, useMemo, useState} from "react";
+import { memo, useMemo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -15,8 +15,8 @@ import Avatar from "../../components/Avatar";
 import { router } from "expo-router";
 import { t } from "../../i18n";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
-import {useQuery} from "@realm/react";
-import {Event} from "../Event";
+import { useQuery } from "@realm/react";
+import { Event } from "../Event";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -26,21 +26,22 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const publicKey = useSelector(selectPublicKey);
 
-  const DATA = useQuery(Event, events => {
-    return events.sorted('created_at', true);
+  const DATA = useQuery(Event, (events) => {
+    return events.sorted("created_at", true);
   });
 
   const filterData = useMemo(() => {
     if (filter) {
       return DATA.filter((item) => {
-        const category =
-          item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1];
+        const category = item?.tags?.find(
+          (tag: any[]) => tag?.[0] === "category",
+        )?.[1];
         return category === filter;
-      })
+      });
     } else {
       return DATA;
     }
-  }, [DATA, filter])
+  }, [DATA, filter]);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>

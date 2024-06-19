@@ -16,8 +16,8 @@ import { Buffer } from "buffer";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 // import {Ionicons} from "@expo/vector-icons";
 import Svg, { Circle } from "react-native-svg";
-import {useRealm} from "@realm/react";
-import {Event} from "../../Event";
+import { useRealm } from "@realm/react";
+import { Event } from "../../Event";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -44,7 +44,6 @@ const Page = () => {
         return new Event(realm, event);
       });
     } catch (e) {
-
     } finally {
       router.back();
     }

@@ -1,15 +1,15 @@
-import {FlatList, Pressable, Text, TextInput, View,} from "react-native";
-import {memo, useMemo, useState} from "react";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {Ionicons} from "@expo/vector-icons";
+import { FlatList, Pressable, Text, TextInput, View } from "react-native";
+import { memo, useMemo, useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 import LibraryShowItem from "../../components/LibraryShowItem";
 import Avatar from "../../components/Avatar";
-import {router} from "expo-router";
-import {t} from "../../i18n";
-import {useSelector} from "react-redux";
-import {selectPublicKey} from "../../reducers/account/accountSlice";
-import {useQuery} from "@realm/react";
-import {Event} from "../Event";
+import { router } from "expo-router";
+import { t } from "../../i18n";
+import { useSelector } from "react-redux";
+import { selectPublicKey } from "../../reducers/account/accountSlice";
+import { useQuery } from "@realm/react";
+import { Event } from "../Event";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -20,9 +20,9 @@ const Page = () => {
 
   const filterData = useMemo(() => {
     if (query) {
-      return DATA.filtered('content TEXT $0', query)
+      return DATA.filtered("content TEXT $0", query);
     } else {
-      return []
+      return [];
     }
   }, [query]);
 

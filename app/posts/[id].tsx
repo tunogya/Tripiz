@@ -28,6 +28,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { finalizeEvent } from "nostr-tools";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Buffer } from "buffer";
+import { useObject } from "@realm/react";
+import { Event } from "../Event";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -45,7 +47,7 @@ const Page = () => {
   const [hasNext, setHasNext] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(undefined);
-  const [data, setData] = useState(undefined);
+  const data = useObject(Event, id);
 
   const fetchComments = async (skip: number) => {
     setIsLoadingComments(true);

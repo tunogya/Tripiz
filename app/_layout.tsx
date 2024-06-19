@@ -1,20 +1,20 @@
 import applyGlobalPolyfills from "../utils/applyGlobalPolyfills";
-import {SplashScreen} from "expo-router";
-import {Provider} from "react-redux";
-import store, {persistor} from "../store/store";
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import {PersistGate} from "redux-persist/integration/react";
-import {useFonts, Inter_500Medium} from "@expo-google-fonts/inter";
-import {useEffect} from "react";
-import {Stack} from "expo-router/stack";
-import {StatusBar} from "expo-status-bar";
+import { SplashScreen } from "expo-router";
+import { Provider } from "react-redux";
+import store, { persistor } from "../store/store";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { PersistGate } from "redux-persist/integration/react";
+import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
+import { useEffect } from "react";
+import { Stack } from "expo-router/stack";
+import { StatusBar } from "expo-status-bar";
 import "i18n";
 import Notification from "../components/Notification";
 import CheckUser from "../components/LoginForm";
-import {SWRConfig} from "swr";
-import {AppState} from "react-native";
-import {RealmProvider} from "@realm/react";
-import {Event} from './Event';
+import { SWRConfig } from "swr";
+import { AppState } from "react-native";
+import { RealmProvider } from "@realm/react";
+import { Event } from "./Event";
 
 applyGlobalPolyfills();
 
@@ -82,10 +82,10 @@ export default function RootLayout() {
           }}
         >
           <PersistGate loading={null} persistor={persistor}>
-            <Notification/>
-            <CheckUser/>
+            <Notification />
+            <CheckUser />
             <SafeAreaProvider>
-              <StatusBar style="light"/>
+              <StatusBar style="light" />
               <Stack>
                 <Stack.Screen
                   name="(tabs)"
