@@ -15,7 +15,7 @@ import { SWRConfig } from "swr";
 import { AppState } from "react-native";
 import { RealmProvider } from "@realm/react";
 import { Event } from "./Event";
-import NostrAsync from "../components/NostrAsync";
+import { WebSocketProvider } from "../components/WebSocketProvider";
 
 applyGlobalPolyfills();
 
@@ -39,107 +39,108 @@ export default function RootLayout() {
   }
 
   return (
-    // @ts-ignorer
-    <RealmProvider schema={[Event]}>
-      <Provider store={store}>
-        <SWRConfig
-          value={{
-            provider: () => new Map(),
-            isOnline() {
-              /* Customize the network state detector */
-              return true;
-            },
-            isVisible() {
-              /* Customize the visibility state detector */
-              return true;
-            },
-            initFocus(callback) {
-              let appState = AppState.currentState;
+    <WebSocketProvider>
+      {/*@ts-ignore*/}
+      <RealmProvider schema={[Event]}>
+        <Provider store={store}>
+          <SWRConfig
+            value={{
+              provider: () => new Map(),
+              isOnline() {
+                /* Customize the network state detector */
+                return true;
+              },
+              isVisible() {
+                /* Customize the visibility state detector */
+                return true;
+              },
+              initFocus(callback) {
+                let appState = AppState.currentState;
 
-              const onAppStateChange = (nextAppState: any) => {
-                /* If it's resuming from background or inactive mode to active one */
-                if (
-                  appState.match(/inactive|background/) &&
-                  nextAppState === "active"
-                ) {
-                  callback();
-                }
-                appState = nextAppState;
-              };
+                const onAppStateChange = (nextAppState: any) => {
+                  /* If it's resuming from background or inactive mode to active one */
+                  if (
+                    appState.match(/inactive|background/) &&
+                    nextAppState === "active"
+                  ) {
+                    callback();
+                  }
+                  appState = nextAppState;
+                };
 
-              // Subscribe to the app state change events
-              const subscription = AppState.addEventListener(
-                "change",
-                onAppStateChange,
-              );
+                // Subscribe to the app state change events
+                const subscription = AppState.addEventListener(
+                  "change",
+                  onAppStateChange,
+                );
 
-              return () => {
-                subscription.remove();
-              };
-            },
-            initReconnect(callback) {
-              /* Register the listener with your state provider */
-            },
-          }}
-        >
-          <PersistGate loading={null} persistor={persistor}>
-            <Notification />
-            <CheckUser />
-            <NostrAsync />
-            <SafeAreaProvider>
-              <StatusBar style="light" />
-              <Stack>
-                <Stack.Screen
-                  name="(tabs)"
-                  options={{
-                    gestureEnabled: false,
-                    headerShown: false,
-                    title: "",
-                  }}
-                />
-                <Stack.Screen
-                  name="edit/posts/index"
-                  options={{
-                    title: "",
-                    gestureEnabled: false,
-                    headerShown: false,
-                    headerTintColor: "white",
-                    headerBackTitleVisible: false,
-                    headerStyle: {
-                      backgroundColor: "#121212",
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="posts/[id]"
-                  options={{
-                    headerShown: false,
-                    title: "",
-                    headerBackTitleVisible: false,
-                    headerTintColor: "white",
-                    headerStyle: {
-                      backgroundColor: "#121212",
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="account/index"
-                  options={{
-                    presentation: "modal",
-                    title: "",
-                    headerShown: false,
-                    headerTintColor: "white",
-                    headerBackTitleVisible: false,
-                    headerStyle: {
-                      backgroundColor: "#121212",
-                    },
-                  }}
-                />
-              </Stack>
-            </SafeAreaProvider>
-          </PersistGate>
-        </SWRConfig>
-      </Provider>
-    </RealmProvider>
+                return () => {
+                  subscription.remove();
+                };
+              },
+              initReconnect(callback) {
+                /* Register the listener with your state provider */
+              },
+            }}
+          >
+            <PersistGate loading={null} persistor={persistor}>
+              <Notification />
+              <CheckUser />
+              <SafeAreaProvider>
+                <StatusBar style="light" />
+                <Stack>
+                  <Stack.Screen
+                    name="(tabs)"
+                    options={{
+                      gestureEnabled: false,
+                      headerShown: false,
+                      title: "",
+                    }}
+                  />
+                  <Stack.Screen
+                    name="edit/posts/index"
+                    options={{
+                      title: "",
+                      gestureEnabled: false,
+                      headerShown: false,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="posts/[id]"
+                    options={{
+                      headerShown: false,
+                      title: "",
+                      headerBackTitleVisible: false,
+                      headerTintColor: "white",
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="account/index"
+                    options={{
+                      presentation: "modal",
+                      title: "",
+                      headerShown: false,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                </Stack>
+              </SafeAreaProvider>
+            </PersistGate>
+          </SWRConfig>
+        </Provider>
+      </RealmProvider>
+    </WebSocketProvider>
   );
 }

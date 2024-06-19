@@ -28,6 +28,7 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import { Buffer } from "buffer";
 import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
+import { useWebSocket } from "../../components/WebSocketProvider";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -45,6 +46,7 @@ const Page = () => {
     return events.filtered("kind == $0", 1).sorted("created_at", true);
   });
   const realm = useRealm();
+  const { send } = useWebSocket();
 
   const comments = useMemo(() => {
     return events.filter((item) => {
@@ -72,6 +74,7 @@ const Page = () => {
         return new Event(realm, event);
       });
       setText("");
+      send(JSON.stringify(["EVENT", event]));
     } catch (e) {
       console.log(e);
     }

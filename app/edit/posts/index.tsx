@@ -18,6 +18,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Circle } from "react-native-svg";
 import { useRealm } from "@realm/react";
 import { Event } from "../../Event";
+import { useWebSocket } from "../../../components/WebSocketProvider";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -27,6 +28,7 @@ const Page = () => {
   const [filter, setFilter] = useState("memories");
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const realm = useRealm();
+  const { send } = useWebSocket();
 
   const save = async () => {
     try {
@@ -39,10 +41,10 @@ const Page = () => {
         },
         Buffer.from(privateKey, "hex"),
       );
-
       realm.write(() => {
         return new Event(realm, event);
       });
+      send(JSON.stringify(["EVENT", event]));
     } catch (e) {
     } finally {
       router.back();
