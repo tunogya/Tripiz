@@ -1,20 +1,20 @@
-import React, { FC, memo } from "react";
-import { Pressable, Text, View } from "react-native";
-import { router } from "expo-router";
-import { t } from "../i18n";
-import { Image } from "expo-image";
-import { API_HOST_NAME } from "../utils/const";
+import React, {FC, memo} from "react";
+import {Pressable, Text, View} from "react-native";
+import {router} from "expo-router";
+import {t} from "../i18n";
+import {Image} from "expo-image";
+import {API_HOST_NAME} from "../utils/const";
 
 const LibraryShowItem: FC<{
   item: {
     id: string;
-    possibly_sensitive?: boolean;
     content: string;
-    tags_map: any;
+    tags: [][];
   };
   showType: boolean;
-}> = ({ item, showType }) => {
-  const category = item?.tags_map?.category?.[0] || "reflections";
+}> = ({item, showType}) => {
+  // @ts-ignore
+  const category = item.tags.find((tag: any[]) => tag?.[0] === "category")?.[1];
 
   return (
     <Pressable
@@ -41,15 +41,6 @@ const LibraryShowItem: FC<{
           {item.content}
         </Text>
         <View className={"flex flex-row space-x-1 items-center"}>
-          {item.possibly_sensitive && (
-            <Text
-              className={
-                "p-0.5 bg-[#B3B3B3] text-[#121212] text-[12px] text-center"
-              }
-            >
-              E
-            </Text>
-          )}
           {showType && <Text className={"text-[#B3B3B3]"}>{t(category)}</Text>}
         </View>
       </View>

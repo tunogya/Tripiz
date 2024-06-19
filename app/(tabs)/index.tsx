@@ -8,8 +8,6 @@ import {router} from "expo-router";
 import {t} from "../../i18n";
 import {useSelector} from "react-redux";
 import {selectPublicKey} from "../../reducers/account/accountSlice";
-import {useRealm} from "@realm/react";
-import {Event} from "../Event";
 
 const Page = () => {
   const insets = useSafeAreaInsets();

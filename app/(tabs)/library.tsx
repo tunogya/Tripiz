@@ -24,12 +24,11 @@ const Page = () => {
   const FILTERS = ["Memories", "Dreams", "Reflections"];
   const [filter, setFilter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
   const publicKey = useSelector(selectPublicKey);
 
-  const events = useQuery(Event);
-
-  console.log(events);
+  const data = useQuery(Event, events => {
+    return events.sorted('created_at', true);
+  });
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
@@ -109,8 +108,7 @@ const Page = () => {
         <FlatList
           data={data}
           scrollEventThrottle={1000}
-          keyExtractor={(item: any) => item._id}
-          onEndReachedThreshold={0.3}
+          keyExtractor={(item: any) => item.id}
           ListEmptyComponent={() =>
             !isLoading && (
               <View className={"px-4"}>
