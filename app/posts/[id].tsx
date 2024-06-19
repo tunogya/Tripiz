@@ -9,7 +9,7 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
-import React, { memo, useRef, useState } from "react";
+import React, { memo, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
@@ -43,9 +43,16 @@ const Page = () => {
   const inputRef = useRef(undefined);
   const data = useObject(Event, id);
   const comments = useQuery(Event, (events) => {
-    return events.filtered("ANY tags == $0", ["e", id]);
+    return events.filtered("kind == $0", 1).sorted("created_at", true);
   });
   const realm = useRealm();
+
+  const filterComments = useMemo(() => {
+    return comments.filter((item) => {
+      const e = item.tags.find((tag: any[]) => tag?.[0] === "e")?.[1];
+      return e === id;
+    });
+  }, [comments, id]);
 
   const newComment = async () => {
     try {
@@ -54,7 +61,10 @@ const Page = () => {
         {
           kind: 1,
           created_at: Math.floor(Date.now() / 1000),
-          tags: [["e", e]],
+          tags: [
+            ["e", e],
+            ["category", "reflections"],
+          ],
           content: text,
         },
         Buffer.from(privateKey, "hex"),
@@ -158,7 +168,7 @@ const Page = () => {
           </View>
           <View className={"space-y-3"}>
             <FlatList
-              data={comments}
+              data={filterComments}
               scrollEnabled={false}
               showsVerticalScrollIndicator={false}
               renderItem={({ item }: any) => (
