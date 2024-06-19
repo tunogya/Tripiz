@@ -8,7 +8,6 @@ import {
   Keyboard,
   Pressable,
   Dimensions,
-  RefreshControl,
   FlatList,
 } from "react-native";
 import React, { memo, useRef, useState } from "react";
@@ -28,7 +27,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { finalizeEvent } from "nostr-tools";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Buffer } from "buffer";
-import { useObject } from "@realm/react";
+import {useObject, useQuery, useRealm} from "@realm/react";
 import { Event } from "../Event";
 
 const Page = () => {
@@ -38,47 +37,19 @@ const Page = () => {
   const screenHeight = Dimensions.get("window").height;
   const [isFocused, setIsFocused] = useState(false);
   const [text, setText] = useState("");
-  const [status, setStatus] = useState("idle");
   const { privateKey } = useSelector((state: RootState) => state.account);
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
   const [isLoadingComments, setIsLoadingComments] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
-  const [nextSkip, setNextSkip] = useState<number | null>(0);
-  const [hasNext, setHasNext] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(undefined);
   const data = useObject(Event, id);
-
-  const fetchComments = async (skip: number) => {
-    setIsLoadingComments(true);
-    const result = await fetch(
-      `${API_HOST_NAME}/posts/${id}/replies?skip=${skip}`,
-      {
-        method: "GET",
-      },
-    ).then((res) => res.json());
-    setIsLoadingComments(false);
-
-    if (skip === 0) {
-      setComments(result.data);
-    } else {
-    }
-    setHasNext(result.pagination.hasNext);
-    setNextSkip(result.pagination.nextSkip);
-  };
-
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await fetchComments(0);
-    if (swipeListViewRef.current) {
-      swipeListViewRef.current.closeAllOpenRows();
-    }
-    setRefreshing(false);
-  };
+  const comments = useQuery(Event, events => {
+    return events.filtered("ANY tags == $0", ["e", id]);
+  });
+  const realm = useRealm();
 
   const newComment = async () => {
     try {
-      setStatus("loading");
       let e = ensureString(id);
       const event = finalizeEvent(
         {
@@ -89,35 +60,12 @@ const Page = () => {
         },
         Buffer.from(privateKey, "hex"),
       );
-
-      await fetch(`${API_HOST_NAME}/posts`, {
-        method: "POST",
-        body: JSON.stringify(event),
-      }).then((res) => res.json());
-
-      setText("");
-      setStatus("success");
-      setTimeout(() => {
-        setStatus("idle");
-        Keyboard.dismiss();
-      }, 1_000);
-    } catch (e) {
-      setStatus("error");
-      setTimeout(() => {
-        setStatus("idle");
-      }, 3_000);
-    }
-  };
-
-  const scrollViewRef = useRef(null);
-  const swipeListViewRef = useRef(null);
-
-  const handleSwipeValueChange = (swipeData: any) => {
-    const { value } = swipeData;
-    if (scrollViewRef.current) {
-      scrollViewRef.current.setNativeProps({
-        scrollEnabled: Math.abs(value) <= 10,
+      realm.write(() => {
+        return new Event(realm, event);
       });
+      setText("");
+    } catch (e) {
+      console.log(e)
     }
   };
 
@@ -163,18 +111,6 @@ const Page = () => {
       </View>
       <View>
         <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              colors={["#B3B3B3"]}
-              progressBackgroundColor="#121212"
-              tintColor="#B3B3B3"
-              title="Loading..."
-              titleColor="#B3B3B3"
-            />
-          }
-          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
           className={"w-full"}
           style={{
@@ -238,13 +174,6 @@ const Page = () => {
                   }}
                 />
               )}
-              scrollEventThrottle={1000}
-              onEndReached={async () => {
-                if (hasNext) {
-                  await fetchComments(nextSkip);
-                }
-              }}
-              onEndReachedThreshold={0.3}
               ListEmptyComponent={() =>
                 !isLoadingComments && (
                   <View className={"w-full p-4"}>
@@ -254,13 +183,8 @@ const Page = () => {
                   </View>
                 )
               }
-              stopLeftSwipe={0}
-              stopRightSwipe={-100}
-              leftOpenValue={0}
-              rightOpenValue={-100}
               // @ts-ignore
-              keyExtractor={(item, index) => index}
-              onSwipeValueChange={handleSwipeValueChange}
+              keyExtractor={(item, index) => item.id}
             />
           </View>
           <View style={{ height: 400 }}></View>
@@ -298,17 +222,13 @@ const Page = () => {
           />
           {isFocused && (
             <Pressable
-              disabled={status !== "idle"}
               className={
                 "bg-green-500 h-10 px-4 rounded-full items-center justify-center"
               }
               onPress={newComment}
             >
               <Text className={"font-bold"}>
-                {status === "idle" && t("Send")}
-                {status === "success" && t("Success")}
-                {status === "error" && t("Error")}
-                {status === "loading" && t("Sending")}
+                {t("Send")}
               </Text>
             </Pressable>
           )}

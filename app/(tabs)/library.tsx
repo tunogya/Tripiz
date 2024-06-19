@@ -27,7 +27,9 @@ const Page = () => {
   const publicKey = useSelector(selectPublicKey);
 
   const DATA = useQuery(Event, (events) => {
-    return events.sorted("created_at", true);
+    return events
+      .filtered('kind == $0', 1)
+      .sorted("created_at", true);
   });
 
   const filterData = useMemo(() => {
@@ -87,7 +89,7 @@ const Page = () => {
             <Pressable
               hitSlop={4}
               className={
-                "h-8 w-8 items-center justify-center bg-[#FFFFFF12] rounded-full mr-1.5"
+                "h-8 w-8 items-center justify-center bg-[#FFFFFF12] rounded-full ml-1 mr-1.5"
               }
               onPress={() => {
                 setFilter("");
