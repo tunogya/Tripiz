@@ -5,7 +5,7 @@ import {useRealm} from "@realm/react";
 import {removeOneEvent, updateOneEvent} from "../reducers/events/eventsSlice";
 
 const NostrSync = () => {
-  const ws = useRef(new WebSocket("wss://relay.abandon.ai")).current;
+  const ws = useRef(null);
   const { ids, entities } = useSelector((state: RootState) => state.events);
   const [connected, setConnected] = useState("idle");
   const [roundState, setRoundState] = useState("idle");
@@ -13,43 +13,61 @@ const NostrSync = () => {
   const realm = useRealm();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    ws.onopen = () => {
+  const connectWebSocket = () => {
+    ws.current = new WebSocket("wss://relay.abandon.ai");
+
+    ws.current.onopen = () => {
       setConnected("success");
       console.log("Connected to the server");
     };
-    ws.onclose = (e) => {
+
+    ws.current.onclose = (e) => {
       setConnected("idle");
       console.log("Disconnected. Check internet or server.");
+      setTimeout(() => {
+        ws.current = new WebSocket("wss://relay.abandon.ai");
+      }, 5_000);
     };
-    ws.onerror = (e) => {
+
+    ws.current.onerror = (e) => {
       setConnected("error");
-      console.log(e);
+      console.log("Error connect. Check internet or server.")
     };
-    ws.onmessage = (e) => {
+
+    ws.current.onmessage = (e) => {
       const data = JSON.parse(e.data);
+      console.log(data)
       if (data?.[0] === "OK" && data?.[2] === true) {
         const id = data?.[1];
         if (id) {
-          dispatch(updateOneEvent({
-            id: id,
-            changes: {
-              status: 1,
-            }
-          }))
+          dispatch(
+            updateOneEvent({
+              id: id,
+              changes: {
+                status: 1,
+              }
+            })
+          );
         }
       }
-      console.log(data);
     };
-    return () => ws.close();
-  }, []);
+  };
 
   const send = (message: string) => {
-    ws.send(message);
-  };
+    if (ws.current) {
+      console.log("Send", message)
+      ws.current.send(message);
+    }
+  }
+
+  useEffect(() => {
+    connectWebSocket();
+    return () =>  ws.current?.close();
+  }, []);
 
   useEffect(() => {
     const clean = () => {
+      console.log("Start Clean works", ids.length);
       setCleanState("loading");
       for (let index = 0; index < ids.length; index++) {
         const id = ids[index];
@@ -60,12 +78,16 @@ const NostrSync = () => {
       }
       setCleanState("idle")
     }
-    if (cleanState === "idle" && roundState === "idle") {
-      clean();
-    }
-  }, [roundState, cleanState]);
+    const interval = setInterval(() => {
+      if (roundState === "idle") {
+        clean();
+      }
+    }, 60_000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
+    console.log("Start Send Messages works", ids.length);
     const roundSync = () => {
       setRoundState("loading");
       for (let index = 0; index < ids.length; index++) {
@@ -80,10 +102,10 @@ const NostrSync = () => {
       }
       setRoundState("idle");
     }
-    if (connected === "success" && roundState === "idle" && cleanState === "idle") {
+    if (connected === "success" && cleanState === "idle") {
       roundSync();
     }
-  }, [ids.length, connected, roundState, cleanState]);
+  }, [ids.length, connected]);
 
   return null;
 };
