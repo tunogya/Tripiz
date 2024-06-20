@@ -15,6 +15,7 @@ import {SWRConfig} from "swr";
 import {AppState} from "react-native";
 import {RealmProvider} from "@realm/react";
 import {Event} from "./Event";
+import NostrSync from "../components/NostrSync";
 
 applyGlobalPolyfills();
 
@@ -84,6 +85,7 @@ export default function RootLayout() {
           <PersistGate loading={null} persistor={persistor}>
             <Notification/>
             <CheckUser/>
+            <NostrSync />
             <SafeAreaProvider>
               <StatusBar style="light"/>
               <Stack>

@@ -13,7 +13,7 @@ import React, { memo, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { RootState } from "../../store/store";
 import CommentShowItem from "../../components/CommentShowItem";
 import { Ionicons } from "@expo/vector-icons";
@@ -28,7 +28,7 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import { Buffer } from "buffer";
 import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
-import { useWebSocket } from "../../components/NostrSync";
+import {addOneEvent} from "../../reducers/events/eventsSlice";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -46,7 +46,7 @@ const Page = () => {
     return events.filtered("kind == $0", 1).sorted("created_at", true);
   });
   const realm = useRealm();
-  const { send } = useWebSocket();
+  const dispatch = useDispatch();
 
   const comments = useMemo(() => {
     return events.filter((item) => {
@@ -74,7 +74,10 @@ const Page = () => {
         return new Event(realm, event);
       });
       setText("");
-      send(JSON.stringify(["EVENT", event]));
+      dispatch(addOneEvent({
+        id: event.id,
+        status: 0,
+      }))
     } catch (e) {
       console.log(e);
     }

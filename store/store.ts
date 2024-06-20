@@ -1,7 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import accountReducer from "../reducers/account/accountSlice";
+import accountSlice from "../reducers/account/accountSlice";
+import eventsSlice from "../reducers/events/eventsSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -10,7 +11,8 @@ const rootPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-  account: accountReducer,
+  account: accountSlice,
+  events: eventsSlice,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

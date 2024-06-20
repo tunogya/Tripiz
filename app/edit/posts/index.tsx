@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { RootState } from "../../../store/store";
 import { t } from "../../../i18n";
 import { finalizeEvent } from "nostr-tools";
@@ -18,7 +18,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Circle } from "react-native-svg";
 import { useRealm } from "@realm/react";
 import { Event } from "../../Event";
-import { useWebSocket } from "../../../components/NostrSync";
+import {addOneEvent} from "../../../reducers/events/eventsSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -28,7 +28,7 @@ const Page = () => {
   const [filter, setFilter] = useState("memories");
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const realm = useRealm();
-  const { send } = useWebSocket();
+  const dispatch = useDispatch();
 
   const save = async () => {
     try {
@@ -44,7 +44,10 @@ const Page = () => {
       realm.write(() => {
         return new Event(realm, event);
       });
-      send(JSON.stringify(["EVENT", event]));
+      dispatch(addOneEvent({
+        id: event.id,
+        status: 0,
+      }))
     } catch (e) {
     } finally {
       router.back();
