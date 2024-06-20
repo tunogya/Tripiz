@@ -67,7 +67,6 @@ const NostrSync = () => {
 
   useEffect(() => {
     const clean = () => {
-      console.log("Start Clean works", ids.length);
       setCleanState("loading");
       for (let index = 0; index < ids.length; index++) {
         const id = ids[index];
@@ -80,6 +79,7 @@ const NostrSync = () => {
     }
     const interval = setInterval(() => {
       if (roundState === "idle") {
+        console.log("Start Clean works", ids.length);
         clean();
       }
     }, 60_000);
@@ -87,7 +87,6 @@ const NostrSync = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Start Send Messages works", ids.length);
     const roundSync = () => {
       setRoundState("loading");
       for (let index = 0; index < ids.length; index++) {
@@ -103,6 +102,7 @@ const NostrSync = () => {
       setRoundState("idle");
     }
     if (connected === "success" && cleanState === "idle") {
+      console.log("Start Send Messages works", ids.length);
       roundSync();
     }
   }, [ids.length, connected]);
