@@ -9,7 +9,6 @@ const NostrSync = () => {
   const { ids, entities } = useSelector((state: RootState) => state.events);
   const [connected, setConnected] = useState("idle");
   const [roundState, setRoundState] = useState("idle");
-  const [cleanState, setCleanState] = useState("idle");
   const realm = useRealm();
   const dispatch = useDispatch();
 
@@ -66,27 +65,6 @@ const NostrSync = () => {
   }, []);
 
   useEffect(() => {
-    const clean = () => {
-      setCleanState("loading");
-      for (let index = 0; index < ids.length; index++) {
-        const id = ids[index];
-        const status = entities?.[id]?.status;
-        if (status === 1) {
-          dispatch(removeOneEvent(id));
-        }
-      }
-      setCleanState("idle")
-    }
-    const interval = setInterval(() => {
-      if (roundState === "idle") {
-        console.log("Start Clean works", ids.length);
-        clean();
-      }
-    }, 60_000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
     const roundSync = () => {
       setRoundState("loading");
       for (let index = 0; index < ids.length; index++) {
@@ -101,11 +79,21 @@ const NostrSync = () => {
       }
       setRoundState("idle");
     }
-    if (connected === "success" && cleanState === "idle") {
-      console.log("Start Send Messages works", ids.length);
+    if (connected === "success") {
       roundSync();
     }
   }, [ids.length, connected]);
+
+  useEffect(() => {
+    console.log("Clean events...")
+    for (let index = 0; index < ids.length; index++) {
+      const id = ids[index];
+      const status = entities?.[id]?.status;
+      if (status === 1) {
+        dispatch(removeOneEvent(id));
+      }
+    }
+  }, []);
 
   return null;
 };
