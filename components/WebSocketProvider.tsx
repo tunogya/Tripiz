@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useRef, useState} from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRealm } from "@realm/react";
 import { Event } from "../app/Event";
 
@@ -46,21 +46,15 @@ const WebSocketProvider = ({ children }) => {
   };
 
   const send = (message: string) => {
-    console.log("A")
+    console.log("A");
     if (ws.current && connected) {
       try {
         ws.current.send(message);
       } catch (e) {
-        setQueue([
-          ...queue,
-          message,
-        ]);
+        setQueue([...queue, message]);
       }
     } else {
-      setQueue([
-        ...queue,
-        message,
-      ]);
+      setQueue([...queue, message]);
     }
   };
 
@@ -71,7 +65,7 @@ const WebSocketProvider = ({ children }) => {
         setTimeout(() => {
           ws.current.send(e);
           queue.shift();
-        }, 250)
+        }, 250);
       } catch (e) {
         console.log(e);
       }

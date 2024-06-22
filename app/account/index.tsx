@@ -5,7 +5,7 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import {memo, useEffect, useState} from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
@@ -24,9 +24,9 @@ import { Camera } from "expo-camera";
 import { decodeKey } from "../../utils/nostrUtil";
 import { finalizeEvent } from "nostr-tools";
 import { Buffer } from "buffer";
-import {useWebSocket} from "../../components/WebSocketProvider";
-import {useQuery, useRealm} from "@realm/react";
-import {Event} from "../Event";
+import { useWebSocket } from "../../components/WebSocketProvider";
+import { useQuery, useRealm } from "@realm/react";
+import { Event } from "../Event";
 
 const Page = () => {
   const nostrPublicKey = useSelector(selectNostrPublicKey);
@@ -42,7 +42,7 @@ const Page = () => {
   const events = useQuery(Event, (events) => {
     return events
       .filtered("kind == $0 && pubkey == $1", 0, publicKey)
-      .sorted("created_at", true)
+      .sorted("created_at", true);
   });
 
   const pickImage = async () => {
@@ -91,10 +91,7 @@ const Page = () => {
       realm.write(() => {
         return new Event(realm, event);
       });
-      send(JSON.stringify([
-        "EVENT",
-        event,
-      ]));
+      send(JSON.stringify(["EVENT", event]));
     } catch (e) {
       console.log(e);
     }
@@ -106,17 +103,19 @@ const Page = () => {
       const oldEvents = events.slice(1);
       realm.write(() => {
         realm.delete(oldEvents);
-      })
+      });
     } else {
-      send(JSON.stringify([
-        "REQ",
-        publicKey,
-        {
-          authors: [publicKey],
-          kinds: [0],
-          limit: 1,
-        },
-      ]))
+      send(
+        JSON.stringify([
+          "REQ",
+          publicKey,
+          {
+            authors: [publicKey],
+            kinds: [0],
+            limit: 1,
+          },
+        ]),
+      );
     }
   }, [events]);
 
@@ -162,7 +161,9 @@ const Page = () => {
               logoBackgroundColor={"white"}
               logoBorderRadius={50}
               logo={{
-                uri: JSON.parse(userInfoEvent?.content || "{}")?.picture || undefined,
+                uri:
+                  JSON.parse(userInfoEvent?.content || "{}")?.picture ||
+                  undefined,
               }}
               value={nostrPrivateKey}
             />
