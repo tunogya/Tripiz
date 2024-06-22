@@ -1,9 +1,12 @@
 import { createContext, useContext, useEffect, useRef } from "react";
+import { useRealm } from "@realm/react";
+import { Event } from "../app/Event";
 
 const WebSocketContext = createContext(null);
 
 const WebSocketProvider = ({ children }) => {
   const ws = useRef(null);
+  const realm = useRealm();
 
   const connectWebSocket = () => {
     ws.current = new WebSocket("wss://relay.abandon.ai");
@@ -25,7 +28,16 @@ const WebSocketProvider = ({ children }) => {
 
     ws.current.onmessage = (e) => {
       const data = JSON.parse(e.data);
-      console.log(data);
+      if (data?.[0] === "EVENT") {
+        const _e = data[2];
+        try {
+          realm.write(() => {
+            return new Event(realm, _e);
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      }
     };
   };
 
