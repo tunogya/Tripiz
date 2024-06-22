@@ -1,14 +1,16 @@
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
-import React, { FC, memo, useRef } from "react";
-import { useSelector } from "react-redux";
-import { selectPublicKey } from "../reducers/account/accountSlice";
+import {Pressable, Text, TouchableOpacity, View} from "react-native";
+import React, {FC, memo, useEffect, useRef, useState} from "react";
+import {useSelector} from "react-redux";
+import {selectPublicKey} from "../reducers/account/accountSlice";
 import Avatar from "./Avatar";
-import { API_HOST_NAME } from "../utils/const";
-import useSWR from "swr";
+import {API_HOST_NAME} from "../utils/const";
 import Clipboard from "@react-native-clipboard/clipboard";
-import { BottomSheet, BottomSheetRef } from "react-native-sheet";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { t } from "../i18n";
+import {BottomSheet, BottomSheetRef} from "react-native-sheet";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {t} from "../i18n";
+import {useQuery} from "@realm/react";
+import {Event} from "../app/Event";
+import {useWebSocket} from "./WebSocketProvider";
 
 const CommentShowItem: FC<{
   item: {
@@ -18,15 +20,37 @@ const CommentShowItem: FC<{
     created_at: number;
   };
   onPressCallback: () => void;
-}> = ({ item, onPressCallback }) => {
+}> = ({item, onPressCallback}) => {
   const insets = useSafeAreaInsets();
   const myPublicKey = useSelector(selectPublicKey);
-  const { data } = useSWR(`${API_HOST_NAME}/accounts/${item.pubkey}`, (url) =>
-    fetch(url).then((res) => res.json()),
-  );
-
-  const name = item.pubkey === myPublicKey ? "Me" : data?.name || "Anonymous";
+  const events = useQuery(Event, (events) => {
+    return events.filtered("kind == $0 && pubkey == $1", 0, item.pubkey);
+  });
+  const [name, setName] = useState("Anonymous");
   const bottomSheet = useRef<BottomSheetRef>(null);
+  const {send} = useWebSocket();
+
+  useEffect(() => {
+    if (item.pubkey === myPublicKey) {
+      setName("Me");
+      return
+    }
+    if (events.length > 0) {
+      const userinfo = JSON.parse(events[0]?.content);
+      const name = userinfo?.name || "Anonymous";
+      setName(name)
+    } else {
+      send(JSON.stringify([
+        "REQ",
+        myPublicKey,
+        {
+          authors: [item.pubkey],
+          kinds: [0],
+          limit: 1,
+        },
+      ]))
+    }
+  }, [events]);
 
   const deleteOneEvent = async (id: string) => {
     try {
@@ -41,7 +65,7 @@ const CommentShowItem: FC<{
   return (
     <View>
       <View className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}>
-        <Avatar publicKey={item.pubkey} />
+        <Avatar publicKey={item.pubkey}/>
         <View className={"space-y-1.5 pb-4 flex-1 border-b border-[#FFFFFF12]"}>
           <View className={"flex flex-row justify-between items-end"}>
             <Text

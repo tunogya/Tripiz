@@ -46,6 +46,7 @@ const WebSocketProvider = ({ children }) => {
   };
 
   const send = (message: string) => {
+    console.log("A")
     if (ws.current && connected) {
       try {
         ws.current.send(message);

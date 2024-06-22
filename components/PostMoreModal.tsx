@@ -6,13 +6,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useRealm } from "@realm/react";
 import { router } from "expo-router";
-import { addOneEvent } from "../reducers/events/eventsSlice";
-import { useDispatch } from "react-redux";
+import {useWebSocket} from "./WebSocketProvider";
 
 const PostMoreModal = ({ post, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
   const realm = useRealm();
-  const dispatch = useDispatch();
+  const {send} = useWebSocket();
 
   return (
     <BlurView
@@ -41,12 +40,7 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
               onPress={() => {
                 realm.write(() => {
                   realm.delete(post);
-                  dispatch(
-                    addOneEvent({
-                      id: post.id,
-                      status: 2,
-                    }),
-                  );
+                  // POST
                   router.navigate("library");
                 });
               }}

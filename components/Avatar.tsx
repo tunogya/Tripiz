@@ -1,24 +1,37 @@
 import { Image } from "expo-image";
-import { FC, memo, useEffect, useState } from "react";
+import {FC, memo, useEffect, useState} from "react";
 import { View, Text } from "react-native";
-import useSWR from "swr";
-import { API_HOST_NAME } from "../utils/const";
+import {useQuery} from "@realm/react";
+import {Event} from "../app/Event";
+import {useWebSocket} from "./WebSocketProvider";
 
 const Avatar: FC<{
   publicKey: string;
   classname?: string;
 }> = ({ classname, publicKey }) => {
   const [picture, setPicture] = useState("");
-  const { data } = useSWR(
-    publicKey ? `${API_HOST_NAME}/accounts/${publicKey}` : undefined,
-    (url) => fetch(url).then((res) => res.json()),
-  );
+  const {send} = useWebSocket();
+
+  const events = useQuery(Event, (events) => {
+    return events.filtered("kind == $0 && pubkey == $1", 0, publicKey);
+  });
 
   useEffect(() => {
-    if (data && data?.picture) {
-      setPicture(data.picture);
+    if (events.length > 0) {
+      const userinfo = JSON.parse(events[0]?.content);
+      setPicture(userinfo?.picture)
+    } else {
+      send(JSON.stringify([
+        "REQ",
+        publicKey,
+        {
+          authors: [publicKey],
+          kinds: [0],
+          limit: 1,
+        },
+      ]))
     }
-  }, [data]);
+  }, [events]);
 
   if (picture) {
     return (

@@ -5,7 +5,7 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import { memo, useEffect, useState } from "react";
+import {memo, useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
@@ -22,10 +22,11 @@ import Avatar from "../../components/Avatar";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
 import { decodeKey } from "../../utils/nostrUtil";
-import { API_HOST_NAME } from "../../utils/const";
 import { finalizeEvent } from "nostr-tools";
-import useSWR from "swr";
 import { Buffer } from "buffer";
+import {useWebSocket} from "../../components/WebSocketProvider";
+import {useQuery, useRealm} from "@realm/react";
+import {Event} from "../Event";
 
 const Page = () => {
   const nostrPublicKey = useSelector(selectNostrPublicKey);
@@ -33,7 +34,16 @@ const Page = () => {
   const [show, setShow] = useState(false);
   const { privateKey } = useSelector((state: RootState) => state.account);
   const publicKey = useSelector(selectPublicKey);
+  const [userInfoEvent, setUserInfoEvent] = useState(undefined);
   const dispatch = useDispatch();
+  const { send } = useWebSocket();
+  const realm = useRealm();
+
+  const events = useQuery(Event, (events) => {
+    return events
+      .filtered("kind == $0 && pubkey == $1", 0, publicKey)
+      .sorted("created_at", true)
+  });
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -77,19 +87,38 @@ const Page = () => {
         },
         Buffer.from(privateKey, "hex"),
       );
-      await fetch(`${API_HOST_NAME}/accounts`, {
-        method: "POST",
-        body: JSON.stringify(event),
-      }).then((res) => res.json());
+      setUserInfoEvent(events);
+      realm.write(() => {
+        return new Event(realm, event);
+      });
+      send(JSON.stringify([
+        "EVENT",
+        event,
+      ]));
     } catch (e) {
       console.log(e);
     }
   };
 
-  const { data, mutate } = useSWR(
-    publicKey ? `${API_HOST_NAME}/accounts/${publicKey}` : undefined,
-    (url) => fetch(url).then((res) => res.json()),
-  );
+  useEffect(() => {
+    if (events.length > 0) {
+      setUserInfoEvent(events[0]);
+      const oldEvents = events.slice(1);
+      realm.write(() => {
+        realm.delete(oldEvents);
+      })
+    } else {
+      send(JSON.stringify([
+        "REQ",
+        publicKey,
+        {
+          authors: [publicKey],
+          kinds: [0],
+          limit: 1,
+        },
+      ]))
+    }
+  }, [events]);
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>
@@ -133,7 +162,7 @@ const Page = () => {
               logoBackgroundColor={"white"}
               logoBorderRadius={50}
               logo={{
-                uri: data?.picture || undefined,
+                uri: JSON.parse(userInfoEvent?.content || "{}")?.picture || undefined,
               }}
               value={nostrPrivateKey}
             />
