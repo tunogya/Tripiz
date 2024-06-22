@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useRef} from "react";
+import { createContext, useContext, useEffect, useRef } from "react";
 
 const WebSocketContext = createContext(null);
 
@@ -20,12 +20,12 @@ const WebSocketProvider = ({ children }) => {
     };
 
     ws.current.onerror = (e) => {
-      console.log("Error connect. Check internet or server.")
+      console.log("Error connect. Check internet or server.");
     };
 
     ws.current.onmessage = (e) => {
       const data = JSON.parse(e.data);
-      console.log(data)
+      console.log(data);
     };
   };
 
@@ -33,11 +33,11 @@ const WebSocketProvider = ({ children }) => {
     if (ws.current) {
       ws.current.send(message);
     }
-  }
+  };
 
   useEffect(() => {
     connectWebSocket();
-    return () =>  ws.current?.close();
+    return () => ws.current?.close();
   }, []);
 
   return (
