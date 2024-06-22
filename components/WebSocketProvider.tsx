@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRealm } from "@realm/react";
 import { Event } from "../app/Event";
+import {useSelector} from "react-redux";
+import {selectPublicKey} from "../reducers/account/accountSlice";
 
 const WebSocketContext = createContext(null);
 
@@ -9,9 +11,10 @@ const WebSocketProvider = ({ children }) => {
   const realm = useRealm();
   const [connected, setConnected] = useState(false);
   const [queue, setQueue] = useState([]);
+  const pubkey = useSelector(selectPublicKey);
 
   const connectWebSocket = () => {
-    ws.current = new WebSocket("wss://relay.abandon.ai");
+    ws.current = new WebSocket(`wss://${pubkey}@relay.abandon.ai`);
 
     ws.current.onopen = () => {
       setConnected(true);
@@ -19,7 +22,6 @@ const WebSocketProvider = ({ children }) => {
 
     ws.current.onclose = (e) => {
       setConnected(false);
-      console.log("Disconnected. Check internet or server.");
       setTimeout(() => {
         ws.current = new WebSocket("wss://relay.abandon.ai");
       }, 5_000);
@@ -46,7 +48,6 @@ const WebSocketProvider = ({ children }) => {
   };
 
   const send = (message: string) => {
-    console.log("A");
     if (ws.current && connected) {
       try {
         ws.current.send(message);
@@ -73,9 +74,11 @@ const WebSocketProvider = ({ children }) => {
   }, [queue, connected]);
 
   useEffect(() => {
-    connectWebSocket();
+    if (pubkey) {
+      connectWebSocket();
+    }
     return () => ws.current?.close();
-  }, []);
+  }, [pubkey]);
 
   return (
     <WebSocketContext.Provider value={{ send }}>
