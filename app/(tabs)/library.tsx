@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import { memo, useMemo, useState } from "react";
+import {memo, useEffect, useMemo, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -17,6 +17,7 @@ import { t } from "../../i18n";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
 import { useQuery } from "@realm/react";
 import { Event } from "../Event";
+import { useWebSocket } from "../../components/WebSocketProvider";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -25,6 +26,7 @@ const Page = () => {
   const [filter, setFilter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const publicKey = useSelector(selectPublicKey);
+  const { send } = useWebSocket();
 
   const DATA = useQuery(Event, (events) => {
     return events.filtered("kind == $0", 1).sorted("created_at", true);
@@ -42,6 +44,40 @@ const Page = () => {
       return DATA;
     }
   }, [DATA, filter]);
+
+  const fetchEventFromRelay = () => {
+    if (DATA.length > 0) {
+      const latestEvent = DATA[0];
+      send(JSON.stringify([
+        "REQ",
+        publicKey,
+        {
+          "authors": [publicKey],
+          "kinds": [1],
+          "limit": 20,
+          "since": latestEvent.created_at,
+        }
+      ]));
+    } else {
+      send(JSON.stringify([
+        "REQ",
+        publicKey,
+        {
+          "authors": [publicKey],
+          "kinds": [1],
+          "limit": 20,
+        }
+      ]))
+    }
+  }
+
+  useEffect(() => {
+    fetchEventFromRelay();
+    const interval = setInterval(() => {
+      fetchEventFromRelay();
+    }, 60_000)
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
