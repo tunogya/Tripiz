@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef } from "react";
+import {createContext, useContext, useEffect, useRef, useState} from "react";
 import { useRealm } from "@realm/react";
 import { Event } from "../app/Event";
 
@@ -7,15 +7,18 @@ const WebSocketContext = createContext(null);
 const WebSocketProvider = ({ children }) => {
   const ws = useRef(null);
   const realm = useRealm();
+  const [connected, setConnected] = useState(false);
+  const [queue, setQueue] = useState([]);
 
   const connectWebSocket = () => {
     ws.current = new WebSocket("wss://relay.abandon.ai");
 
     ws.current.onopen = () => {
-      console.log("Connected to the server");
+      setConnected(true);
     };
 
     ws.current.onclose = (e) => {
+      setConnected(false);
       console.log("Disconnected. Check internet or server.");
       setTimeout(() => {
         ws.current = new WebSocket("wss://relay.abandon.ai");
@@ -23,6 +26,7 @@ const WebSocketProvider = ({ children }) => {
     };
 
     ws.current.onerror = (e) => {
+      setConnected(false);
       console.log("Error connect. Check internet or server.");
     };
 
@@ -42,10 +46,36 @@ const WebSocketProvider = ({ children }) => {
   };
 
   const send = (message: string) => {
-    if (ws.current) {
-      ws.current.send(message);
+    if (ws.current && connected) {
+      try {
+        ws.current.send(message);
+      } catch (e) {
+        setQueue([
+          ...queue,
+          message,
+        ]);
+      }
+    } else {
+      setQueue([
+        ...queue,
+        message,
+      ]);
     }
   };
+
+  useEffect(() => {
+    if (queue.length > 0 && connected) {
+      const e = queue[0];
+      try {
+        setTimeout(() => {
+          ws.current.send(e);
+          queue.shift();
+        }, 250)
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [queue, connected]);
 
   useEffect(() => {
     connectWebSocket();
