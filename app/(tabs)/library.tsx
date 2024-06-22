@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import {memo, useEffect, useMemo, useState} from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -18,6 +18,7 @@ import { selectPublicKey } from "../../reducers/account/accountSlice";
 import { useQuery } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
+import { uuid } from "expo-modules-core";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -48,34 +49,38 @@ const Page = () => {
   const fetchEventFromRelay = () => {
     if (DATA.length > 0) {
       const latestEvent = DATA[0];
-      send(JSON.stringify([
-        "REQ",
-        publicKey,
-        {
-          "authors": [publicKey],
-          "kinds": [1],
-          "limit": 20,
-          "since": latestEvent.created_at,
-        }
-      ]));
+      send(
+        JSON.stringify([
+          "REQ",
+          uuid.v4(),
+          {
+            authors: [publicKey],
+            kinds: [1],
+            limit: 20,
+            since: latestEvent.created_at,
+          },
+        ]),
+      );
     } else {
-      send(JSON.stringify([
-        "REQ",
-        publicKey,
-        {
-          "authors": [publicKey],
-          "kinds": [1],
-          "limit": 20,
-        }
-      ]))
+      send(
+        JSON.stringify([
+          "REQ",
+          uuid.v4(),
+          {
+            authors: [publicKey],
+            kinds: [1],
+            limit: 20,
+          },
+        ]),
+      );
     }
-  }
+  };
 
   useEffect(() => {
     fetchEventFromRelay();
     const interval = setInterval(() => {
       fetchEventFromRelay();
-    }, 60_000)
+    }, 60_000);
     return () => clearInterval(interval);
   }, []);
 

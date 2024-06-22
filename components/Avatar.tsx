@@ -4,6 +4,7 @@ import { View, Text } from "react-native";
 import { useQuery } from "@realm/react";
 import { Event } from "../app/Event";
 import { useWebSocket } from "./WebSocketProvider";
+import { uuid } from "expo-modules-core";
 
 const Avatar: FC<{
   publicKey: string;
@@ -24,7 +25,7 @@ const Avatar: FC<{
       send(
         JSON.stringify([
           "REQ",
-          publicKey,
+          uuid.v4(),
           {
             authors: [publicKey],
             kinds: [0],

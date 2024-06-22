@@ -27,6 +27,7 @@ import { Buffer } from "buffer";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import { useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
+import { uuid } from "expo-modules-core";
 
 const Page = () => {
   const nostrPublicKey = useSelector(selectNostrPublicKey);
@@ -108,7 +109,7 @@ const Page = () => {
       send(
         JSON.stringify([
           "REQ",
-          publicKey,
+          uuid.v4(),
           {
             authors: [publicKey],
             kinds: [0],

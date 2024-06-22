@@ -11,6 +11,7 @@ import { t } from "../i18n";
 import { useQuery } from "@realm/react";
 import { Event } from "../app/Event";
 import { useWebSocket } from "./WebSocketProvider";
+import { uuid } from "expo-modules-core";
 
 const CommentShowItem: FC<{
   item: {
@@ -43,7 +44,7 @@ const CommentShowItem: FC<{
       send(
         JSON.stringify([
           "REQ",
-          myPublicKey,
+          uuid.v4(),
           {
             authors: [item.pubkey],
             kinds: [0],

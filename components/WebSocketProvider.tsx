@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRealm } from "@realm/react";
 import { Event } from "../app/Event";
-import {useSelector} from "react-redux";
-import {selectPublicKey} from "../reducers/account/accountSlice";
+import { useSelector } from "react-redux";
+import { selectPublicKey } from "../reducers/account/accountSlice";
 
 const WebSocketContext = createContext(null);
 
