@@ -7,9 +7,9 @@ import {
   Platform,
   Pressable,
   Dimensions,
-  RefreshControl,
+  RefreshControl, FlatList,
 } from "react-native";
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
@@ -30,7 +30,6 @@ import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import { uuid } from "expo-modules-core";
-import { FlashList } from "@shopify/flash-list";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -189,9 +188,8 @@ const Page = () => {
             ></View>
           </View>
           <View className={"space-y-3"}>
-            <FlashList
+            <FlatList
               data={comments}
-              estimatedItemSize={100}
               scrollEnabled={false}
               refreshControl={
                 <RefreshControl

@@ -4,7 +4,7 @@ import {
   RefreshControl,
   ScrollView,
   Pressable,
-  ActivityIndicator,
+  ActivityIndicator, FlatList,
 } from "react-native";
 import { memo, useMemo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,7 +19,6 @@ import { useQuery } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import { uuid } from "expo-modules-core";
-import { FlashList } from "@shopify/flash-list";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -141,9 +140,8 @@ const Page = () => {
         </ScrollView>
       </View>
       <View className={"flex-1"}>
-        <FlashList
+        <FlatList
           data={filterData as Event[]}
-          estimatedItemSize={200}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

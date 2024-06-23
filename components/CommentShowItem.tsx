@@ -3,23 +3,20 @@ import React, { FC, memo, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../reducers/account/accountSlice";
 import Avatar from "./Avatar";
-import { API_HOST_NAME } from "../utils/const";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { BottomSheet, BottomSheetRef } from "react-native-sheet";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { t } from "../i18n";
-import { useQuery } from "@realm/react";
+import {useQuery, useRealm} from "@realm/react";
 import { Event } from "../app/Event";
 import { useWebSocket } from "./WebSocketProvider";
 import { uuid } from "expo-modules-core";
+import {finalizeEvent} from "nostr-tools";
+import {Buffer} from "buffer";
+import {RootState} from "../store/store";
 
 const CommentShowItem: FC<{
-  item: {
-    id: string;
-    pubkey: string;
-    content: string;
-    created_at: number;
-  };
+  item: Event;
   onPressCallback: () => void;
 }> = ({ item, onPressCallback }) => {
   const insets = useSafeAreaInsets();
@@ -29,7 +26,9 @@ const CommentShowItem: FC<{
   });
   const [name, setName] = useState("Anonymous");
   const bottomSheet = useRef<BottomSheetRef>(null);
+  const { privateKey } = useSelector((state: RootState) => state.account);
   const { send } = useWebSocket();
+  const realm = useRealm();
 
   useEffect(() => {
     if (item.pubkey === myPublicKey) {
@@ -54,16 +53,6 @@ const CommentShowItem: FC<{
       );
     }
   }, [events]);
-
-  const deleteOneEvent = async (id: string) => {
-    try {
-      await fetch(`${API_HOST_NAME}/posts/${id}`, {
-        method: "DELETE",
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <View>
@@ -130,7 +119,19 @@ const CommentShowItem: FC<{
           <TouchableOpacity
             className={"border-t border-[#FFFFFF12] h-14 justify-center"}
             onPress={async () => {
-              await deleteOneEvent(item.id);
+              const event = finalizeEvent(
+                {
+                  kind: 5,
+                  created_at: Math.floor(Date.now() / 1000),
+                  tags: [["e", item.id]],
+                  content: "Delete this comment.",
+                },
+                Buffer.from(privateKey, "hex"),
+              );
+              realm.write(() => {
+                realm.delete(item);
+              });
+              send(JSON.stringify(["EVENT", event]));
               bottomSheet.current?.hide();
             }}
           >
