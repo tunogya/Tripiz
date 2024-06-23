@@ -14,7 +14,7 @@ const WebSocketProvider = ({ children }) => {
   const pubkey = useSelector(selectPublicKey);
 
   const connectWebSocket = () => {
-    ws.current = new WebSocket(`wss://${pubkey}@relay.abandon.ai`);
+    ws.current = new WebSocket(`wss://:${pubkey}@relay.abandon.ai`);
 
     ws.current.onopen = () => {
       setConnected(true);
@@ -23,13 +23,16 @@ const WebSocketProvider = ({ children }) => {
     ws.current.onclose = (e) => {
       setConnected(false);
       setTimeout(() => {
-        ws.current = new WebSocket("wss://relay.abandon.ai");
+        ws.current = new WebSocket(`wss://:${pubkey}@relay.abandon.ai`);
       }, 5_000);
     };
 
     ws.current.onerror = (e) => {
       setConnected(false);
-      console.log("Error connect. Check internet or server.");
+      console.log(e.message)
+      setTimeout(() => {
+        ws.current = new WebSocket(`wss://:${pubkey}@relay.abandon.ai`);
+      }, 5_000);
     };
 
     ws.current.onmessage = (e) => {
