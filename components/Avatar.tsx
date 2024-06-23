@@ -19,8 +19,12 @@ const Avatar: FC<{
 
   useEffect(() => {
     if (events.length > 0) {
-      const userinfo = JSON.parse(events[0]?.content);
-      setPicture(userinfo?.picture);
+      try {
+        const userinfo = JSON.parse(events[0]?.content);
+        setPicture(userinfo?.picture);
+      } catch (e) {
+        console.log(e)
+      }
     } else {
       send(
         JSON.stringify([

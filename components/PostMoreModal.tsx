@@ -43,12 +43,10 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
             <Pressable
               className={"p-2 flex flex-row space-x-3 items-center"}
               onPress={() => {
-                realm.write(() => {
-                  realm.delete(post);
-                });
+                router.navigate("library");
                 const event = finalizeEvent(
                   {
-                    kind: 0,
+                    kind: 5,
                     created_at: Math.floor(Date.now() / 1000),
                     tags: [
                       ["e", post.id]
@@ -57,8 +55,12 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
                   },
                   Buffer.from(privateKey, "hex"),
                 );
+                setTimeout(() => {
+                  realm.write(() => {
+                    realm.delete(post);
+                  });
+                }, 200);
                 send(JSON.stringify(["EVENT", event]));
-                router.navigate("library");
               }}
             >
               <Ionicons name="trash-outline" size={24} color="white" />
