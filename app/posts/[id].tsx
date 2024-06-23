@@ -9,7 +9,7 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
-import React, { memo, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
@@ -29,6 +29,7 @@ import { Buffer } from "buffer";
 import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
+import { uuid } from "expo-modules-core";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -54,6 +55,20 @@ const Page = () => {
       return e === id;
     });
   }, [events, id]);
+
+  useEffect(() => {
+    send(
+      JSON.stringify([
+        "REQ",
+        uuid.v4(),
+        {
+          kinds: [1],
+          "#e": [id],
+          limit: 20,
+        },
+      ]),
+    );
+  }, []);
 
   const newComment = async () => {
     try {

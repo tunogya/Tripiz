@@ -36,9 +36,9 @@ const Page = () => {
   const filterData = useMemo(() => {
     if (filter) {
       return DATA.filter((item) => {
-        const category = item?.tags?.find(
-          (tag: any[]) => tag?.[0] === "category",
-        )?.[1] || "reflections";
+        const category =
+          item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1] ||
+          "reflections";
         return category === filter;
       });
     } else {
