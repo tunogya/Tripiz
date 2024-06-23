@@ -23,7 +23,7 @@ const Avatar: FC<{
         const userinfo = JSON.parse(events[0]?.content);
         setPicture(userinfo?.picture);
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     } else {
       send(

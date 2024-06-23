@@ -5,7 +5,7 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import {memo, useEffect, useMemo, useState} from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import QRCode from "react-native-qrcode-svg";
@@ -122,11 +122,11 @@ const Page = () => {
 
   const picture = useMemo(() => {
     try {
-      return JSON.parse(userInfoEvent?.content || "{}")?.picture
+      return JSON.parse(userInfoEvent?.content || "{}")?.picture;
     } catch (e) {
       return undefined;
     }
-  }, [userInfoEvent])
+  }, [userInfoEvent]);
 
   return (
     <View className={"bg-[#121212] flex flex-1"}>

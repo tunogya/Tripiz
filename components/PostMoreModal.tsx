@@ -7,10 +7,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRealm } from "@realm/react";
 import { router } from "expo-router";
 import { useWebSocket } from "./WebSocketProvider";
-import {finalizeEvent} from "nostr-tools";
-import {Buffer} from "buffer";
-import {useSelector} from "react-redux";
-import {RootState} from "../store/store";
+import { finalizeEvent } from "nostr-tools";
+import { Buffer } from "buffer";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const PostMoreModal = ({ post, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
@@ -48,9 +48,7 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
                   {
                     kind: 5,
                     created_at: Math.floor(Date.now() / 1000),
-                    tags: [
-                      ["e", post.id]
-                    ],
+                    tags: [["e", post.id]],
                     content: "Delete this post.",
                   },
                   Buffer.from(privateKey, "hex"),

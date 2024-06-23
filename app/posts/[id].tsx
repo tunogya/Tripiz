@@ -6,7 +6,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  Dimensions, RefreshControl,
+  Dimensions,
+  RefreshControl,
 } from "react-native";
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -72,7 +73,7 @@ const Page = () => {
       ]),
     );
     setRefreshing(false);
-  }
+  };
 
   const newComment = async () => {
     try {
