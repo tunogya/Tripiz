@@ -23,6 +23,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@realm/react": "^0.8.0",
     "@reduxjs/toolkit": "^2.2.5",
+    "@shopify/flash-list": "1.6.4",
     "@types/react": "~18.2.79",
     "bech32": "^2.0.0",
     "buffer": "^6.0.3",

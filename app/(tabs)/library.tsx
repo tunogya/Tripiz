@@ -4,7 +4,6 @@ import {
   ScrollView,
   Pressable,
   ActivityIndicator,
-  FlatList,
 } from "react-native";
 import { memo, useEffect, useMemo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,6 +18,7 @@ import { useQuery } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import { uuid } from "expo-modules-core";
+import {FlashList} from "@shopify/flash-list";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -161,9 +161,9 @@ const Page = () => {
         </ScrollView>
       </View>
       <View className={"flex-1"}>
-        <FlatList
-          data={filterData}
-          scrollEventThrottle={1000}
+        <FlashList
+          data={filterData as any[]}
+          estimatedItemSize={200}
           keyExtractor={(item: any) => item.id}
           ListEmptyComponent={() =>
             !isLoading && (
@@ -188,7 +188,7 @@ const Page = () => {
             </View>
           )}
           renderItem={({ item }) => (
-            <LibraryShowItem item={item} showType={!filter} />
+            <LibraryShowItem key={item.id} item={item} showType={!filter} />
           )}
         />
       </View>
