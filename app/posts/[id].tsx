@@ -7,7 +7,6 @@ import {
   Platform,
   Pressable,
   Dimensions,
-  FlatList,
 } from "react-native";
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -30,6 +29,7 @@ import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import { uuid } from "expo-modules-core";
+import { FlashList } from "@shopify/flash-list";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -185,8 +185,9 @@ const Page = () => {
             ></View>
           </View>
           <View className={"space-y-3"}>
-            <FlatList
+            <FlashList
               data={comments}
+              estimatedItemSize={100}
               scrollEnabled={false}
               showsVerticalScrollIndicator={false}
               renderItem={({ item }: any) => (
@@ -196,7 +197,6 @@ const Page = () => {
                     if (inputRef) {
                       inputRef.current.focus();
                     }
-                    // setReplyEvent(item);
                   }}
                 />
               )}
@@ -209,8 +209,7 @@ const Page = () => {
                   </View>
                 )
               }
-              // @ts-ignore
-              keyExtractor={(item, index) => item.id}
+              keyExtractor={(item) => `${item.id}`}
             />
           </View>
           <View style={{ height: 400 }}></View>

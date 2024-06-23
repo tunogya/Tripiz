@@ -18,7 +18,7 @@ import { useQuery } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import { uuid } from "expo-modules-core";
-import {FlashList} from "@shopify/flash-list";
+import { FlashList } from "@shopify/flash-list";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -162,7 +162,7 @@ const Page = () => {
       </View>
       <View className={"flex-1"}>
         <FlashList
-          data={filterData as any[]}
+          data={filterData as Event[]}
           estimatedItemSize={200}
           keyExtractor={(item: any) => item.id}
           ListEmptyComponent={() =>

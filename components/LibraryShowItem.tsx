@@ -4,19 +4,15 @@ import { router } from "expo-router";
 import { t } from "../i18n";
 import { Image } from "expo-image";
 import { API_HOST_NAME } from "../utils/const";
+import { Event } from "../app/Event";
 
 const LibraryShowItem: FC<{
-  item: {
-    id: string;
-    content: string;
-    tags: [][];
-  };
+  item: Event;
   showType: boolean;
 }> = ({ item, showType }) => {
-  const category = item?.tags?.find(
-    (tag: any[]) => tag?.[0] === "category",
-    // @ts-ignore
-  )?.[1] || "reflections";
+  const category =
+    item.tags.find((tag: any[]) => tag?.[0] === "category")?.[1] ||
+    "reflections";
 
   return (
     <Pressable

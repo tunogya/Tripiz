@@ -13,7 +13,7 @@ const WebSocketProvider = ({ children }) => {
   const [queue, setQueue] = useState([]);
   const pubkey = useSelector(selectPublicKey);
 
-  const url = `wss://${pubkey}:default@relay.abandon.ai`
+  const url = `wss://${pubkey}:default@relay.abandon.ai`;
 
   const connectWebSocket = () => {
     ws.current = new WebSocket(url);
@@ -31,7 +31,7 @@ const WebSocketProvider = ({ children }) => {
 
     ws.current.onerror = (e) => {
       setConnected(false);
-      console.log(e.message)
+      console.log(e.message);
       setTimeout(() => {
         ws.current = new WebSocket(url);
       }, 5_000);

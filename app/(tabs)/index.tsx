@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
 import { useQuery } from "@realm/react";
 import { Event } from "../Event";
+import { FlashList } from "@shopify/flash-list";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -73,10 +74,10 @@ const Page = () => {
         </View>
       </View>
       <View className={"flex-1"}>
-        <FlatList
-          data={filterData}
-          scrollEventThrottle={1000}
-          keyExtractor={(item: any) => item.id}
+        <FlashList
+          data={filterData as Event[]}
+          estimatedItemSize={200}
+          keyExtractor={(item) => item.id}
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View
