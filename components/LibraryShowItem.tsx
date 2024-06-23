@@ -13,10 +13,10 @@ const LibraryShowItem: FC<{
   };
   showType: boolean;
 }> = ({ item, showType }) => {
-  // @ts-ignore
   const category = item?.tags?.find(
     (tag: any[]) => tag?.[0] === "category",
-  )?.[1];
+    // @ts-ignore
+  )?.[1] || "reflections";
 
   return (
     <Pressable

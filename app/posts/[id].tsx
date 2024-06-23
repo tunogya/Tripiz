@@ -57,15 +57,6 @@ const Page = () => {
   }, [events, id]);
 
   useEffect(() => {
-    console.log([
-      "REQ",
-      uuid.v4(),
-      {
-        kinds: [1],
-        "#e": [id],
-        limit: 20,
-      },
-    ])
     send(
       JSON.stringify([
         "REQ",
@@ -74,6 +65,7 @@ const Page = () => {
           kinds: [1],
           "#e": [id],
           limit: 20,
+          since: comments.length > 0 ? comments[0].created_at : 0,
         },
       ]),
     );

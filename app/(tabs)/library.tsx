@@ -30,7 +30,9 @@ const Page = () => {
   const { send } = useWebSocket();
 
   const DATA = useQuery(Event, (events) => {
-    return events.filtered("kind == $0", 1).sorted("created_at", true);
+    return events
+      .filtered("kind == $0 && pubkey == $1", 1, publicKey)
+      .sorted("created_at", true);
   });
 
   const filterData = useMemo(() => {
