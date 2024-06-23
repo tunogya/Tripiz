@@ -57,6 +57,15 @@ const Page = () => {
   }, [events, id]);
 
   useEffect(() => {
+    console.log([
+      "REQ",
+      uuid.v4(),
+      {
+        kinds: [1],
+        "#e": [id],
+        limit: 20,
+      },
+    ])
     send(
       JSON.stringify([
         "REQ",
