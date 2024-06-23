@@ -1,11 +1,12 @@
 import {
   View,
   Text,
+  RefreshControl,
   ScrollView,
   Pressable,
   ActivityIndicator,
 } from "react-native";
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -22,7 +23,7 @@ import { FlashList } from "@shopify/flash-list";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
-
+  const [refreshing, setRefreshing] = useState(false);
   const FILTERS = ["memories", "dreams", "reflections"];
   const [filter, setFilter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -49,42 +50,21 @@ const Page = () => {
   }, [DATA, filter]);
 
   const fetchEventFromRelay = () => {
-    if (DATA?.length > 0) {
-      const latestEvent = DATA[0];
-      send(
-        JSON.stringify([
-          "REQ",
-          uuid.v4(),
-          {
-            authors: [publicKey],
-            kinds: [1],
-            limit: 20,
-            since: latestEvent.created_at,
-          },
-        ]),
-      );
-    } else {
-      send(
-        JSON.stringify([
-          "REQ",
-          uuid.v4(),
-          {
-            authors: [publicKey],
-            kinds: [1],
-            limit: 20,
-          },
-        ]),
-      );
-    }
+    setRefreshing(true);
+    send(
+      JSON.stringify([
+        "REQ",
+        uuid.v4(),
+        {
+          authors: [publicKey],
+          kinds: [1],
+          limit: 20,
+          since: DATA?.[0]?.created_at || 0,
+        },
+      ]),
+    );
+    setRefreshing(false);
   };
-
-  useEffect(() => {
-    fetchEventFromRelay();
-    const interval = setInterval(() => {
-      fetchEventFromRelay();
-    }, 60_000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
@@ -164,6 +144,17 @@ const Page = () => {
         <FlashList
           data={filterData as Event[]}
           estimatedItemSize={200}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={fetchEventFromRelay}
+              colors={["#B3B3B3"]}
+              progressBackgroundColor="#121212"
+              tintColor="#B3B3B3"
+              title="Loading..."
+              titleColor="#B3B3B3"
+            />
+          }
           keyExtractor={(item: any) => item.id}
           ListEmptyComponent={() =>
             !isLoading && (
