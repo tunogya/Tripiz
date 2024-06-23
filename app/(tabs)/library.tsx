@@ -49,7 +49,7 @@ const Page = () => {
   }, [DATA, filter]);
 
   const fetchEventFromRelay = () => {
-    if (DATA.length > 0) {
+    if (DATA?.length > 0) {
       const latestEvent = DATA[0];
       send(
         JSON.stringify([
