@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  Dimensions,
+  Dimensions, RefreshControl,
 } from "react-native";
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -34,6 +34,7 @@ import { FlashList } from "@shopify/flash-list";
 const Page = () => {
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
+  const [refreshing, setRefreshing] = useState(false);
   const screenWidth = Dimensions.get("window").width;
   const screenHeight = Dimensions.get("window").height;
   const [isFocused, setIsFocused] = useState(false);
@@ -56,7 +57,8 @@ const Page = () => {
     });
   }, [events, id]);
 
-  useEffect(() => {
+  const onRefresh = () => {
+    setRefreshing(true);
     send(
       JSON.stringify([
         "REQ",
@@ -69,7 +71,8 @@ const Page = () => {
         },
       ]),
     );
-  }, []);
+    setRefreshing(false);
+  }
 
   const newComment = async () => {
     try {
@@ -189,6 +192,17 @@ const Page = () => {
               data={comments}
               estimatedItemSize={100}
               scrollEnabled={false}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                  colors={["#B3B3B3"]}
+                  progressBackgroundColor="#121212"
+                  tintColor="#B3B3B3"
+                  title="Loading..."
+                  titleColor="#B3B3B3"
+                />
+              }
               showsVerticalScrollIndicator={false}
               renderItem={({ item }: any) => (
                 <CommentShowItem

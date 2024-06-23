@@ -49,7 +49,7 @@ const Page = () => {
     }
   }, [DATA, filter]);
 
-  const fetchEventFromRelay = () => {
+  const onRefresh = () => {
     setRefreshing(true);
     send(
       JSON.stringify([
@@ -147,7 +147,7 @@ const Page = () => {
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
-              onRefresh={fetchEventFromRelay}
+              onRefresh={onRefresh}
               colors={["#B3B3B3"]}
               progressBackgroundColor="#121212"
               tintColor="#B3B3B3"
