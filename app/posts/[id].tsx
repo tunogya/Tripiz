@@ -143,6 +143,17 @@ const Page = () => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           className={"w-full"}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={["#B3B3B3"]}
+              progressBackgroundColor="#121212"
+              tintColor="#B3B3B3"
+              title="Loading..."
+              titleColor="#B3B3B3"
+            />
+          }
           style={{
             height: screenHeight - insets.bottom,
           }}
@@ -191,17 +202,6 @@ const Page = () => {
             <FlatList
               data={comments}
               scrollEnabled={false}
-              refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={onRefresh}
-                  colors={["#B3B3B3"]}
-                  progressBackgroundColor="#121212"
-                  tintColor="#B3B3B3"
-                  title="Loading..."
-                  titleColor="#B3B3B3"
-                />
-              }
               showsVerticalScrollIndicator={false}
               renderItem={({ item }: any) => (
                 <CommentShowItem
