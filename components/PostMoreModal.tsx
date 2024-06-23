@@ -7,10 +7,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRealm } from "@realm/react";
 import { router } from "expo-router";
 import { useWebSocket } from "./WebSocketProvider";
+import {finalizeEvent} from "nostr-tools";
+import {Buffer} from "buffer";
+import {useSelector} from "react-redux";
+import {RootState} from "../store/store";
 
 const PostMoreModal = ({ post, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
   const realm = useRealm();
+  const { privateKey } = useSelector((state: RootState) => state.account);
   const { send } = useWebSocket();
 
   return (
@@ -40,9 +45,20 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
               onPress={() => {
                 realm.write(() => {
                   realm.delete(post);
-                  // POST
-                  router.navigate("library");
                 });
+                const event = finalizeEvent(
+                  {
+                    kind: 0,
+                    created_at: Math.floor(Date.now() / 1000),
+                    tags: [
+                      ["e", post.id]
+                    ],
+                    content: "Delete this post.",
+                  },
+                  Buffer.from(privateKey, "hex"),
+                );
+                send(JSON.stringify(["EVENT", event]));
+                router.navigate("library");
               }}
             >
               <Ionicons name="trash-outline" size={24} color="white" />
