@@ -16,6 +16,7 @@ import { AppState } from "react-native";
 import { RealmProvider } from "@realm/react";
 import { Event } from "./Event";
 import { WebSocketProvider } from "../components/WebSocketProvider";
+import {t} from "../i18n";
 
 applyGlobalPolyfills();
 
@@ -125,7 +126,7 @@ export default function RootLayout() {
                   <Stack.Screen
                     name="settings/index"
                     options={{
-                      title: "Settings",
+                      title: t("Settings"),
                       headerShown: true,
                       headerTintColor: "white",
                       headerBackTitleVisible: false,
@@ -137,7 +138,7 @@ export default function RootLayout() {
                   <Stack.Screen
                     name="settings/account"
                     options={{
-                      title: "Account",
+                      title: t("Account"),
                       headerShown: true,
                       headerTintColor: "white",
                       headerBackTitleVisible: false,
@@ -149,7 +150,7 @@ export default function RootLayout() {
                   <Stack.Screen
                     name="settings/storage"
                     options={{
-                      title: "Storage",
+                      title: t("Storage"),
                       headerShown: true,
                       headerTintColor: "white",
                       headerBackTitleVisible: false,
@@ -161,7 +162,7 @@ export default function RootLayout() {
                   <Stack.Screen
                     name="settings/about"
                     options={{
-                      title: "About",
+                      title: t("About"),
                       headerShown: true,
                       headerTintColor: "white",
                       headerBackTitleVisible: false,

@@ -23,15 +23,19 @@ const Page = () => {
           {Constants.deviceName}
         </Text>
       </View>
-      <View
-        className={"px-4 py-2 flex flex-row justify-between items-center"}>
-        <Text className={"text-white font-medium"}>
-          Debug Mode
-        </Text>
-        <Text className={"text-[#B3B3B3] text-xs"}>
-          {Constants.debugMode ? "Yes" : "No"}
-        </Text>
-      </View>
+      {
+        Constants.debugMode && (
+          <View
+            className={"px-4 py-2 flex flex-row justify-between items-center"}>
+            <Text className={"text-white font-medium"}>
+              Mode
+            </Text>
+            <Text className={"text-[#B3B3B3] text-xs"}>
+              Debug
+            </Text>
+          </View>
+        )
+      }
     </ScrollView>
   )
 }

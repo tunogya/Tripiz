@@ -10,6 +10,7 @@ import {Buffer} from "buffer";
 import {RootState} from "../../store/store";
 import {useRealm} from "@realm/react";
 import {useWebSocket} from "../../components/WebSocketProvider";
+import {t} from "../../i18n";
 
 const Page = () => {
   const publicKey = useSelector(selectPublicKey);
@@ -61,7 +62,7 @@ const Page = () => {
               onPress={randomPicture}
             >
               <Text className={"text-[#1DB954] text-xs font-medium"}>
-                Shuffle Avatar
+                {t("Shuffle avatar")}
               </Text>
             </Pressable>
           </View>
@@ -74,7 +75,7 @@ const Page = () => {
       >
         <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-medium"}>
-            Account
+            {t("Account")}
           </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
@@ -86,7 +87,7 @@ const Page = () => {
       >
         <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-medium"}>
-            Storage
+            {t("Storage")}
           </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
@@ -98,7 +99,7 @@ const Page = () => {
       >
         <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
           <Text className={"text-white font-medium"}>
-            About
+            {t("About")}
           </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
