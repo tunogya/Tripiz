@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useWebSocket } from "../components/WebSocketProvider";
+import { useWebSocket } from "./WebSocketProvider";
 import { useQuery } from "@realm/react";
 import { Event } from "../app/Event";
 import { uuid } from "expo-modules-core";

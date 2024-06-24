@@ -1,7 +1,7 @@
 import { Image } from "expo-image";
 import { FC, memo } from "react";
 import { View, Text } from "react-native";
-import useUserInfo from "../utils/useUserInfo";
+import useUserInfo from "./useUserInfo";
 
 const Avatar: FC<{
   publicKey: string;

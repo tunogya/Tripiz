@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Avatar from "./Avatar";
 import Clipboard from "@react-native-clipboard/clipboard";
-import useUserInfo from "../utils/useUserInfo";
+import useUserInfo from "./useUserInfo";
 
 const PostMoreModal = ({ post, onClose }) => {
   const insets = useSafeAreaInsets();

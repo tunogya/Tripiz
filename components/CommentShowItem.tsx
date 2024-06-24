@@ -2,7 +2,7 @@ import { Pressable, Text, View } from "react-native";
 import React, { FC, memo } from "react";
 import Avatar from "./Avatar";
 import { Event } from "../app/Event";
-import useUserInfo from "../utils/useUserInfo";
+import useUserInfo from "./useUserInfo";
 
 const CommentShowItem: FC<{
   item: Event;
