@@ -17,7 +17,7 @@ const WebSocketProvider = ({ children }) => {
   const handleReconnection = () => {
     setTimeout(() => {
       connectWebSocket();
-    }, 5000);
+    }, 2_000);
   };
 
   const connectWebSocket = () => {
@@ -25,6 +25,7 @@ const WebSocketProvider = ({ children }) => {
 
     ws.current.onopen = () => {
       setConnected(true);
+      console.log("Websocket connected.")
     };
 
     ws.current.onclose = (e) => {
