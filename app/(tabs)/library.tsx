@@ -68,7 +68,7 @@ const Page = () => {
 
   useEffect(() => {
     onRefresh();
-  }, []);
+  }, [publicKey]);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
