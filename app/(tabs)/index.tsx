@@ -19,9 +19,14 @@ const Page = () => {
 
   const DATA = useQuery(Event);
 
+  function sanitizeSearchTerm(term: string) {
+    const pattern = /[^\u4e00-\u9fa5a-zA-Z0-9]/g;
+    return term.replace(pattern, '');
+  }
+
   const filterData = useMemo(() => {
-    if (query) {
-      return DATA.filtered("kind == $0 && pubkey == $1 && content TEXT $2", 1, publicKey, query);
+    if (sanitizeSearchTerm(query)) {
+      return DATA.filtered("kind == $0 && pubkey == $1 && content TEXT $2", 1, publicKey, sanitizeSearchTerm(query));
     } else {
       return [];
     }
