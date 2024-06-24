@@ -14,6 +14,12 @@ const WebSocketProvider = ({ children }) => {
 
   const url = `wss://${pubkey}:default@relay.abandon.ai`;
 
+  const handleReconnection = () => {
+    setTimeout(() => {
+      connectWebSocket();
+    }, 5000);
+  };
+
   const connectWebSocket = () => {
     ws.current = new WebSocket(url);
 
@@ -23,17 +29,14 @@ const WebSocketProvider = ({ children }) => {
 
     ws.current.onclose = (e) => {
       setConnected(false);
-      setTimeout(() => {
-        ws.current = new WebSocket(url);
-      }, 5_000);
+      console.log("WebSocket closed, attempting to reconnect...");
+      handleReconnection();
     };
 
     ws.current.onerror = (e) => {
       setConnected(false);
-      console.log(e.message);
-      setTimeout(() => {
-        ws.current = new WebSocket(url);
-      }, 5_000);
+      console.log(`WebSocket error: ${e.message}, attempting to reconnect...`);
+      handleReconnection();
     };
 
     ws.current.onmessage = (e) => {
@@ -67,10 +70,8 @@ const WebSocketProvider = ({ children }) => {
     if (queue.length > 0 && connected) {
       const e = queue[0];
       try {
-        setTimeout(() => {
-          ws.current.send(e);
-          queue.shift();
-        }, 250);
+        ws.current.send(e);
+        setQueue((prevQueue) => prevQueue.slice(1)); // Remove the sent message
       } catch (e) {
         console.log(e);
       }
