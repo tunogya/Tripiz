@@ -53,14 +53,14 @@ const Page = () => {
             publicKey={publicKey}
           />
           <View className={"space-y-1.5 flex-1 mr-10"}>
-            <Text className={"text-white font-medium"} numberOfLines={1}>
+            <Text className={"text-[#B3B3B3] font-medium"} numberOfLines={1}>
               {nostrPublicKey}
             </Text>
             <Pressable
               hitSlop={8}
               onPress={randomPicture}
             >
-              <Text className={"text-[#B3B3B3] text-xs"}>
+              <Text className={"text-[#1DB954] text-xs font-medium"}>
                 Shuffle Avatar
               </Text>
             </Pressable>
