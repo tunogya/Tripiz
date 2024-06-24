@@ -43,22 +43,26 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
             <Pressable
               className={"p-2 flex flex-row space-x-3 items-center"}
               onPress={() => {
-                router.navigate("library");
-                const event = finalizeEvent(
-                  {
-                    kind: 5,
-                    created_at: Math.floor(Date.now() / 1000),
-                    tags: [["e", post.id]],
-                    content: "Delete this post.",
-                  },
-                  Buffer.from(privateKey, "hex"),
-                );
-                setTimeout(() => {
-                  realm.write(() => {
-                    realm.delete(post);
-                  });
-                }, 200);
-                send(JSON.stringify(["EVENT", event]));
+                try {
+                  router.navigate("library");
+                  const event = finalizeEvent(
+                    {
+                      kind: 5,
+                      created_at: Math.floor(Date.now() / 1000),
+                      tags: [["e", post.id]],
+                      content: "Delete this post.",
+                    },
+                    Buffer.from(privateKey, "hex"),
+                  );
+                  send(JSON.stringify(["EVENT", event]));
+                  setTimeout(() => {
+                    realm.write(() => {
+                      realm.delete(post);
+                    });
+                  }, 200);
+                } catch (e) {
+                  console.log(e)
+                }
               }}
             >
               <Ionicons name="trash-outline" size={24} color="white" />

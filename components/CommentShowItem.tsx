@@ -119,20 +119,25 @@ const CommentShowItem: FC<{
           <TouchableOpacity
             className={"border-t border-[#FFFFFF12] h-14 justify-center"}
             onPress={async () => {
-              const event = finalizeEvent(
-                {
-                  kind: 5,
-                  created_at: Math.floor(Date.now() / 1000),
-                  tags: [["e", item.id]],
-                  content: "Delete this comment.",
-                },
-                Buffer.from(privateKey, "hex"),
-              );
-              realm.write(() => {
-                realm.delete(item);
-              });
-              send(JSON.stringify(["EVENT", event]));
-              bottomSheet.current?.hide();
+              try {
+                const event = finalizeEvent(
+                  {
+                    kind: 5,
+                    created_at: Math.floor(Date.now() / 1000),
+                    tags: [["e", item.id]],
+                    content: "Delete this comment.",
+                  },
+                  Buffer.from(privateKey, "hex"),
+                );
+                send(JSON.stringify(["EVENT", event]));
+                realm.write(() => {
+                  realm.delete(item);
+                });
+              } catch (e) {
+                console.log(e)
+              } finally {
+                bottomSheet.current?.hide();
+              }
             }}
           >
             <Text
