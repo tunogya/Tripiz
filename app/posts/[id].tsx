@@ -25,7 +25,6 @@ import { API_HOST_NAME } from "../../utils/const";
 import { ensureString } from "../../utils/ensureString";
 import { LinearGradient } from "expo-linear-gradient";
 import { finalizeEvent } from "nostr-tools";
-import Clipboard from "@react-native-clipboard/clipboard";
 import { Buffer } from "buffer";
 import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
@@ -48,6 +47,7 @@ const Page = () => {
   const events = useQuery(Event, (events) => {
     return events.filtered("kind == $0", 1).sorted("created_at", true);
   });
+  const [event, setEvent] = useState(undefined);
   const realm = useRealm();
   const { send } = useWebSocket();
 
@@ -137,6 +137,7 @@ const Page = () => {
           <Pressable
             className={"w-10 h-10 items-center justify-center"}
             onPress={() => {
+              setEvent(data);
               setShowModal(true);
             }}
           >
@@ -211,10 +212,9 @@ const Page = () => {
               renderItem={({ item }: any) => (
                 <CommentShowItem
                   item={item}
-                  onPressCallback={() => {
-                    if (inputRef) {
-                      inputRef.current.focus();
-                    }
+                  onPress={() => {
+                    setEvent(item);
+                    setShowModal(true);
                   }}
                 />
               )}
@@ -275,15 +275,9 @@ const Page = () => {
           )}
         </View>
       </KeyboardAvoidingView>
-      {showModal && (
+      {showModal && event && (
         <PostMoreModal
-          post={data}
-          onCopy={() => {
-            if (data?.content) {
-              Clipboard.setString(data?.content);
-              setShowModal(false);
-            }
-          }}
+          post={event}
           onClose={() => {
             setShowModal(false);
           }}

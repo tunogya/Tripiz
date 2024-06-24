@@ -12,8 +12,9 @@ import { Buffer } from "buffer";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Avatar from "./Avatar";
+import Clipboard from "@react-native-clipboard/clipboard";
 
-const PostMoreModal = ({ post, onCopy, onClose }) => {
+const PostMoreModal = ({ post, onClose }) => {
   const insets = useSafeAreaInsets();
   const realm = useRealm();
   const { privateKey } = useSelector((state: RootState) => state.account);
@@ -42,7 +43,8 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
             <Pressable
               className={"p-2 flex flex-row space-x-3 items-center"}
               onPress={() => {
-                onCopy();
+                Clipboard.setString(post.content);
+                onClose();
               }}
             >
               <Ionicons name="copy-outline" size={24} color="white" />
