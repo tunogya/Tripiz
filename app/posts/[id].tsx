@@ -9,7 +9,7 @@ import {
   Dimensions,
   RefreshControl, FlatList,
 } from "react-native";
-import React, { memo, useMemo, useRef, useState } from "react";
+import React, {memo, useEffect, useMemo, useRef, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { router, useLocalSearchParams } from "expo-router";
@@ -73,6 +73,10 @@ const Page = () => {
     );
     setRefreshing(false);
   };
+
+  useEffect(() => {
+    onRefresh();
+  }, []);
 
   const newComment = async () => {
     try {

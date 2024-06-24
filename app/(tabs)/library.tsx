@@ -6,7 +6,7 @@ import {
   Pressable,
   ActivityIndicator, FlatList,
 } from "react-native";
-import { memo, useMemo, useState } from "react";
+import {memo, useEffect, useMemo, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -64,6 +64,10 @@ const Page = () => {
     );
     setRefreshing(false);
   };
+
+  useEffect(() => {
+    onRefresh();
+  }, []);
 
   return (
     <View className={"flex flex-1 bg-[#121212]"}>
