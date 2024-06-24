@@ -1,5 +1,5 @@
 import { Pressable, Text, TextInput, View } from "react-native";
-import { memo, useMemo, useState } from "react";
+import {memo, useMemo, useState} from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import LibraryShowItem from "../../components/LibraryShowItem";
@@ -21,7 +21,7 @@ const Page = () => {
 
   const filterData = useMemo(() => {
     if (query) {
-      return DATA.filtered("kind == $0 && content TEXT $1", 1, query);
+      return DATA.filtered("kind == $0 && pubkey == $1 && content TEXT $2", 1, publicKey, query);
     } else {
       return [];
     }
