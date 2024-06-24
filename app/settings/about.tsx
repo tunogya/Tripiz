@@ -8,21 +8,21 @@ const Page = () => {
   return (
     <ScrollView className={"bg-[#121212] flex flex-1"}>
       <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
-        <Text className={"text-white font-medium"}>{t("Version")}</Text>
-        <Text className={"text-[#B3B3B3] text-xs"}>
+        <Text className={"text-white font-medium text-[16px]"}>{t("Version")}</Text>
+        <Text className={"text-[#B3B3B3]"}>
           {Constants.easConfig.version}
         </Text>
       </View>
       <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
-        <Text className={"text-white font-medium"}>{t("Device Name")}</Text>
-        <Text className={"text-[#B3B3B3] text-xs"}>{Constants.deviceName}</Text>
+        <Text className={"text-white font-medium text-[16px]"}>{t("Device Name")}</Text>
+        <Text className={"text-[#B3B3B3]"}>{Constants.deviceName}</Text>
       </View>
       {Constants.debugMode && (
         <View
           className={"px-4 py-2 flex flex-row justify-between items-center"}
         >
-          <Text className={"text-white font-medium"}>{t("Mode")}</Text>
-          <Text className={"text-[#B3B3B3] text-xs"}>Debug</Text>
+          <Text className={"text-white font-medium text-[16px]"}>{t("Mode")}</Text>
+          <Text className={"text-[#B3B3B3]"}>Debug</Text>
         </View>
       )}
       <View className={"h-4"}></View>
@@ -30,7 +30,7 @@ const Page = () => {
         href={"https://www.abandon.ai/docs/policies/Legal/terms-of-use"}
         className={"py-1"}
       >
-        <Text className={"text-[#B3B3B3] text-center text-xs underline"}>
+        <Text className={"text-[#B3B3B3] text-center text-[16px] underline "}>
           {t("Terms of use")}
         </Text>
       </Link>
@@ -38,7 +38,7 @@ const Page = () => {
         href={"https://www.abandon.ai/docs/policies/Legal/privacy-policy"}
         className={"py-1"}
       >
-        <Text className={"text-[#B3B3B3] text-center text-xs underline"}>
+        <Text className={"text-[#B3B3B3] text-center text-[16px] underline"}>
           {t("Privacy policy")}
         </Text>
       </Link>

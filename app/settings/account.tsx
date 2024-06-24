@@ -53,8 +53,8 @@ const Page = () => {
         }}
         className={"px-4 py-2 space-y-1"}
       >
-        <Text className={"text-white font-medium"}>{t("Public Key")}</Text>
-        <Text className={"text-[#B3B3B3] text-xs"}>{nostrPublicKey}</Text>
+        <Text className={"text-white font-medium text-[16px]"}>{t("Public Key")}</Text>
+        <Text className={"text-[#B3B3B3]"}>{nostrPublicKey}</Text>
       </Pressable>
       <Pressable
         onPress={() => {
@@ -62,8 +62,8 @@ const Page = () => {
         }}
         className={"px-4 py-2 space-y-1"}
       >
-        <Text className={"text-white font-medium"}>{t("Private Key")}</Text>
-        <Text className={"text-[#B3B3B3] text-xs"}>{nostrPrivateKey}</Text>
+        <Text className={"text-white font-medium text-[16px]"}>{t("Private Key")}</Text>
+        <Text className={"text-[#B3B3B3]"}>{nostrPrivateKey}</Text>
       </Pressable>
       <View className={"flex items-center pt-2 pb-8"}>
         <View className={"bg-white p-3 space-y-1.5"}>
@@ -74,16 +74,16 @@ const Page = () => {
         </View>
       </View>
       <View className={"px-4 py-2 space-y-1"}>
-        <Text className={"text-white font-medium"}>{t("What is Nostr")}</Text>
-        <Text className={"text-[#B3B3B3] text-xs"}>
+        <Text className={"text-white font-medium text-[16px]"}>{t("What is Nostr")}</Text>
+        <Text className={"text-[#B3B3B3]"}>
           {t("Nostr description")}
         </Text>
       </View>
       <Pressable onPress={pickImage} className={"px-4 py-2 space-y-1"}>
-        <Text className={"text-white font-medium"}>
+        <Text className={"text-white font-medium text-[16px]"}>
           {t("I already have a Nostr account")}
         </Text>
-        <Text className={"text-[#B3B3B3] underline text-xs"}>
+        <Text className={"text-[#1DB954] underline font-bold"}>
           {t(`Import my Nostr key`)}
         </Text>
       </Pressable>
