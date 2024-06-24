@@ -74,7 +74,9 @@ const Page = () => {
         <View
           className={"px-4 py-2 flex flex-row justify-between items-center"}
         >
-          <Text className={"text-white font-medium text-[16px]"}>{t("Account")}</Text>
+          <Text className={"text-white font-medium text-[16px]"}>
+            {t("Account")}
+          </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
       </Pressable>
@@ -86,7 +88,9 @@ const Page = () => {
         <View
           className={"px-4 py-2 flex flex-row justify-between items-center"}
         >
-          <Text className={"text-white font-medium text-[16px]"}>{t("Storage")}</Text>
+          <Text className={"text-white font-medium text-[16px]"}>
+            {t("Storage")}
+          </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
       </Pressable>
@@ -98,7 +102,9 @@ const Page = () => {
         <View
           className={"px-4 py-2 flex flex-row justify-between items-center"}
         >
-          <Text className={"text-white font-medium text-[16px]"}>{t("About")}</Text>
+          <Text className={"text-white font-medium text-[16px]"}>
+            {t("About")}
+          </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
       </Pressable>

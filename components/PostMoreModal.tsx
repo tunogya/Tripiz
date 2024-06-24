@@ -13,11 +13,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Avatar from "./Avatar";
 import Clipboard from "@react-native-clipboard/clipboard";
+import useUserInfo from "../utils/useUserInfo";
 
 const PostMoreModal = ({ post, onClose }) => {
   const insets = useSafeAreaInsets();
   const realm = useRealm();
   const { privateKey } = useSelector((state: RootState) => state.account);
+  const { name } = useUserInfo(post.pubkey);
   const { send } = useWebSocket();
 
   return (
@@ -32,12 +34,20 @@ const PostMoreModal = ({ post, onClose }) => {
     >
       <View className={"w-full h-full justify-end"}>
         <View className={"p-6 space-y-3"}>
-          <Avatar publicKey={post.pubkey}/>
-          <Text className={"text-white text-[16px] font-medium"} numberOfLines={4}>
+          <View className={"flex flex-row items-center space-x-3"}>
+            <Avatar publicKey={post.pubkey} />
+            <Text
+              className={"text-[#B3B3B3] text-[16px] font-medium"}
+              numberOfLines={2}
+            >
+              {name}
+            </Text>
+          </View>
+
+          <Text className={"text-white text-[16px]"} numberOfLines={4}>
             {post.content}
           </Text>
         </View>
-        <View className={"h-4"}></View>
         <View className={"space-y-10"}>
           <View className={"space-y-5 p-4"}>
             <Pressable
@@ -79,9 +89,11 @@ const PostMoreModal = ({ post, onClose }) => {
               <Text className={"text-white font-medium"}>{t("Delete")}</Text>
             </Pressable>
           </View>
-          <Pressable className={"w-full items-center"} onPress={onClose}>
-            <Text className={"text-white font-medium"}>{t("Close")}</Text>
-          </Pressable>
+          <View className={"flex flex-row justify-center"}>
+            <Pressable className={"items-center p-3"} onPress={onClose}>
+              <Text className={"text-white font-medium"}>{t("Close")}</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </BlurView>

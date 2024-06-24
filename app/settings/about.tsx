@@ -8,20 +8,24 @@ const Page = () => {
   return (
     <ScrollView className={"bg-[#121212] flex flex-1"}>
       <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
-        <Text className={"text-white font-medium text-[16px]"}>{t("Version")}</Text>
-        <Text className={"text-[#B3B3B3]"}>
-          {Constants.easConfig.version}
+        <Text className={"text-white font-medium text-[16px]"}>
+          {t("Version")}
         </Text>
+        <Text className={"text-[#B3B3B3]"}>{Constants.easConfig.version}</Text>
       </View>
       <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
-        <Text className={"text-white font-medium text-[16px]"}>{t("Device Name")}</Text>
+        <Text className={"text-white font-medium text-[16px]"}>
+          {t("Device Name")}
+        </Text>
         <Text className={"text-[#B3B3B3]"}>{Constants.deviceName}</Text>
       </View>
       {Constants.debugMode && (
         <View
           className={"px-4 py-2 flex flex-row justify-between items-center"}
         >
-          <Text className={"text-white font-medium text-[16px]"}>{t("Mode")}</Text>
+          <Text className={"text-white font-medium text-[16px]"}>
+            {t("Mode")}
+          </Text>
           <Text className={"text-[#B3B3B3]"}>Debug</Text>
         </View>
       )}

@@ -1,46 +1,13 @@
 import { Image } from "expo-image";
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import { View, Text } from "react-native";
-import { useQuery } from "@realm/react";
-import { Event } from "../app/Event";
-import { useWebSocket } from "./WebSocketProvider";
-import { uuid } from "expo-modules-core";
+import useUserInfo from "../utils/useUserInfo";
 
 const Avatar: FC<{
   publicKey: string;
   classname?: string;
 }> = ({ classname, publicKey }) => {
-  const [picture, setPicture] = useState("");
-  const { send } = useWebSocket();
-
-  const events = useQuery(Event, (events) => {
-    return events
-      .filtered("kind == $0 && pubkey == $1", 0, publicKey)
-      .sorted("created_at", true);
-  });
-
-  useEffect(() => {
-    if (events.length > 0) {
-      try {
-        const userinfo = JSON.parse(events[0]?.content);
-        setPicture(userinfo?.picture);
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      send(
-        JSON.stringify([
-          "REQ",
-          uuid.v4(),
-          {
-            authors: [publicKey],
-            kinds: [0],
-            limit: 1,
-          },
-        ]),
-      );
-    }
-  }, [events]);
+  const { picture, name } = useUserInfo(publicKey);
 
   if (picture) {
     return (
