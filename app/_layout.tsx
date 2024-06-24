@@ -123,11 +123,46 @@ export default function RootLayout() {
                     }}
                   />
                   <Stack.Screen
-                    name="account/index"
+                    name="settings/index"
                     options={{
-                      presentation: "modal",
-                      title: "",
-                      headerShown: false,
+                      title: "Settings",
+                      headerShown: true,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="settings/account"
+                    options={{
+                      title: "Account",
+                      headerShown: true,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="settings/storage"
+                    options={{
+                      title: "Storage",
+                      headerShown: true,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="settings/about"
+                    options={{
+                      title: "About",
+                      headerShown: true,
                       headerTintColor: "white",
                       headerBackTitleVisible: false,
                       headerStyle: {

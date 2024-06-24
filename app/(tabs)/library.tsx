@@ -84,7 +84,7 @@ const Page = () => {
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
               onPress={() => {
-                router.navigate(`account`);
+                router.navigate(`settings`);
               }}
             >
               <Avatar publicKey={publicKey} />
