@@ -15,6 +15,10 @@ const WebSocketProvider = ({ children }) => {
   const url = `wss://${pubkey}:default@relay.abandon.ai`;
 
   const handleReconnection = () => {
+    if (ws.current) {
+      ws.current.close();
+      ws.current = null;
+    }
     setTimeout(() => {
       connectWebSocket();
     }, 2_000);
