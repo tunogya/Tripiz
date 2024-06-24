@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRealm } from "@realm/react";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../reducers/account/accountSlice";
-import {AppState} from "react-native";
+import { AppState } from "react-native";
 
 const WebSocketContext = createContext(null);
 
@@ -27,7 +27,7 @@ const WebSocketProvider = ({ children }) => {
 
     ws.current.onopen = () => {
       setConnected(true);
-      console.log("Websocket connected.")
+      console.log("Websocket connected.");
     };
 
     ws.current.onclose = (e) => {
@@ -90,24 +90,24 @@ const WebSocketProvider = ({ children }) => {
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState) => {
-      if (
-        appState.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
+      if (appState.match(/inactive|background/) && nextAppState === "active") {
         if (!connected) {
           handleReconnection();
         }
-        console.log('App has come to the foreground!');
+        console.log("App has come to the foreground!");
       } else if (nextAppState.match(/inactive|background/)) {
         if (ws.current) {
           ws.current.close();
         }
-        console.log('App has gone to the background!');
+        console.log("App has gone to the background!");
       }
       setAppState(nextAppState);
     };
 
-    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange,
+    );
 
     return () => {
       subscription.remove();
