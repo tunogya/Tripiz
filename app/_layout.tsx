@@ -16,7 +16,7 @@ import { AppState } from "react-native";
 import { RealmProvider } from "@realm/react";
 import { Event } from "./Event";
 import { WebSocketProvider } from "../components/WebSocketProvider";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 applyGlobalPolyfills();
 

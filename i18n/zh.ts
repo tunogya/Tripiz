@@ -45,11 +45,12 @@ export const zh = {
   Reply: "回复",
   "I already have a Nostr account": "我已经有了一个Nostr账户",
   "What is Nostr": "什么是Nostr？",
-  "Nostr description": "Nostr is a simple, open protocol that enables global, decentralized, and censorship-resistant social media.",
+  "Nostr description":
+    "Nostr is a simple, open protocol that enables global, decentralized, and censorship-resistant social media.",
   "Public Key": "公钥",
   "Private Key": "私钥",
-  "Account": "账户",
-  "About": "关于",
-  "Storage": "存储",
-  "Settings": "设置"
+  Account: "账户",
+  About: "关于",
+  Storage: "存储",
+  Settings: "设置",
 };

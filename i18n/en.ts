@@ -45,11 +45,12 @@ export const en = {
   Reply: "Reply",
   "I already have a Nostr account": "I already have a Nostr account",
   "What is Nostr": "What is Nostr?",
-  "Nostr description": "Nostr is a simple, open protocol that enables global, decentralized, and censorship-resistant social media.",
+  "Nostr description":
+    "Nostr is a simple, open protocol that enables global, decentralized, and censorship-resistant social media.",
   "Public Key": "Public Key",
   "Private Key": "Private Key",
-  "Account": "Account",
-  "About": "About",
-  "Storage": "Storage",
-  "Settings": "Settings"
+  Account: "Account",
+  About: "About",
+  Storage: "Storage",
+  Settings: "Settings",
 };

@@ -16,7 +16,7 @@ const Avatar: FC<{
   const events = useQuery(Event, (events) => {
     return events
       .filtered("kind == $0 && pubkey == $1", 0, publicKey)
-      .sorted("created_at", true)
+      .sorted("created_at", true);
   });
 
   useEffect(() => {

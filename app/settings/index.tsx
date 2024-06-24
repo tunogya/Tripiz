@@ -1,16 +1,19 @@
-import {ScrollView, View, Text, Pressable} from "react-native";
-import {memo, useState} from "react";
-import {useSelector} from "react-redux";
-import {selectNostrPublicKey, selectPublicKey} from "../../reducers/account/accountSlice";
+import { ScrollView, View, Text, Pressable } from "react-native";
+import { memo, useState } from "react";
+import { useSelector } from "react-redux";
+import {
+  selectNostrPublicKey,
+  selectPublicKey,
+} from "../../reducers/account/accountSlice";
 import Avatar from "../../components/Avatar";
-import {Ionicons} from "@expo/vector-icons";
-import {router} from "expo-router";
-import {finalizeEvent} from "nostr-tools";
-import {Buffer} from "buffer";
-import {RootState} from "../../store/store";
-import {useRealm} from "@realm/react";
-import {useWebSocket} from "../../components/WebSocketProvider";
-import {t} from "../../i18n";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { finalizeEvent } from "nostr-tools";
+import { Buffer } from "buffer";
+import { RootState } from "../../store/store";
+import { useRealm } from "@realm/react";
+import { useWebSocket } from "../../components/WebSocketProvider";
+import { t } from "../../i18n";
 
 const Page = () => {
   const publicKey = useSelector(selectPublicKey);
@@ -48,19 +51,14 @@ const Page = () => {
       <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
         <View className={"flex flex-row items-center space-x-3"}>
           <Avatar
-            classname={
-              "w-14 h-14 rounded-full items-center justify-center"
-            }
+            classname={"w-14 h-14 rounded-full items-center justify-center"}
             publicKey={publicKey}
           />
           <View className={"space-y-1.5 flex-1 mr-10"}>
             <Text className={"text-[#B3B3B3] font-medium"} numberOfLines={1}>
               {nostrPublicKey}
             </Text>
-            <Pressable
-              hitSlop={8}
-              onPress={randomPicture}
-            >
+            <Pressable hitSlop={8} onPress={randomPicture}>
               <Text className={"text-[#1DB954] text-xs font-medium"}>
                 {t("Shuffle avatar")}
               </Text>
@@ -73,10 +71,10 @@ const Page = () => {
           router.navigate("settings/account");
         }}
       >
-        <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
-          <Text className={"text-white font-medium"}>
-            {t("Account")}
-          </Text>
+        <View
+          className={"px-4 py-2 flex flex-row justify-between items-center"}
+        >
+          <Text className={"text-white font-medium"}>{t("Account")}</Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
       </Pressable>
@@ -85,10 +83,10 @@ const Page = () => {
           router.navigate("settings/storage");
         }}
       >
-        <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
-          <Text className={"text-white font-medium"}>
-            {t("Storage")}
-          </Text>
+        <View
+          className={"px-4 py-2 flex flex-row justify-between items-center"}
+        >
+          <Text className={"text-white font-medium"}>{t("Storage")}</Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
       </Pressable>
@@ -97,15 +95,15 @@ const Page = () => {
           router.navigate("settings/about");
         }}
       >
-        <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
-          <Text className={"text-white font-medium"}>
-            {t("About")}
-          </Text>
+        <View
+          className={"px-4 py-2 flex flex-row justify-between items-center"}
+        >
+          <Text className={"text-white font-medium"}>{t("About")}</Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>
       </Pressable>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default memo(Page)
+export default memo(Page);
