@@ -59,7 +59,7 @@ const Page = () => {
               {nostrPublicKey}
             </Text>
             <Pressable hitSlop={8} onPress={randomPicture}>
-              <Text className={"text-[#1DB954] text-xs font-medium"}>
+              <Text className={"text-[#1DB954] font-medium"}>
                 {t("Shuffle avatar")}
               </Text>
             </Pressable>
