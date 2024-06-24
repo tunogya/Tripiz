@@ -17,7 +17,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 // import {Ionicons} from "@expo/vector-icons";
 import Svg, { Circle } from "react-native-svg";
 import { useRealm } from "@realm/react";
-import { Event } from "../../Event";
 import { useWebSocket } from "../../../components/WebSocketProvider";
 
 const Page = () => {
@@ -42,7 +41,7 @@ const Page = () => {
         Buffer.from(privateKey, "hex"),
       );
       realm.write(() => {
-        return new Event(realm, event);
+        realm.create("Event", event, true);
       });
       send(JSON.stringify(["EVENT", event]));
     } catch (e) {

@@ -7,13 +7,13 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import { BottomSheet, BottomSheetRef } from "react-native-sheet";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { t } from "../i18n";
-import {useQuery, useRealm} from "@realm/react";
+import { useQuery, useRealm } from "@realm/react";
 import { Event } from "../app/Event";
 import { useWebSocket } from "./WebSocketProvider";
 import { uuid } from "expo-modules-core";
-import {finalizeEvent} from "nostr-tools";
-import {Buffer} from "buffer";
-import {RootState} from "../store/store";
+import { finalizeEvent } from "nostr-tools";
+import { Buffer } from "buffer";
+import { RootState } from "../store/store";
 
 const CommentShowItem: FC<{
   item: Event;

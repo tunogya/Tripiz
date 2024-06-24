@@ -90,7 +90,7 @@ const Page = () => {
       );
       setUserInfoEvent(events);
       realm.write(() => {
-        return new Event(realm, event);
+        realm.create("Event", event, true);
       });
       send(JSON.stringify(["EVENT", event]));
     } catch (e) {

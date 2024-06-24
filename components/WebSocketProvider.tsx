@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRealm } from "@realm/react";
-import { Event } from "../app/Event";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../reducers/account/accountSlice";
 
@@ -43,7 +42,7 @@ const WebSocketProvider = ({ children }) => {
         const _e = data[2];
         try {
           realm.write(() => {
-            return new Event(realm, _e);
+            realm.create("Event", _e, true);
           });
         } catch (e) {
           console.log(e);

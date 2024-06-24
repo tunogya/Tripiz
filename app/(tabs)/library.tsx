@@ -4,9 +4,10 @@ import {
   RefreshControl,
   ScrollView,
   Pressable,
-  ActivityIndicator, FlatList,
+  ActivityIndicator,
+  FlatList,
 } from "react-native";
-import {memo, useEffect, useMemo, useState} from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
