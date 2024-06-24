@@ -25,7 +25,7 @@ const Page = () => {
           Used
         </Text>
         <Text className={"text-[#B3B3B3] text-xs"}>
-          {size / 1024 / 1024} MB
+          {parseFloat((size / 1024 / 1024).toFixed(3))} MB
         </Text>
       </View>
     </ScrollView>
