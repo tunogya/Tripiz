@@ -1,5 +1,11 @@
-import { Pressable, Text, TextInput, View } from "react-native";
-import {memo, useMemo, useState} from "react";
+import {
+  ActivityIndicator,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { memo, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import LibraryShowItem from "../../components/LibraryShowItem";
@@ -8,27 +14,38 @@ import { router } from "expo-router";
 import { t } from "../../i18n";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
-import { useQuery } from "@realm/react";
 import { Event } from "../Event";
 import { FlashList } from "@shopify/flash-list";
+import { API_HOST_NAME } from "../../utils/const";
+import useSWR from "swr";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("");
   const publicKey = useSelector(selectPublicKey);
+  const [typingTimeout, setTypingTimeout] = useState(null);
 
-  const DATA = useQuery(Event);
+  const { data, isLoading, mutate } = useSWR(
+    query
+      ? `${API_HOST_NAME}/accounts/${publicKey}/search/all?query=${query}`
+      : undefined,
+    (url) =>
+      fetch(url, {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((res) => res.data),
+  );
 
-  function sanitizeSearchTerm(term: string) {
-    const pattern = /[^\u4e00-\u9fa5a-zA-Z0-9]/g;
-    return term.replace(pattern, '');
-  }
-
-  const filterData = useMemo(() => {
-    if (sanitizeSearchTerm(query)) {
-      return DATA.filtered("kind == $0 && pubkey == $1 && content TEXT $2", 1, publicKey, sanitizeSearchTerm(query));
-    } else {
-      return [];
+  useEffect(() => {
+    if (query.length > 0) {
+      if (typingTimeout) {
+        clearTimeout(typingTimeout);
+      }
+      const timeout = setTimeout(() => {
+        mutate();
+      }, 1000);
+      setTypingTimeout(timeout);
     }
   }, [query]);
 
@@ -80,16 +97,21 @@ const Page = () => {
       </View>
       <View className={"flex-1"}>
         <FlashList
-          data={filterData as Event[]}
+          data={data || []}
           estimatedItemSize={200}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item: Event) => item.id}
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
-            <View
-              style={{
-                height: insets.bottom + 80,
-              }}
-            ></View>
+            <View>
+              {isLoading && (
+                <ActivityIndicator size={"small"} color="#B3B3B3" />
+              )}
+              <View
+                style={{
+                  height: insets.bottom + 80,
+                }}
+              ></View>
+            </View>
           )}
           renderItem={({ item }) => (
             <LibraryShowItem item={item} showType={true} />

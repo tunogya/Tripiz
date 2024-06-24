@@ -53,7 +53,7 @@ export const zh = {
   About: "关于",
   Storage: "存储",
   Settings: "设置",
-  "Version": "版本",
+  Version: "版本",
   "Device Name": "设备名称",
-  "Mode": "模式",
+  Mode: "模式",
 };

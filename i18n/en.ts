@@ -53,7 +53,7 @@ export const en = {
   About: "About",
   Storage: "Storage",
   Settings: "Settings",
-  "Version": "Version",
+  Version: "Version",
   "Device Name": "Device Name",
-  "Mode": "Mode",
+  Mode: "Mode",
 };

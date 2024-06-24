@@ -61,7 +61,7 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
                     });
                   }, 200);
                 } catch (e) {
-                  console.log(e)
+                  console.log(e);
                 }
               }}
             >

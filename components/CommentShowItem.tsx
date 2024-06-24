@@ -134,7 +134,7 @@ const CommentShowItem: FC<{
                   realm.delete(item);
                 });
               } catch (e) {
-                console.log(e)
+                console.log(e);
               } finally {
                 bottomSheet.current?.hide();
               }
