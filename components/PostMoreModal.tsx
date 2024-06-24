@@ -11,6 +11,7 @@ import { finalizeEvent } from "nostr-tools";
 import { Buffer } from "buffer";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import Avatar from "./Avatar";
 
 const PostMoreModal = ({ post, onCopy, onClose }) => {
   const insets = useSafeAreaInsets();
@@ -29,6 +30,13 @@ const PostMoreModal = ({ post, onCopy, onClose }) => {
       }}
     >
       <View className={"w-full h-full justify-end"}>
+        <View className={"p-6 space-y-3"}>
+          <Avatar publicKey={post.pubkey}/>
+          <Text className={"text-white text-[16px] font-medium"} numberOfLines={4}>
+            {post.content}
+          </Text>
+        </View>
+        <View className={"h-4"}></View>
         <View className={"space-y-10"}>
           <View className={"space-y-5 p-4"}>
             <Pressable
