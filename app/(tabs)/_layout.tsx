@@ -22,6 +22,7 @@ function TabLayout() {
             tint={"dark"}
             style={{
               position: "absolute",
+              backgroundColor: "rgba(18,18,18,0.8)",
               left: 0,
               bottom: 0,
               right: 0,
