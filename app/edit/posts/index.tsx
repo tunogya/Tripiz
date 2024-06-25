@@ -44,9 +44,10 @@ const Page = () => {
         realm.create("Event", event, true);
       });
       send(JSON.stringify(["EVENT", event]));
-    } catch (e) {
-    } finally {
       router.back();
+      router.navigate(`posts/${event.id}`);
+    } catch (e) {
+      console.log(e);
     }
   };
 
