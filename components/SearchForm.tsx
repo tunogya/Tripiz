@@ -48,12 +48,7 @@ const SearchForm = ({ onClose }) => {
   }, [query]);
 
   return (
-    <View
-      className={"absolute w-screen h-screen z-50 bg-[#121212]"}
-      style={{
-        paddingBottom: insets.bottom + 20,
-      }}
-    >
+    <View className={"absolute w-screen h-screen z-50 bg-[#121212]"}>
       <View
         className={
           "px-4 pb-2 flex flex-row items-center space-x-3 bg-[#1A1A1A]"
