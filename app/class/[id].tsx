@@ -1,4 +1,4 @@
-import { View, Text, Pressable, ScrollView } from "react-native";
+import {View, Text, ScrollView, TouchableOpacity} from "react-native";
 import React, { memo, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,7 +19,7 @@ const Page = () => {
         stickyHeaderIndices={[0]}
         className={"flex flex-1 h-full"}
         style={{
-          marginTop: insets.top + 8,
+          marginTop: insets.top,
         }}
         scrollEventThrottle={1000}
         onScroll={handleScroll}
@@ -29,14 +29,14 @@ const Page = () => {
             "w-full flex flex-row items-center justify-between bg-[#121212]"
           }
         >
-          <Pressable
+          <TouchableOpacity
             onPress={() => {
               router.back();
             }}
             className={"w-10 h-10 items-center justify-center"}
           >
-            <Ionicons name="chevron-back" size={24} color="white" />
-          </Pressable>
+            <Ionicons name="chevron-back" size={28} color="white" />
+          </TouchableOpacity>
           <View
             style={{
               opacity: Math.min(scrollY, 48) / 48,
