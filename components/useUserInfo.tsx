@@ -29,31 +29,33 @@ const useUserInfo = (pubkey: string) => {
           setName(info?.name);
         }
         setPicture(info?.picture);
-        if (events.length > 1) {
-          const old_events = events.slice(1);
-          old_events.forEach((item) => {
-            realm.write(() => {
-              realm.delete(item);
-            });
-          });
-        }
       } catch (e) {
         console.log(e);
       }
-    } else {
-      send(
-        JSON.stringify([
-          "REQ",
-          uuid.v4(),
-          {
-            authors: [pubkey],
-            kinds: [0],
-            limit: 1,
-          },
-        ]),
-      );
+    }
+    if (events.length > 1) {
+      const old_events = events.slice(1);
+      old_events.forEach((item) => {
+        realm.write(() => {
+          realm.delete(item);
+        });
+      });
     }
   }, [events]);
+
+  useEffect(() => {
+    send(
+      JSON.stringify([
+        "REQ",
+        uuid.v4(),
+        {
+          authors: [pubkey],
+          kinds: [0],
+          limit: 1,
+        },
+      ]),
+    );
+  }, []);
 
   return {
     picture,
