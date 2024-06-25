@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useWebSocket } from "./WebSocketProvider";
-import { useQuery } from "@realm/react";
+import { useQuery, useRealm } from "@realm/react";
 import { Event } from "../app/Event";
 import { uuid } from "expo-modules-core";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ const useUserInfo = (pubkey: string) => {
   const [name, setName] = useState("Anonymous");
   const [picture, setPicture] = useState(undefined);
   const { send } = useWebSocket();
+  const realm = useRealm();
 
   const events = useQuery(Event, (events) => {
     return events
@@ -28,6 +29,14 @@ const useUserInfo = (pubkey: string) => {
           setName(info?.name);
         }
         setPicture(info?.picture);
+        if (events.length > 1) {
+          const old_events = events.slice(1);
+          old_events.forEach((item) => {
+            realm.write(() => {
+              realm.delete(item);
+            });
+          });
+        }
       } catch (e) {
         console.log(e);
       }
