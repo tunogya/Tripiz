@@ -1,6 +1,7 @@
 import { Pressable, Text, View } from "react-native";
 import { memo } from "react";
 import { router } from "expo-router";
+import {t} from "../i18n";
 
 const SearchClassItem = ({ item, index }) => {
   return (
@@ -14,7 +15,7 @@ const SearchClassItem = ({ item, index }) => {
         }}
         className={"p-2 h-24 rounded"}
       >
-        <Text className={"text-white font-semibold"}>{item.label}</Text>
+        <Text className={"text-white font-semibold"}>{t(item.class)}</Text>
       </Pressable>
     </View>
   );

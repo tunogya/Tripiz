@@ -59,4 +59,5 @@ export const en = {
   Events: "Events",
   Health: "Health",
   Things: "Things",
+  "View All": "View All",
 };

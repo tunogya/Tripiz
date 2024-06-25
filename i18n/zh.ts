@@ -61,4 +61,5 @@ export const zh = {
   Events: "事件",
   Health: "健康",
   Things: "物体",
+  "View All": "浏览全部",
 };

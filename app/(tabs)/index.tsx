@@ -18,42 +18,34 @@ const Page = () => {
   const list = [
     {
       class: "People",
-      label: t("People"),
       color: "#DB148B",
     },
     {
       class: "Emotions",
-      label: t("Emotions"),
       color: "#016450",
     },
     {
       class: "Scenes",
-      label: t("Scenes"),
       color: "#8400E7",
     },
     {
       class: "Time",
-      label: t("Time"),
       color: "#E8125C",
     },
     {
       class: "Activities",
-      label: t("Activities"),
       color: "#27856A",
     },
     {
       class: "Events",
-      label: t("Events"),
       color: "#BC5800",
     },
     {
       class: "Health",
-      label: t("Health"),
       color: "#158A08",
     },
     {
       class: "Things",
-      label: t("Things"),
       color: "#1E3264",
     },
   ];
@@ -93,7 +85,9 @@ const Page = () => {
           </Pressable>
         </View>
         <View className={"h-4"}></View>
-        <Text className={"text-white px-4 font-semibold"}>View All</Text>
+        <Text className={"text-white px-4 font-semibold"}>
+          {t("View All")}
+        </Text>
         <FlatList
           className={"p-4"}
           scrollEnabled={false}
