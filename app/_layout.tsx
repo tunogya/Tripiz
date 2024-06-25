@@ -171,6 +171,18 @@ export default function RootLayout() {
                       },
                     }}
                   />
+                  <Stack.Screen
+                    name="class/[id]"
+                    options={{
+                      title: "",
+                      headerShown: false,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
                 </Stack>
               </SafeAreaProvider>
             </PersistGate>

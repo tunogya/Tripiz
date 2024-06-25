@@ -1,4 +1,4 @@
-import {FlatList, Pressable, ScrollView, Text, View} from "react-native";
+import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import { memo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,6 +8,7 @@ import { t } from "../../i18n";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
 import SearchForm from "../../components/SearchForm";
+import SearchClassItem from "../../components/SearchClassItem";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -16,38 +17,46 @@ const Page = () => {
 
   const list = [
     {
-      label: "People",
+      class: "People",
+      label: t("People"),
       color: "#DB148B",
     },
     {
-      label: "Emotions",
+      class: "Emotions",
+      label: t("Emotions"),
       color: "#016450",
     },
     {
-      label: "Scenes",
+      class: "Scenes",
+      label: t("Scenes"),
       color: "#8400E7",
     },
     {
-      label: "Time",
+      class: "Time",
+      label: t("Time"),
       color: "#E8125C",
     },
     {
-      label: "Activities",
+      class: "Activities",
+      label: t("Activities"),
       color: "#27856A",
     },
     {
-      label: "Events",
+      class: "Events",
+      label: t("Events"),
       color: "#BC5800",
     },
     {
-      label: "Health",
+      class: "Health",
+      label: t("Health"),
       color: "#158A08",
     },
     {
-      label: "Things",
+      class: "Things",
+      label: t("Things"),
       color: "#1E3264",
     },
-  ]
+  ];
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212] relative"}>
@@ -84,29 +93,14 @@ const Page = () => {
           </Pressable>
         </View>
         <View className={"h-4"}></View>
-        <Text className={"text-white px-4 font-semibold"}>
-          View All
-        </Text>
+        <Text className={"text-white px-4 font-semibold"}>View All</Text>
         <FlatList
           className={"p-4"}
           scrollEnabled={false}
           data={list}
           numColumns={2}
-          renderItem={({item, index}) => (
-            <View
-              className={`w-[50%] ${index % 2 === 0 ? "pr-1.5" : "pl-1.5"} mb-3`}
-            >
-              <View
-                style={{
-                  backgroundColor: item.color,
-                }}
-                className={"p-2 h-24 rounded"}
-              >
-                <Text className={"text-white font-semibold"}>
-                  {item.label}
-                </Text>
-              </View>
-            </View>
+          renderItem={({ item, index }) => (
+            <SearchClassItem item={item} index={index} />
           )}
         />
       </ScrollView>
