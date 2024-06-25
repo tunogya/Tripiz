@@ -1,9 +1,5 @@
-import {
-  Pressable,
-  Text,
-  View,
-} from "react-native";
-import {memo, useState} from "react";
+import { Pressable, Text, View } from "react-native";
+import { memo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Avatar from "../../components/Avatar";
@@ -16,7 +12,7 @@ import SearchForm from "../../components/SearchForm";
 const Page = () => {
   const insets = useSafeAreaInsets();
   const publicKey = useSelector(selectPublicKey);
-  const [ showSearchForm, setShowSearchForm ] = useState(false);
+  const [showSearchForm, setShowSearchForm] = useState(false);
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212] relative"}>
@@ -45,9 +41,7 @@ const Page = () => {
             }
           >
             <Ionicons name="search" size={24} color="black" />
-            <Text
-              className={"flex-1 text-[16px] text-[#B3B3B3]"}
-            >
+            <Text className={"flex-1 text-[16px] text-[#B3B3B3]"}>
               {t("Search dot dot dot")}
             </Text>
           </Pressable>
@@ -55,11 +49,9 @@ const Page = () => {
       </View>
       {/*<View className={"flex-1"}>*/}
       {/*</View>*/}
-      {
-        showSearchForm && (
-          <SearchForm onClose={() => setShowSearchForm(false)} />
-        )
-      }
+      {showSearchForm && (
+        <SearchForm onClose={() => setShowSearchForm(false)} />
+      )}
     </View>
   );
 };

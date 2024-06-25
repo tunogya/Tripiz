@@ -1,15 +1,21 @@
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {memo, useEffect, useState} from "react";
-import {useSelector} from "react-redux";
-import {selectPublicKey} from "../reducers/account/accountSlice";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { memo, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectPublicKey } from "../reducers/account/accountSlice";
 import useSWR from "swr";
-import {API_HOST_NAME} from "../utils/const";
-import {FlashList} from "@shopify/flash-list";
-import {Event} from "../app/Event";
-import {ActivityIndicator, Pressable, TextInput, View, Text} from "react-native";
+import { API_HOST_NAME } from "../utils/const";
+import { FlashList } from "@shopify/flash-list";
+import { Event } from "../app/Event";
+import {
+  ActivityIndicator,
+  Pressable,
+  TextInput,
+  View,
+  Text,
+} from "react-native";
 import LibraryShowItem from "./LibraryShowItem";
-import {Ionicons} from "@expo/vector-icons";
-import {t} from "../i18n";
+import { Ionicons } from "@expo/vector-icons";
+import { t } from "../i18n";
 
 const SearchForm = ({ onClose }) => {
   const insets = useSafeAreaInsets();
@@ -49,7 +55,9 @@ const SearchForm = ({ onClose }) => {
       }}
     >
       <View
-        className={"px-4 pb-2 flex flex-row items-center space-x-3 bg-[#1A1A1A]"}
+        className={
+          "px-4 pb-2 flex flex-row items-center space-x-3 bg-[#1A1A1A]"
+        }
         style={{
           paddingTop: insets.top + 8,
         }}
@@ -78,9 +86,7 @@ const SearchForm = ({ onClose }) => {
             onClose();
           }}
         >
-          <Text className={"text-white"}>
-            {t("Cancel")}
-          </Text>
+          <Text className={"text-white"}>{t("Cancel")}</Text>
         </Pressable>
       </View>
       <FlashList
@@ -90,9 +96,7 @@ const SearchForm = ({ onClose }) => {
         ListHeaderComponent={() => <View className={"h-1"} />}
         ListFooterComponent={() => (
           <View>
-            {isLoading && (
-              <ActivityIndicator size={"small"} color="#B3B3B3" />
-            )}
+            {isLoading && <ActivityIndicator size={"small"} color="#B3B3B3" />}
             <View
               style={{
                 height: insets.bottom + 80,
@@ -105,7 +109,7 @@ const SearchForm = ({ onClose }) => {
         )}
       />
     </View>
-  )
-}
+  );
+};
 
-export default memo(SearchForm)
+export default memo(SearchForm);

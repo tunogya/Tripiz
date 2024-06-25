@@ -20,7 +20,7 @@ import { useQuery } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import { uuid } from "expo-modules-core";
-import Svg, {Path} from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 import SearchForm from "../../components/SearchForm";
 
 const Page = () => {
@@ -29,7 +29,7 @@ const Page = () => {
   const FILTERS = ["memories", "dreams", "reflections"];
   const [filter, setFilter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [ showSearchForm, setShowSearchForm ] = useState(false);
+  const [showSearchForm, setShowSearchForm] = useState(false);
   const publicKey = useSelector(selectPublicKey);
   const { send } = useWebSocket();
 
@@ -202,11 +202,9 @@ const Page = () => {
           )}
         />
       </View>
-      {
-        showSearchForm && (
-          <SearchForm onClose={() => setShowSearchForm(false)} />
-        )
-      }
+      {showSearchForm && (
+        <SearchForm onClose={() => setShowSearchForm(false)} />
+      )}
     </View>
   );
 };
