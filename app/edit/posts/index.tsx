@@ -45,6 +45,7 @@ const Page = () => {
       });
       send(JSON.stringify(["EVENT", event]));
       router.back();
+      router.navigate(`posts/${event.id}`);
     } catch (e) {
       console.log(e);
     }
