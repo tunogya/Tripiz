@@ -16,44 +16,36 @@ const Page = () => {
 
   const list = [
     {
-      label: "人物",
-      color: "",
+      label: "People",
+      color: "#DB148B",
     },
     {
-      label: "情感",
-      color: "",
+      label: "Emotions",
+      color: "#016450",
     },
     {
-      label: "场景",
-      color: "",
+      label: "Scenes",
+      color: "#8400E7",
     },
     {
-      label: "象征和原型",
-      color: "",
+      label: "Time",
+      color: "#E8125C",
     },
     {
-      label: "时间",
-      color: "",
+      label: "Activities",
+      color: "#27856A",
     },
     {
-      label: "活动",
-      color: "",
+      label: "Events",
+      color: "#BC5800",
     },
     {
-      label: "事件",
-      color: "",
+      label: "Health",
+      color: "#158A08",
     },
     {
-      label: "主题",
-      color: "",
-    },
-    {
-      label: "健康",
-      color: "",
-    },
-    {
-      label: "物品",
-      color: "",
+      label: "Things",
+      color: "#1E3264",
     },
   ]
 
@@ -92,8 +84,8 @@ const Page = () => {
           </Pressable>
         </View>
         <View className={"h-4"}></View>
-        <Text className={"text-white px-4 font-medium"}>
-          浏览全部
+        <Text className={"text-white px-4 font-semibold"}>
+          View All
         </Text>
         <FlatList
           className={"p-4"}
@@ -104,8 +96,13 @@ const Page = () => {
             <View
               className={`w-[50%] ${index % 2 === 0 ? "pr-1.5" : "pl-1.5"} mb-3`}
             >
-              <View className={"p-3 bg-red-500 h-24 rounded"}>
-                <Text className={"text-white"}>
+              <View
+                style={{
+                  backgroundColor: item.color,
+                }}
+                className={"p-2 h-24 rounded"}
+              >
+                <Text className={"text-white font-semibold"}>
                   {item.label}
                 </Text>
               </View>
