@@ -43,8 +43,7 @@ const PostMoreModal = ({ post, onClose }) => {
               {name}
             </Text>
           </View>
-
-          <Text className={"text-white text-[16px]"} numberOfLines={4}>
+          <Text className={"text-white text-[16px]"} numberOfLines={10}>
             {post.content}
           </Text>
         </View>
