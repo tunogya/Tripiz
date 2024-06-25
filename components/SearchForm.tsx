@@ -76,6 +76,8 @@ const SearchForm = ({ onClose }) => {
           />
         </View>
         <Pressable
+          hitSlop={4}
+          className={"h-8 items-center justify-center"}
           onPress={() => {
             setQuery("");
             onClose();
