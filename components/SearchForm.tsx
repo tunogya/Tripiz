@@ -1,4 +1,3 @@
-import {BlurView} from "expo-blur";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {memo, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
@@ -43,16 +42,18 @@ const SearchForm = ({ onClose }) => {
   }, [query]);
 
   return (
-    <BlurView
-      intensity={100}
-      tint={"dark"}
-      className={"absolute w-screen h-screen z-50"}
+    <View
+      className={"absolute w-screen h-screen z-50 bg-[#121212]"}
       style={{
-        paddingTop: insets.top + 20,
         paddingBottom: insets.bottom + 20,
       }}
     >
-      <View className={"px-4 pb-4 flex flex-row items-center space-x-3"}>
+      <View
+        className={"px-4 pb-2 flex flex-row items-center space-x-3 bg-[#1A1A1A]"}
+        style={{
+          paddingTop: insets.top + 8,
+        }}
+      >
         <View
           className={
             "flex flex-row flex-1 h-8 rounded-lg p-1 items-center space-x-3 bg-[#2A2A2A]"
@@ -70,15 +71,6 @@ const SearchForm = ({ onClose }) => {
             className={"flex-1 text-white h-full"}
             maxLength={1024}
           />
-          {query && (
-            <Pressable
-              onPress={() => {
-                setQuery("");
-              }}
-            >
-              <Ionicons name="close" size={24} color="black" />
-            </Pressable>
-          )}
         </View>
         <Pressable
           onPress={() => {
@@ -95,6 +87,7 @@ const SearchForm = ({ onClose }) => {
         data={data || []}
         estimatedItemSize={200}
         keyExtractor={(item: Event) => item.id}
+        ListHeaderComponent={() => <View className={"h-1"} />}
         ListFooterComponent={() => (
           <View>
             {isLoading && (
@@ -111,7 +104,7 @@ const SearchForm = ({ onClose }) => {
           <LibraryShowItem item={item} showType={true} />
         )}
       />
-    </BlurView>
+    </View>
   )
 }
 
