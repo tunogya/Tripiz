@@ -1,10 +1,10 @@
-import {View, Text, ScrollView, TouchableOpacity} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { memo, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import {t} from "../../i18n";
-import {ensureString} from "../../utils/ensureString";
+import { t } from "../../i18n";
+import { ensureString } from "../../utils/ensureString";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -44,19 +44,17 @@ const Page = () => {
               opacity: Math.min(scrollY, 48) / 48,
             }}
           >
-            <Text className={"text-white font-bold text-[16px]"}>{t(ensureString(id))}</Text>
+            <Text className={"text-white font-bold text-[16px]"}>
+              {t(ensureString(id))}
+            </Text>
           </View>
           <View className={"w-10"}></View>
         </View>
-        <Text
-          className={"text-white px-4 py-2 font-bold text-2xl"}
-        >
+        <Text className={"text-white px-4 py-2 font-bold text-2xl"}>
           {t(ensureString(id))}
         </Text>
         <View className={"py-4"}>
-          <Text className={"text-white font-bold px-4 text-[16px]"}>
-            Tom
-          </Text>
+          <Text className={"text-white font-bold px-4 text-[16px]"}>Tom</Text>
         </View>
       </ScrollView>
     </View>

@@ -1,7 +1,7 @@
 import { Pressable, Text, View } from "react-native";
 import { memo } from "react";
 import { router } from "expo-router";
-import {t} from "../i18n";
+import { t } from "../i18n";
 
 const SearchClassItem = ({ item, index }) => {
   return (

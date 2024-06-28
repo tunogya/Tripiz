@@ -81,9 +81,7 @@ const Page = () => {
           </Pressable>
         </View>
         <View className={"h-4"}></View>
-        <Text className={"text-white px-4 font-semibold"}>
-          {t("View All")}
-        </Text>
+        <Text className={"text-white px-4 font-semibold"}>{t("View All")}</Text>
         <FlatList
           className={"p-4"}
           scrollEnabled={false}
