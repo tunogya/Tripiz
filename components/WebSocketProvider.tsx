@@ -14,7 +14,7 @@ const WebSocketProvider = ({ children }) => {
   const pubkey = useSelector(selectPublicKey);
   const [appState, setAppState] = useState(AppState.currentState);
 
-  const url = `wss://${pubkey}:default@relay.abandon.ai`;
+  const url = `wss://relay.abandon.ai?pubkey=${pubkey}`;
 
   const handleReconnection = () => {
     setTimeout(() => {
