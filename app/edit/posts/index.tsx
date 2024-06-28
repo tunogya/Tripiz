@@ -4,7 +4,7 @@ import {
   Pressable,
   TextInput,
   TouchableOpacity,
-  Keyboard,
+  Keyboard, Platform,
 } from "react-native";
 import { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
@@ -128,18 +128,20 @@ const Page = () => {
           </Pressable>
         ))}
       </View>
-      <TextInput
-        multiline
-        autoFocus={true}
-        placeholder={t("Content")}
-        placeholderTextColor={"#B3B3B3"}
-        className={`text-white text-[18px] px-5 py-3 flex-1`}
-        value={text}
-        onChangeText={(text) => {
-          setText(text);
-        }}
-        maxLength={12800}
-      />
+      <View className={"flex-1"}>
+        <TextInput
+          multiline
+          autoFocus={true}
+          placeholder={t("Content")}
+          placeholderTextColor={"#B3B3B3"}
+          className={`text-white text-[18px] px-5 py-3`}
+          value={text}
+          onChangeText={(text) => {
+            setText(text);
+          }}
+          maxLength={12800}
+        />
+      </View>
       <View
         className={
           "flex flex-row h-12 border-t border-[#FFFFFF12] items-center justify-between"
@@ -183,11 +185,15 @@ const Page = () => {
           </View>
         </View>
       </View>
-      <View
-        style={{
-          height: keyboardHeight ? keyboardHeight : insets.bottom,
-        }}
-      ></View>
+      {
+        Platform.OS === 'ios' && (
+          <View
+            style={{
+              height: keyboardHeight ? keyboardHeight : insets.bottom,
+            }}
+          ></View>
+        )
+      }
     </View>
   );
 };
