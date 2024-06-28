@@ -9,6 +9,7 @@ import {
   Dimensions,
   RefreshControl,
   FlatList,
+  StyleSheet,
 } from "react-native";
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -30,6 +31,7 @@ import { useObject, useQuery, useRealm } from "@realm/react";
 import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import { uuid } from "expo-modules-core";
+import Markdown, {MarkdownIt} from '@ronradtke/react-native-markdown-display';
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -189,9 +191,21 @@ const Page = () => {
             </View>
           )}
           <View className={"p-4"}>
-            <Text className={"text-white font-medium text-[16px] leading-5"}>
+            <Markdown
+              markdownit={MarkdownIt({typographer: true}).disable([ 'link', 'image' ])}
+              style={{
+                body: {color: 'white', fontSize: 16, lineHeight: 24},
+                heading1: {color: 'white', fontSize: 32, fontWeight: "bold", lineHeight: 48, marginVertical: 16,},
+                heading2: {color: 'white', fontSize: 18, fontWeight: "bold", lineHeight: 27, marginVertical: 16,},
+                heading3: {color: 'white', fontSize: 20, fontWeight: "bold", lineHeight: 30, marginVertical: 16,},
+                heading4: {color: 'white', fontSize: 16, fontWeight: "semibold", lineHeight: 20},
+                heading5: {color: 'white', fontSize: 14, fontWeight: "semibold", lineHeight: 20},
+                heading6: {color: 'white', fontSize: 13.6, fontWeight: "semibold", lineHeight: 20},
+                strong: { fontWeight: "bold" },
+              }}
+            >
               {data?.content}
-            </Text>
+            </Markdown>
             <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
               {new Date((data?.created_at || 0) * 1000)
                 .toLocaleDateString()

@@ -37,13 +37,13 @@ const PostMoreModal = ({ post, onClose }) => {
           <View className={"flex flex-row items-center space-x-3"}>
             <Avatar publicKey={post.pubkey} />
             <Text
-              className={"text-[#B3B3B3] text-[16px] font-medium"}
-              numberOfLines={2}
+              className={"text-white text-[20px] font-semibold"}
+              numberOfLines={1}
             >
               {name}
             </Text>
           </View>
-          <Text className={"text-white text-[16px]"} numberOfLines={10}>
+          <Text className={"text-[#B3B3B3] text-[16px]"} numberOfLines={1}>
             {post.content}
           </Text>
         </View>
