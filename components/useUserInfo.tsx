@@ -55,7 +55,7 @@ const useUserInfo = (pubkey: string) => {
         },
       ]),
     );
-  }, []);
+  }, [pubkey]);
 
   return {
     picture,
