@@ -17,36 +17,32 @@ const Page = () => {
 
   const list = [
     {
-      class: "People",
+      class: "Emotions",
       color: "#DB148B",
     },
     {
-      class: "Emotions",
+      class: "People",
       color: "#016450",
     },
     {
-      class: "Scenes",
+      class: "Objects",
       color: "#8400E7",
     },
     {
-      class: "Time",
+      class: "Characters",
       color: "#E8125C",
     },
     {
-      class: "Activities",
+      class: "Places",
       color: "#27856A",
     },
     {
-      class: "Events",
+      class: "Themes",
       color: "#BC5800",
     },
     {
-      class: "Health",
+      class: "Actions",
       color: "#158A08",
-    },
-    {
-      class: "Things",
-      color: "#1E3264",
     },
   ];
 
