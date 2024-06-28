@@ -53,7 +53,7 @@ export const zh = {
   Version: "版本",
   "Device Name": "设备名称",
   Mode: "模式",
-  People: "人物和角色",
+  People: "人物",
   Emotions: "情感",
   Objects: "对象",
   Characters: "角色",
