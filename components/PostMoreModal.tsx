@@ -1,4 +1,4 @@
-import { Pressable, View, Text } from "react-native";
+import {Pressable, View, Text, Platform} from "react-native";
 import React, { memo } from "react";
 import { BlurView } from "expo-blur";
 import { t } from "../i18n";
@@ -26,7 +26,7 @@ const PostMoreModal = ({ post, onClose }) => {
     <BlurView
       intensity={100}
       tint={"dark"}
-      className={"absolute w-screen h-screen z-50"}
+      className={`absolute w-screen h-screen z-50 ${Platform.OS === "android" ? "bg-[#121212DD]" : ""}`}
       style={{
         paddingTop: insets.top + 20,
         paddingBottom: insets.bottom + 20,

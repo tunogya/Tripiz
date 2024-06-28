@@ -32,15 +32,15 @@ const Page = () => {
       <View className={"h-4"}></View>
       <Link
         href={"https://www.abandon.ai/docs/policies/Legal/terms-of-use"}
-        className={"py-1"}
+        className={"py-1 px-4"}
       >
-        <Text className={"text-[#B3B3B3] text-center text-[16px] underline "}>
+        <Text className={"text-[#B3B3B3] text-center text-[16px] underline"}>
           {t("Terms of use")}
         </Text>
       </Link>
       <Link
         href={"https://www.abandon.ai/docs/policies/Legal/privacy-policy"}
-        className={"py-1"}
+        className={"py-1 px-4"}
       >
         <Text className={"text-[#B3B3B3] text-center text-[16px] underline"}>
           {t("Privacy policy")}
