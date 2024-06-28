@@ -13,13 +13,13 @@ const ContentClassItem = ({ category, value }) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       >
-        <View className={"w-2.5"}></View>
+        <View className={"w-2"}></View>
         {
           value.map((id: string) => (
             <EventItem id={id} key={id} />
           ))
         }
-        <View className={"w-2.5"}></View>
+        <View className={"w-2"}></View>
       </ScrollView>
 
     </View>

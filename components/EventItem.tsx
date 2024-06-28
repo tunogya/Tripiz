@@ -23,7 +23,7 @@ const EventItem = ({id}) => {
       onPress={() => {
         router.navigate(`posts/${item.id}`);
       }}
-      className={"w-32 mx-1.5 space-y-2"}
+      className={"w-32 mx-2 space-y-2"}
     >
       <Image
         className={"w-32 h-32"}
