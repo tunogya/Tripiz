@@ -26,7 +26,7 @@ const PostMoreModal = ({ post, onClose }) => {
     <BlurView
       intensity={100}
       tint={"dark"}
-      className={`absolute w-screen h-screen z-50 ${Platform.OS === "android" ? "bg-[#121212DD]" : ""}`}
+      className={`absolute w-full h-full z-50 ${Platform.OS === "android" ? "bg-[#121212DD]" : ""}`}
       style={{
         paddingTop: insets.top + 20,
         paddingBottom: insets.bottom + 20,

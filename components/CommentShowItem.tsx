@@ -26,8 +26,8 @@ const CommentShowItem: FC<{
             {name}
           </Text>
           <Text className={"text-[#B3B3B3] text-xs"}>
-            {new Date(item.created_at * 1000)
-              .toLocaleDateString()
+            {new Date((item?.created_at || 0) * 1000)
+              .toLocaleDateString("zh")
               .replaceAll("/", "-")
               .replace(`${new Date().getFullYear()}-`, "")}
           </Text>

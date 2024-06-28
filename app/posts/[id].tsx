@@ -244,9 +244,10 @@ const Page = () => {
             </Markdown>
             <Text className={"text-[#B3B3B3] text-xs font-medium mt-5"}>
               {new Date((data?.created_at || 0) * 1000)
-                .toLocaleDateString()
+                .toLocaleDateString("zh")
                 .replaceAll("/", "-")
-                .replace(`${new Date().getFullYear()}-`, "")}
+                .replace(`${new Date().getFullYear()}-`, "")
+              }
             </Text>
           </View>
           <View className={"px-2"}>
