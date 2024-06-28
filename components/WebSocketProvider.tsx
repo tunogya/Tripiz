@@ -23,6 +23,7 @@ const WebSocketProvider = ({ children }) => {
   };
 
   const connectWebSocket = () => {
+    console.log(url);
     ws.current = new WebSocket(url);
 
     ws.current.onopen = () => {
