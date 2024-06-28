@@ -5,7 +5,7 @@ import EventItem from "./EventItem";
 const ContentClassItem = ({ category, value }) => {
 
   return (
-    <View className={"py-4 space-y-2"}>
+    <View className={"py-4 space-y-4"}>
       <Text className={"text-white font-bold px-4 text-[16px]"}>
         {category}
       </Text>

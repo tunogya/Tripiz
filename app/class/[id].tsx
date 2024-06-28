@@ -92,7 +92,9 @@ const Page = () => {
         </Text>
         {isLoading && <ActivityIndicator size={"small"} color="#B3B3B3" />}
         {data &&
-          Object.keys(data).map((item) => (
+          Object.keys(data)
+            .sort((a, b) => a.localeCompare(b))
+            .map((item) => (
             <ContentClassItem key={item} category={item} value={data[item]} />
           ))}
         {data && Object.keys(data).length === 0 && (
