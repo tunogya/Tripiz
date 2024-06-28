@@ -10,7 +10,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "prettier": "prettier . --write",
-    "submit": "eas submit"
+    "submit": "eas submit",
+    "build:android": "cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
