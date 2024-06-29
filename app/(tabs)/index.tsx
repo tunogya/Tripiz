@@ -91,6 +91,9 @@ const Page = () => {
             <SearchClassItem item={item} index={index} />
           )}
         />
+        <View style={{
+          height: 80,
+        }}></View>
       </ScrollView>
       {showSearchForm && (
         <SearchForm onClose={() => setShowSearchForm(false)} />

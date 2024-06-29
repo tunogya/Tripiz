@@ -91,6 +91,9 @@ const Page = () => {
           {t(`Import my Nostr key`)}
         </Text>
       </Pressable>
+      <View style={{
+        height: 80,
+      }}></View>
     </ScrollView>
   );
 };
