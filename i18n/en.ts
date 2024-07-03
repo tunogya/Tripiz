@@ -59,4 +59,5 @@ export const en = {
   Themes: "Themes",
   Actions: "Actions",
   "View All": "View All",
+  "Used": "Used",
 };

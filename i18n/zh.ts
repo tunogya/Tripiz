@@ -61,4 +61,5 @@ export const zh = {
   Themes: "主题",
   Actions: "动作",
   "View All": "浏览全部",
+  "Used": "已使用",
 };
