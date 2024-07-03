@@ -31,15 +31,19 @@ const WebSocketProvider = ({ children }) => {
     };
 
     ws.current.onclose = (e) => {
-      setConnected(false);
-      console.log("WebSocket closed, attempting to reconnect...");
-      handleReconnection();
+      if (connected) {
+        setConnected(false);
+        console.log("WebSocket closed, attempting to reconnect...");
+        handleReconnection();
+      }
     };
 
     ws.current.onerror = (e) => {
-      setConnected(false);
-      console.log(`WebSocket error: ${e.message}, attempting to reconnect...`);
-      handleReconnection();
+      if (connected) {
+        setConnected(false);
+        console.log(`WebSocket error: ${e.message}, attempting to reconnect...`);
+        handleReconnection();
+      }
     };
 
     ws.current.onmessage = (e) => {
