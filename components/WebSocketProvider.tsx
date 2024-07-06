@@ -119,7 +119,7 @@ const WebSocketProvider = ({ children }) => {
   }, [appState]);
 
   return (
-    <WebSocketContext.Provider value={{ send }}>
+    <WebSocketContext.Provider value={{ send, connected }}>
       {children}
     </WebSocketContext.Provider>
   );

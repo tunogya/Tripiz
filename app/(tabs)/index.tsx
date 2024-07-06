@@ -9,11 +9,13 @@ import { useSelector } from "react-redux";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
 import SearchForm from "../../components/SearchForm";
 import SearchClassItem from "../../components/SearchClassItem";
+import {useWebSocket} from "../../components/WebSocketProvider";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
   const publicKey = useSelector(selectPublicKey);
   const [showSearchForm, setShowSearchForm] = useState(false);
+  const { connected } = useWebSocket();
 
   const list = [
     {
@@ -63,7 +65,7 @@ const Page = () => {
           >
             <Avatar publicKey={publicKey} />
           </Pressable>
-          <Text className={"text-white font-bold text-2xl"}>{t("Search")}</Text>
+          <Text className={"text-white font-bold text-2xl"}>{t("Search")} {!connected && (t("connecting")) }</Text>
         </View>
         <View className={"px-4 pb-4 pt-2 bg-[#121212]"}>
           <Pressable

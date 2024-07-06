@@ -28,10 +28,9 @@ const Page = () => {
   const [refreshing, setRefreshing] = useState(false);
   const FILTERS = ["memories", "dreams", "reflections"];
   const [filter, setFilter] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [showSearchForm, setShowSearchForm] = useState(false);
   const publicKey = useSelector(selectPublicKey);
-  const { send } = useWebSocket();
+  const { send, connected } = useWebSocket();
 
   const DATA = useQuery(Event, (events) => {
     return events
@@ -93,7 +92,7 @@ const Page = () => {
               <Avatar publicKey={publicKey} />
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
-              {t("Library")}
+              {t("Library")} {!connected && (t("connecting")) }
             </Text>
           </View>
           <View className={"flex flex-row space-x-3 items-center"}>
@@ -176,20 +175,16 @@ const Page = () => {
           }
           keyExtractor={(item: any) => item.id}
           ListEmptyComponent={() =>
-            !isLoading && (
-              <View className={"px-4"}>
-                <Text className={"text-[#B3B3B3] text-xs"}>
-                  {t(`No content`)}
-                </Text>
-              </View>
-            )
+            <View className={"px-4"}>
+              <Text className={"text-[#B3B3B3] text-xs"}>
+                {t(`No content`)}
+              </Text>
+            </View>
           }
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>
-              {isLoading && (
-                <ActivityIndicator size={"small"} color="#B3B3B3" />
-              )}
+              <ActivityIndicator size={"small"} color="#B3B3B3" />
               <View
                 style={{
                   height: insets.bottom + 80,

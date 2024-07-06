@@ -62,4 +62,5 @@ export const zh = {
   Actions: "动作",
   "View All": "浏览全部",
   "Used": "已使用",
+  "connecting": "(连接中...)"
 };
