@@ -1,13 +1,13 @@
 import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  RefreshControl,
-  ActivityIndicator,
+    View,
+    Text,
+    ScrollView,
+    TouchableOpacity,
+    RefreshControl,
+    ActivityIndicator, Pressable,
 } from "react-native";
 import React, { memo, useState } from "react";
-import { router, useLocalSearchParams } from "expo-router";
+import {Link, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { t } from "../../i18n";
@@ -100,6 +100,13 @@ const Page = () => {
         {data && Object.keys(data).length === 0 && (
           <View className={"px-4"}>
             <Text className={"text-[#B3B3B3] text-xs"}>{t("No content")}</Text>
+            <Pressable
+              onPress={() => {
+                router.navigate("edit/posts")
+              }}
+              className={"mt-6 bg-[#1DB954] p-4 rounded-full"}>
+              <Text className={"text-black font-medium text-center"}>Record Now</Text>
+            </Pressable>
           </View>
         )}
         <View
