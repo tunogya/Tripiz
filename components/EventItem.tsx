@@ -1,18 +1,34 @@
 import {View, Text, Pressable} from "react-native";
-import React, {memo} from "react";
+import React, {memo, useEffect} from "react";
 import {useObject} from "@realm/react";
 import {Event} from "../app/Event";
 import {Image} from "expo-image";
 import {API_HOST_NAME} from "../utils/const";
 import {t} from "../i18n";
 import {router} from "expo-router";
+import {useWebSocket} from "./WebSocketProvider";
+import { uuid } from "expo-modules-core";
 
 const EventItem = ({id}) => {
   const item = useObject(Event, id);
+  const { send } = useWebSocket();
 
   const category =
-    item.tags.find((tag: any[]) => tag?.[0] === "category")?.[1] ||
+    item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1] ||
     "reflections";
+
+  useEffect(() => {
+    if (!item) {
+      send(JSON.stringify([
+        "REQ",
+        uuid.v4(),
+        {
+            "ids": [id],
+            "limit": 1,
+        },
+      ]))
+    }
+  }, [item]);
 
   if (!item) {
     return null;
