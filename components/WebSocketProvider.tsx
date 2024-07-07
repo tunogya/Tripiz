@@ -14,8 +14,6 @@ const WebSocketProvider = ({ children }) => {
   const pubkey = useSelector(selectPublicKey);
   const [appState, setAppState] = useState(AppState.currentState);
 
-  const url = `wss://relay.abandon.ai?pubkey=${pubkey}`;
-
   const handleReconnection = () => {
     setTimeout(() => {
       connectWebSocket();
@@ -23,6 +21,7 @@ const WebSocketProvider = ({ children }) => {
   };
 
   const connectWebSocket = () => {
+    const url = `wss://relay.abandon.ai?pubkey=${pubkey}`;
     ws.current = new WebSocket(url);
 
     ws.current.onopen = () => {
@@ -31,19 +30,15 @@ const WebSocketProvider = ({ children }) => {
     };
 
     ws.current.onclose = (e) => {
-      if (connected) {
-        setConnected(false);
-        console.log("WebSocket closed, attempting to reconnect...");
-        handleReconnection();
-      }
+      setConnected(false);
+      console.log("WebSocket closed, attempting to reconnect...");
+      handleReconnection();
     };
 
     ws.current.onerror = (e) => {
-      if (connected) {
-        setConnected(false);
-        console.log(`WebSocket error: ${e.message}, attempting to reconnect...`);
-        handleReconnection();
-      }
+      setConnected(false);
+      console.log(`WebSocket error: ${e.message}, attempting to reconnect...`);
+      handleReconnection();
     };
 
     ws.current.onmessage = (e) => {
