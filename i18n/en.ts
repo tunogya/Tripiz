@@ -59,6 +59,6 @@ export const en = {
   Themes: "Themes",
   Actions: "Actions",
   "View All": "View All",
-  "Used": "Used",
-  "connecting": "(Connecting...)",
+  Used: "Used",
+  connecting: "(Connecting...)",
 };

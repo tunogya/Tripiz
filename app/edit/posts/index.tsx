@@ -4,7 +4,8 @@ import {
   Pressable,
   TextInput,
   TouchableOpacity,
-  Keyboard, Platform,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
@@ -185,15 +186,13 @@ const Page = () => {
           </View>
         </View>
       </View>
-      {
-        Platform.OS === 'ios' && (
-          <View
-            style={{
-              height: keyboardHeight ? keyboardHeight : insets.bottom,
-            }}
-          ></View>
-        )
-      }
+      {Platform.OS === "ios" && (
+        <View
+          style={{
+            height: keyboardHeight ? keyboardHeight : insets.bottom,
+          }}
+        ></View>
+      )}
     </View>
   );
 };

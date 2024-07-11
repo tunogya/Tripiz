@@ -28,9 +28,11 @@ const Page = () => {
           {parseFloat((size / 1024 / 1024).toFixed(3))} MB
         </Text>
       </View>
-      <View style={{
-        height: 80,
-      }}></View>
+      <View
+        style={{
+          height: 80,
+        }}
+      ></View>
     </ScrollView>
   );
 };

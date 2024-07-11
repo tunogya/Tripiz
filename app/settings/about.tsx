@@ -46,9 +46,11 @@ const Page = () => {
           {t("Privacy policy")}
         </Text>
       </Link>
-      <View style={{
-        height: 80,
-      }}></View>
+      <View
+        style={{
+          height: 80,
+        }}
+      ></View>
     </ScrollView>
   );
 };

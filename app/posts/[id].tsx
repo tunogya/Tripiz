@@ -246,8 +246,7 @@ const Page = () => {
               {new Date((data?.created_at || 0) * 1000)
                 .toLocaleDateString("zh")
                 .replaceAll("/", "-")
-                .replace(`${new Date().getFullYear()}-`, "")
-              }
+                .replace(`${new Date().getFullYear()}-`, "")}
             </Text>
           </View>
           <View className={"px-2"}>

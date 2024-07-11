@@ -1,4 +1,4 @@
-import {Pressable, View, Text, Platform} from "react-native";
+import { Pressable, View, Text, Platform } from "react-native";
 import React, { memo } from "react";
 import { BlurView } from "expo-blur";
 import { t } from "../i18n";

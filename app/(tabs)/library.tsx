@@ -92,7 +92,7 @@ const Page = () => {
               <Avatar publicKey={publicKey} />
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
-              {t("Library")} {!connected && (t("connecting")) }
+              {t("Library")} {!connected && t("connecting")}
             </Text>
           </View>
           <View className={"flex flex-row space-x-3 items-center"}>
@@ -174,13 +174,13 @@ const Page = () => {
             />
           }
           keyExtractor={(item: any) => item.id}
-          ListEmptyComponent={() =>
+          ListEmptyComponent={() => (
             <View className={"px-4"}>
               <Text className={"text-[#B3B3B3] text-xs"}>
                 {t(`No content`)}
               </Text>
             </View>
-          }
+          )}
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>
