@@ -60,5 +60,5 @@ export const en = {
   Actions: "Actions",
   "View All": "View All",
   Used: "Used",
-  connecting: "(Connecting...)",
+  connecting: "...",
 };
