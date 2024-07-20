@@ -102,7 +102,8 @@ export default function RootLayout() {
                     name="edit/posts/index"
                     options={{
                       title: "",
-                      gestureEnabled: false,
+                      presentation: 'modal',
+                      gestureEnabled: true,
                       headerShown: false,
                       headerTintColor: "white",
                       headerBackTitleVisible: false,

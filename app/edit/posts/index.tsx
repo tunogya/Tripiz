@@ -81,7 +81,7 @@ const Page = () => {
     <View
       className={`bg-[#121212] flex flex-1`}
       style={{
-        paddingTop: insets.top + 8,
+        paddingTop: 8,
       }}
     >
       <View className={"flex-row justify-between px-3 py-1 items-center"}>
