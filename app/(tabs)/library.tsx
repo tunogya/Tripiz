@@ -4,7 +4,6 @@ import {
   RefreshControl,
   ScrollView,
   Pressable,
-  ActivityIndicator,
   FlatList,
 } from "react-native";
 import React, { memo, useEffect, useMemo, useState } from "react";
@@ -184,7 +183,6 @@ const Page = () => {
           ListHeaderComponent={() => <View className={"h-3"}></View>}
           ListFooterComponent={() => (
             <View>
-              <ActivityIndicator size={"small"} color="#B3B3B3" />
               <View
                 style={{
                   height: insets.bottom + 80,
