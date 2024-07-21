@@ -63,4 +63,5 @@ export const zh = {
   "View All": "浏览全部",
   Used: "已使用",
   connecting: "...",
+  "Ask AI anything": "问 AI 任何事...",
 };

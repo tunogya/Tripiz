@@ -61,4 +61,5 @@ export const en = {
   "View All": "View All",
   Used: "Used",
   connecting: "...",
+  "Ask AI anything": "Ask AI anything...",
 };
