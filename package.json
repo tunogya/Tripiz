@@ -1,6 +1,6 @@
 {
   "name": "tripiz.abandon.ai",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "expo-router/entry",
   "scripts": {
     "prebuild": "expo prebuild --clean",
