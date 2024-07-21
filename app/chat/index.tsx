@@ -65,10 +65,10 @@ const Page = () => {
       </View>
       <View
         className={
-          "flex flex-row border-t border-[#FFFFFF12] items-end justify-between px-3 py-2 space-x-3"
+          "flex flex-row border-t border-[#FFFFFF12] items-end justify-between px-3 space-x-3"
         }
       >
-        <View className={"flex-1 max-h-60"}>
+        <View className={"flex-1 max-h-60 pb-3"}>
           <TextInput
             multiline
             autoFocus={true}
@@ -83,9 +83,9 @@ const Page = () => {
             maxLength={1024}
           />
         </View>
-        <View className={"w-8"}>
+        <View className={"w-8 py-2"}>
           <TouchableOpacity>
-            <Ionicons name="arrow-up-circle" size={32} color="#1DB954" />
+            <Ionicons name="arrow-up-circle" size={28} color="#1DB954" />
           </TouchableOpacity>
         </View>
       </View>
