@@ -37,4 +37,4 @@ const Avatar: FC<{
   );
 };
 
-export default memo(Avatar);
+export default Avatar;
