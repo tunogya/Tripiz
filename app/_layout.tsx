@@ -15,6 +15,7 @@ import { SWRConfig } from "swr";
 import { AppState } from "react-native";
 import { RealmProvider } from "@realm/react";
 import { Event } from "./Event";
+import { Persona } from "./Persona";
 import { WebSocketProvider } from "../components/WebSocketProvider";
 import { t } from "../i18n";
 
@@ -41,7 +42,7 @@ export default function RootLayout() {
 
   return (
     // @ts-ignore
-    <RealmProvider schema={[Event]}>
+    <RealmProvider schema={[Event, Persona]}>
       <Provider store={store}>
         <WebSocketProvider>
           <SWRConfig

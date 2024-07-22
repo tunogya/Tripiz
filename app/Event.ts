@@ -1,4 +1,4 @@
-import Realm, { BSON } from "realm";
+import Realm from "realm";
 
 export class Event extends Realm.Object<Event> {
   id!: string;
