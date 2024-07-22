@@ -20,7 +20,6 @@ const Page = () => {
   const [text, setText] = useState("");
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const inputRef = useRef(undefined);
-  const [isFocused, setIsFocused] = useState(false);
 
   const newComment = async () => {
     try {
@@ -88,28 +87,24 @@ const Page = () => {
           ref={inputRef}
           value={text}
           maxLength={12800}
-          placeholder={t("Talk something")}
+          placeholder={t("Ask AI anything")}
           placeholderTextColor={"#B3B3B3"}
           autoFocus={false}
           className={
             "bg-[#2F2F2F] h-10 rounded-full px-4 text-white flex-1 text-[16px]"
           }
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
           onChangeText={(text) => {
             setText(text);
           }}
         />
-        {isFocused && (
-          <Pressable
-            className={
-              "bg-green-500 h-10 px-4 rounded-full items-center justify-center"
-            }
-            onPress={newComment}
-          >
-            <Text className={"font-bold"}>{t("Send")}</Text>
-          </Pressable>
-        )}
+        <Pressable
+          className={
+            "bg-green-500 h-10 px-4 rounded-full items-center justify-center"
+          }
+          onPress={newComment}
+        >
+          <Text className={"font-bold"}>{t("Send")}</Text>
+        </Pressable>
       </View>
       {Platform.OS === "ios" && (
         <View

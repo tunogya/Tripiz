@@ -57,17 +57,26 @@ const Page = () => {
         stickyHeaderIndices={[1]}
         className={"flex-1"}
       >
-        <View className={"px-4 pt-9 pb-2 flex flex-row space-x-3 items-center"}>
-          <Pressable
-            onPress={() => {
-              router.navigate(`settings`);
-            }}
-          >
-            <Avatar publicKey={publicKey} />
-          </Pressable>
-          <Text className={"text-white font-bold text-2xl"}>
-            {t("Search")}{!connected && t("connecting")}
-          </Text>
+        <View className={"flex flex-row justify-between pt-9 px-4 items-center pb-2"}>
+          <View className={"flex flex-row space-x-3 items-center"}>
+            <Pressable
+              onPress={() => {
+                router.navigate(`settings`);
+              }}
+            >
+              <Avatar publicKey={publicKey} />
+            </Pressable>
+            <Text className={"text-white font-bold text-2xl"}>
+              {t("Search")}{!connected && t("connecting")}
+            </Text>
+          </View>
+          {/*<Pressable*/}
+          {/*  onPress={() => {*/}
+          {/*    router.navigate(`chat`);*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  <Ionicons name="sparkles-sharp" size={24} color="white" />*/}
+          {/*</Pressable>*/}
         </View>
         <View className={"px-4 pb-4 pt-2 bg-[#121212]"}>
           <Pressable

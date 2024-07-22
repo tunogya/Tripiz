@@ -35,21 +35,6 @@ const Page = () => {
             {t("Home")}{!connected && t("connecting")}
           </Text>
         </View>
-        <View className={"px-4 pb-4 pt-2 bg-[#121212]"}>
-          <Pressable
-            onPress={() => {
-              router.navigate(`chat`);
-            }}
-            className={
-              "flex flex-row bg-white rounded-lg h-12 px-3 items-center space-x-3"
-            }
-          >
-            <Ionicons name="sparkles-sharp" size={24} color="black" />
-            <Text className={"flex-1 text-[16px] text-[#B3B3B3]"}>
-              {t("Ask AI anything")}
-            </Text>
-          </Pressable>
-        </View>
         <View
           style={{
             height: 80,
