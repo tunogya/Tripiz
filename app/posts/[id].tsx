@@ -9,7 +9,6 @@ import {
   Dimensions,
   RefreshControl,
   FlatList,
-  StyleSheet,
 } from "react-native";
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
