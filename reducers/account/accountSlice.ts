@@ -4,6 +4,7 @@ import elliptic from "elliptic";
 import { RootState } from "../../store/store";
 import { Buffer } from "buffer";
 import { encodeKey } from "../../utils/nostrUtil";
+import { getPubkey } from "../../utils/getPubkey";
 
 export const slice = createSlice({
   name: "account",
@@ -26,15 +27,7 @@ export const { initialize, recovery } = slice.actions;
 
 export const selectPublicKey = (state: RootState) => {
   const privateKey = state.account.privateKey;
-  if (!privateKey) {
-    return "";
-  }
-  const keyPair = new elliptic.ec("secp256k1").keyFromPrivate(
-    Buffer.from(privateKey, "hex"),
-  );
-  const publicKey = keyPair.getPublic(true, "hex");
-  // Remove 02 compress prefix
-  return publicKey.substring(2);
+  return getPubkey(privateKey);
 };
 
 export const selectNostrPublicKey = (state: RootState) => {

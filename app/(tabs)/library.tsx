@@ -91,7 +91,8 @@ const Page = () => {
               <Avatar publicKey={publicKey} />
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
-              {t("Library")}{!connected && t("connecting")}
+              {t("Library")}
+              {!connected && t("connecting")}
             </Text>
           </View>
           <View className={"flex flex-row space-x-3 items-center"}>

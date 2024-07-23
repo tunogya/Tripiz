@@ -1,5 +1,5 @@
 import { ScrollView, View, Text, Pressable } from "react-native";
-import { memo, useState } from "react";
+import { memo } from "react";
 import { useSelector } from "react-redux";
 import {
   selectNostrPublicKey,

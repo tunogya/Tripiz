@@ -69,15 +69,12 @@ const Page = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View className={"flex-1"}>
-      </View>
+      <View className={"flex-1"}></View>
       <View
         className={
           "flex flex-row border-t border-[#FFFFFF12] items-end justify-between px-3 space-x-3"
         }
-      >
-
-      </View>
+      ></View>
       <View
         className={
           "px-4 h-16 flex justify-center items-center flex-row space-x-3"

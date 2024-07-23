@@ -57,7 +57,11 @@ const Page = () => {
         stickyHeaderIndices={[1]}
         className={"flex-1"}
       >
-        <View className={"flex flex-row justify-between pt-9 px-4 items-center pb-2"}>
+        <View
+          className={
+            "flex flex-row justify-between pt-9 px-4 items-center pb-2"
+          }
+        >
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
               onPress={() => {
@@ -67,7 +71,8 @@ const Page = () => {
               <Avatar publicKey={publicKey} />
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
-              {t("Search")}{!connected && t("connecting")}
+              {t("Search")}
+              {!connected && t("connecting")}
             </Text>
           </View>
           {/*<Pressable*/}

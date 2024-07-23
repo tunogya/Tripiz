@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { FC, memo } from "react";
+import { FC } from "react";
 import { View, Text } from "react-native";
 import useUserInfo from "./useUserInfo";
 
@@ -7,7 +7,7 @@ const Avatar: FC<{
   publicKey: string;
   classname?: string;
 }> = ({ classname, publicKey }) => {
-  const { picture, name } = useUserInfo(publicKey);
+  const { picture } = useUserInfo(publicKey);
 
   if (picture) {
     return (

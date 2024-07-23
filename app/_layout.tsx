@@ -103,7 +103,7 @@ export default function RootLayout() {
                     name="chat/index"
                     options={{
                       title: "",
-                      presentation: 'modal',
+                      presentation: "modal",
                       gestureEnabled: true,
                       headerShown: false,
                       headerTintColor: "white",
@@ -117,7 +117,7 @@ export default function RootLayout() {
                     name="edit/posts/index"
                     options={{
                       title: "",
-                      presentation: 'modal',
+                      presentation: "modal",
                       gestureEnabled: true,
                       headerShown: false,
                       headerTintColor: "white",

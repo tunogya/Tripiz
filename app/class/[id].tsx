@@ -8,7 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import React, { memo, useState } from "react";
-import { Link, router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { t } from "../../i18n";
