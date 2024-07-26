@@ -32,7 +32,7 @@ const Page = () => {
         realm.create(
           "Persona",
           { privateKey: privateKey, created_at: Math.floor(Date.now() / 1000) },
-          true,
+          false,
         );
       });
     } catch (e) {

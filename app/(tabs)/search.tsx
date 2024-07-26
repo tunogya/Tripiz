@@ -103,6 +103,7 @@ const Page = () => {
         <FlatList
           className={"p-4"}
           scrollEnabled={false}
+          keyExtractor={(item) => item.class}
           data={list}
           numColumns={2}
           renderItem={({ item, index }) => (

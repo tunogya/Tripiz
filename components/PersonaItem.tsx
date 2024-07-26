@@ -22,7 +22,7 @@ const PersonaItem = ({ item, index }) => {
         }
       >
         <View className={"h-14 w-14 bg-white"}>
-          {picture && (
+          {picture ? (
             <Image
               contentFit={"cover"}
               cachePolicy={"memory-disk"}
@@ -31,6 +31,16 @@ const PersonaItem = ({ item, index }) => {
               }}
               className={"w-14 h-14"}
             />
+          ) : (
+            <View
+              className={
+                "w-14 h-14 bg-gray-400 items-center justify-center"
+              }
+            >
+              <Text className={"font-bold text-center"}>
+                {pubkey?.slice(0, 2).toUpperCase()}
+              </Text>
+            </View>
           )}
         </View>
         <Text className={"text-white font-bold"}>{name}</Text>
