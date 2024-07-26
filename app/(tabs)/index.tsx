@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Avatar from "../../components/Avatar";
 import { router } from "expo-router";
 import { t } from "../../i18n";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import PersonaItem from "../../components/PersonaItem";
@@ -12,12 +12,14 @@ import { useQuery, useRealm } from "@realm/react";
 import { Persona } from "../Persona";
 import { RootState } from "store/store";
 import { Ionicons } from "@expo/vector-icons";
+import { initialize } from "../../reducers/account/accountSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
   const { privateKey } = useSelector((state: RootState) => state.account);
   const publicKey = useSelector(selectPublicKey);
   const { connected } = useWebSocket();
+  const dispatch = useDispatch();
   const realm = useRealm();
 
   const personas = useQuery(Persona, (events) => {
@@ -25,7 +27,7 @@ const Page = () => {
   });
 
   useEffect(() => {
-    if (personas.length === 0) {
+    try {
       realm.write(() => {
         realm.create(
           "Persona",
@@ -33,8 +35,10 @@ const Page = () => {
           true,
         );
       });
+    } catch (e) {
+      console.log(e);
     }
-  }, [personas]);
+  }, [privateKey]);
 
   return (
     <View className={"flex flex-1 h-full bg-[#121212] relative"}>
@@ -64,7 +68,7 @@ const Page = () => {
             <Pressable
               className={"items-center justify-center flex h-10 w-10"}
               onPress={() => {
-                // create new persona
+                dispatch(initialize());
               }}
             >
               <Ionicons name="add" size={32} color="white" />
