@@ -2,14 +2,14 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { FC, memo } from "react";
 import Avatar from "./Avatar";
 import { Event } from "../app/Event";
-import useUserInfo from "./useUserInfo";
+import useMetadata from "./useMetadata";
 import Markdown, { MarkdownIt } from "@ronradtke/react-native-markdown-display";
 
 const CommentShowItem: FC<{
   item: Event;
   onPress: () => void;
 }> = ({ item, onPress }) => {
-  const { name } = useUserInfo(item.pubkey);
+  const { name } = useMetadata(item.pubkey);
 
   return (
     <Pressable

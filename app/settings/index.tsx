@@ -18,33 +18,6 @@ import { t } from "../../i18n";
 const Page = () => {
   const publicKey = useSelector(selectPublicKey);
   const nostrPublicKey = useSelector(selectNostrPublicKey);
-  const { privateKey } = useSelector((state: RootState) => state.account);
-  const { send } = useWebSocket();
-  const realm = useRealm();
-
-  const randomPicture = async () => {
-    const randomNumber = Math.floor(Math.random() * 10000);
-    const newPicture = `https://www.larvalabs.com/cryptopunks/cryptopunk${randomNumber.toString().padStart(4, "0")}.png`;
-    try {
-      const event = finalizeEvent(
-        {
-          kind: 0,
-          created_at: Math.floor(Date.now() / 1000),
-          tags: [],
-          content: JSON.stringify({
-            picture: newPicture,
-          }),
-        },
-        Buffer.from(privateKey, "hex"),
-      );
-      realm.write(() => {
-        realm.create("Event", event);
-      });
-      send(JSON.stringify(["EVENT", event]));
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <ScrollView className={"bg-[#121212] flex flex-1"}>
@@ -55,14 +28,9 @@ const Page = () => {
             publicKey={publicKey}
           />
           <View className={"space-y-1.5 flex-1 mr-10"}>
-            <Text className={"text-[#B3B3B3] font-medium"} numberOfLines={1}>
+            <Text className={"text-[#B3B3B3] font-medium"} numberOfLines={2}>
               {nostrPublicKey}
             </Text>
-            <Pressable hitSlop={8} onPress={randomPicture}>
-              <Text className={"text-[#1DB954] font-medium"}>
-                {t("Shuffle avatar")}
-              </Text>
-            </Pressable>
           </View>
         </View>
       </View>
@@ -76,6 +44,20 @@ const Page = () => {
         >
           <Text className={"text-white font-medium text-[16px]"}>
             {t("Account")}
+          </Text>
+          <Ionicons name="chevron-forward-outline" size={24} color="white" />
+        </View>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          router.navigate("settings/metadata");
+        }}
+      >
+        <View
+          className={"px-4 py-2 flex flex-row justify-between items-center"}
+        >
+          <Text className={"text-white font-medium text-[16px]"}>
+            {t("Metadata")}
           </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
         </View>

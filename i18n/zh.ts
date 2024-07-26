@@ -64,4 +64,6 @@ export const zh = {
   Used: "已使用",
   connecting: "...",
   "Ask AI anything": "问 AI 任何事...",
+  "Metadata": "元数据",
+  Name: "姓名",
 };

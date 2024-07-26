@@ -1,13 +1,13 @@
 import { Image } from "expo-image";
 import { FC } from "react";
 import { View, Text } from "react-native";
-import useUserInfo from "./useUserInfo";
+import useMetadata from "./useMetadata";
 
 const Avatar: FC<{
   publicKey: string;
   classname?: string;
 }> = ({ classname, publicKey }) => {
-  const { picture } = useUserInfo(publicKey);
+  const { picture } = useMetadata(publicKey);
 
   if (picture) {
     return (

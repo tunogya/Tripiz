@@ -152,6 +152,18 @@ export default function RootLayout() {
                     }}
                   />
                   <Stack.Screen
+                    name="settings/metadata"
+                    options={{
+                      title: t("Metadata"),
+                      headerShown: true,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                  <Stack.Screen
                     name="settings/account"
                     options={{
                       title: t("Account"),

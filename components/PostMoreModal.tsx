@@ -13,13 +13,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Avatar from "./Avatar";
 import Clipboard from "@react-native-clipboard/clipboard";
-import useUserInfo from "./useUserInfo";
+import useMetadata from "./useMetadata";
 
 const PostMoreModal = ({ post, onClose }) => {
   const insets = useSafeAreaInsets();
   const realm = useRealm();
   const { privateKey } = useSelector((state: RootState) => state.account);
-  const { name } = useUserInfo(post.pubkey);
+  const { name } = useMetadata(post.pubkey);
   const { send } = useWebSocket();
 
   return (

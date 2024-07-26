@@ -33,7 +33,7 @@ const Page = () => {
 
   const DATA = useQuery(Event, (events) => {
     return events
-      .filtered("kind == $0 && pubkey == $1", 1, publicKey)
+      .filtered("kind == $0", 1)
       .sorted("created_at", true);
   });
 
@@ -43,12 +43,12 @@ const Page = () => {
         const category =
           item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1] ||
           "reflections";
-        return category === filter;
+        return category === filter && item.pubkey === publicKey;
       });
     } else {
-      return DATA;
+      return DATA.filter((item) => item.pubkey === publicKey);
     }
-  }, [DATA, filter]);
+  }, [DATA, filter, publicKey]);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -161,6 +161,7 @@ const Page = () => {
       </View>
       <View className={"flex-1"}>
         <FlatList
+          key={publicKey}
           data={filterData as Event[]}
           refreshControl={
             <RefreshControl

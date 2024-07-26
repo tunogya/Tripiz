@@ -5,7 +5,7 @@ import Avatar from "../../components/Avatar";
 import { router } from "expo-router";
 import { t } from "../../i18n";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPublicKey } from "../../reducers/account/accountSlice";
+import {recovery, selectPublicKey } from "../../reducers/account/accountSlice";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import PersonaItem from "../../components/PersonaItem";
 import { useQuery, useRealm } from "@realm/react";
@@ -13,6 +13,9 @@ import { Persona } from "../Persona";
 import { RootState } from "store/store";
 import { Ionicons } from "@expo/vector-icons";
 import { initialize } from "../../reducers/account/accountSlice";
+import * as ImagePicker from "expo-image-picker";
+import { Camera } from "expo-camera";
+import { decodeKey } from "../../utils/nostrUtil";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -25,6 +28,33 @@ const Page = () => {
   const personas = useQuery(Persona, (events) => {
     return events.sorted("created_at", true);
   });
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const data = await Camera.scanFromURLAsync(result.assets[0].uri);
+      if (data?.[0] && data[0]?.data) {
+        try {
+          const nostrPrivateKey = decodeKey(data[0]?.data);
+          if (!nostrPrivateKey) {
+            return;
+          }
+          dispatch(recovery(nostrPrivateKey));
+        } catch (e) {
+          alert(t("Import Nostr Key failed"));
+        }
+      } else {
+        alert(t("No Qr code found"));
+      }
+    }
+  };
 
   useEffect(() => {
     try {
@@ -87,6 +117,13 @@ const Page = () => {
             <View>
               <Text className={"text-white"}>loading...</Text>
             </View>
+          )}
+          ListFooterComponent={() => (
+            <Pressable onPress={pickImage} className={"px-4 pt-8 space-y-1 items-center"}>
+              <Text className={"text-[#1DB954] font-medium"}>
+                {t(`Import my Nostr key`)}
+              </Text>
+            </Pressable>
           )}
         />
         <View

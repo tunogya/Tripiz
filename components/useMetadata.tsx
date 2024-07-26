@@ -4,7 +4,7 @@ import { useQuery, useRealm } from "@realm/react";
 import { Event } from "../app/Event";
 import { uuid } from "expo-modules-core";
 
-const useUserInfo = (pubkey: string) => {
+const useMetadata = (pubkey: string) => {
   const [name, setName] = useState(undefined);
   const [picture, setPicture] = useState(undefined);
   const { send } = useWebSocket();
@@ -59,4 +59,4 @@ const useUserInfo = (pubkey: string) => {
   };
 };
 
-export default useUserInfo;
+export default useMetadata;

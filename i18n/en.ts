@@ -62,4 +62,6 @@ export const en = {
   Used: "Used",
   connecting: "...",
   "Ask AI anything": "Ask AI anything...",
+  "Metadata": "Metadata",
+  Name: "Name",
 };
