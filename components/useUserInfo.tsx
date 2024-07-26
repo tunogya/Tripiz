@@ -3,12 +3,9 @@ import { useWebSocket } from "./WebSocketProvider";
 import { useQuery, useRealm } from "@realm/react";
 import { Event } from "../app/Event";
 import { uuid } from "expo-modules-core";
-import { useSelector } from "react-redux";
-import { selectPublicKey } from "../reducers/account/accountSlice";
 
 const useUserInfo = (pubkey: string) => {
-  const myPublicKey = useSelector(selectPublicKey);
-  const [name, setName] = useState("Anonymous");
+  const [name, setName] = useState(undefined);
   const [picture, setPicture] = useState(undefined);
   const { send } = useWebSocket();
   const realm = useRealm();
@@ -23,11 +20,7 @@ const useUserInfo = (pubkey: string) => {
     if (events.length > 0) {
       try {
         const info = JSON.parse(events[0]?.content);
-        if (pubkey === myPublicKey) {
-          setName("Me");
-        } else {
-          setName(info?.name);
-        }
+        setName(info?.name);
         setPicture(info?.picture);
       } catch (e) {
         console.log(e);
@@ -41,7 +34,10 @@ const useUserInfo = (pubkey: string) => {
         });
       });
     }
-  }, [events]);
+    if (events.length === 0) {
+      console.log("404")
+    }
+  }, [events, pubkey]);
 
   useEffect(() => {
     send(

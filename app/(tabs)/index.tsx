@@ -57,7 +57,7 @@ const Page = () => {
                 router.navigate(`settings`);
               }}
             >
-              <Avatar publicKey={publicKey} />
+              <Avatar publicKey={publicKey} key={publicKey}/>
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
               {t("Home")}
@@ -79,8 +79,9 @@ const Page = () => {
           data={personas}
           className={"px-4 py-2"}
           numColumns={2}
+          keyExtractor={(item) => item.privateKey}
           renderItem={({ item, index }) => (
-            <PersonaItem item={item} index={index} />
+            <PersonaItem item={item} index={index}/>
           )}
           ListEmptyComponent={() => (
             <View>

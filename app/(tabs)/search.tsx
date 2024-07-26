@@ -68,7 +68,7 @@ const Page = () => {
                 router.navigate(`settings`);
               }}
             >
-              <Avatar publicKey={publicKey} />
+              <Avatar publicKey={publicKey} key={publicKey}/>
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
               {t("Search")}

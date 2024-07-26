@@ -3,15 +3,20 @@ import { View, Text, Pressable } from "react-native";
 import { getPubkey } from "../utils/getPubkey";
 import useUserInfo from "./useUserInfo";
 import { Image } from "expo-image";
+import { recovery } from "../reducers/account/accountSlice";
+import {useDispatch} from "react-redux";
 
 const PersonaItem = ({ item, index }) => {
   const pubkey = getPubkey(item.privateKey);
   const { name, picture } = useUserInfo(pubkey);
+  const dispatch = useDispatch();
 
   return (
     <View className={`w-[50%] ${index % 2 === 0 ? "pr-1.5" : "pl-1.5"} mb-3`}>
       <Pressable
-        onPress={() => {}}
+        onPress={() => {
+          dispatch(recovery(item.privateKey));
+        }}
         className={
           "h-14 rounded bg-[#292929] items-center flex flex-row space-x-3 overflow-hidden"
         }
