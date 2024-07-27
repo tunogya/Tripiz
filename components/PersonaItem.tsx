@@ -4,7 +4,7 @@ import { getPubkey } from "../utils/getPubkey";
 import useMetadata from "./useMetadata";
 import { Image } from "expo-image";
 import { recovery, selectPublicKey } from "../reducers/account/accountSlice";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { router } from "expo-router";
 
 const PersonaItem = ({ item, index }) => {
@@ -20,7 +20,7 @@ const PersonaItem = ({ item, index }) => {
           if (pubkey !== publicKey) {
             dispatch(recovery(item.privateKey));
           } else {
-            router.navigate("settings")
+            router.navigate("settings");
           }
         }}
         className={
@@ -39,9 +39,7 @@ const PersonaItem = ({ item, index }) => {
             />
           ) : (
             <View
-              className={
-                "w-14 h-14 bg-gray-400 items-center justify-center"
-              }
+              className={"w-14 h-14 bg-gray-400 items-center justify-center"}
             >
               <Text className={"font-bold text-center"}>
                 {pubkey?.slice(0, 2).toUpperCase()}
@@ -49,7 +47,11 @@ const PersonaItem = ({ item, index }) => {
             </View>
           )}
         </View>
-        <Text className={`${pubkey === publicKey ? "text-[#1DB954]" : "text-white"} font-bold`}>{name || '-'}</Text>
+        <Text
+          className={`${pubkey === publicKey ? "text-[#1DB954]" : "text-white"} font-bold`}
+        >
+          {name || "-"}
+        </Text>
       </Pressable>
     </View>
   );

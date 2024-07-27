@@ -35,7 +35,7 @@ const PostMoreModal = ({ post, onClose }) => {
       <View className={"w-full h-full justify-end"}>
         <View className={"p-6 space-y-3"}>
           <View className={"flex flex-row items-center space-x-3"}>
-            <Avatar publicKey={post.pubkey} key={post.pubkey}/>
+            <Avatar publicKey={post.pubkey} key={post.pubkey} />
             <Text
               className={"text-white text-[20px] font-semibold"}
               numberOfLines={1}

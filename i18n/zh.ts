@@ -4,7 +4,7 @@ export const zh = {
   Search: "搜索",
   "Search dot dot dot": "搜索...",
   Library: "资料库",
-  "Shuffle": "切换",
+  Shuffle: "切换",
   "Show Private Key": "显示私钥",
   "Hide Private Key": "隐藏私钥",
   "Nostr Private Key": "Nostr账户私钥",
@@ -64,9 +64,9 @@ export const zh = {
   Used: "已使用",
   connecting: "...",
   "Ask AI anything": "问 AI 任何事...",
-  "Metadata": "元数据",
+  Metadata: "元数据",
   Name: "姓名",
   Picture: "头像",
   Save: "Save",
-  "Update Metadata": "更新元数据"
+  "Update Metadata": "更新元数据",
 };

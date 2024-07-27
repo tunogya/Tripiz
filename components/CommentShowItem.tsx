@@ -16,7 +16,7 @@ const CommentShowItem: FC<{
       onPress={onPress}
       className={"px-4 pt-4 flex flex-row space-x-3 bg-[#121212]"}
     >
-      <Avatar publicKey={item.pubkey} key={publicKey}/>
+      <Avatar publicKey={item.pubkey} key={publicKey} />
       <View className={"pb-4 flex-1 border-b border-[#FFFFFF12]"}>
         <View className={"flex flex-row justify-between items-center"}>
           <Text

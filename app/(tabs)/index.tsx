@@ -5,7 +5,7 @@ import Avatar from "../../components/Avatar";
 import { router } from "expo-router";
 import { t } from "../../i18n";
 import { useDispatch, useSelector } from "react-redux";
-import {recovery, selectPublicKey } from "../../reducers/account/accountSlice";
+import { recovery, selectPublicKey } from "../../reducers/account/accountSlice";
 import { useWebSocket } from "../../components/WebSocketProvider";
 import PersonaItem from "../../components/PersonaItem";
 import { useQuery, useRealm } from "@realm/react";
@@ -80,7 +80,9 @@ const Page = () => {
         className={"flex-1"}
       >
         <View
-          className={"px-4 pb-2 pt-9 flex flex-row space-x-3 items-center justify-between"}
+          className={
+            "px-4 pb-2 pt-9 flex flex-row space-x-3 items-center justify-between"
+          }
         >
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
@@ -88,7 +90,7 @@ const Page = () => {
                 router.navigate(`settings`);
               }}
             >
-              <Avatar publicKey={publicKey} key={publicKey}/>
+              <Avatar publicKey={publicKey} key={publicKey} />
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
               {t("Home")}
@@ -112,14 +114,14 @@ const Page = () => {
             </Pressable>
           </View>
         </View>
-        <Tips key={publicKey}/>
+        <Tips key={publicKey} />
         <FlatList
           data={personas}
           className={"px-4 py-2"}
           numColumns={2}
           keyExtractor={(item) => item.privateKey}
           renderItem={({ item, index }) => (
-            <PersonaItem item={item} index={index}/>
+            <PersonaItem item={item} index={index} />
           )}
           ListEmptyComponent={() => (
             <View>

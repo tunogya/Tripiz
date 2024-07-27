@@ -37,7 +37,7 @@ const useMetadata = (pubkey: string) => {
       });
     }
     if (events.length === 0) {
-      console.log("404")
+      console.log("404");
     }
   }, [events, pubkey]);
 

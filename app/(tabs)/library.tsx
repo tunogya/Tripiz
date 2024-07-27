@@ -32,9 +32,7 @@ const Page = () => {
   const { send, connected } = useWebSocket();
 
   const DATA = useQuery(Event, (events) => {
-    return events
-      .filtered("kind == $0", 1)
-      .sorted("created_at", true);
+    return events.filtered("kind == $0", 1).sorted("created_at", true);
   });
 
   const filterData = useMemo(() => {
@@ -88,7 +86,7 @@ const Page = () => {
                 router.navigate(`settings`);
               }}
             >
-              <Avatar publicKey={publicKey} key={publicKey}/>
+              <Avatar publicKey={publicKey} key={publicKey} />
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
               {t("Library")}
