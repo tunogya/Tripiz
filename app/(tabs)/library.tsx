@@ -18,7 +18,7 @@ const Page = () => {
   const [filter, setFilter] = useState("");
   const [showSearchForm, setShowSearchForm] = useState(false);
   const publicKey = useSelector(selectPublicKey);
-  const { send, connected } = useWebSocket();
+  const { connected } = useWebSocket();
 
   return (
     <View className={"flex flex-1 bg-[#121212] relative"}>
