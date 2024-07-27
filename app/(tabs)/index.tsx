@@ -97,6 +97,12 @@ const Page = () => {
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
               className={"items-center justify-center flex h-10 w-10"}
+              onPress={pickImage}
+            >
+              <Ionicons name="scan" size={28} color="white" />
+            </Pressable>
+            <Pressable
+              className={"items-center justify-center flex h-10 w-10"}
               onPress={() => {
                 dispatch(initialize());
               }}
@@ -117,13 +123,6 @@ const Page = () => {
             <View>
               <Text className={"text-white"}>loading...</Text>
             </View>
-          )}
-          ListFooterComponent={() => (
-            <Pressable onPress={pickImage} className={"px-4 pt-8 space-y-1 items-center"}>
-              <Text className={"text-[#1DB954] font-medium"}>
-                {t(`Import my Nostr key`)}
-              </Text>
-            </Pressable>
           )}
         />
         <View
