@@ -89,7 +89,7 @@ const Page = () => {
               setShowSearchForm(true);
             }}
             className={
-              "flex flex-row bg-white rounded-lg h-12 px-3 items-center space-x-3"
+              "flex flex-row bg-white rounded h-12 px-3 items-center space-x-3"
             }
           >
             <Ionicons name="search" size={24} color="black" />

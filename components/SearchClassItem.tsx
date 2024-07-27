@@ -5,7 +5,7 @@ import { t } from "../i18n";
 
 const SearchClassItem = ({ item, index }) => {
   return (
-    <View className={`w-[50%] ${index % 2 === 0 ? "pr-1.5" : "pl-1.5"} mb-3`}>
+    <View className={`w-[50%] ${index % 2 === 0 ? "pr-2" : "pl-2"} mb-4`}>
       <Pressable
         onPress={() => {
           router.navigate(`class/${item.class}`);
@@ -13,7 +13,7 @@ const SearchClassItem = ({ item, index }) => {
         style={{
           backgroundColor: item.color,
         }}
-        className={"p-2 h-24 rounded"}
+        className={"p-2 h-28 rounded"}
       >
         <Text className={"text-white font-semibold"}>{t(item.class)}</Text>
       </Pressable>
