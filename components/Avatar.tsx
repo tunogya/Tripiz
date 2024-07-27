@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { View, Text } from "react-native";
 import useMetadata from "./useMetadata";
 
@@ -37,4 +37,4 @@ const Avatar: FC<{
   );
 };
 
-export default Avatar;
+export default memo(Avatar);

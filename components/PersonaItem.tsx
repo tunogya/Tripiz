@@ -2,14 +2,14 @@ import { memo } from "react";
 import { View, Text, Pressable } from "react-native";
 import { getPubkey } from "../utils/getPubkey";
 import useMetadata from "./useMetadata";
-import { Image } from "expo-image";
 import { recovery, selectPublicKey } from "../reducers/account/accountSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { router } from "expo-router";
+import Avatar from "./Avatar";
 
 const PersonaItem = ({ item, index }) => {
   const pubkey = getPubkey(item.privateKey);
-  const { name, picture } = useMetadata(pubkey);
+  const { name } = useMetadata(pubkey);
   const dispatch = useDispatch();
   const publicKey = useSelector(selectPublicKey);
 
@@ -28,24 +28,10 @@ const PersonaItem = ({ item, index }) => {
         }
       >
         <View className={"h-14 w-14 bg-white"}>
-          {picture ? (
-            <Image
-              contentFit={"cover"}
-              cachePolicy={"memory-disk"}
-              source={{
-                uri: picture,
-              }}
-              className={"w-14 h-14"}
-            />
-          ) : (
-            <View
-              className={"w-14 h-14 bg-gray-400 items-center justify-center"}
-            >
-              <Text className={"font-bold text-center"}>
-                {pubkey?.slice(0, 2).toUpperCase()}
-              </Text>
-            </View>
-          )}
+          <Avatar
+            classname={"w-14 h-14 items-center justify-center bg-gray-400"}
+            publicKey={pubkey}
+          />
         </View>
         <Text
           className={`${pubkey === publicKey ? "text-[#1DB954]" : "text-white"} font-bold`}

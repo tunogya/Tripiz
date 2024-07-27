@@ -12,18 +12,18 @@ import { useWebSocket } from "components/WebSocketProvider";
 import { RootState } from "store/store";
 import { finalizeEvent } from "nostr-tools";
 import { useRealm } from "@realm/react";
-import { Image } from "expo-image";
 import { selectPublicKey } from "reducers/account/accountSlice";
 import useMetadata from "../../components/useMetadata";
 import { Buffer } from "buffer";
 import { router } from "expo-router";
+import Avatar from "components/Avatar";
 
 const Page = () => {
   const { privateKey } = useSelector((state: RootState) => state.account);
   const publicKey = useSelector(selectPublicKey);
   const { send } = useWebSocket();
   const realm = useRealm();
-  const { name, about, picture } = useMetadata(publicKey);
+  const { name, about } = useMetadata(publicKey);
 
   const shuffle = async () => {
     const randomNumber = Math.floor(Math.random() * 10000);
@@ -99,24 +99,10 @@ const Page = () => {
           </TouchableOpacity>
         </View>
         <View>
-          {picture ? (
-            <Image
-              contentFit={"cover"}
-              cachePolicy={"memory-disk"}
-              source={{
-                uri: picture,
-              }}
-              className={"w-24 h-24 bg-gray-400"}
-            />
-          ) : (
-            <View
-              className={"w-24 h-24 bg-gray-400 items-center justify-center"}
-            >
-              <Text className={"font-bold text-center"}>
-                {publicKey?.slice(0, 2).toUpperCase()}
-              </Text>
-            </View>
-          )}
+          <Avatar
+            classname={"w-24 h-24 items-center justify-center bg-gray-400"}
+            publicKey={publicKey}
+          />
         </View>
       </View>
       <View

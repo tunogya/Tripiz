@@ -8,11 +8,6 @@ import {
 import Avatar from "../../components/Avatar";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { finalizeEvent } from "nostr-tools";
-import { Buffer } from "buffer";
-import { RootState } from "../../store/store";
-import { useRealm } from "@realm/react";
-import { useWebSocket } from "../../components/WebSocketProvider";
 import { t } from "../../i18n";
 
 const Page = () => {
@@ -24,7 +19,8 @@ const Page = () => {
       <View className={"px-4 py-2 flex flex-row justify-between items-center"}>
         <View className={"flex flex-row items-center space-x-3"}>
           <Avatar
-            classname={"w-14 h-14 rounded-full items-center justify-center"}
+            key={publicKey}
+            classname={"w-14 h-14 rounded-full items-center justify-center bg-gray-400"}
             publicKey={publicKey}
           />
           <View className={"space-y-1.5 flex-1 mr-10"}>
