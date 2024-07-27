@@ -1,73 +1,24 @@
-import {
-  View,
-  Text,
-  RefreshControl,
-  ScrollView,
-  Pressable,
-  FlatList,
-} from "react-native";
-import React, { memo, useEffect, useMemo, useState } from "react";
+import { View, Text, ScrollView, Pressable } from "react-native";
+import React, { memo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import LibraryShowItem from "../../components/LibraryShowItem";
 import Avatar from "../../components/Avatar";
 import { router } from "expo-router";
 import { t } from "../../i18n";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
-import { useQuery } from "@realm/react";
-import { Event } from "../Event";
 import { useWebSocket } from "../../components/WebSocketProvider";
-import { uuid } from "expo-modules-core";
 import Svg, { Path } from "react-native-svg";
 import SearchForm from "../../components/SearchForm";
+import LibraryShowList from "../../components/LibraryShowList";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
-  const [refreshing, setRefreshing] = useState(false);
   const FILTERS = ["memories", "dreams", "reflections"];
   const [filter, setFilter] = useState("");
   const [showSearchForm, setShowSearchForm] = useState(false);
   const publicKey = useSelector(selectPublicKey);
   const { send, connected } = useWebSocket();
-
-  const DATA = useQuery(Event, (events) => {
-    return events.filtered("kind == $0", 1).sorted("created_at", true);
-  });
-
-  const filterData = useMemo(() => {
-    if (filter) {
-      return DATA.filter((item) => {
-        const category =
-          item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1] ||
-          "reflections";
-        return category === filter && item.pubkey === publicKey;
-      });
-    } else {
-      return DATA.filter((item) => item.pubkey === publicKey);
-    }
-  }, [DATA, filter, publicKey]);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    send(
-      JSON.stringify([
-        "REQ",
-        uuid.v4(),
-        {
-          authors: [publicKey],
-          kinds: [1],
-          limit: 20,
-          since: DATA?.[0]?.created_at || 0,
-        },
-      ]),
-    );
-    setRefreshing(false);
-  };
-
-  useEffect(() => {
-    onRefresh();
-  }, [publicKey]);
 
   return (
     <View className={"flex flex-1 bg-[#121212] relative"}>
@@ -158,41 +109,10 @@ const Page = () => {
         </ScrollView>
       </View>
       <View className={"flex-1"}>
-        <FlatList
+        <LibraryShowList
+          publicKey={publicKey}
+          filter={filter}
           key={publicKey}
-          data={filterData as Event[]}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              colors={["#B3B3B3"]}
-              progressBackgroundColor="#121212"
-              tintColor="#B3B3B3"
-              title="Loading..."
-              titleColor="#B3B3B3"
-            />
-          }
-          keyExtractor={(item: any) => item.id}
-          ListEmptyComponent={() => (
-            <View className={"px-4"}>
-              <Text className={"text-[#B3B3B3] text-xs"}>
-                {t(`No content`)}
-              </Text>
-            </View>
-          )}
-          ListHeaderComponent={() => <View className={"h-3"}></View>}
-          ListFooterComponent={() => (
-            <View>
-              <View
-                style={{
-                  height: insets.bottom + 80,
-                }}
-              ></View>
-            </View>
-          )}
-          renderItem={({ item }) => (
-            <LibraryShowItem key={item.id} item={item} showType={!filter} />
-          )}
         />
       </View>
       {showSearchForm && (

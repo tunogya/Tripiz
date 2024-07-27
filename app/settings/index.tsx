@@ -20,7 +20,9 @@ const Page = () => {
         <View className={"flex flex-row items-center space-x-3"}>
           <Avatar
             key={publicKey}
-            classname={"w-14 h-14 rounded-full items-center justify-center bg-gray-400"}
+            classname={
+              "w-14 h-14 rounded-full items-center justify-center bg-gray-400"
+            }
             publicKey={publicKey}
           />
           <View className={"space-y-1.5 flex-1 mr-10"}>
