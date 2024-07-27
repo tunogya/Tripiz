@@ -14,7 +14,7 @@ const PersonaItem = ({ item, index }) => {
   const publicKey = useSelector(selectPublicKey);
 
   return (
-    <View className={`w-[50%] ${index % 2 === 0 ? "pr-1.5" : "pl-1.5"} mb-3`}>
+    <View className={`w-[50%] ${index % 2 === 0 ? "pr-1" : "pl-1"} mb-2`}>
       <Pressable
         onPress={() => {
           if (pubkey !== publicKey) {
