@@ -99,7 +99,7 @@ const Page = () => {
               className={"items-center justify-center flex h-10 w-10"}
               onPress={pickImage}
             >
-              <Ionicons name="scan" size={28} color="white" />
+              <Ionicons name="scan" size={24} color="white" />
             </Pressable>
             <Pressable
               className={"items-center justify-center flex h-10 w-10"}
@@ -107,7 +107,7 @@ const Page = () => {
                 dispatch(initialize());
               }}
             >
-              <Ionicons name="add" size={32} color="white" />
+              <Ionicons name="person-add-outline" size={24} color="white" />
             </Pressable>
           </View>
         </View>

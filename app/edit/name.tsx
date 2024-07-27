@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Pressable,
   TextInput,
   TouchableOpacity,
   Keyboard,
@@ -10,50 +9,54 @@ import {
 import { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
-import { t } from "../../../i18n";
+import { RootState } from "../../store/store";
+import { t } from "../../i18n";
 import { finalizeEvent } from "nostr-tools";
 import { Buffer } from "buffer";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import {Ionicons} from "@expo/vector-icons";
 import Svg, { Circle } from "react-native-svg";
 import { useRealm } from "@realm/react";
-import { useWebSocket } from "../../../components/WebSocketProvider";
+import { useWebSocket } from "../../components/WebSocketProvider";
+import useMetadata from "components/useMetadata";
+import { selectPublicKey } from "reducers/account/accountSlice";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
   const { privateKey } = useSelector((state: RootState) => state.account);
   const [text, setText] = useState("");
-  const FILTERS = ["memories", "dreams", "reflections"];
-  const [filter, setFilter] = useState("memories");
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const realm = useRealm();
   const { send } = useWebSocket();
+  const publicKey = useSelector(selectPublicKey);
+  const { name, about, picture } = useMetadata(publicKey);
 
   const save = async () => {
     try {
       const event = finalizeEvent(
         {
-          kind: 1,
+          kind: 0,
           created_at: Math.floor(Date.now() / 1000),
-          tags: [["category", filter.toLowerCase()]],
-          content: text,
+          tags: [],
+          content: JSON.stringify({
+            name: text,
+            about: about || "",
+            picture: picture || "",
+          }),
         },
         Buffer.from(privateKey, "hex"),
       );
       realm.write(() => {
-        realm.create("Event", event, true);
+        realm.create("Event", event);
       });
       send(JSON.stringify(["EVENT", event]));
       router.back();
-      router.navigate(`posts/${event.id}`);
     } catch (e) {
       console.log(e);
     }
   };
 
   const strokeDashoffset = useMemo(() => {
-    return (1 - text.length / 12800) * Math.PI * 2 * 10;
+    return (1 - text.length / 40) * Math.PI * 2 * 10;
   }, [text]);
 
   useEffect(() => {
@@ -105,60 +108,29 @@ const Page = () => {
           <Text
             className={`font-bold ${text === "" ? "text-[#B3B3B3]" : "text-[#1DB954]"}`}
           >
-            {t("Post")}
+            {t("Save")}
           </Text>
         </TouchableOpacity>
-      </View>
-      <View
-        className={"flex flex-row items-center border-[#FFFFFF12] px-2 py-1"}
-      >
-        {FILTERS.map((item, index) => (
-          <Pressable
-            hitSlop={4}
-            key={index}
-            className={`px-4 h-8 items-center justify-center ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
-            onPress={() => {
-              setFilter(item);
-            }}
-          >
-            <Text
-              className={`${filter === item ? "text-black" : "text-white"} text-[14px]`}
-            >
-              {t(item)}
-            </Text>
-          </Pressable>
-        ))}
       </View>
       <View className={"flex-1"}>
         <TextInput
           multiline
           autoFocus={true}
-          placeholder={t("Content")}
+          placeholder={name ? name : t(`Name`)}
           placeholderTextColor={"#B3B3B3"}
           className={`text-white text-[18px] px-5 py-3`}
           value={text}
           onChangeText={(text) => {
             setText(text);
           }}
-          maxLength={12800}
+          maxLength={40}
         />
       </View>
       <View
         className={
-          "flex flex-row h-12 border-t border-[#FFFFFF12] items-center justify-between"
+          "flex flex-row h-12 border-t border-[#FFFFFF12] items-center justify-end"
         }
       >
-        <View className={"flex flex-row"}>
-          {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
-          {/*  <Ionicons name="mic" size={24} color="#7357F6" />*/}
-          {/*</Pressable>*/}
-          {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
-          {/*  <Ionicons name="images-outline" size={20} color="#1DB954" />*/}
-          {/*</Pressable>*/}
-          {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
-          {/*  <Ionicons name="location-outline" size={20} color="#1DB954" />*/}
-          {/*</Pressable>*/}
-        </View>
         <View className={"flex flex-row"}>
           <View className={"h-12 w-12 items-center justify-center -rotate-90"}>
             <Svg height="24" width="24">

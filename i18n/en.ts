@@ -4,7 +4,7 @@ export const en = {
   Search: "Search",
   "Search dot dot dot": "Search...",
   Library: "Library",
-  "Shuffle avatar": "Shuffle avatar",
+  "Shuffle": "Shuffle",
   "Show Private Key": "Show Private Key",
   "Hide Private Key": "Hide Private Key",
   "Nostr Private Key": "Nostr Private Key",
@@ -65,4 +65,5 @@ export const en = {
   "Metadata": "Metadata",
   Name: "Name",
   Picture: "Picture",
+  Save: "Save",
 };
