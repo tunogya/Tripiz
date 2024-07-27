@@ -64,4 +64,5 @@ export const en = {
   "Ask AI anything": "Ask AI anything...",
   "Metadata": "Metadata",
   Name: "Name",
+  Picture: "Picture",
 };

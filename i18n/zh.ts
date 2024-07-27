@@ -66,4 +66,5 @@ export const zh = {
   "Ask AI anything": "问 AI 任何事...",
   "Metadata": "元数据",
   Name: "姓名",
+  Picture: "头像",
 };

@@ -7,6 +7,7 @@ import { uuid } from "expo-modules-core";
 const useMetadata = (pubkey: string) => {
   const [name, setName] = useState(undefined);
   const [picture, setPicture] = useState(undefined);
+  const [about, setAbout] = useState(undefined);
   const { send } = useWebSocket();
   const realm = useRealm();
 
@@ -22,6 +23,7 @@ const useMetadata = (pubkey: string) => {
         const info = JSON.parse(events[0]?.content);
         setName(info?.name);
         setPicture(info?.picture);
+        setAbout(info?.about);
       } catch (e) {
         console.log(e);
       }
@@ -56,6 +58,7 @@ const useMetadata = (pubkey: string) => {
   return {
     picture,
     name,
+    about,
   };
 };
 
