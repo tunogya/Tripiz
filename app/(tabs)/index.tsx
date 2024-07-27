@@ -16,6 +16,7 @@ import { initialize } from "../../reducers/account/accountSlice";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
 import { decodeKey } from "../../utils/nostrUtil";
+import Tips from "components/Tips";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -111,6 +112,7 @@ const Page = () => {
             </Pressable>
           </View>
         </View>
+        <Tips key={publicKey}/>
         <FlatList
           data={personas}
           className={"px-4 py-2"}

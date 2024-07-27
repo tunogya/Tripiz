@@ -49,7 +49,7 @@ const PersonaItem = ({ item, index }) => {
             </View>
           )}
         </View>
-        <Text className={"text-white font-bold"}>{name}</Text>
+        <Text className={`${pubkey === publicKey ? "text-[#1DB954]" : "text-white"} font-bold`}>{name || '-'}</Text>
       </Pressable>
     </View>
   );

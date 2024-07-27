@@ -66,4 +66,5 @@ export const en = {
   Name: "Name",
   Picture: "Picture",
   Save: "Save",
+  "Update Metadata": "Update Metadata",
 };
