@@ -41,7 +41,6 @@ const Page = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [text, setText] = useState("");
   const { privateKey } = useSelector((state: RootState) => state.account);
-  const [isLoadingComments, setIsLoadingComments] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(undefined);
   const data = useObject(Event, id);
@@ -268,13 +267,11 @@ const Page = () => {
                 />
               )}
               ListEmptyComponent={() =>
-                !isLoadingComments && (
-                  <View className={"w-full p-4"}>
-                    <Text className={"text-[#B3B3B3] text-xs"}>
-                      {t("No comments")}
-                    </Text>
-                  </View>
-                )
+                <View className={"w-full p-4"}>
+                  <Text className={"text-[#B3B3B3] text-xs"}>
+                    {t("No comments")}
+                  </Text>
+                </View>
               }
               keyExtractor={(item) => `${item.id}`}
             />
