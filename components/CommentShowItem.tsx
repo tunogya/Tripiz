@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import React, { FC, memo } from "react";
 import Avatar from "./Avatar";
 import { Event } from "../app/Event";
@@ -89,13 +89,5 @@ const CommentShowItem: FC<{
     </Pressable>
   );
 };
-
-const ContentStyle = StyleSheet.create({
-  text: {
-    color: "white",
-    fontWeight: "medium",
-    fontSize: 16,
-  },
-});
 
 export default memo(CommentShowItem);
