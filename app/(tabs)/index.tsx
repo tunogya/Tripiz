@@ -96,6 +96,7 @@ const Page = () => {
               {t("Home")}
               {!connected && t("connecting")}
             </Text>
+            <Tips key={publicKey} />
           </View>
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
@@ -114,7 +115,6 @@ const Page = () => {
             </Pressable>
           </View>
         </View>
-        <Tips key={publicKey} />
         <FlatList
           data={personas}
           className={"px-4 py-2"}

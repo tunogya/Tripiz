@@ -15,14 +15,14 @@ const Tips = () => {
   }
 
   return (
-    <View className={"px-4 py-2"}>
+    <View className={"px-3"}>
       <Pressable
         onPress={() => {
           router.navigate("settings/metadata");
         }}
-        className={"bg-white py-4 rounded"}
+        className={"bg-white px-1.5 py-1 rounded"}
       >
-        <Text className={"text-center font-medium"}>
+        <Text className={"text-center text-xs"}>
           {t("Update Metadata")}
         </Text>
       </Pressable>
