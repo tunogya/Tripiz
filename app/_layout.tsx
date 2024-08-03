@@ -100,20 +100,6 @@ export default function RootLayout() {
                     }}
                   />
                   <Stack.Screen
-                    name="chat/index"
-                    options={{
-                      title: "",
-                      presentation: "modal",
-                      gestureEnabled: true,
-                      headerShown: false,
-                      headerTintColor: "white",
-                      headerBackTitleVisible: false,
-                      headerStyle: {
-                        backgroundColor: "#121212",
-                      },
-                    }}
-                  />
-                  <Stack.Screen
                     name="edit/posts"
                     options={{
                       title: "",
