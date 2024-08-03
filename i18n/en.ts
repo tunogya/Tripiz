@@ -67,4 +67,5 @@ export const en = {
   Picture: "Picture",
   Save: "Save",
   "Update Metadata": "Update Metadata",
+  Voice: "Voice",
 };

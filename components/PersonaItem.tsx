@@ -4,7 +4,6 @@ import { getPubkey } from "../utils/getPubkey";
 import useMetadata from "./useMetadata";
 import { recovery, selectPublicKey } from "../reducers/account/accountSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { router } from "expo-router";
 import Avatar from "./Avatar";
 
 const PersonaItem = ({ item, index }) => {
@@ -19,8 +18,6 @@ const PersonaItem = ({ item, index }) => {
         onPress={() => {
           if (pubkey !== publicKey) {
             dispatch(recovery(item.privateKey));
-          } else {
-            router.navigate("settings");
           }
         }}
         className={

@@ -69,4 +69,5 @@ export const zh = {
   Picture: "头像",
   Save: "Save",
   "Update Metadata": "更新元数据",
+  Voice: "语音",
 };

@@ -168,6 +168,18 @@ export default function RootLayout() {
                     }}
                   />
                   <Stack.Screen
+                    name="voice/index"
+                    options={{
+                      title: t("Voice"),
+                      headerShown: false,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                  <Stack.Screen
                     name="settings/index"
                     options={{
                       title: t("Settings"),
