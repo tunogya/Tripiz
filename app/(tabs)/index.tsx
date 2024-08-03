@@ -58,6 +58,9 @@ const Page = () => {
   };
 
   useEffect(() => {
+    if (!privateKey) {
+      return
+    }
     try {
       realm.write(() => {
         realm.create(
