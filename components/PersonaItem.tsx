@@ -6,7 +6,6 @@ import { recovery, selectPublicKey } from "../reducers/account/accountSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "./Avatar";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { BlurView } from "expo-blur";
 import { router } from "expo-router";
 
 const PersonaItem = ({ item, index }) => {

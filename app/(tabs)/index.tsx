@@ -6,7 +6,6 @@ import { router } from "expo-router";
 import { t } from "../../i18n";
 import { useDispatch, useSelector } from "react-redux";
 import { recovery, selectPublicKey } from "../../reducers/account/accountSlice";
-import { useWebSocket } from "../../components/WebSocketProvider";
 import PersonaItem from "../../components/PersonaItem";
 import { useQuery, useRealm } from "@realm/react";
 import { Persona } from "../Persona";
@@ -16,13 +15,11 @@ import { initialize } from "../../reducers/account/accountSlice";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
 import { decodeKey } from "../../utils/nostrUtil";
-import Tips from "components/Tips";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
   const { privateKey } = useSelector((state: RootState) => state.account);
   const publicKey = useSelector(selectPublicKey);
-  const { connected } = useWebSocket();
   const dispatch = useDispatch();
   const realm = useRealm();
 
@@ -88,13 +85,13 @@ const Page = () => {
           }
         >
           <View className={"flex flex-row space-x-3 items-center"}>
-            <Pressable
-              onPress={() => {
-                router.navigate(`settings`);
-              }}
-            >
-              <Avatar publicKey={publicKey} key={publicKey} />
-            </Pressable>
+              <Pressable
+                onPress={() => {
+                  router.navigate(`settings`);
+                }}
+              >
+                <Avatar publicKey={publicKey} key={publicKey} />
+              </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
               {t("Home")}
             </Text>

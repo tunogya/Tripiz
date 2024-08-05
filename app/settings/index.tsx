@@ -9,10 +9,12 @@ import Avatar from "../../components/Avatar";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { t } from "../../i18n";
+import useMetadata from "components/useMetadata";
 
 const Page = () => {
   const publicKey = useSelector(selectPublicKey);
   const nostrPublicKey = useSelector(selectNostrPublicKey);
+  const { name, picture } = useMetadata(publicKey);
 
   return (
     <ScrollView className={"bg-[#121212] flex flex-1"}>
@@ -54,7 +56,7 @@ const Page = () => {
         <View
           className={"px-4 py-2 flex flex-row justify-between items-center"}
         >
-          <Text className={"text-white font-medium text-[16px]"}>
+          <Text className={`${!picture || !name ? "text-[#1DB954]" : "text-white" } font-medium text-[16px]`}>
             {t("Metadata")}
           </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />
