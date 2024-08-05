@@ -72,7 +72,6 @@ const Page = () => {
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
               {t("Search")}
-              {!connected && t("connecting")}
             </Text>
           </View>
           {/*<Pressable*/}
@@ -112,7 +111,7 @@ const Page = () => {
         />
         <View
           style={{
-            height: 80,
+            height: 160,
           }}
         ></View>
       </ScrollView>

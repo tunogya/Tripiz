@@ -21,9 +21,9 @@ const useMetadata = (pubkey: string) => {
     if (events.length > 0) {
       try {
         const info = JSON.parse(events[0]?.content);
-        setName(info?.name);
-        setPicture(info?.picture);
-        setAbout(info?.about);
+        setName(info?.name || null);
+        setPicture(info?.picture || null);
+        setAbout(info?.about || null);
       } catch (e) {
         console.log(e);
       }
@@ -37,7 +37,9 @@ const useMetadata = (pubkey: string) => {
       });
     }
     if (events.length === 0) {
-      console.log("404");
+      setName(null);
+      setPicture(null);
+      setAbout(null);
     }
   }, [events, pubkey]);
 

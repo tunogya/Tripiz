@@ -78,7 +78,7 @@ const LibraryShowList = ({ publicKey, filter }) => {
         <View>
           <View
             style={{
-              height: insets.bottom + 80,
+              height: insets.bottom + 160,
             }}
           ></View>
         </View>

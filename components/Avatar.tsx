@@ -9,6 +9,10 @@ const Avatar: FC<{
 }> = ({ classname, publicKey }) => {
   const { picture } = useMetadata(publicKey);
 
+  if (picture === undefined) {
+    return <View className={"w-10 h-10"}></View>;
+  }
+
   if (picture) {
     return (
       <Image

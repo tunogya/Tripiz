@@ -97,9 +97,7 @@ const Page = () => {
             </Pressable>
             <Text className={"text-white font-bold text-2xl"}>
               {t("Home")}
-              {!connected && t("connecting")}
             </Text>
-            <Tips key={publicKey} />
           </View>
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
@@ -134,7 +132,7 @@ const Page = () => {
         />
         <View
           style={{
-            height: 80,
+            height: 160,
           }}
         ></View>
       </View>

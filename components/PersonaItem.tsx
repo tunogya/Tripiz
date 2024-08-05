@@ -32,8 +32,8 @@ const PersonaItem = ({ item, index }) => {
         <View className={"h-14 w-14 bg-[#3B3B3B]"}>
           {
             pubkey === publicKey && (
-              <View className={"absolute z-10 w-full h-full items-center justify-center"}>
-                <Ionicons name="call" size={24} color="white" />
+              <View className={"absolute z-10 left-0 top-0 bg-[#1DB954] rounded p-0.5"}>
+                <Ionicons name="call" size={10} color="white" />
               </View>
             )
           }
