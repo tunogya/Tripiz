@@ -42,7 +42,7 @@ const PersonaItem = ({ item, index }) => {
           />
         </View>
         <Text
-          className={`text-white font-bold`}
+          className={`${pubkey === publicKey ? "text-[#1DB954]" : "text-white"} font-bold`}
         >
           {name || "-"}
         </Text>
