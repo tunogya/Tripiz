@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRealm } from "@realm/react";
 import { useSelector } from "react-redux";
 import { selectPublicKey } from "../reducers/account/accountSlice";
-//import { AppState } from "react-native";
 
 const WebSocketContext = createContext(null);
 
@@ -12,7 +11,6 @@ const WebSocketProvider = ({ children }) => {
   const [connected, setConnected] = useState(false);
   const [queue, setQueue] = useState([]);
   const pubkey = useSelector(selectPublicKey);
-  //  const [appState, setAppState] = useState(AppState.currentState);
 
   const handleReconnection = () => {
     setTimeout(() => {
@@ -37,6 +35,7 @@ const WebSocketProvider = ({ children }) => {
 
     ws.current.onerror = (e) => {
       setConnected(false);
+      setPersona(undefined);
       console.log(`WebSocket error: ${e.message}, attempting to reconnect...`);
       handleReconnection();
     };
@@ -82,36 +81,11 @@ const WebSocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (pubkey) {
+      setConnected(false);
       connectWebSocket();
     }
     return () => ws.current?.close();
   }, [pubkey]);
-
-  //  useEffect(() => {
-  //    const handleAppStateChange = (nextAppState) => {
-  //      if (appState.match(/inactive|background/) && nextAppState === "active") {
-  //        if (!connected) {
-  //          handleReconnection();
-  //        }
-  //        console.log("App has come to the foreground!");
-  //      } else if (nextAppState.match(/inactive|background/)) {
-  //        if (ws.current) {
-  //          ws.current.close();
-  //        }
-  //        console.log("App has gone to the background!");
-  //      }
-  //      setAppState(nextAppState);
-  //    };
-  //
-  //    const subscription = AppState.addEventListener(
-  //      "change",
-  //      handleAppStateChange,
-  //    );
-  //
-  //    return () => {
-  //      subscription.remove();
-  //    };
-  //  }, [appState]);
 
   return (
     <WebSocketContext.Provider value={{ send, connected }}>

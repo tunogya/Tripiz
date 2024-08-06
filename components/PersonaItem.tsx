@@ -6,12 +6,14 @@ import { recovery, selectPublicKey } from "../reducers/account/accountSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "./Avatar";
 import { router } from "expo-router";
+import {useWebSocket} from "./WebSocketProvider";
 
 const PersonaItem = ({ item, index }) => {
   const pubkey = getPubkey(item.privateKey);
   const { name } = useMetadata(pubkey);
   const dispatch = useDispatch();
   const publicKey = useSelector(selectPublicKey);
+  const { connected } = useWebSocket();
 
   return (
     <View className={`w-[50%] ${index % 2 === 0 ? "pr-1" : "pl-1"} mb-2`}>
@@ -30,7 +32,7 @@ const PersonaItem = ({ item, index }) => {
         <View className={"h-14 w-14 bg-[#3B3B3B]"}>
           {
             pubkey === publicKey && (
-              <View className={"absolute z-10 right-1 top-1 w-2 h-2 bg-[#1DB954] rounded-full"}>
+              <View className={`absolute z-10 right-1 top-1 w-2 h-2 ${connected ? "bg-[#1DB954]" : "bg-white"} rounded-full`}>
               </View>
             )
           }
