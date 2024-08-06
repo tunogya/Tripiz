@@ -5,7 +5,6 @@ import useMetadata from "./useMetadata";
 import { recovery, selectPublicKey } from "../reducers/account/accountSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "./Avatar";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from "expo-router";
 
 const PersonaItem = ({ item, index }) => {
@@ -31,8 +30,7 @@ const PersonaItem = ({ item, index }) => {
         <View className={"h-14 w-14 bg-[#3B3B3B]"}>
           {
             pubkey === publicKey && (
-              <View className={"absolute z-10 left-0 top-0 bg-[#1DB954] rounded p-0.5"}>
-                <Ionicons name="call" size={10} color="white" />
+              <View className={"absolute z-10 right-1 top-1 w-2 h-2 bg-[#1DB954] rounded-full"}>
               </View>
             )
           }
