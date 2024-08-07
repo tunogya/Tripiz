@@ -1,5 +1,5 @@
 import { ScrollView, View, Text, Pressable } from "react-native";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   selectNostrPrivateKey,
@@ -12,6 +12,8 @@ import { t } from "../../i18n";
 const Page = () => {
   const nostrPublicKey = useSelector(selectNostrPublicKey);
   const nostrPrivateKey = useSelector(selectNostrPrivateKey);
+  const [showPubkeyQr, setShowPubkeyQr] = useState(false);
+  const [showPrivkeyQr, setShowPrivkeyQr] = useState(false);
 
   return (
     <ScrollView className={"bg-[#121212] flex flex-1"}>
@@ -26,6 +28,14 @@ const Page = () => {
         </Text>
         <Text className={"text-[#B3B3B3]"}>{nostrPublicKey}</Text>
       </Pressable>
+      {/*<View className={"flex items-center pt-2 pb-8"}>*/}
+      {/*  <View className={"bg-white p-3 space-y-1.5"}>*/}
+      {/*    <QRCode color={"#121212"} size={256} value={nostrPrivateKey} />*/}
+      {/*    <Text className={"font-bold text-center"}>*/}
+      {/*      {t("Nostr Private Key")}*/}
+      {/*    </Text>*/}
+      {/*  </View>*/}
+      {/*</View>*/}
       <Pressable
         onPress={() => {
           Clipboard.setString(nostrPrivateKey);
@@ -37,14 +47,14 @@ const Page = () => {
         </Text>
         <Text className={"text-[#B3B3B3]"}>{nostrPrivateKey}</Text>
       </Pressable>
-      <View className={"flex items-center pt-2 pb-8"}>
-        <View className={"bg-white p-3 space-y-1.5"}>
-          <QRCode color={"#121212"} size={256} value={nostrPrivateKey} />
-          <Text className={"font-bold text-center"}>
-            {t("Nostr Private Key")}
-          </Text>
-        </View>
-      </View>
+      {/*<View className={"flex items-center pt-2 pb-8"}>*/}
+      {/*  <View className={"bg-white p-3 space-y-1.5"}>*/}
+      {/*    <QRCode color={"#121212"} size={256} value={nostrPrivateKey} />*/}
+      {/*    <Text className={"font-bold text-center"}>*/}
+      {/*      {t("Nostr Private Key")}*/}
+      {/*    </Text>*/}
+      {/*  </View>*/}
+      {/*</View>*/}
       <View className={"px-4 py-2 space-y-1"}>
         <Text className={"text-white font-medium text-[16px]"}>
           {t("What is Nostr")}
