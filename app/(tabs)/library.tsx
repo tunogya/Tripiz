@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
+import { View, Text, ScrollView, Pressable, Vibration } from "react-native";
 import React, { memo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +18,6 @@ const Page = () => {
   const [filter, setFilter] = useState("");
   const [showSearchForm, setShowSearchForm] = useState(false);
   const publicKey = useSelector(selectPublicKey);
-  const { connected } = useWebSocket();
 
   return (
     <View className={"flex flex-1 bg-[#121212] relative"}>
@@ -81,6 +80,7 @@ const Page = () => {
               }
               onPress={() => {
                 setFilter("");
+                Vibration.vibrate();
               }}
             >
               <Ionicons name="close" size={16} color="white" />
@@ -94,6 +94,7 @@ const Page = () => {
                 className={`px-4 h-8 items-center justify-center ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
                 onPress={() => {
                   setFilter(item.toLowerCase());
+                  Vibration.vibrate();
                 }}
               >
                 <Text

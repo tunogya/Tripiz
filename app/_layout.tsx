@@ -142,6 +142,20 @@ export default function RootLayout() {
                     }}
                   />
                   <Stack.Screen
+                    name="qrcode/index"
+                    options={{
+                      title: "Qrcode",
+                      presentation: "modal",
+                      gestureEnabled: true,
+                      headerShown: true,
+                      headerTintColor: "white",
+                      headerBackTitleVisible: false,
+                      headerStyle: {
+                        backgroundColor: "#121212",
+                      },
+                    }}
+                  />
+                  <Stack.Screen
                     name="posts/[id]"
                     options={{
                       headerShown: false,

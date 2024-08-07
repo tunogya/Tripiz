@@ -1,4 +1,4 @@
-import { FlatList, Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, Text, Vibration, View } from "react-native";
 import React, { memo, useEffect } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Avatar from "../../components/Avatar";
@@ -56,7 +56,7 @@ const Page = () => {
 
   useEffect(() => {
     if (!privateKey) {
-      return
+      return;
     }
     try {
       realm.write(() => {
@@ -85,16 +85,14 @@ const Page = () => {
           }
         >
           <View className={"flex flex-row space-x-3 items-center"}>
-              <Pressable
-                onPress={() => {
-                  router.navigate(`settings`);
-                }}
-              >
-                <Avatar publicKey={publicKey} key={publicKey} />
-              </Pressable>
-            <Text className={"text-white font-bold text-2xl"}>
-              {t("Home")}
-            </Text>
+            <Pressable
+              onPress={() => {
+                router.navigate(`settings`);
+              }}
+            >
+              <Avatar publicKey={publicKey} key={publicKey} />
+            </Pressable>
+            <Text className={"text-white font-bold text-2xl"}>{t("Home")}</Text>
           </View>
           <View className={"flex flex-row space-x-3 items-center"}>
             <Pressable
@@ -107,6 +105,7 @@ const Page = () => {
               className={"items-center justify-center flex h-10 w-10"}
               onPress={() => {
                 dispatch(initialize());
+                Vibration.vibrate();
               }}
             >
               <Ionicons name="person-add-outline" size={24} color="white" />

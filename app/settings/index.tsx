@@ -56,7 +56,9 @@ const Page = () => {
         <View
           className={"px-4 py-2 flex flex-row justify-between items-center"}
         >
-          <Text className={`${!picture || !name ? "text-[#1DB954]" : "text-white" } font-medium text-[16px]`}>
+          <Text
+            className={`${!picture || !name ? "text-[#1DB954]" : "text-white"} font-medium text-[16px]`}
+          >
             {t("Metadata")}
           </Text>
           <Ionicons name="chevron-forward-outline" size={24} color="white" />

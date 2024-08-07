@@ -22,9 +22,7 @@ const Tips = () => {
         }}
         className={"bg-white px-1.5 py-1 rounded"}
       >
-        <Text className={"text-center text-xs"}>
-          {t("Update Metadata")}
-        </Text>
+        <Text className={"text-center text-xs"}>{t("Update Metadata")}</Text>
       </Pressable>
     </View>
   );

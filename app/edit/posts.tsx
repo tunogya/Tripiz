@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Keyboard,
   Platform,
+  Vibration,
 } from "react-native";
 import { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
@@ -45,6 +46,7 @@ const Page = () => {
         realm.create("Event", event, true);
       });
       send(JSON.stringify(["EVENT", event]));
+      Vibration.vibrate();
       router.back();
       router.navigate(`posts/${event.id}`);
     } catch (e) {

@@ -266,13 +266,13 @@ const Page = () => {
                   }}
                 />
               )}
-              ListEmptyComponent={() =>
+              ListEmptyComponent={() => (
                 <View className={"w-full p-4"}>
                   <Text className={"text-[#B3B3B3] text-xs"}>
                     {t("No comments")}
                   </Text>
                 </View>
-              }
+              )}
               keyExtractor={(item) => `${item.id}`}
             />
           </View>
