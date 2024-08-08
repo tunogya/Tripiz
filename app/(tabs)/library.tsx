@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable, Vibration } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React, { memo, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,15 +7,12 @@ import Avatar from "../../components/Avatar";
 import { router } from "expo-router";
 import { t } from "../../i18n";
 import { selectPublicKey } from "../../reducers/account/accountSlice";
-import { useWebSocket } from "../../components/WebSocketProvider";
 import Svg, { Path } from "react-native-svg";
 import SearchForm from "../../components/SearchForm";
 import LibraryShowList from "../../components/LibraryShowList";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
-  const FILTERS = ["memories", "dreams", "reflections"];
-  const [filter, setFilter] = useState("");
   const [showSearchForm, setShowSearchForm] = useState(false);
   const publicKey = useSelector(selectPublicKey);
 
@@ -66,54 +63,9 @@ const Page = () => {
             </Pressable>
           </View>
         </View>
-        <ScrollView
-          horizontal
-          className={"flex flex-row pb-4"}
-          showsHorizontalScrollIndicator={false}
-        >
-          <View className={"w-3"}></View>
-          {filter && (
-            <Pressable
-              hitSlop={4}
-              className={
-                "h-8 w-8 items-center justify-center bg-[#FFFFFF12] rounded-full ml-1 mr-1.5"
-              }
-              onPress={() => {
-                setFilter("");
-                Vibration.vibrate();
-              }}
-            >
-              <Ionicons name="close" size={16} color="white" />
-            </Pressable>
-          )}
-          {FILTERS.map((item, index) =>
-            !filter || (filter && filter === item) ? (
-              <Pressable
-                hitSlop={4}
-                key={index}
-                className={`px-4 h-8 items-center justify-center ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
-                onPress={() => {
-                  setFilter(item.toLowerCase());
-                  Vibration.vibrate();
-                }}
-              >
-                <Text
-                  className={`${filter === item ? "text-black" : "text-white"} text-[14px]`}
-                >
-                  {t(item)}
-                </Text>
-              </Pressable>
-            ) : null,
-          )}
-          <View className={"w-3"}></View>
-        </ScrollView>
       </View>
       <View className={"flex-1"}>
-        <LibraryShowList
-          publicKey={publicKey}
-          filter={filter}
-          key={publicKey}
-        />
+        <LibraryShowList publicKey={publicKey} key={publicKey} />
       </View>
       {showSearchForm && (
         <SearchForm onClose={() => setShowSearchForm(false)} />

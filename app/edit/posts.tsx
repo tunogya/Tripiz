@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Pressable,
   TextInput,
   TouchableOpacity,
   Keyboard,
@@ -16,7 +15,6 @@ import { t } from "../../i18n";
 import { finalizeEvent } from "nostr-tools";
 import { Buffer } from "buffer";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import {Ionicons} from "@expo/vector-icons";
 import Svg, { Circle } from "react-native-svg";
 import { useRealm } from "@realm/react";
 import { useWebSocket } from "../../components/WebSocketProvider";
@@ -25,8 +23,6 @@ const Page = () => {
   const insets = useSafeAreaInsets();
   const { privateKey } = useSelector((state: RootState) => state.account);
   const [text, setText] = useState("");
-  const FILTERS = ["memories", "dreams", "reflections"];
-  const [filter, setFilter] = useState("memories");
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const realm = useRealm();
   const { send } = useWebSocket();
@@ -37,7 +33,7 @@ const Page = () => {
         {
           kind: 1,
           created_at: Math.floor(Date.now() / 1000),
-          tags: [["category", filter.toLowerCase()]],
+          tags: [],
           content: text,
         },
         Buffer.from(privateKey, "hex"),
@@ -110,26 +106,6 @@ const Page = () => {
             {t("Post")}
           </Text>
         </TouchableOpacity>
-      </View>
-      <View
-        className={"flex flex-row items-center border-[#FFFFFF12] px-2 py-1"}
-      >
-        {FILTERS.map((item, index) => (
-          <Pressable
-            hitSlop={4}
-            key={index}
-            className={`px-4 h-8 items-center justify-center ${filter === item ? "bg-[#1DB954]" : "bg-[#FFFFFF12]"} rounded-full mx-1`}
-            onPress={() => {
-              setFilter(item);
-            }}
-          >
-            <Text
-              className={`${filter === item ? "text-black" : "text-white"} text-[14px]`}
-            >
-              {t(item)}
-            </Text>
-          </Pressable>
-        ))}
       </View>
       <View className={"flex-1"}>
         <TextInput

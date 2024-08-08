@@ -1,15 +1,13 @@
 import React, { FC, memo } from "react";
 import { Pressable, Text, View } from "react-native";
 import { router } from "expo-router";
-import { t } from "../i18n";
 import { Image } from "expo-image";
 import { API_HOST_NAME } from "../utils/const";
 import { Event } from "../app/Event";
 
 const LibraryShowItem: FC<{
   item: Event;
-  showType: boolean;
-}> = ({ item, showType }) => {
+}> = ({ item }) => {
   const category =
     item.tags.find((tag: any[]) => tag?.[0] === "category")?.[1] ||
     "reflections";
@@ -38,9 +36,6 @@ const LibraryShowItem: FC<{
         >
           {item.content}
         </Text>
-        <View className={"flex flex-row space-x-1 items-center"}>
-          {showType && <Text className={"text-[#B3B3B3]"}>{t(category)}</Text>}
-        </View>
       </View>
     </Pressable>
   );

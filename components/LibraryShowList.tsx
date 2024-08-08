@@ -1,5 +1,5 @@
 import { useQuery } from "@realm/react";
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { FlatList, RefreshControl, View, Text } from "react-native";
 import { Event } from "../app/Event";
 import LibraryShowItem from "./LibraryShowItem";
@@ -8,7 +8,7 @@ import { useWebSocket } from "./WebSocketProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { t } from "i18n";
 
-const LibraryShowList = ({ publicKey, filter }) => {
+const LibraryShowList = ({ publicKey }) => {
   const [refreshing, setRefreshing] = useState(false);
   const { send } = useWebSocket();
   const insets = useSafeAreaInsets();
@@ -40,22 +40,9 @@ const LibraryShowList = ({ publicKey, filter }) => {
     onRefresh();
   }, [publicKey]);
 
-  const filterData = useMemo(() => {
-    if (filter) {
-      return DATA.filter((item) => {
-        const category =
-          item?.tags?.find((tag: any[]) => tag?.[0] === "category")?.[1] ||
-          "reflections";
-        return category === filter;
-      });
-    } else {
-      return DATA;
-    }
-  }, [DATA, filter]);
-
   return (
     <FlatList
-      data={filterData as Event[]}
+      data={DATA}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -83,9 +70,7 @@ const LibraryShowList = ({ publicKey, filter }) => {
           ></View>
         </View>
       )}
-      renderItem={({ item }) => (
-        <LibraryShowItem key={item.id} item={item} showType={!filter} />
-      )}
+      renderItem={({ item }) => <LibraryShowItem key={item.id} item={item} />}
     />
   );
 };
