@@ -6,8 +6,9 @@ import {
   Keyboard,
   Platform,
   Vibration,
+  Pressable,
 } from "react-native";
-import { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { router } from "expo-router";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
@@ -18,6 +19,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Circle } from "react-native-svg";
 import { useRealm } from "@realm/react";
 import { useWebSocket } from "../../components/WebSocketProvider";
+import { Ionicons } from "@expo/vector-icons";
 
 const Page = () => {
   const insets = useSafeAreaInsets();
@@ -127,9 +129,9 @@ const Page = () => {
         }
       >
         <View className={"flex flex-row"}>
-          {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
-          {/*  <Ionicons name="mic" size={24} color="#7357F6" />*/}
-          {/*</Pressable>*/}
+          <Pressable className={"h-12 w-12 items-center justify-center"}>
+            <Ionicons name="at" size={24} color="#1DB954" />
+          </Pressable>
           {/*<Pressable className={"h-12 w-12 items-center justify-center"}>*/}
           {/*  <Ionicons name="images-outline" size={20} color="#1DB954" />*/}
           {/*</Pressable>*/}
